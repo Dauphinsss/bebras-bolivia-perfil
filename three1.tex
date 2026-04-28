@@ -1,0 +1,63 @@
+\begin{figure}[ht]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+    font=\small,
+    caja/.style={
+        draw,
+        rectangle,
+        rounded corners=4pt,
+        align=center,
+        minimum height=1cm,
+        text width=3.8cm,
+        fill=white,
+        inner sep=4pt
+    },
+    cajaGrande/.style={
+        draw,
+        rectangle,
+        rounded corners=4pt,
+        align=center,
+        minimum height=1.2cm,
+        text width=5.2cm,
+        fill=white,
+        inner sep=5pt
+    },
+    linea/.style={-{Stealth[length=4mm]}, thick}
+]
+
+% Efectos
+\node[caja] (edicion) at (-6.2,0)
+{Organización nacional\\ limitada};
+\node[caja] (carga) at (0,0)
+{Sobrecarga\\ operativa};
+\node[caja] (continuidad) at (6.2,0)
+{Baja continuidad\\ del programa};
+
+% Problema central
+\node[cajaGrande] (problema) at (0,-4.2)
+{Ausencia de plataforma web\\ para Bebras Bolivia};
+
+% Causas
+\node[caja] (infraestructura) at (-6.2,-8.6)
+{Falta de infraestructura\\ tecnológica};
+\node[caja] (gestion) at (0,-8.6)
+{Gestión dispersa\\ del concurso};
+\node[caja] (herramientas) at (6.2,-8.6)
+{Uso de herramientas\\ no especializadas};
+
+% Flechas efectos
+\draw[linea] (problema.north west) -- (edicion.south);
+\draw[linea] (problema.north) -- (carga.south);
+\draw[linea] (problema.north east) -- (continuidad.south);
+
+% Flechas hacia el problema central
+\draw[linea] (infraestructura.north east) -- (problema.south west);
+\draw[linea] (gestion.north) -- (problema.south);
+\draw[linea] (herramientas.north west) -- (problema.south east);
+
+\end{tikzpicture}%
+}
+\caption{Árbol del problema para la implementación del Desafío Bebras Bolivia}
+\label{fig:arbol-problemas-bebras}
+\end{figure}
