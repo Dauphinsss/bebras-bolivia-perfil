@@ -1,17 +1,18 @@
-\documentclass[12pt,letterpaper]{report}
+\documentclass[12pt,letterpaper]{article}
 
 \usepackage[spanish]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, patterns, positioning, shapes, shapes.geometric, shapes.misc, fit, backgrounds}
 \captionsetup[figure]{justification=centering}
 \usepackage[style=apa, backend=biber, language=spanish]{biblatex}
 \addbibresource{referencias.bib}
 \usepackage{graphicx}
+\usepackage{float}
 \usepackage[hidelinks]{hyperref}
-\usepackage{tikz}
-\usetikzlibrary{arrows.meta}
 
 \usepackage{geometry}
 \geometry{
@@ -24,7 +25,6 @@
 \usepackage{setspace}
 \usepackage{parskip}
 \usepackage{ragged2e}
-\usepackage{float}
 \usepackage{array}
 \usepackage{tabularx}
 \usepackage{booktabs}
@@ -36,6 +36,7 @@
   \renewcommand{\contentsname}{ÍNDICE GENERAL}
   \renewcommand{\listfigurename}{ÍNDICE DE FIGURAS}
   \renewcommand{\listtablename}{ÍNDICE DE TABLAS}
+  \renewcommand{\tablename}{Tabla}
 }
 
 \setlength{\cftbeforetoctitleskip}{0pt}
@@ -50,13 +51,6 @@
 \renewcommand{\cftlottitlefont}{\fontsize{12}{14}\selectfont\bfseries}
 
 \usepackage{titlesec}
-
-\titleformat{\chapter}[block]
-  {\fontsize{12}{14}\selectfont\bfseries\centering}
-  {CAPÍTULO \Roman{chapter}.}
-  {0.5em}
-  {\MakeUppercase}
-\titlespacing*{\chapter}{0pt}{6pt}{6pt}
 
 \titleformat{\section}[block]
   {\fontsize{12}{14}\selectfont\bfseries}
@@ -79,8 +73,6 @@
   {}
 \titlespacing*{\subsubsection}{0pt}{6pt}{6pt}
 
-% \counterwithout{figure}{chapter}
-
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
@@ -97,26 +89,25 @@
 
 \input{caratula}
 
-\input{dedication}
-\input{thanks}
-
 \clearpage
 \tableofcontents
-\clearpage
+\vspace{1cm}
 \listoffigures
-\clearpage
+\vspace{1cm}
 \listoftables
 \clearpage
 
+% --- INICIO DEL CONTENIDO DEL DOCUMENTO ---
+
 \input{content/01_introduccion}
+\input{content/02_antecedentes}
+\input{content/03_descripcion_problema}
+\input{content/04_objetivos_proyecto}
+\input{content/05_justificacion}
+\input{content/06_alcance_limites}
+\input{content/07_diseno_metodologico}
 
-\input{content/02_descripcion}
-
-\input{content/03_objetivos}
-
-\input{content/04_metodologia}
-
-\input{content/05_tecno}
+% --- FIN DEL CONTENIDO DEL DOCUMENTO ---
 
 \clearpage
 \printbibliography[title={BIBLIOGRAFÍA}]
