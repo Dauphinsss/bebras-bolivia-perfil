@@ -6,7 +6,7 @@ Finalmente, se presentan las herramientas y tecnologías seleccionadas para la c
 
 \section{RETROINGENIERÍA DE PLATAFORMAS BEBRAS DE REFERENCIA}
 
-Con el propósito de fundamentar las decisiones de diseño funcional, arquitectónico y de interfaz de la plataforma propuesta para Bebras Bolivia, se realizó un proceso de retroingeniería sobre un conjunto de implementaciones nacionales del Desafío Bebras. Este proceso no se limitó a una descripción general de los sitios o repositorios disponibles, sino que buscó identificar de manera sistemática los componentes, patrones de organización, módulos funcionales y estrategias de interacción más relevantes de cada plataforma analizada.
+Con el propósito de fundamentar las decisiones de diseño funcional, arquitectónico y de interfaz de la plataforma propuesta para Bebras Bolivia, se realizó un proceso de retroingeniería sobre un conjunto de implementaciones nacionales del Desafío Bebras. Este proceso de análisis no se limitó a una descripción general de los sitios o repositorios disponibles, sino que buscó identificar de manera sistemática los componentes, patrones de organización, módulos funcionales y estrategias de interacción más relevantes de cada plataforma analizada.
 
 La selección de los casos de estudio respondió a criterios complementarios: disponibilidad de código fuente o información técnica pública, grado de madurez de la implementación, representatividad dentro del ecosistema Bebras y utilidad como referencia para el contexto boliviano. A partir de esta revisión, fue posible reconocer fortalezas particulares en cada plataforma y extraer de ellas los elementos más valiosos para la definición de la propuesta tecnológica del presente trabajo. En consecuencia, la retroingeniería realizada no tuvo como finalidad replicar una solución existente, sino sintetizar buenas prácticas dispersas en distintas implementaciones nacionales para integrarlas en un sistema propio, coherente con los requerimientos de Bebras Bolivia.
 
@@ -74,6 +74,26 @@ La metodología adoptada en este trabajo combina revisión documental, análisis
 
 Sobre la base de este análisis, se procedió a definir los módulos que conforman la propuesta tecnológica para Bebras Bolivia: una \emph{landing page} orientada a la comunicación institucional, un sistema de inscripción para instituciones y participantes, un módulo de administración de exámenes, un entorno de resolución de tareas y un módulo de construcción y gestión de ejercicios. Finalmente, se seleccionó una pila tecnológica coherente con los requerimientos de rendimiento, mantenibilidad y escalabilidad identificados durante el proceso.
 
+\subsection{Extreme Programming (XP)}
+
+El desarrollo del presente proyecto adoptó \textit{Extreme Programming} (XP) como metodología ágil de referencia. XP fue propuesto por \textcite{beck2004} como un enfoque orientado a equipos pequeños que trabajan sobre requisitos cambiantes, priorizando la entrega continua de software funcional y la incorporación sistemática de retroalimentación. Estas características lo hacen especialmente adecuado para un proyecto de grado en el que el desarrollo avanza de forma incremental, con revisiones periódicas por parte del supervisor y ajustes continuos al alcance y al diseño del sistema.
+
+La elección de XP como metodología de referencia se fundamenta en una comparación con otras alternativas ampliamente utilizadas. Scrum, aunque popular en equipos de desarrollo profesional, presupone roles diferenciados \textit{Product Owner}, \textit{Scrum Master} y equipo de desarrollo y una estructura de ceremonias formales que no se corresponden con la naturaleza unipersonal de este proyecto \parencite{schwaber2020}. Kanban, por su parte, ofrece flexibilidad en la gestión del flujo de trabajo, pero carece de los mecanismos de planificación por valores y retroalimentación continua que XP incorpora de manera explícita \parencite{anderson2010}. En contraste, XP está diseñado para contextos donde el equipo es reducido, los requisitos evolucionan durante el desarrollo y la calidad del software es una prioridad sostenida a lo largo de todo el proceso.
+
+XP se articula en torno a cinco valores fundamentales que orientan las decisiones de diseño y desarrollo \parencite{beck2004}. La \textit{comunicación} se manifiesta en este proyecto a través del diálogo continuo con el supervisor, que permite alinear expectativas y corregir el rumbo en cada ciclo de avance. La \textit{simplicidad} guía las decisiones de arquitectura y diseño de módulos, priorizando soluciones directas y mantenibles sobre implementaciones sobredimensionadas. La \textit{retroalimentación} opera como mecanismo central de validación: cada entrega parcial es revisada y genera insumos concretos para la iteración siguiente. La \textit{valentía} se refleja en la disposición a refactorizar o rediseñar componentes cuando el análisis lo justifica, sin preservar decisiones técnicas por inercia. Finalmente, el \textit{respeto} se traduce en el cuidado por producir un sistema coherente, bien documentado y sostenible más allá del alcance inmediato del proyecto.
+
+De las prácticas que XP propone, este proyecto incorpora de manera explícita el desarrollo iterativo e incremental, la integración continua de retroalimentación como insumo de corrección y la validación sostenida de decisiones de diseño y arquitectura. No se adoptaron prácticas que presuponen equipos de múltiples integrantes, como la programación en parejas o la propiedad colectiva del código, dado que el proyecto es desarrollado por un equipo de dos personas con responsabilidades claramente delimitadas. Esta adaptación parcial de XP es consistente con lo señalado por \textcite{shore2021}, quienes reconocen que los equipos pueden seleccionar un subconjunto coherente de prácticas XP sin comprometer los principios fundamentales de la metodología.
+
+\subsection{Diseño centrado en el usuario e interacción persona computadora}
+
+Complementariamente a XP, el desarrollo de la plataforma incorporó principios de diseño centrado en el usuario (\textit{User-Centered Design}, UCD), definidos en la norma \textcite{iso9241210}. Este enfoque establece que las decisiones de diseño deben fundamentarse en el conocimiento de los usuarios, sus tareas y su contexto de uso, con el propósito de producir sistemas que sean utilizables, accesibles y adecuados a las necesidades reales de quienes los emplean.
+
+La pertinencia de este enfoque en el presente proyecto se deriva de la diversidad de perfiles de usuario que interactúan con la plataforma. El sistema contempla cuatro tipos de actores principales: los \textbf{administradores} del sistema, responsables de la configuración global del concurso; los \textbf{coordinadores institucionales}, encargados de gestionar la inscripción de sus unidades educativas y los participantes a su cargo; los \textbf{docentes}, que supervisan la participación de sus estudiantes; y los \textbf{estudiantes} de nivel primario y secundario, cuya interacción con el sistema se concentra en el módulo de resolución de tareas. Cada uno de estos actores presenta competencias digitales, objetivos y contextos de uso diferentes, lo que hace que las decisiones de interfaz no puedan abordarse de manera uniforme. Las definiciones de navegación, estructura de información y presentación de contenido se orientaron en función de los requisitos específicos de cada rol, tomando como referencia los principios de usabilidad descritos por \textcite{norman2013}.
+
+El módulo de resolución de tareas merece una atención particular desde la perspectiva de la interacción persona computadora (\textit{Human-Computer Interaction}, HCI). Al tratarse del componente con el que interactúan directamente los estudiantes el grupo de usuarios con menor experiencia digital y mayor heterogeneidad etaria dentro del sistema, su diseño debe atender criterios de usabilidad, claridad visual y accesibilidad de manera rigurosa. \textcite{preece2015} señalan que el diseño de interfaces para usuarios con perfiles cognitivos y etarios diversos exige una atención especial a la carga cognitiva, la consistencia visual y la retroalimentación inmediata ante las acciones del usuario. En este contexto, aspectos como el contraste visual, la legibilidad tipográfica, la navegación entre tareas y la presentación del tiempo disponible no son decisiones estéticas, sino funcionales: condicionan directamente la capacidad del estudiante para concentrarse en la resolución del problema sin ser obstaculizado por la interfaz misma.
+
+Adicionalmente, el sistema debe considerar criterios de accesibilidad web definidos por las \textit{Web Content Accessibility Guidelines} (WCAG) \parencite{w3c2023}, que establecen estándares internacionales para garantizar que el contenido digital sea perceptible, operable, comprensible y robusto para usuarios con distintas capacidades. Dado que el concurso está dirigido a estudiantes de nivel primario y secundario en un contexto educativo diverso, la accesibilidad no es un complemento opcional sino un requisito de equidad: un sistema que no puede ser utilizado eficazmente por todos los participantes compromete la validez misma del concurso.
+
 \section{MARCO TECNOLÓGICO}
 
 El objetivo técnico central de este proyecto es el desarrollo de un sistema capaz de administrar de extremo a extremo el ciclo de vida del Desafío Bebras Bolivia: inscripción de instituciones y participantes, configuración y distribución de exámenes, ejecución controlada de pruebas en línea, registro automático de respuestas y consulta de resultados. A este sistema se suma un módulo de \textit{landing page} con capacidades propias de gestión de contenido, orientado a la comunicación institucional del desafío. La selección de tecnologías responde a criterios de rendimiento, coherencia de pila y mantenibilidad a largo plazo, considerando que ambos módulos deben operar de manera integrada sobre el mismo entorno de ejecución.
@@ -100,18 +120,23 @@ MariaDB fue seleccionado como motor relacional del sistema por su madurez, licen
 
 La selección de las tecnologías descritas no respondió únicamente a criterios funcionales aislados, sino a una evaluación conjunta de sostenibilidad técnica, consumo de recursos, capacidad de escalamiento y afinidad con la experiencia previa del equipo de desarrollo. En este sentido, se priorizaron herramientas consolidadas, activamente mantenidas y adecuadas para una infraestructura moderada, evitando depender de soluciones excesivamente recientes o inciertas en su continuidad. La Tabla~\ref{tab:criterios_tecnologias} sintetiza estos criterios de selección.
 
-\begin{table}[H]
-\centering
-\caption[Criterios de selección de tecnologías]{Criterios que fundamentan la selección de las tecnologías del proyecto}
-\label{tab:criterios_tecnologias}
-\renewcommand{\arraystretch}{1.2}
-\begin{tabular}{|p{2.8cm}|p{4.2cm}|p{6.5cm}|}
-\hline
-\textbf{Tecnología} & \textbf{Criterio principal} & \textbf{Justificación} \\ \hline
-Astro & Eficiencia y optimización en frontend & Adecuado para una \emph{landing page} con contenido mayormente estático, reduciendo carga innecesaria en cliente y servidor. \\ \hline
-Bun & Rendimiento y proyección técnica & Permite un entorno unificado con buen desempeño y menor sobrecarga operativa, manteniendo una tecnología activa y con proyección de continuidad. \\ \hline
-Express & Estabilidad y dominio del equipo & Proporciona una base ligera, madura y conocida por el equipo, lo que facilita el desarrollo, mantenimiento y crecimiento del backend. \\ \hline
-Prisma ORM & Mantenibilidad del modelo de datos & Su tipado y control de migraciones favorecen la consistencia del sistema y reducen errores durante el desarrollo y la evolución del proyecto. \\ \hline
-MariaDB & Madurez y bajo costo operativo & Es una solución relacional estable, eficiente en recursos y adecuada para operar sobre infraestructura moderada sin sacrificar confiabilidad. \\ \hline
-\end{tabular}
-\end{table}
+    \begin{table}[H]
+    \centering
+    \caption[Criterios de selección de tecnologías]{Criterios que fundamentan la selección de las tecnologías del proyecto}
+    \label{tab:criterios_tecnologias}
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{|p{2.8cm}|p{4.2cm}|p{6.5cm}|}
+    \hline
+    \textbf{Tecnología} & \textbf{Criterio principal} & \textbf{Justificación} \\ \hline
+    Astro & Eficiencia y optimización en frontend & La landing page no requiere reactividad compleja; minimizar JavaScript en cliente reduce tiempos de carga en conexiones lentas, condición frecuente en el contexto boliviano. 
+    \\ \hline
+    Bun & Rendimiento y entorno unificado & Eliminar la separación entre runtime y gestor de paquetes reduce la superficie de configuración en un proyecto mantenido por un equipo pequeño. 
+    \\ \hline
+    Express & Estabilidad y curva de aprendizaje baja & El equipo cuenta con experiencia previa en Express, lo que reduce el riesgo técnico en flujos críticos como la gestión de sesiones de examen. 
+    \\ \hline
+    Prisma ORM & Mantenibilidad del modelo de datos & El esquema del concurso evolucionará durante el desarrollo; un ORM con migraciones tipadas reduce el riesgo de inconsistencias entre el modelo y la base de datos. 
+    \\ \hline
+    MariaDB & Madurez y bajo costo operativo & La infraestructura disponible para el proyecto es moderada; MariaDB opera eficientemente en ese contexto sin requerir configuración compleja.
+    \\ \hline
+    \end{tabular}
+    \end{table}

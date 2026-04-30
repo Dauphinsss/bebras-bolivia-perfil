@@ -9,7 +9,7 @@
         rounded corners=4pt,
         align=center,
         minimum height=1cm,
-        text width=3.8cm,
+        text width=3.4cm,
         fill=white,
         inner sep=4pt
     },
@@ -19,45 +19,79 @@
         rounded corners=4pt,
         align=center,
         minimum height=1.2cm,
-        text width=5.2cm,
+        text width=6cm,
         fill=white,
-        inner sep=5pt
+        inner sep=4pt
+    },
+    cajaCausa/.style={
+        draw,
+        rectangle,
+        rounded corners=4pt,
+        align=center,
+        minimum height=1cm,
+        text width=5cm,
+        fill=white,
+        inner sep=4pt
     },
     linea/.style={-{Stealth[length=4mm]}, thick}
 ]
 
-% Efectos
-\node[caja] (edicion) at (-6.2,0)
-{Organización nacional\\ limitada};
-\node[caja] (carga) at (0,0)
-{Sobrecarga\\ operativa};
-\node[caja] (continuidad) at (6.2,0)
-{Baja continuidad\\ del programa};
+% Efecto superior
+\node[cajaGrande] (impacto) at (0,0)
+    {Impacto educativo reducido \\del programa};
+
+% Efectos intermedios
+\node[caja] (exposicion) at (-9.0,-3.5)
+    {Baja exposición\\ estudiantil};
+\node[caja] (docentes) at (-4.5,-3.5)
+    {Docentes con acceso limitado \\a programas};
+\node[caja] (interes) at (0,-3.5)
+    {Interés juvenil sin\\ espacios formales};
+\node[caja] (alcance) at (4.5,-3.5)
+    {Alcance \\organizativo \\restringido};
+\node[caja] (continuidad) at (9.0,-3.5)
+    {Continuidad reducida\\ del programa};
 
 % Problema central
-\node[cajaGrande] (problema) at (0,-4.2)
-{Ausencia de plataforma web\\ para Bebras Bolivia};
+\node[cajaGrande] (problema) at (0,-7.5)
+    {Limitaciones en la \\implementación del Desafío \\Bebras en Bolivia para \\estudiantes escolares};
 
-% Causas
-\node[caja] (infraestructura) at (-6.2,-8.6)
-{Falta de infraestructura\\ tecnológica};
-\node[caja] (gestion) at (0,-8.6)
-{Gestión dispersa\\ del concurso};
-\node[caja] (herramientas) at (6.2,-8.6)
-{Uso de herramientas\\ no especializadas};
+% Causas intermedias
+\node[cajaCausa] (infraestructura) at (-4.5,-11.5)
+    {Infraestructura tecnológica\\ no especializada};
+\node[cajaCausa] (gestion) at (4.5,-11.5)
+    {Gestión fragmentada\\ del concurso};
 
-% Flechas efectos
-\draw[linea] (problema.north west) -- (edicion.south);
-\draw[linea] (problema.north) -- (carga.south);
+% Causas raíz
+\node[cajaCausa] (presencia) at (-4.5,-14.5)
+    {Pensamiento computacional\\ con presencia marginal\\ en el aula};
+\node[cajaCausa] (iniciativas) at (4.5,-14.5)
+    {Iniciativas previas sin\\ continuidad};
+
+% Flechas efectos intermedios -> efecto superior
+\draw[linea] (exposicion.north) -- (impacto.south west);
+\draw[linea] (docentes.north) -- (impacto.south west);
+\draw[linea] (interes.north) -- (impacto.south);
+\draw[linea] (alcance.north) -- (impacto.south east);
+\draw[linea] (continuidad.north) -- (impacto.south east);
+
+% Flechas problema central -> efectos intermedios (CORREGIDO)
+\draw[linea] (problema.north west) -- (exposicion.south);
+\draw[linea] (problema.north west) -- (docentes.south);
+\draw[linea] (problema.north) -- (interes.south);
+\draw[linea] (problema.north east) -- (alcance.south);
 \draw[linea] (problema.north east) -- (continuidad.south);
 
-% Flechas hacia el problema central
-\draw[linea] (infraestructura.north east) -- (problema.south west);
-\draw[linea] (gestion.north) -- (problema.south);
-\draw[linea] (herramientas.north west) -- (problema.south east);
+% Flechas causas intermedias -> problema central
+\draw[linea] (infraestructura.north) -- (problema.south west);
+\draw[linea] (gestion.north) -- (problema.south east);
+
+% Flechas causas raíz -> causas intermedias
+\draw[linea] (presencia.north) -- (infraestructura.south);
+\draw[linea] (iniciativas.north) -- (gestion.south);
 
 \end{tikzpicture}%
 }
 \caption{Árbol del problema para la implementación del Desafío Bebras Bolivia}
-\label{fig:arbol-problemas-bebras}
+\label{fig:arbol-problemas}
 \end{figure}
