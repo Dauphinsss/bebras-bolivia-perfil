@@ -84,23 +84,23 @@ XP se articula en torno a cinco valores fundamentales que orientan las decisione
 
 De las prácticas que XP propone, este proyecto incorpora de manera explícita el desarrollo iterativo e incremental, la integración continua de retroalimentación como insumo de corrección, la validación sostenida de decisiones de diseño y arquitectura y la programación en pareja, práctica que resulta especialmente adecuada para un equipo de dos desarrolladores. No se adoptaron, en cambio, prácticas pensadas para equipos numerosos, como la propiedad colectiva del código a gran escala, dado que el proyecto es desarrollado por un equipo de dos personas con responsabilidades claramente delimitadas. Esta selección de prácticas de XP es consistente con lo señalado por \textcite{shore2021}, quienes reconocen que los equipos pueden adoptar un subconjunto coherente de prácticas XP sin comprometer los principios fundamentales de la metodología.
 
-Siguiendo el principio de iteraciones cortas de duración fija propio de XP, el desarrollo se organizó en \textit{iteraciones de dos semanas} (\textit{timeboxing}). La duración de la iteración se mantiene constante a lo largo de todo el proyecto: lo que varía entre una y otra no es el tiempo asignado, sino la cantidad de historias de usuario que se planifican y completan en cada una. De esta forma, la duración fija funciona como una unidad estable de medición del avance, que permite estimar la velocidad de desarrollo y la fecha de finalización del proyecto.
+Siguiendo el principio de iteraciones cortas de duración fija propio de XP, el desarrollo se organizó mediante \textit{timeboxing}. En XP, las iteraciones suelen mantenerse dentro de rangos breves, comúnmente entre una y tres semanas, con el propósito de entregar incrementos verificables y recibir retroalimentación frecuente. Para el presente proyecto se adoptaron iteraciones de tres semanas, debido a que el desarrollo se realizó en paralelo con actividades de análisis, documentación, validación con el supervisor y refinamiento funcional del producto.
 
-Dado que los módulos del sistema presentan distinta extensión y complejidad, no existe una correspondencia directa entre un módulo y una única iteración. En lugar de extender la duración de una iteración para acomodar un módulo de mayor tamaño, cada módulo se desarrolla a lo largo del número de iteraciones que requiera, manteniendo invariable la caja de tiempo de dos semanas. En este proyecto, cada uno de los cuatro módulos se desarrolla en dos iteraciones, lo que totaliza ocho iteraciones de desarrollo. La Tabla~\ref{tab:iteraciones_modulos} presenta la correspondencia entre los módulos del sistema y las iteraciones que los componen.
+Dado que los módulos del sistema presentan distinta extensión y complejidad, no existe una correspondencia directa entre un módulo y una única iteración. En lugar de extender la duración de una iteración para acomodar un módulo de mayor tamaño, cada módulo se desarrolla a lo largo del número de iteraciones que requiera, manteniendo invariable la caja de tiempo de tres semanas. La Tabla~\ref{tab:iteraciones_modulos} presenta la correspondencia general entre los módulos del sistema y las iteraciones planificadas.
 
 \begin{table}[H]
 \centering
-\caption[Correspondencia entre módulos e iteraciones]{Correspondencia entre los módulos del sistema y las iteraciones de desarrollo de dos semanas}
-\label{tab:iteraciones_modulos}
 \renewcommand{\arraystretch}{1.25}
 \begin{tabular}{|p{5.5cm}|p{4cm}|p{3.5cm}|}
 \hline
 \textbf{Módulo} & \textbf{Iteraciones} & \textbf{Duración} \\ \hline
-Gestión de contenido (CMS) y sitio informativo & Iteraciones 1 y 2 & 4 semanas \\ \hline
-Competencias y tareas & Iteraciones 3 y 4 & 4 semanas \\ \hline
-Registro y administración de participantes & Iteraciones 5 y 6 & 4 semanas \\ \hline
-Evaluación digital e imprimible & Iteraciones 7 y 8 & 4 semanas \\ \hline
+Gestión de contenido (CMS) y sitio informativo & Iteraciones 0, 1 y 2 & 9 semanas \\ \hline
+Competencias y tareas & Iteraciones posteriores del proyecto & Según alcance del módulo \\ \hline
+Registro y administración de participantes & Iteraciones posteriores del proyecto & Según alcance del módulo \\ \hline
+Evaluación digital e imprimible & Iteraciones posteriores del proyecto & Según alcance del módulo \\ \hline
 \end{tabular}
+\caption[Correspondencia entre módulos e iteraciones]{Correspondencia entre los módulos del sistema y las iteraciones de desarrollo de tres semanas}
+\label{tab:iteraciones_modulos}
 \end{table}
 
 \subsection{Diseño centrado en el usuario e interacción persona computadora}

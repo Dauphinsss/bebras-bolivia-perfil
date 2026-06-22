@@ -1,14 +1,195 @@
-\chapter{MÓDULO DE GESTIÓN DE CONTENIDO (CMS)}
+\chapter{MÓDULO DE GESTIÓN DE CONTENIDO Y SITIO INFORMATIVO}
+
+El presente capítulo describe el desarrollo del módulo de gestión de contenido y sitio informativo de Bebras Bolivia. Este módulo cumple una doble función: por una parte, presenta información pública sobre el desafío a estudiantes, docentes, coordinadores e instituciones interesadas; por otra, proporciona un panel de administración para mantener actualizado el contenido, administrar publicaciones informativas, revisar cambios, generar respaldos y publicar el sitio.
+
+El desarrollo se organizó mediante iteraciones XP de tres semanas. La Iteración 0 se destinó a la preparación funcional y técnica del módulo; la Iteración 1 concentró la implementación del sitio informativo, el acceso al panel y la edición de páginas; y la Iteración 2 consolidó la gestión editorial, respaldos, vista previa y publicación del contenido.
 
 \section{PLANIFICACIÓN DEL MÓDULO}
 
+\subsection{Objetivo del módulo}
+
+El objetivo del módulo es permitir la comunicación pública del Desafío Bebras Bolivia y facilitar la administración del contenido del sitio sin modificar directamente el código fuente. De esta manera, el sistema permite mantener actualizada la información institucional, las páginas informativas, las publicaciones y los recursos visuales asociados al desafío.
+
+\subsection{Historias de usuario seleccionadas}
+
+La Tabla~\ref{tab:historias_cms} presenta las historias de usuario consideradas para el desarrollo del módulo. Las tareas derivadas de estas historias fueron registradas como elementos relacionados en el tablero de proyecto, pero no se desarrollan como historias independientes dentro del documento.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|p{2cm}|p{7cm}|p{3cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\textbf{ID} & \textbf{Historia} & \textbf{Usuario} & \textbf{Prioridad} & \textbf{Esf.} \\ \hline
+CMS-00 & Preparar la base funcional del módulo & Equipo de desarrollo & 1 & 5 \\ \hline
+CMS-01 & Presentar información pública del Desafío Bebras Bolivia & Visitante del sitio & 1 & 13 \\ \hline
+CMS-02 & Controlar el acceso al panel de administración & Administrador del sitio & 1 & 5 \\ \hline
+CMS-03 & Editar contenido de páginas informativas & Administrador del sitio & 1 & 13 \\ \hline
+CMS-04 & Previsualizar cambios del sitio antes de publicarlos & Administrador del sitio & 1 & 8 \\ \hline
+CMS-05 & Crear publicaciones informativas & Administrador del sitio & 1 & 5 \\ \hline
+CMS-06 & Editar publicaciones informativas & Administrador del sitio & 1 & 8 \\ \hline
+CMS-07 & Manejar imágenes para publicaciones informativas & Administrador del sitio & 2 & 5 \\ \hline
+CMS-08 & Previsualizar publicaciones antes de guardarlas & Administrador del sitio & 1 & 5 \\ \hline
+CMS-09 & Crear respaldos del contenido & Administrador del sitio & 1 & 5 \\ \hline
+CMS-10 & Restaurar contenido desde un respaldo & Administrador del sitio & 1 & 8 \\ \hline
+CMS-11 & Transferir respaldos del contenido & Administrador del sitio & 2 & 5 \\ \hline
+CMS-12 & Publicar cambios del sitio informativo & Administrador del sitio & 1 & 8 \\ \hline
+CMS-13 & Programar publicación del sitio informativo & Administrador del sitio & 2 & 5 \\ \hline
+\end{tabular}
+\caption[Historias de usuario del módulo CMS]{Historias de usuario seleccionadas para el módulo de gestión de contenido y sitio informativo}
+\label{tab:historias_cms}
+\end{table}
+
+\subsection{Distribución por iteraciones}
+
+La Tabla~\ref{tab:iteraciones_cms} muestra la distribución de las historias por iteración.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|p{3cm}|p{9cm}|p{3cm}|}
+\hline
+\textbf{Iteración} & \textbf{Alcance principal} & \textbf{Historias} \\ \hline
+Iteración 0 & Preparación funcional, tecnológica y estructural del módulo & CMS-00 \\ \hline
+Iteración 1 & Sitio informativo, acceso administrativo, edición de contenido y vista previa del sitio & CMS-01, CMS-02, CMS-03, CMS-04 \\ \hline
+Iteración 2 & Publicaciones informativas, imágenes, respaldos, restauración, transferencia y publicación & CMS-05 a CMS-13 \\ \hline
+\end{tabular}
+\caption[Distribución de historias por iteración]{Distribución de historias de usuario del módulo CMS por iteración}
+\label{tab:iteraciones_cms}
+\end{table}
+
+\section{ITERACIÓN 0: PREPARACIÓN DEL MÓDULO}
+
+\subsection{Planificación de la iteración}
+
+La Iteración 0 se orientó a preparar la base del módulo. En esta etapa se definió el alcance del sitio informativo, se organizaron las páginas públicas, se seleccionó la pila tecnológica y se preparó la estructura inicial del repositorio. Esta iteración permitió establecer una base funcional sobre la cual se desarrollaron las historias de usuario de las siguientes iteraciones.
+
+\subsection{Actividades principales}
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|p{3cm}|p{10cm}|p{2.5cm}|}
+\hline
+\textbf{ID} & \textbf{Actividad} & \textbf{Resultado} \\ \hline
+CMS-00-01 & Definir el alcance del módulo de gestión de contenido y sitio informativo & Completado \\ \hline
+CMS-00-02 & Seleccionar tecnologías para el sitio y el panel de administración & Completado \\ \hline
+CMS-00-03 & Configurar la estructura inicial del repositorio & Completado \\ \hline
+CMS-00-04 & Organizar páginas, datos editables y recursos visuales iniciales & Completado \\ \hline
+\end{tabular}
+\caption[Actividades de preparación del módulo]{Actividades realizadas durante la Iteración 0}
+\label{tab:actividades_iteracion_0}
+\end{table}
+
+\subsection{Pruebas}
+
+\subsubsection{Pruebas funcionales}
+
+\subsubsection{Pruebas de configuración}
+
+\subsubsection{Resultados de la iteración}
+
+\section{ITERACIÓN 1: SITIO INFORMATIVO Y EDICIÓN DE CONTENIDO}
+
+\subsection{Planificación de la iteración}
+
+La Iteración 1 se enfocó en implementar la estructura pública del sitio informativo y las primeras capacidades del panel de administración. El objetivo fue contar con un sitio navegable, contenido institucional visible, acceso protegido al CMS, edición de páginas informativas y vista previa de cambios antes de publicar.
+
 \subsection{Historias de usuario}
 
-\subsection{Plan de entregas y alcance del módulo}
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|p{2cm}|p{9cm}|p{2.5cm}|p{1.5cm}|}
+        \hline
+        \rowcolor{purplet!30}
+        ID: CMS-01 & Historia: Presentar información pública del Desafío Bebras Bolivia & \multicolumn{2}{c|}{Versión: 1} \\
+        \hline
+        \rowcolor{purplet!30}
+        \multicolumn{2}{|l|}{Usuario: Visitante del sitio} & Prioridad = 1 & Esf. = 13 \\
+        \hline
+        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
+        \multicolumn{4}{|p{16cm}|}{Como visitante del sitio, quiero consultar la información pública del Desafío Bebras Bolivia, para conocer el objetivo del desafío, las condiciones de participación y los canales oficiales de información.} \\
+        \hline
+        \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ Se muestra una página de inicio con la información principal del desafío.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ Se muestran categorías de participación por edad.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ Se muestra información diferenciada para estudiantes, docentes y coordinadores.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ Se muestra el sistema de puntuación, preguntas frecuentes, patrocinadores y canales de contacto.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ Se muestra el estado informativo del registro y los enlaces de navegación correspondientes.}\\
+        \hline
+    \end{tabular}
+\end{table}
 
-\section{ITERACIÓN 1}
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|p{2cm}|p{9cm}|p{2.5cm}|p{1.5cm}|}
+        \hline
+        \rowcolor{purplet!30}
+        ID: CMS-02 & Historia: Controlar el acceso al panel de administración & \multicolumn{2}{c|}{Versión: 1} \\
+        \hline
+        \rowcolor{purplet!30}
+        \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 1 & Esf. = 5 \\
+        \hline
+        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
+        \multicolumn{4}{|p{16cm}|}{Como administrador del sitio, quiero ingresar al panel de administración mediante credenciales, para proteger la edición del contenido público de Bebras Bolivia.} \\
+        \hline
+        \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ Se muestra una pantalla de inicio de sesión para el panel de administración.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema valida correo electrónico y contraseña antes de permitir el ingreso.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ Si las credenciales son incorrectas, se muestra un mensaje de error.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ Las rutas del panel de administración requieren sesión activa.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ El administrador puede cerrar sesión desde el panel de administración.}\\
+        \hline
+    \end{tabular}
+\end{table}
 
-\subsection{Planificación de la iteración}
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|p{2cm}|p{9cm}|p{2.5cm}|p{1.5cm}|}
+        \hline
+        \rowcolor{purplet!30}
+        ID: CMS-03 & Historia: Editar contenido de páginas informativas & \multicolumn{2}{c|}{Versión: 1} \\
+        \hline
+        \rowcolor{purplet!30}
+        \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 1 & Esf. = 13 \\
+        \hline
+        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
+        \multicolumn{4}{|p{16cm}|}{Como administrador del sitio, quiero modificar el contenido de las páginas informativas desde el panel de administración, para mantener actualizada la información pública del desafío.} \\
+        \hline
+        \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ Se muestra el listado de páginas informativas editables.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ El administrador puede seleccionar una página informativa para editar su contenido.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema permite modificar textos, enlaces, secciones y elementos configurables.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema valida la estructura del contenido antes de guardar cambios.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ Los cambios guardados quedan disponibles para vista previa y publicación.}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|p{2cm}|p{9cm}|p{2.5cm}|p{1.5cm}|}
+        \hline
+        \rowcolor{purplet!30}
+        ID: CMS-04 & Historia: Previsualizar cambios del sitio antes de publicarlos & \multicolumn{2}{c|}{Versión: 1} \\
+        \hline
+        \rowcolor{purplet!30}
+        \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 1 & Esf. = 8 \\
+        \hline
+        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
+        \multicolumn{4}{|p{16cm}|}{Como administrador del sitio, quiero revisar los cambios del sitio en una vista previa, para verificar el contenido antes de publicarlo.} \\
+        \hline
+        \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ Se muestra una opción para iniciar la vista previa del sitio.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ La vista previa refleja cambios de contenido sin requerir publicación definitiva.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ La vista previa permite revisar páginas informativas antes de publicar.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ Si la vista previa no puede generarse, se muestra un mensaje de error.}\\
+        \hline
+    \end{tabular}
+\end{table}
 
 \subsection{Diseño}
 
@@ -16,12 +197,248 @@
 
 \subsection{Pruebas}
 
-\section{ITERACIÓN 2}
+\subsubsection{Pruebas funcionales}
+
+\subsubsection{Pruebas de interfaz}
+
+\subsubsection{Pruebas de validación de contenido}
+
+\subsubsection{Resultados de la iteración}
+
+\section{ITERACIÓN 2: PUBLICACIONES, RESPALDOS Y PUBLICACIÓN}
 
 \subsection{Planificación de la iteración}
+
+La Iteración 2 se enfocó en consolidar las capacidades editoriales del CMS. En esta etapa se implementó la administración de publicaciones informativas, el manejo de imágenes, la vista previa de publicaciones, la creación y restauración de respaldos, la transferencia de respaldos y el flujo de publicación del sitio informativo.
+
+\subsection{Historias de usuario}
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|p{2cm}|p{9cm}|p{2.5cm}|p{1.5cm}|}
+        \hline
+        \rowcolor{purplet!30}
+        ID: CMS-05 & Historia: Crear publicaciones informativas & \multicolumn{2}{c|}{Versión: 1} \\
+        \hline
+        \rowcolor{purplet!30}
+        \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 1 & Esf. = 5 \\
+        \hline
+        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
+        \multicolumn{4}{|p{16cm}|}{Como administrador del sitio, quiero crear publicaciones informativas, para comunicar novedades y anuncios relacionados con Bebras Bolivia.} \\
+        \hline
+        \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ Se muestra una opción para crear una nueva publicación informativa.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema solicita título, descripción, fecha, autor y contenido de la publicación.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ Si falta un dato obligatorio, no se guarda la publicación.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ Al guardar correctamente, la publicación aparece en el listado de publicaciones.}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|p{2cm}|p{9cm}|p{2.5cm}|p{1.5cm}|}
+        \hline
+        \rowcolor{purplet!30}
+        ID: CMS-06 & Historia: Editar publicaciones informativas & \multicolumn{2}{c|}{Versión: 1} \\
+        \hline
+        \rowcolor{purplet!30}
+        \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 1 & Esf. = 8 \\
+        \hline
+        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
+        \multicolumn{4}{|p{16cm}|}{Como administrador del sitio, quiero editar publicaciones informativas existentes, para corregir o actualizar noticias publicadas en el sitio.} \\
+        \hline
+        \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ Se muestra el listado de publicaciones informativas existentes.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ El administrador puede abrir una publicación existente para editarla.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema permite modificar metadatos y cuerpo de la publicación.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema permite agregar formato enriquecido al contenido de la publicación.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ Si la publicación se guarda correctamente, los cambios quedan disponibles para vista previa.}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|p{2cm}|p{9cm}|p{2.5cm}|p{1.5cm}|}
+        \hline
+        \rowcolor{purplet!30}
+        ID: CMS-07 & Historia: Manejar imágenes para publicaciones informativas & \multicolumn{2}{c|}{Versión: 1} \\
+        \hline
+        \rowcolor{purplet!30}
+        \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 2 & Esf. = 5 \\
+        \hline
+        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
+        \multicolumn{4}{|p{16cm}|}{Como administrador del sitio, quiero manejar imágenes para publicaciones informativas, para complementar visualmente las noticias del sitio.} \\
+        \hline
+        \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ El administrador puede subir una imagen para usarla en publicaciones informativas.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema acepta archivos con extensión jpg, jpeg, png, webp o gif.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema rechaza archivos con extensión no permitida.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ La imagen cargada queda disponible mediante una ruta utilizable en la publicación.}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|p{2cm}|p{9cm}|p{2.5cm}|p{1.5cm}|}
+        \hline
+        \rowcolor{purplet!30}
+        ID: CMS-08 & Historia: Previsualizar publicaciones antes de guardarlas & \multicolumn{2}{c|}{Versión: 1} \\
+        \hline
+        \rowcolor{purplet!30}
+        \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 1 & Esf. = 5 \\
+        \hline
+        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
+        \multicolumn{4}{|p{16cm}|}{Como administrador del sitio, quiero revisar una vista previa de la publicación durante su edición, para verificar su contenido antes de guardarla.} \\
+        \hline
+        \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema genera una vista previa de la publicación mientras se edita.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ La vista previa muestra título, descripción, fecha, contenido y enlace de acción cuando corresponde.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ La vista previa se actualiza después de cambios en el contenido.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ Si la vista previa no puede generarse, se muestra un mensaje de error.}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|p{2cm}|p{9cm}|p{2.5cm}|p{1.5cm}|}
+        \hline
+        \rowcolor{purplet!30}
+        ID: CMS-09 & Historia: Crear respaldos del contenido & \multicolumn{2}{c|}{Versión: 1} \\
+        \hline
+        \rowcolor{purplet!30}
+        \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 1 & Esf. = 5 \\
+        \hline
+        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
+        \multicolumn{4}{|p{16cm}|}{Como administrador del sitio, quiero crear respaldos del contenido, para conservar estados recuperables del sitio informativo.} \\
+        \hline
+        \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ Se muestra una opción para crear un respaldo del contenido actual.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ El administrador puede registrar una descripción corta del respaldo.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema registra autor y fecha de creación del respaldo.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ El respaldo creado aparece en la sección de respaldos.}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|p{2cm}|p{9cm}|p{2.5cm}|p{1.5cm}|}
+        \hline
+        \rowcolor{purplet!30}
+        ID: CMS-10 & Historia: Restaurar contenido desde un respaldo & \multicolumn{2}{c|}{Versión: 1} \\
+        \hline
+        \rowcolor{purplet!30}
+        \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 1 & Esf. = 8 \\
+        \hline
+        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
+        \multicolumn{4}{|p{16cm}|}{Como administrador del sitio, quiero restaurar contenido desde un respaldo, para recuperar una versión anterior del sitio cuando sea necesario.} \\
+        \hline
+        \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ El administrador puede seleccionar un respaldo existente.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema permite revisar una vista previa del respaldo seleccionado.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema permite restaurar el contenido desde el respaldo seleccionado.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ Si el respaldo no existe o no puede restaurarse, se muestra un mensaje de error.}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|p{2cm}|p{9cm}|p{2.5cm}|p{1.5cm}|}
+        \hline
+        \rowcolor{purplet!30}
+        ID: CMS-11 & Historia: Transferir respaldos del contenido & \multicolumn{2}{c|}{Versión: 1} \\
+        \hline
+        \rowcolor{purplet!30}
+        \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 2 & Esf. = 5 \\
+        \hline
+        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
+        \multicolumn{4}{|p{16cm}|}{Como administrador del sitio, quiero transferir respaldos del contenido, para conservar copias externas o incorporar respaldos previamente generados.} \\
+        \hline
+        \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ El administrador puede descargar un respaldo existente.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ El archivo descargado contiene la información necesaria para recuperar el contenido respaldado.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ El administrador puede importar un archivo de respaldo.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema rechaza archivos que no correspondan a un respaldo válido.}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|p{2cm}|p{9cm}|p{2.5cm}|p{1.5cm}|}
+        \hline
+        \rowcolor{purplet!30}
+        ID: CMS-12 & Historia: Publicar cambios del sitio informativo & \multicolumn{2}{c|}{Versión: 1} \\
+        \hline
+        \rowcolor{purplet!30}
+        \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 1 & Esf. = 8 \\
+        \hline
+        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
+        \multicolumn{4}{|p{16cm}|}{Como administrador del sitio, quiero publicar cambios del sitio informativo, para actualizar la versión visible para los visitantes.} \\
+        \hline
+        \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema muestra los cambios pendientes antes de publicar.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ El administrador puede confirmar la publicación de cambios.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema ejecuta el proceso de publicación del sitio informativo.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ Si la publicación finaliza correctamente, se registra el estado exitoso.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ Si la publicación falla, se muestra el mensaje de error correspondiente.}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|p{2cm}|p{9cm}|p{2.5cm}|p{1.5cm}|}
+        \hline
+        \rowcolor{purplet!30}
+        ID: CMS-13 & Historia: Programar publicación del sitio informativo & \multicolumn{2}{c|}{Versión: 1} \\
+        \hline
+        \rowcolor{purplet!30}
+        \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 2 & Esf. = 5 \\
+        \hline
+        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
+        \multicolumn{4}{|p{16cm}|}{Como administrador del sitio, quiero programar la publicación del sitio informativo, para aplicar cambios en una fecha y hora definidas.} \\
+        \hline
+        \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ El administrador puede seleccionar fecha y hora para publicar cambios.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema registra una publicación programada si existen cambios pendientes.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ Se muestra la publicación programada activa con su fecha y estado.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ El administrador puede cancelar una publicación programada.}\\
+        \multicolumn{4}{|p{16cm}|}{$\bullet$ Si no existen cambios pendientes, no se habilita la programación de publicación.}\\
+        \hline
+    \end{tabular}
+\end{table}
 
 \subsection{Diseño}
 
 \subsection{Codificación}
 
 \subsection{Pruebas}
+
+\subsubsection{Pruebas funcionales}
+
+\subsubsection{Pruebas de gestión de publicaciones}
+
+\subsubsection{Pruebas de respaldos y restauración}
+
+\subsubsection{Pruebas de publicación}
+
+\subsubsection{Resultados de la iteración}
+
+\section{SÍNTESIS DEL MÓDULO}
+
+El módulo de gestión de contenido y sitio informativo permitió establecer la base pública de Bebras Bolivia y un panel de administración para mantener actualizado su contenido. A través de las iteraciones documentadas, el sistema incorporó páginas informativas, acceso protegido, edición de contenido, vista previa, publicaciones, manejo de imágenes, respaldos y publicación del sitio. Estas capacidades constituyen la base comunicacional del sistema y se integran con los demás módulos al proporcionar información oficial para participantes, docentes, coordinadores e instituciones interesadas.

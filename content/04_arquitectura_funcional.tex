@@ -1,27 +1,164 @@
 \chapter{ARQUITECTURA E INTERACCIÓN DEL SISTEMA}
 
+El presente capítulo describe la arquitectura funcional de la plataforma Bebras Bolivia y la forma en que sus módulos se relacionan para cubrir el ciclo operativo del desafío. La finalidad de esta sección es proporcionar una visión integral del sistema antes de abordar el desarrollo específico de cada módulo. Por ello, se identifican los actores principales, los módulos funcionales, los flujos de información y la secuencia general de operación del concurso.
+
+La plataforma se concibe como un sistema modular. Cada módulo cumple un objetivo propio, pero no opera de manera aislada: el sitio informativo comunica el desafío, el módulo de inscripción registra participantes, el gestor de tareas y competencias organiza los contenidos de evaluación, y el módulo de evaluación ejecuta la participación y procesa resultados. Esta separación facilita el desarrollo incremental, permite distribuir responsabilidades y reduce la dependencia entre componentes.
+
 \section{VISIÓN GENERAL DEL SISTEMA}
+
+Bebras Bolivia se estructura como una plataforma web orientada a la gestión integral del Desafío Bebras en el contexto nacional. El sistema contempla desde la publicación de información institucional hasta la ejecución de la competencia, incorporando procesos de inscripción, administración de tareas, configuración de competencias y evaluación de respuestas.
+
+La Figura~\ref{fig:vision_general_modulos} presenta una visión general de los cuatro módulos principales del sistema y su relación funcional.
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.88\textwidth}{\centering
+    \vspace{0.4cm}
+    Diagrama general de módulos: CMS y sitio informativo, inscripción, gestor de tareas y competencias, evaluación.\\
+    \vspace{0.4cm}
+    }}
+    \caption[Visión general de módulos]{Visión general de los módulos de la plataforma Bebras Bolivia - Elaboración propia}
+    \label{fig:vision_general_modulos}
+\end{figure}
 
 \section{ESTRUCTURA FUNCIONAL DE LA PLATAFORMA}
 
 \subsection{Actores del sistema}
 
+Los actores del sistema representan los perfiles que interactúan con la plataforma según sus responsabilidades dentro del desafío. La Tabla~\ref{tab:actores_sistema} resume los actores identificados y el objetivo principal de cada uno.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|p{4cm}|p{5.5cm}|p{5.5cm}|}
+\hline
+\textbf{Actor} & \textbf{Objetivo dentro del sistema} & \textbf{Módulos relacionados} \\ \hline
+Visitante del sitio & Consultar información pública sobre el desafío, categorías, participación, preguntas frecuentes y canales de contacto & CMS y sitio informativo \\ \hline
+Administrador del sitio & Mantener actualizado el contenido público, las publicaciones informativas, respaldos y publicación del sitio & CMS y sitio informativo \\ \hline
+Coordinador institucional & Registrar la institución educativa y organizar la participación de estudiantes & Inscripción, evaluación \\ \hline
+Docente & Orientar a los estudiantes, consultar información operativa y acompañar la participación & Sitio informativo, inscripción, evaluación \\ \hline
+Estudiante & Participar en el desafío y resolver las tareas asignadas & Evaluación \\ \hline
+Administrador de competencias & Registrar tareas, configurar competencias y definir parámetros de participación & Gestor de tareas y competencias, evaluación \\ \hline
+\end{tabular}
+\caption[Actores del sistema]{Actores principales de la plataforma Bebras Bolivia}
+\label{tab:actores_sistema}
+\end{table}
+
 \subsection{Módulos principales de la plataforma}
+
+La plataforma está compuesta por cuatro módulos principales. Cada módulo tiene una responsabilidad delimitada y produce información que puede ser consumida por otros módulos. La Tabla~\ref{tab:modulos_plataforma} presenta el objetivo, entrada y salida principal de cada módulo.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|p{3.6cm}|p{4.6cm}|p{3.6cm}|p{3.6cm}|}
+\hline
+\textbf{Módulo} & \textbf{Objetivo} & \textbf{Entrada principal} & \textbf{Salida principal} \\ \hline
+CMS y sitio informativo & Publicar y administrar información institucional del desafío & Contenido institucional, noticias, imágenes y configuración editorial & Sitio público actualizado \\ \hline
+Inscripción & Registrar instituciones, docentes y estudiantes participantes & Datos de institución, coordinador y participantes & Listas de participantes habilitados \\ \hline
+Gestor de tareas y competencias & Registrar tareas, organizar contenidos y configurar competencias & Tareas, categorías, niveles, fechas y parámetros de competencia & Competencias configuradas para evaluación \\ \hline
+Evaluación & Ejecutar la participación, registrar respuestas y permitir el procesamiento de resultados & Participantes registrados y competencias configuradas & Respuestas, puntajes y resultados \\ \hline
+\end{tabular}
+\caption[Módulos principales de la plataforma]{Módulos funcionales de la plataforma Bebras Bolivia}
+\label{tab:modulos_plataforma}
+\end{table}
 
 \section{INTERACCIÓN GENERAL DEL SISTEMA}
 
 \subsection{Relación entre actores y módulos}
 
+La interacción entre actores y módulos se define por el objetivo que cada actor cumple dentro del desafío. El visitante consulta información pública; el administrador del sitio mantiene actualizado el contenido; el coordinador institucional registra participantes; el administrador de competencias configura tareas y evaluaciones; y el estudiante participa en la competencia.
+
+La Figura~\ref{fig:actores_modulos} muestra la relación conceptual entre los actores y los módulos principales.
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.88\textwidth}{\centering
+    \vspace{0.4cm}
+    Diagrama actor-módulo: visitante y administrador del sitio con CMS; coordinador con inscripción; administrador de competencias con gestor de tareas; estudiante con evaluación.\\
+    \vspace{0.4cm}
+    }}
+    \caption[Relación entre actores y módulos]{Relación entre actores y módulos funcionales de Bebras Bolivia - Elaboración propia}
+    \label{fig:actores_modulos}
+\end{figure}
+
 \subsection{Articulación funcional de los módulos}
+
+La arquitectura funcional del sistema se basa en una relación progresiva entre módulos. El CMS cumple una función comunicacional y editorial; el módulo de inscripción transforma el interés de participación en registros estructurados; el gestor de tareas prepara el contenido evaluativo; y el módulo de evaluación ejecuta la competencia usando los datos generados por inscripción y configuración de competencias.
+
+La Figura~\ref{fig:interaccion_modulos} representa la articulación funcional entre módulos.
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.88\textwidth}{\centering
+    \vspace{0.4cm}
+    Flujo de interacción: CMS informa; inscripción registra participantes; gestor configura tareas y competencias; evaluación consume participantes y competencias para generar resultados.\\
+    \vspace{0.4cm}
+    }}
+    \caption[Interacción funcional entre módulos]{Interacción funcional entre los módulos de la plataforma - Elaboración propia}
+    \label{fig:interaccion_modulos}
+\end{figure}
 
 \section{FLUJO OPERATIVO DEL DESAFÍO}
 
 \subsection{Proceso general de funcionamiento}
 
+El proceso operativo del desafío inicia con la publicación de información oficial en el sitio público. A partir de esa información, docentes, coordinadores y estudiantes conocen el objetivo del desafío, las categorías, las condiciones de participación y los canales de contacto. Posteriormente, el proceso continúa con la inscripción de instituciones y participantes, la preparación de tareas, la configuración de competencias, la ejecución de la evaluación y la generación de resultados.
+
 \subsection{Secuencia operativa del concurso}
+
+La secuencia funcional del concurso puede organizarse en siete etapas principales. La Tabla~\ref{tab:flujo_operativo} resume cada etapa y el módulo responsable.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|p{1.5cm}|p{5cm}|p{5cm}|p{3.5cm}|}
+\hline
+\textbf{Nro.} & \textbf{Etapa} & \textbf{Descripción} & \textbf{Módulo principal} \\ \hline
+1 & Publicación de información & Se comunica el desafío, categorías, instrucciones y canales de contacto & CMS y sitio informativo \\ \hline
+2 & Registro de participación & Se registran instituciones, docentes y estudiantes & Inscripción \\ \hline
+3 & Preparación de tareas & Se registran y validan tareas de pensamiento computacional & Gestor de tareas \\ \hline
+4 & Configuración de competencia & Se definen fechas, duración, niveles y tareas asociadas & Gestor de competencias \\ \hline
+5 & Ejecución de la evaluación & Los estudiantes resuelven tareas dentro del tiempo definido & Evaluación \\ \hline
+6 & Registro de respuestas & El sistema almacena las respuestas generadas durante la participación & Evaluación \\ \hline
+7 & Procesamiento de resultados & Se calculan puntajes, rankings o reportes según la configuración & Evaluación \\ \hline
+\end{tabular}
+\caption[Flujo operativo del desafío]{Secuencia operativa general del Desafío Bebras Bolivia}
+\label{tab:flujo_operativo}
+\end{table}
+
+La Figura~\ref{fig:flujo_operativo} sintetiza visualmente el flujo operativo del desafío.
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.88\textwidth}{\centering
+    \vspace{0.4cm}
+    Diagrama secuencial: publicación de información, inscripción, preparación de tareas, configuración de competencia, evaluación, respuestas y resultados.\\
+    \vspace{0.4cm}
+    }}
+    \caption[Flujo operativo del desafío]{Flujo operativo general del Desafío Bebras Bolivia - Elaboración propia}
+    \label{fig:flujo_operativo}
+\end{figure}
 
 \section{REPRESENTACIÓN GENERAL DEL SISTEMA}
 
 \subsection{Mapa de interacción del sistema}
 
+El mapa de interacción permite entender la plataforma como un conjunto de módulos coordinados. La separación modular evita que un único componente concentre todas las responsabilidades y permite que cada parte del sistema pueda evolucionar de forma controlada. En este sentido, el CMS no depende directamente de la evaluación, pero cumple una función inicial importante al comunicar el desafío y mantener actualizada la información pública.
+
 \subsection{Diagrama general de módulos y procesos}
+
+La Figura~\ref{fig:mapa_general_sistema} consolida los procesos y módulos principales en una representación única.
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.88\textwidth}{\centering
+    \vspace{0.4cm}
+    Mapa general del sistema: actores, módulos, datos principales y flujo operativo del concurso.\\
+    \vspace{0.4cm}
+    }}
+    \caption[Mapa general del sistema]{Mapa general de interacción del sistema Bebras Bolivia - Elaboración propia}
+    \label{fig:mapa_general_sistema}
+\end{figure}
+
+En síntesis, la arquitectura propuesta permite organizar el sistema en componentes funcionales coherentes con el ciclo de vida del desafío. Esta visión modular sirve como base para documentar, en los capítulos siguientes, el desarrollo particular de cada módulo y su aporte al funcionamiento general de la plataforma.
