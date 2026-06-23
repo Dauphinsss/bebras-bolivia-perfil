@@ -1,42 +1,66 @@
 \chapter{ARQUITECTURA E INTERACCIÓN DEL SISTEMA}
 
-El presente capítulo describe la arquitectura funcional de la plataforma web propuesta para la administración del Desafío Bebras en Bolivia. La exposición se organiza desde una perspectiva sistémica: primero se presenta la visión general de la plataforma, posteriormente se identifican los actores que intervienen en el proceso, los módulos que componen la solución y las relaciones funcionales entre ellos. Finalmente, se describe el flujo operativo del concurso y se incorporan representaciones generales que permiten comprender la interacción entre procesos, usuarios y componentes.
+El presente capítulo describe la arquitectura funcional del sistema web propuesto para la administración del Desafío Bebras en Bolivia. La exposición se organiza desde una perspectiva sistémica: primero se presenta la visión general del sistema, posteriormente se identifican los actores que intervienen en el proceso, los módulos que componen la solución y las relaciones funcionales entre ellos. Finalmente, se describe el flujo operativo del concurso y se incorporan representaciones generales que permiten comprender la interacción entre procesos, usuarios y componentes.
 
-La arquitectura planteada responde al objetivo de implementar una plataforma modular capaz de sostener el ciclo completo del concurso, desde la comunicación institucional y la inscripción de unidades educativas hasta la ejecución de la prueba, la evaluación de respuestas y la generación de resultados. Esta organización modular permite separar responsabilidades, reducir acoplamientos entre componentes y facilitar la evolución progresiva del sistema conforme cambien los requerimientos operativos de Bebras Bolivia.
+La arquitectura planteada responde al objetivo de implementar un sistema modular capaz de sostener el ciclo completo del concurso, desde la comunicación institucional y la inscripción de unidades educativas hasta la ejecución de la prueba, la evaluación de respuestas y la generación de resultados. Esta organización modular permite separar responsabilidades, reducir acoplamientos entre componentes y facilitar la evolución progresiva del sistema conforme cambien los requerimientos operativos de Bebras Bolivia.
 
 \section{VISIÓN GENERAL DEL SISTEMA}
 
-La plataforma Bebras Bolivia se concibe como un sistema web modular orientado a la gestión integral de competencias educativas de pensamiento computacional. Su propósito principal es proporcionar una infraestructura digital que permita organizar el Desafío Bebras en el contexto nacional, considerando tanto las necesidades administrativas de la organización como las condiciones reales de participación de maestros, unidades educativas y estudiantes de nivel primario y secundario.
+El Sistema Bebras Bolivia se concibe como un sistema web modular orientado a la gestión integral de competencias educativas de pensamiento computacional. Su propósito principal es proporcionar una infraestructura digital que permita organizar el Desafío Bebras en el contexto nacional, considerando tanto las necesidades administrativas de la organización como las condiciones reales de participación de maestros, unidades educativas y estudiantes de nivel primario y secundario.
 
 Desde el punto de vista funcional, el sistema integra cuatro módulos principales: gestión de contenido, gestión de competencias, registro de participantes y evaluación. Estos módulos no operan como aplicaciones aisladas, sino como componentes articulados dentro de un mismo flujo de concurso. La información pública del desafío se administra mediante el CMS y se publica como sitio informativo estático; las competencias y tareas se configuran desde el módulo de gestión académica; las unidades educativas, maestros y estudiantes se organizan en el módulo de participantes; y la resolución de pruebas, junto con la calificación digital o imprimible, se gestiona desde el módulo de evaluación.
 
+La vista de contexto del modelo C4 permite ubicar al Sistema Bebras Bolivia como el sistema central de interacción para la organización y ejecución del desafío. En esta vista se identifican los tres actores principales: administrador u organizador, maestro y estudiante, junto con sus relaciones generales de uso.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{diagramas/C1_Contexto.png}
+\caption[Contexto del Sistema Bebras Bolivia]{Diagrama de contexto del Sistema Bebras Bolivia}
+\label{fig:c4_contexto_plataforma_bebras}
+\end{figure}
+
+El diagrama muestra que el administrador u organizador se relaciona con el CMS, el sitio informativo y el frontend del concurso; el maestro consulta el sitio informativo y utiliza el frontend del concurso para gestionar su participación; y el estudiante consulta la información pública y accede al concurso mediante el frontend correspondiente. Esta separación permite delimitar responsabilidades y niveles de acceso, especialmente porque el acceso al CMS queda reservado exclusivamente al administrador.
+
 La arquitectura tecnológica se apoya en una pila coherente con el marco definido para el proyecto. El panel de administración del CMS se desarrolla con Astro y React, utiliza una base de datos SQLite para usuarios, publicaciones y respaldos, y escribe el contenido editorial en un \textit{Content Store} compuesto por archivos JSON y Markdown. Dicho repositorio de contenido alimenta el proceso de construcción del sitio informativo, implementado con Astro y React como sitio estático generado previamente mediante SSG. La lógica de servidor del concurso se estructura mediante Express y TypeScript, mientras que Prisma ORM y MariaDB proporcionan una capa persistente relacional para competencias, participantes, respuestas y resultados. El servidor web Apache actúa como capa de publicación y acceso HTTP, por lo que sirve el sitio informativo y el frontend del concurso, sin considerarse un contenedor funcional del sistema. Docker se considera como soporte para la estandarización del entorno de ejecución y despliegue.
 
-Esta visión permite que la plataforma funcione como un sistema de concurso en línea y no únicamente como un sitio informativo. En consecuencia, la arquitectura debe responder a requisitos de autenticación, registro, configuración de pruebas, control de tiempos, almacenamiento de respuestas, generación de resultados y soporte a escenarios con conectividad limitada. La modularidad constituye, por tanto, una decisión central de diseño, ya que permite atender cada necesidad sin comprometer la coherencia global del sistema.
+La vista de contenedores del modelo C4 complementa esta descripción tecnológica al mostrar las principales unidades ejecutables o desplegables del sistema: CMS, base de datos del CMS, \textit{Content Store}, sitio informativo, frontend del concurso, backend del concurso y base de datos del concurso.
 
-\section{ESTRUCTURA FUNCIONAL DE LA PLATAFORMA}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{diagramas/C2_Contenedores.png}
+\caption[Contenedores del Sistema Bebras Bolivia]{Diagrama de contenedores del Sistema Bebras Bolivia}
+\label{fig:c4_contenedores_plataforma_bebras}
+\end{figure}
 
-La estructura funcional de la plataforma se organiza en torno a los actores que participan en el Desafío Bebras y a los módulos que materializan las principales capacidades del sistema. Esta división facilita la identificación de responsabilidades, permisos y flujos de interacción, además de proporcionar una base clara para el desarrollo incremental de la solución.
+El diagrama de contenedores muestra el flujo definitivo de la arquitectura. El CMS utiliza SQLite para almacenar usuarios del panel, publicaciones y respaldos, y escribe los archivos editoriales en el \textit{Content Store} basado en JSON y Markdown. Dicho almacén funciona como fuente del proceso de construcción del sitio informativo estático. Para la operación del concurso, el frontend consume por API REST el backend desarrollado con Express y TypeScript, que implementa la lógica de competencias, registro de participantes y evaluación, y persiste sus datos en MariaDB mediante Prisma.
+
+Esta visión permite que el sistema funcione como un entorno de concurso en línea y no únicamente como un sitio informativo. En consecuencia, la arquitectura debe responder a requisitos de autenticación, registro, configuración de pruebas, control de tiempos, almacenamiento de respuestas, generación de resultados y soporte a escenarios con conectividad limitada. La modularidad constituye, por tanto, una decisión central de diseño, ya que permite atender cada necesidad sin comprometer la coherencia global del sistema.
+
+\section{ESTRUCTURA FUNCIONAL DEL SISTEMA}
+
+La estructura funcional del sistema se organiza en torno a los actores que participan en el Desafío Bebras y a los módulos que materializan sus principales capacidades. Esta división facilita la identificación de responsabilidades, permisos y flujos de interacción, además de proporcionar una base clara para el desarrollo incremental de la solución.
 
 \subsection{Actores del sistema}
 
-Los actores del sistema representan los perfiles de usuario que interactúan con la plataforma durante las distintas etapas del concurso. Cada actor posee objetivos, responsabilidades y niveles de acceso diferenciados, por lo que la arquitectura funcional debe contemplar interfaces y permisos acordes con su rol.
+Los actores del sistema representan los perfiles de usuario que interactúan con el sistema durante las distintas etapas del concurso. Cada actor posee objetivos, responsabilidades y niveles de acceso diferenciados, por lo que la arquitectura funcional debe contemplar interfaces y permisos acordes con su rol.
 
-El \textbf{administrador u organizador} es el actor responsable de la configuración global de la plataforma y del concurso. Sus funciones comprenden la administración del contenido institucional, la creación y publicación de competencias, la gestión del banco de tareas, la supervisión de inscripciones, el seguimiento de la ejecución del concurso y la generación de resultados generales. Este actor requiere acceso a los módulos administrativos y a la información consolidada del sistema.
+\begin{itemize}
+    \item \textbf{Administrador u organizador:} responsable de la configuración global del sistema y del concurso. Sus funciones comprenden la administración del contenido institucional, la creación y publicación de competencias, la gestión del banco de tareas, la supervisión de inscripciones, el seguimiento de la ejecución del concurso y la generación de resultados generales. Este actor requiere acceso a los módulos administrativos y a la información consolidada del sistema.
 
-El \textbf{maestro} actúa como responsable operativo dentro de una unidad educativa. Su participación se centra en la inscripción o gestión de grupos de estudiantes, la distribución de códigos o enlaces de acceso, el acompañamiento durante la ejecución de la prueba y la consulta de resultados correspondientes a sus participantes. Su interacción con el sistema debe ser directa y guiada, evitando configuraciones complejas que no correspondan a su función.
+    \item \textbf{Maestro:} responsable operativo dentro de una unidad educativa. Su participación se centra en la inscripción o gestión de grupos de estudiantes, la distribución de códigos o enlaces de acceso, el acompañamiento durante la ejecución de la prueba y la consulta de resultados correspondientes a sus participantes. Su interacción con el sistema debe ser directa y guiada, evitando configuraciones complejas que no correspondan a su función.
 
-El \textbf{estudiante} es el participante principal del desafío. Su interacción con la plataforma se concentra en el acceso a la prueba, la lectura de tareas, la resolución de ejercicios y el envío de respuestas. Dado que este actor puede pertenecer a distintos niveles escolares y poseer grados variables de experiencia digital, la interfaz destinada a estudiantes debe priorizar claridad, simplicidad, continuidad de sesión y reducción de carga cognitiva.
+    \item \textbf{Estudiante:} participante principal del desafío. Su interacción con el sistema se concentra en el acceso a la prueba, la lectura de tareas, la resolución de ejercicios y el envío de respuestas. Dado que este actor puede pertenecer a distintos niveles escolares y poseer grados variables de experiencia digital, la interfaz destinada a estudiantes debe priorizar claridad, simplicidad, continuidad de sesión y reducción de carga cognitiva.
+\end{itemize}
 
 La delimitación de estos actores permite establecer una arquitectura orientada por responsabilidades. El administrador organiza y controla el concurso; el maestro articula la participación de su grupo; y el estudiante ejecuta la prueba. Esta separación contribuye a reducir errores operativos y a mantener flujos de interacción adecuados para cada perfil.
 
-\subsection{Módulos principales de la plataforma}
+\subsection{Módulos principales del sistema}
 
-La plataforma se estructura en cuatro módulos funcionales principales, alineados con los objetivos específicos del proyecto. Cada módulo agrupa un conjunto de procesos relacionados y se integra con los demás mediante información compartida, reglas de negocio y flujos operativos definidos.
+El sistema se estructura en cuatro módulos funcionales principales, alineados con los objetivos específicos del proyecto. Cada módulo agrupa un conjunto de procesos relacionados y se integra con los demás mediante información compartida, reglas de negocio y flujos operativos definidos.
 
 \begin{table}[H]
 \centering
-\caption[Módulos funcionales de la plataforma]{Módulos principales de la plataforma Bebras Bolivia}
+\caption[Módulos funcionales del sistema]{Módulos principales del Sistema Bebras Bolivia}
 \label{tab:modulos_plataforma}
 \renewcommand{\arraystretch}{1.25}
 \begin{tabular}{|p{3.4cm}|p{5.2cm}|p{5.2cm}|}
@@ -53,24 +77,64 @@ Estos módulos constituyen la base funcional de la arquitectura. El CMS atiende 
 
 \section{INTERACCIÓN GENERAL DEL SISTEMA}
 
-La interacción general del sistema se define por la relación entre actores, módulos y procesos. La plataforma no se limita a ofrecer funciones independientes, sino que organiza una secuencia de uso en la que cada actor accede a los módulos pertinentes según su responsabilidad dentro del concurso.
+La interacción general del sistema se define por la relación entre actores, módulos y procesos. El sistema no se limita a ofrecer funciones independientes, sino que organiza una secuencia de uso en la que cada actor accede a los módulos pertinentes según su responsabilidad dentro del concurso.
+
+La Figura \ref{fig:interaccion_actores_modulos} resume esta relación de manera funcional. El administrador u organizador opera los módulos de gestión; el maestro articula el registro y acompañamiento de sus estudiantes; y el estudiante interactúa principalmente con la evaluación. Además, el diagrama muestra las dependencias entre módulos: la gestión de competencias define las tareas y reglas de evaluación, mientras que el registro de participantes habilita los accesos necesarios para la ejecución de la prueba.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    actor/.style={rectangle, rounded corners=2pt, draw=black, line width=0.55pt, fill=gray!8, text width=2.8cm, minimum height=0.85cm, align=center, font=\footnotesize\bfseries},
+    modulo/.style={rectangle, rounded corners=2pt, draw=black, line width=0.55pt, fill=gray!4, text width=3.25cm, minimum height=0.85cm, align=center, font=\footnotesize},
+    moduloClave/.style={rectangle, rounded corners=2pt, draw=black, line width=0.7pt, fill=gray!12, text width=3.25cm, minimum height=0.95cm, align=center, font=\footnotesize\bfseries},
+    flujo/.style={-{Stealth[length=2.4mm]}, line width=0.5pt},
+    consulta/.style={-{Stealth[length=2.2mm]}, line width=0.45pt, dashed}
+]
+    \draw[rounded corners=4pt, draw=gray!65, line width=0.55pt] (2.55,-3.05) rectangle (11.25,3.05);
+    \node[font=\footnotesize\bfseries, fill=white, inner sep=2pt] at (6.9,3.05) {Sistema Bebras Bolivia};
+    \node[font=\footnotesize\bfseries] at (0,2.95) {Actores};
+
+    \node[actor] (maestro) at (0,2.15) {Maestro};
+    \node[actor] (admin) at (0,0.75) {Administrador\\u organizador};
+    \node[actor] (estudiante) at (0,-2.45) {Estudiante};
+
+    \node[modulo] (registro) at (4.75,2.15) {Registro de\\participantes};
+    \node[modulo] (contenido) at (4.75,0.75) {CMS y sitio\\informativo};
+    \node[modulo] (competencias) at (4.75,-0.65) {Gestión de\\competencias};
+    \node[moduloClave] (evaluacion) at (9.1,-0.65) {Evaluación\\digital e imprimible};
+
+    \draw[flujo] (maestro.east) -- (registro.west);
+    \draw[consulta] (maestro.east) -- ++(1.05,0) |- (contenido.west);
+
+    \draw[flujo] (admin.east) -- (contenido.west);
+    \draw[flujo] (admin.east) -- ++(0.45,0) |- (competencias.west);
+
+    \draw[flujo] (registro.east) -- ++(0.8,0) -| (evaluacion.north);
+    \draw[flujo] (competencias.east) -- (evaluacion.west);
+    \draw[flujo] (estudiante.east) -- ++(6.0,0) -| (evaluacion.south);
+\end{tikzpicture}%
+\caption[Interacción entre actores y módulos]{Interacción funcional entre actores y módulos del Sistema Bebras Bolivia}
+\label{fig:interaccion_actores_modulos}
+\end{figure}
 
 \subsection{Relación entre actores y módulos}
 
-La relación entre actores y módulos permite identificar los niveles de participación de cada perfil dentro de la plataforma. El administrador posee una interacción amplia, debido a que coordina la configuración y operación general del concurso y es el único actor con acceso al panel CMS. El maestro participa principalmente en el registro de grupos y seguimiento de estudiantes, además de consultar la información publicada en el sitio informativo. El estudiante interactúa de manera directa con el módulo de evaluación y consulta la información pública del desafío, pero no accede al CMS.
+La relación entre actores y módulos permite identificar los niveles de participación de cada perfil dentro del sistema. El administrador posee una interacción amplia, debido a que coordina la configuración y operación general del concurso y es el único actor con acceso al panel CMS. El maestro participa principalmente en el registro de grupos y seguimiento de estudiantes, además de consultar la información publicada en el sitio informativo. El estudiante interactúa de manera directa con el módulo de evaluación y consulta la información pública del desafío, pero no accede al CMS.
 
 \begin{table}[H]
 \centering
-\caption[Relación entre actores y módulos]{Relación funcional entre actores del sistema y módulos de la plataforma}
+\caption[Relación entre actores y módulos]{Relación funcional entre actores y módulos del sistema}
 \label{tab:actores_modulos}
-\renewcommand{\arraystretch}{1.25}
-\begin{tabular}{|p{2.4cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.18}
+\begin{tabularx}{\textwidth}{|>{\RaggedRight\arraybackslash}p{2.2cm}|>{\RaggedRight\arraybackslash}X|>{\RaggedRight\arraybackslash}X|>{\RaggedRight\arraybackslash}X|>{\RaggedRight\arraybackslash}X|}
 \hline
 \textbf{Actor} & \textbf{CMS} & \textbf{Gestión de competencias} & \textbf{Registro de participantes} & \textbf{Evaluación} \\ \hline
 Administrador u organizador & Accede al CMS para administrar contenido institucional, noticias, recursos públicos y publicación del sitio informativo. & Crea competencias, organiza tareas, define categorías y publica pruebas. & Supervisa instituciones, maestros, grupos y participantes inscritos. & Configura criterios, monitorea ejecución, consolida resultados y exporta información. \\ \hline
 Maestro & No accede al CMS; consulta convocatorias, guías y material informativo mediante el sitio informativo. & Consulta competencias disponibles para su unidad educativa o grupo. & Registra o administra grupos y estudiantes a su cargo. & Distribuye accesos, acompaña la participación y consulta resultados de sus estudiantes. \\ \hline
 Estudiante & No accede al CMS; consulta información general mediante el sitio informativo cuando corresponde. & Accede de forma indirecta a una competencia publicada. & Utiliza los datos de acceso asignados a su grupo o participación. & Resuelve tareas, guarda respuestas y finaliza la prueba. \\ \hline
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 Esta matriz funcional permite observar que los módulos no se diseñan con el mismo grado de exposición para todos los usuarios. El CMS queda restringido al administrador u organizador, mientras que maestros y estudiantes acceden únicamente al sitio informativo publicado y al frontend del concurso según su rol. Algunas capacidades son administrativas y requieren control de permisos, mientras que otras deben estar disponibles de forma simple y directa para participantes con menor experiencia técnica. Esta diferenciación resulta esencial para preservar la seguridad del sistema y, al mismo tiempo, facilitar la participación.
@@ -85,15 +149,15 @@ En tercer lugar, el módulo de registro de participantes vincula las competencia
 
 Finalmente, el módulo de evaluación utiliza la información previamente configurada para presentar las tareas a los estudiantes, registrar sus respuestas y calcular resultados. En los casos en que la conectividad sea limitada, el sistema contempla la generación de formatos imprimibles como mecanismo complementario, permitiendo que la evaluación no dependa exclusivamente de una sesión digital continua.
 
-La integración entre módulos se basa en una lógica de dependencia funcional. La evaluación requiere competencias publicadas y participantes registrados; el registro requiere una convocatoria o competencia disponible; y la comunicación pública se alimenta de la planificación institucional del concurso. De esta forma, la plataforma mantiene un flujo coherente entre comunicación, configuración, inscripción, ejecución y resultados.
+La integración entre módulos se basa en una lógica de dependencia funcional. La evaluación requiere competencias publicadas y participantes registrados; el registro requiere una convocatoria o competencia disponible; y la comunicación pública se alimenta de la planificación institucional del concurso. De esta forma, el sistema mantiene un flujo coherente entre comunicación, configuración, inscripción, ejecución y resultados.
 
 \section{FLUJO OPERATIVO DEL DESAFÍO}
 
-El flujo operativo del Desafío Bebras describe la forma en que la plataforma acompaña el proceso completo del concurso. Este flujo integra actividades previas, actividades durante la ejecución y actividades posteriores a la evaluación, de modo que el sistema pueda sostener tanto la preparación administrativa como la experiencia de participación de los estudiantes.
+El flujo operativo del Desafío Bebras describe la forma en que el sistema acompaña el proceso completo del concurso. Este flujo integra actividades previas, actividades durante la ejecución y actividades posteriores a la evaluación, de modo que el sistema pueda sostener tanto la preparación administrativa como la experiencia de participación de los estudiantes.
 
 \subsection{Proceso general de funcionamiento}
 
-El funcionamiento general de la plataforma inicia con la preparación institucional del desafío. En esta etapa, el administrador actualiza el contenido desde el CMS, publica la convocatoria, incorpora recursos de orientación y habilita la información necesaria para maestros e instituciones. El CMS guarda los cambios en el \textit{Content Store}, desde donde se construye el sitio informativo estático servido por Apache. Esta fase cumple una función comunicacional, ya que establece las condiciones de participación y facilita la difusión del concurso.
+El funcionamiento general del sistema inicia con la preparación institucional del desafío. En esta etapa, el administrador actualiza el contenido desde el CMS, publica la convocatoria, incorpora recursos de orientación y habilita la información necesaria para maestros e instituciones. El CMS guarda los cambios en el \textit{Content Store}, desde donde se construye el sitio informativo estático servido por Apache. Esta fase cumple una función comunicacional, ya que establece las condiciones de participación y facilita la difusión del concurso.
 
 Posteriormente, el administrador configura la competencia en el módulo correspondiente. Esta configuración incluye la definición de categorías, niveles, fechas, duración, tareas y criterios de evaluación. La competencia se considera operativamente disponible cuando su estructura ha sido validada y publicada para su uso por maestros o unidades educativas.
 
@@ -105,7 +169,7 @@ La etapa final comprende la revisión, consolidación y consulta de resultados. 
 
 \subsection{Secuencia operativa del concurso}
 
-La secuencia operativa del concurso organiza el proceso en pasos consecutivos que representan el recorrido funcional esperado de la plataforma. Aunque algunos pasos pueden variar según la modalidad de participación o las decisiones organizativas de cada edición, la secuencia general se mantiene estable.
+La secuencia operativa del concurso organiza el proceso en pasos consecutivos que representan el recorrido funcional esperado del sistema. Aunque algunos pasos pueden variar según la modalidad de participación o las decisiones organizativas de cada edición, la secuencia general se mantiene estable.
 
 \begin{enumerate}
     \item El administrador actualiza el contenido público del sitio, incluyendo convocatoria, fechas, orientaciones y recursos de apoyo para maestros e instituciones.
@@ -120,41 +184,5 @@ La secuencia operativa del concurso organiza el proceso en pasos consecutivos qu
     \item El administrador revisa resultados generales, mientras que el maestro consulta los resultados asociados a sus estudiantes o grupos.
 \end{enumerate}
 
-Esta secuencia expresa un flujo lineal de referencia, pero la arquitectura modular permite que determinadas actividades se realicen de manera paralela. Por ejemplo, la preparación de contenido institucional puede continuar mientras se ajusta el banco de tareas, y el registro de participantes puede desarrollarse mientras la organización revisa aspectos operativos de la competencia. La separación de módulos facilita esta flexibilidad sin perder trazabilidad.
-
-\section{ARQUITECTURA DEL SISTEMA SEGÚN EL MODELO C4}
-
-La descripción funcional anterior se sintetiza mediante el modelo C4, que permite representar la plataforma desde distintos niveles de abstracción. En este capítulo se emplean únicamente los niveles de contexto y contenedores, porque el propósito es explicar la arquitectura general del sistema y no el diseño interno de cada componente. Estas vistas permiten relacionar actores, responsabilidades y unidades tecnológicas principales sin incorporar detalle de implementación.
-
-\subsection{Nivel 1: contexto del sistema}
-
-El nivel de contexto ubica a la Plataforma Bebras Bolivia como el sistema central de interacción para la organización y ejecución del desafío. En este nivel se identifican los tres actores principales: administrador u organizador, maestro y estudiante. La representación sintetiza las relaciones funcionales que cada uno mantiene con el sistema y distingue el acceso administrativo de la consulta pública y de la participación en el concurso.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.85\textwidth]{diagramas/C1_Contexto.png}
-\caption[Contexto de la Plataforma Bebras Bolivia]{Diagrama de contexto de la Plataforma Bebras Bolivia}
-\vspace{-0.2cm}
-{\small Fuente: elaboración propia.}
-\label{fig:c4_contexto_plataforma_bebras}
-\end{figure}
-
-El diagrama muestra que la plataforma concentra las funciones necesarias para coordinar el ciclo operativo del concurso. El administrador u organizador se relaciona con el CMS, el sitio informativo y el frontend del concurso; el maestro consulta el sitio informativo y utiliza el frontend del concurso para gestionar su participación; y el estudiante consulta la información pública y accede al concurso mediante el frontend correspondiente. Esta separación de actores permite delimitar responsabilidades y niveles de acceso dentro de la solución, especialmente porque el acceso al CMS queda reservado exclusivamente al administrador.
-
-\subsection{Nivel 2: contenedores}
-
-El nivel de contenedores describe la organización interna de la Plataforma Bebras Bolivia desde una perspectiva tecnológica general. En este nivel se representan el CMS, la base de datos del CMS, el \textit{Content Store}, el sitio informativo estático, el frontend del concurso, el backend del concurso y la base de datos del concurso. Apache se interpreta como capa de publicación del sistema, no como contenedor de la arquitectura funcional.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{diagramas/C2_Contenedores.png}
-\caption[Contenedores de la Plataforma Bebras Bolivia]{Diagrama de contenedores de la Plataforma Bebras Bolivia}
-\vspace{-0.2cm}
-{\small Fuente: elaboración propia.}
-\label{fig:c4_contenedores_plataforma_bebras}
-\end{figure}
-
-El diagrama de contenedores muestra el flujo definitivo de la arquitectura. El administrador accede al CMS, implementado con Astro y React, para editar y publicar contenido. Este CMS utiliza SQLite para almacenar usuarios del panel, publicaciones y respaldos, y escribe los archivos editoriales en el \textit{Content Store} basado en JSON y Markdown. Dicho almacén funciona como fuente del proceso de construcción del sitio informativo, que se genera como sitio estático SSG con Astro y React y se publica mediante Apache. Maestros y estudiantes no acceden al CMS; consultan el sitio informativo ya publicado. Para la operación del concurso, los tres actores acceden al frontend del concurso, el cual consume por API REST el backend desarrollado con Express y TypeScript. Este backend implementa la lógica de competencias, registro de participantes y evaluación, y persiste sus datos en MariaDB mediante Prisma.
-
-En síntesis, la arquitectura separa la comunicación pública, la administración de contenido y la operación del concurso en contenedores con responsabilidades diferenciadas. Esta separación permite mantener bases de datos independientes para el CMS y el concurso, delimitar accesos por tipo de actor y facilitar la evolución posterior de cada módulo sin comprometer el funcionamiento general de la plataforma.
+Esta secuencia expresa un flujo lineal de referencia, pero la arquitectura modular permite que determinadas actividades se realicen de manera paralela. Por ejemplo, la preparación de contenido institucional puede continuar mientras se ajusta el banco de tareas, y el registro de participantes puede desarrollarse mientras la organización revisa aspectos operativos de la competencia. La separación entre comunicación pública, administración de contenido y operación del concurso facilita esta flexibilidad sin perder trazabilidad ni comprometer el funcionamiento general del sistema.
 

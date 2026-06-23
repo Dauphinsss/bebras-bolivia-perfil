@@ -1,6 +1,6 @@
 \chapter{MÓDULO DE GESTIÓN DE CONTENIDO Y SITIO INFORMATIVO}
 
-El módulo de gestión de contenido y sitio informativo constituye el componente encargado de administrar la presencia pública de Bebras Bolivia. Su alcance no se limita al panel CMS, sino que incluye también el sitio informativo mediante el cual visitantes, estudiantes, maestros, coordinadores e instituciones pueden consultar información oficial sobre el desafío.
+El módulo de gestión de contenido y sitio informativo constituye el componente encargado de administrar la presencia pública de Bebras Bolivia. Su alcance no se limita al panel CMS, sino que incluye también el sitio informativo mediante el cual visitantes, estudiantes, maestros responsables e instituciones pueden consultar información oficial sobre el desafío.
 
 El módulo integra dos dimensiones complementarias. La primera corresponde al sitio público, compuesto por páginas informativas, navegación, contenido institucional, preguntas frecuentes, información para estudiantes y maestros, patrocinadores, contacto, registro informativo y publicaciones. La segunda corresponde al panel administrativo, desde el cual se puede editar contenido, administrar publicaciones, manejar imágenes, previsualizar cambios, crear respaldos, restaurar contenido y publicar el sitio.
 
@@ -56,7 +56,7 @@ Las tareas relacionadas descomponen historias amplias en actividades concretas d
 CMS-01-01 & CMS-01 & Mostrar información general del desafío & Iteración 1 \\ \hline
 CMS-01-02 & CMS-01 & Mostrar categorías de participación por edad & Iteración 1 \\ \hline
 CMS-01-03 & CMS-01 & Mostrar información para estudiantes & Iteración 1 \\ \hline
-CMS-01-04 & CMS-01 & Mostrar información para maestros y coordinadores & Iteración 1 \\ \hline
+CMS-01-04 & CMS-01 & Mostrar información para maestros responsables e instituciones & Iteración 1 \\ \hline
 CMS-01-05 & CMS-01 & Mostrar sistema de puntuación & Iteración 1 \\ \hline
 CMS-01-06 & CMS-01 & Mostrar preguntas frecuentes & Iteración 1 \\ \hline
 CMS-01-07 & CMS-01 & Mostrar patrocinadores e instituciones organizadoras & Iteración 1 \\ \hline
@@ -162,13 +162,13 @@ La planificación de la Iteración 1 consideró cuatro historias principales. La
         \rowcolor{purplet!30}
         \multicolumn{2}{|l|}{Usuario: Visitante del sitio} & Prioridad = 1 & Esf. = 13 \\
         \hline
-        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
+        \multicolumn{4}{|l|}{\textbf{Descripción:}} \\
         \multicolumn{4}{|p{14cm}|}{Como visitante del sitio, quiero consultar la información pública del Desafío Bebras Bolivia, para conocer el objetivo del desafío, las condiciones de participación y los canales oficiales de información.} \\
         \hline
         \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
         \multicolumn{4}{|p{14cm}|}{$\bullet$ Se muestra una página de inicio con la información principal del desafío.}\\
         \multicolumn{4}{|p{14cm}|}{$\bullet$ Se muestran categorías de participación por edad.}\\
-        \multicolumn{4}{|p{14cm}|}{$\bullet$ Se muestra información diferenciada para estudiantes, maestros y coordinadores.}\\
+        \multicolumn{4}{|p{14cm}|}{$\bullet$ Se muestra información diferenciada para estudiantes, maestros responsables e instituciones.}\\
         \multicolumn{4}{|p{14cm}|}{$\bullet$ Se muestra el sistema de puntuación, preguntas frecuentes, patrocinadores y canales de contacto.}\\
         \multicolumn{4}{|p{14cm}|}{$\bullet$ Se muestra el estado informativo del registro y los enlaces de navegación correspondientes.}\\
         \hline
@@ -187,7 +187,7 @@ La planificación de la Iteración 1 consideró cuatro historias principales. La
         \rowcolor{purplet!30}
         \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 1 & Esf. = 5 \\
         \hline
-        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
+        \multicolumn{4}{|l|}{\textbf{Descripción:}} \\
         \multicolumn{4}{|p{14cm}|}{Como administrador del sitio, quiero ingresar al panel de administración mediante credenciales, para proteger la edición del contenido público de Bebras Bolivia.} \\
         \hline
         \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
@@ -212,7 +212,7 @@ La planificación de la Iteración 1 consideró cuatro historias principales. La
         \rowcolor{purplet!30}
         \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 1 & Esf. = 13 \\
         \hline
-        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
+        \multicolumn{4}{|l|}{\textbf{Descripción:}} \\
         \multicolumn{4}{|p{14cm}|}{Como administrador del sitio, quiero modificar el contenido de las páginas informativas desde el panel de administración, para mantener actualizada la información pública del desafío.} \\
         \hline
         \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
@@ -237,7 +237,7 @@ La planificación de la Iteración 1 consideró cuatro historias principales. La
         \rowcolor{purplet!30}
         \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 1 & Esf. = 8 \\
         \hline
-        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
+        \multicolumn{4}{|l|}{\textbf{Descripción:}} \\
         \multicolumn{4}{|p{14cm}|}{Como administrador del sitio, quiero revisar los cambios del sitio en una vista previa, para verificar el contenido antes de publicarlo.} \\
         \hline
         \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
@@ -252,7 +252,7 @@ La planificación de la Iteración 1 consideró cuatro historias principales. La
 
 \subsection{Diseño}
 
-El diseño de la Iteración 1 se centró en separar el contenido editable de la presentación visual del sitio. Esta decisión permitió que el sitio informativo funcionara como una landing pública generada a partir de contenido estructurado, mientras que el panel CMS quedó encargado de modificar, organizar y previsualizar dicho contenido antes de su publicación.
+El diseño de la Iteración 1 se centró en separar el contenido editable de la presentación visual del sitio. Esta decisión permitió que el sitio informativo funcionara como una sección pública generada a partir de contenido estructurado, mientras que el panel CMS quedó encargado de modificar, organizar y previsualizar dicho contenido antes de su publicación.
 
 Desde el enfoque XP, el diseño se mantuvo simple e incremental. No se incorporó una arquitectura compleja de gestión de contenido desde el inicio; se definió un flujo directo entre el administrador, el panel CMS, el almacén de contenido y el sitio público. Esta estructura permitió entregar valor en la iteración sin acoplar el contenido a las páginas del sitio.
 
@@ -269,7 +269,7 @@ Desde el enfoque XP, el diseño se mantuvo simple e incremental. No se incorpor�
 
 \subsubsection{Arquitectura por capas orientada a contenido}
 
-El módulo no se diseñó como una aplicación MVC, MVVM o HMVC-PAC estricta. En el caso del CMS, la solución combina una landing pública, una interfaz administrativa, servicios de contenido y un almacén estructurado. Por ello, la organización más adecuada fue una arquitectura por capas orientada a contenido, donde cada capa cumple una responsabilidad clara y se comunica con la siguiente mediante datos estructurados.
+El módulo no se diseñó como una aplicación MVC, MVVM o HMVC-PAC estricta. En el caso del CMS, la solución combina un sitio informativo público, una interfaz administrativa, servicios de contenido y un almacén estructurado. Por ello, la organización más adecuada fue una arquitectura por capas orientada a contenido, donde cada capa cumple una responsabilidad clara y se comunica con la siguiente mediante datos estructurados.
 
 \input{content/graficos_cms/cms_capas_i1}
 
@@ -282,7 +282,7 @@ El módulo no se diseñó como una aplicación MVC, MVVM o HMVC-PAC estricta. En
 Presentación pública & Renderizar las páginas informativas y mostrar el contenido organizado por secciones & Sitio visible con información general, categorías, estudiantes, maestros, puntuación, preguntas frecuentes, patrocinadores, contacto y registro informativo \\ \hline
 Interfaz administrativa & Permitir que el administrador acceda al panel y edite contenido mediante formularios y controles visuales & Panel protegido con navegación interna, editor de contenido y acciones de guardado o vista previa \\ \hline
 Servicios del CMS & Procesar solicitudes del panel, controlar acceso, leer contenido, guardar cambios y preparar vista previa & API administrativa para autenticación, edición de contenido y previsualización \\ \hline
-Almacén de contenido & Conservar la información editable en una estructura independiente de la presentación visual & Contenido reutilizable por el panel CMS y por la landing pública \\ \hline
+Almacén de contenido & Conservar la información editable en una estructura independiente de la presentación visual & Contenido reutilizable por el panel CMS y por el sitio informativo público \\ \hline
 \end{tabular}
 \caption[Capas de diseño de la Iteración 1]{Capas de diseño adoptadas durante la Iteración 1}
 \label{tab:capas_diseno_iteracion_1}
@@ -308,7 +308,7 @@ Mantener el acceso administrativo protegido & Restringe la edición del contenid
 
 \subsubsection{Arquitectura de contenido editable}
 
-La primera decisión de diseño fue tratar el contenido del sitio como información estructurada y no como texto fijo dentro de las páginas. El administrador modifica el contenido desde el panel CMS; el sistema guarda esos cambios en un almacén de contenido editable y luego sincroniza una versión consumible por la landing pública. De esta forma, el sitio puede mostrar información actualizada sin que el administrador tenga que modificar directamente la implementación visual.
+La primera decisión de diseño fue tratar el contenido del sitio como información estructurada y no como texto fijo dentro de las páginas. El administrador modifica el contenido desde el panel CMS; el sistema guarda esos cambios en un almacén de contenido editable y luego sincroniza una versión consumible por el sitio informativo público. De esta forma, el sitio puede mostrar información actualizada sin que el administrador tenga que modificar directamente la implementación visual.
 
 \input{content/graficos_cms/cms_contenido_editable_i1}
 
@@ -345,7 +345,7 @@ La implementación se organizó en unidades diferenciadas para mantener separado
 \hline
 \textbf{Unidad de implementación} & \textbf{Contenido principal} & \textbf{Uso dentro de la iteración} \\ \hline
 Sitio público & Páginas, layout, navegación y componentes visuales & Presentar la información pública del desafío y las secciones informativas \\ \hline
-Contenido editable & Datos estructurados, textos, secciones y configuración de páginas & Alimentar la landing y permitir su modificación desde el CMS \\ \hline
+Contenido editable & Datos estructurados, textos, secciones y configuración de páginas & Alimentar el sitio informativo y permitir su modificación desde el CMS \\ \hline
 Backend CMS & Autenticación, lectura de contenido, guardado y vista previa & Atender las operaciones administrativas protegidas \\ \hline
 Frontend CMS & Panel, editor, árbol de contenido y acciones de usuario & Permitir la edición visual del contenido por parte del administrador \\ \hline
 Scripts de apoyo & Ejecución local, construcción y sincronización de contenido & Facilitar el desarrollo y la generación del sitio \\ \hline
@@ -358,7 +358,7 @@ Esta organización es coherente con XP porque permitió implementar únicamente 
 
 \subsubsection{Desarrollo del sitio informativo}
 
-Para la historia CMS-01 se implementó la base pública del sitio informativo. El sitio fue construido como una landing compuesta por páginas y secciones reutilizables, de modo que la información principal del Desafío Bebras Bolivia pudiera presentarse de forma ordenada. La implementación incluyó contenido general del desafío, categorías de participación por edad, secciones para estudiantes, secciones para maestros y coordinadores, sistema de puntuación, preguntas frecuentes, patrocinadores, contacto institucional, estado informativo del registro y navegación entre páginas.
+Para la historia CMS-01 se implementó la base pública del sitio informativo. El sitio fue construido como un conjunto de páginas y secciones reutilizables, de modo que la información principal del Desafío Bebras Bolivia pudiera presentarse de forma ordenada. La implementación incluyó contenido general del desafío, categorías de participación por edad, secciones para estudiantes, secciones para maestros responsables e instituciones, sistema de puntuación, preguntas frecuentes, patrocinadores, contacto institucional, estado informativo del registro y navegación entre páginas.
 
 El desarrollo del sitio público se apoyó en un modelo de contenido estructurado. En lugar de escribir cada texto directamente dentro de las vistas, las páginas reciben datos organizados y los transforman en bloques visuales. Esta decisión reduce duplicación, facilita la actualización posterior del contenido y permite que el CMS pueda modificar información sin alterar la presentación base del sitio.
 
@@ -411,6 +411,26 @@ Prettier & Formato automático para conservar consistencia visual en la base de 
 
 \subsection{Pruebas}
 
+Las pruebas de la Iteración 1 se ejecutaron manualmente sobre el sitio informativo y el panel de administración. De acuerdo con la clasificación de \textcite{romero2025evaluacion}, se aplicaron pruebas de caja negra para validar el comportamiento observable, pruebas de humo para comprobar que las funciones principales estuvieran disponibles y pruebas de aceptación para contrastar el resultado con los criterios de las historias CMS-01 a CMS-04.
+
+\begin{table}[H]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{2pt}
+\renewcommand{\arraystretch}{1.18}
+\begin{tabularx}{\textwidth}{|>{\RaggedRight\arraybackslash}p{1.55cm}|>{\RaggedRight\arraybackslash}p{2cm}|>{\RaggedRight\arraybackslash}X|>{\RaggedRight\arraybackslash}X|>{\RaggedRight\arraybackslash}p{1.75cm}|}
+\hline
+\textbf{Historia} & \textbf{Tipo} & \textbf{Escenario ejecutado} & \textbf{Criterio de aprobación} & \textbf{Resultado} \\ \hline
+CMS-01 & Caja negra & Navegación del sitio informativo público & El visitante accedió a las secciones principales del desafío desde la navegación pública & Aprobado \\ \hline
+CMS-02 & Caja negra & Inicio y cierre de sesión en el panel administrativo & El sistema permitió el ingreso con credenciales válidas y restringió el acceso no autorizado & Aprobado \\ \hline
+CMS-03 & Caja negra & Edición y guardado de páginas informativas & El administrador modificó contenido estructurado y el sistema conservó la información guardada & Aprobado \\ \hline
+CMS-04 & Aceptación & Revisión de cambios mediante vista previa & Los cambios se revisaron antes de afectar la versión publicada del sitio & Aprobado \\ \hline
+CMS-01 a CMS-04 & Humo & Verificación general al cierre de la iteración & El sitio público, el acceso administrativo, la edición y la vista previa estuvieron disponibles & Aprobado \\ \hline
+\end{tabularx}
+\caption[Pruebas de la Iteración 1 del CMS]{Pruebas manuales ejecutadas durante la Iteración 1}
+\label{tab:pruebas_cms_i1}
+\end{table}
+
 \section{ITERACIÓN 2}
 
 La segunda iteración completó el ciclo editorial del CMS. Una vez validada la edición de páginas informativas, el trabajo se orientó a contenido dinámico de publicaciones, administración de imágenes, respaldo del estado del sitio, restauración de versiones y publicación controlada.
@@ -432,7 +452,7 @@ La Iteración 2 incluyó nueve historias principales. Las historias CMS-05 y CMS
         \rowcolor{purplet!30}
         \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 1 & Esf. = 5 \\
         \hline
-        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
+        \multicolumn{4}{|l|}{\textbf{Descripción:}} \\
         \multicolumn{4}{|p{13.9cm}|}{Como administrador del sitio, quiero crear publicaciones informativas, para comunicar novedades y anuncios relacionados con Bebras Bolivia.} \\
         \hline
         \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
@@ -456,7 +476,7 @@ La Iteración 2 incluyó nueve historias principales. Las historias CMS-05 y CMS
         \rowcolor{purplet!30}
         \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 1 & Esf. = 8 \\
         \hline
-        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
+        \multicolumn{4}{|l|}{\textbf{Descripción:}} \\
         \multicolumn{4}{|p{13.9cm}|}{Como administrador del sitio, quiero editar publicaciones informativas existentes, para corregir o actualizar noticias publicadas en el sitio.} \\
         \hline
         \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
@@ -481,7 +501,7 @@ La Iteración 2 incluyó nueve historias principales. Las historias CMS-05 y CMS
         \rowcolor{purplet!30}
         \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 2 & Esf. = 5 \\
         \hline
-        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
+        \multicolumn{4}{|l|}{\textbf{Descripción:}} \\
         \multicolumn{4}{|p{13.9cm}|}{Como administrador del sitio, quiero manejar imágenes para publicaciones informativas, para complementar visualmente las noticias del sitio.} \\
         \hline
         \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
@@ -505,7 +525,7 @@ La Iteración 2 incluyó nueve historias principales. Las historias CMS-05 y CMS
         \rowcolor{purplet!30}
         \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 1 & Esf. = 5 \\
         \hline
-        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
+        \multicolumn{4}{|l|}{\textbf{Descripción:}} \\
         \multicolumn{4}{|p{13.9cm}|}{Como administrador del sitio, quiero revisar una vista previa de la publicación durante su edición, para verificar su contenido antes de guardarla.} \\
         \hline
         \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
@@ -529,7 +549,7 @@ La Iteración 2 incluyó nueve historias principales. Las historias CMS-05 y CMS
         \rowcolor{purplet!30}
         \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 1 & Esf. = 5 \\
         \hline
-        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
+        \multicolumn{4}{|l|}{\textbf{Descripción:}} \\
         \multicolumn{4}{|p{13.9cm}|}{Como administrador del sitio, quiero crear respaldos del contenido, para conservar estados recuperables del sitio informativo.} \\
         \hline
         \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
@@ -553,7 +573,7 @@ La Iteración 2 incluyó nueve historias principales. Las historias CMS-05 y CMS
         \rowcolor{purplet!30}
         \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 1 & Esf. = 8 \\
         \hline
-        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
+        \multicolumn{4}{|l|}{\textbf{Descripción:}} \\
         \multicolumn{4}{|p{13.9cm}|}{Como administrador del sitio, quiero restaurar contenido desde un respaldo, para recuperar una versión anterior del sitio cuando sea necesario.} \\
         \hline
         \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
@@ -577,7 +597,7 @@ La Iteración 2 incluyó nueve historias principales. Las historias CMS-05 y CMS
         \rowcolor{purplet!30}
         \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 2 & Esf. = 5 \\
         \hline
-        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
+        \multicolumn{4}{|l|}{\textbf{Descripción:}} \\
         \multicolumn{4}{|p{13.9cm}|}{Como administrador del sitio, quiero transferir respaldos del contenido, para conservar copias externas o incorporar respaldos previamente generados.} \\
         \hline
         \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
@@ -601,7 +621,7 @@ La Iteración 2 incluyó nueve historias principales. Las historias CMS-05 y CMS
         \rowcolor{purplet!30}
         \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 1 & Esf. = 8 \\
         \hline
-        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
+        \multicolumn{4}{|l|}{\textbf{Descripción:}} \\
         \multicolumn{4}{|p{13.9cm}|}{Como administrador del sitio, quiero publicar cambios del sitio informativo, para actualizar la versión visible para los visitantes.} \\
         \hline
         \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
@@ -626,7 +646,7 @@ La Iteración 2 incluyó nueve historias principales. Las historias CMS-05 y CMS
         \rowcolor{purplet!30}
         \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 2 & Esf. = 5 \\
         \hline
-        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
+        \multicolumn{4}{|l|}{\textbf{Descripción:}} \\
         \multicolumn{4}{|p{13.9cm}|}{Como administrador del sitio, quiero programar la publicación del sitio informativo, para aplicar cambios en una fecha y hora definidas.} \\
         \hline
         \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
@@ -735,6 +755,27 @@ Publicación programada & Registro de fecha, autor y estado de ejecución en SQL
 
 \subsection{Pruebas}
 
+En la Iteración 2 se ejecutaron pruebas manuales orientadas al ciclo editorial completo del CMS. Se aplicaron pruebas de caja negra para verificar operaciones visibles del administrador, pruebas de aceptación para validar el cumplimiento de las historias desarrolladas, pruebas de humo para revisar la disponibilidad de las funciones principales y pruebas de regresión básica para comprobar que las capacidades de la Iteración 1 continuaran operativas después de incorporar publicaciones, imágenes, respaldos y publicación del sitio.
+
+\begin{table}[H]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{2pt}
+\renewcommand{\arraystretch}{1.18}
+\begin{tabularx}{\textwidth}{|>{\RaggedRight\arraybackslash}p{1.55cm}|>{\RaggedRight\arraybackslash}p{2cm}|>{\RaggedRight\arraybackslash}X|>{\RaggedRight\arraybackslash}X|>{\RaggedRight\arraybackslash}p{1.75cm}|}
+\hline
+\textbf{Historia} & \textbf{Tipo} & \textbf{Escenario ejecutado} & \textbf{Criterio de aprobación} & \textbf{Resultado} \\ \hline
+CMS-05 y CMS-06 & Caja negra & Creación y edición de publicaciones informativas & El administrador registró, modificó y guardó publicaciones con sus metadatos principales & Aprobado \\ \hline
+CMS-07 & Caja negra & Carga y validación de imágenes para publicaciones & El sistema aceptó imágenes permitidas, rechazó archivos no válidos y generó rutas utilizables & Aprobado \\ \hline
+CMS-08 & Aceptación & Vista previa de publicaciones antes del guardado & La publicación se revisó antes de guardarse y la vista previa reflejó los cambios realizados & Aprobado \\ \hline
+CMS-09 a CMS-11 & Caja negra & Respaldo, restauración y transferencia de contenido & El administrador generó respaldos, restauró contenido y transfirió copias del estado editorial & Aprobado \\ \hline
+CMS-12 y CMS-13 & Humo & Publicación inmediata y publicación programada & El sistema permitió revisar cambios pendientes, publicar el sitio y cancelar publicaciones programadas & Aprobado \\ \hline
+CMS-01 a CMS-13 & Regresión básica & Revisión de funciones previas después del ciclo editorial & El acceso, la navegación, la edición y la vista previa continuaron operativos & Aprobado \\ \hline
+\end{tabularx}
+\caption[Pruebas de la Iteración 2 del CMS]{Pruebas manuales ejecutadas durante la Iteración 2}
+\label{tab:pruebas_cms_i2}
+\end{table}
+
 \section{SÍNTESIS DEL MÓDULO}
 
-El módulo de gestión de contenido y sitio informativo permitió establecer la base pública de Bebras Bolivia y un panel de administración para mantener actualizado su contenido. A través de las iteraciones documentadas, el sistema incorporó páginas informativas, acceso protegido, edición de contenido, vista previa, publicaciones, manejo de imágenes, respaldos y publicación del sitio. Estas capacidades constituyen la base comunicacional del sistema y se integran con los demás módulos al proporcionar información oficial para participantes, maestros, coordinadores e instituciones interesadas.
+El módulo de gestión de contenido y sitio informativo permitió establecer la base pública de Bebras Bolivia y un panel de administración para mantener actualizado su contenido. A través de las iteraciones documentadas, el sistema incorporó páginas informativas, acceso protegido, edición de contenido, vista previa, publicaciones, manejo de imágenes, respaldos y publicación del sitio. Estas capacidades constituyen la base comunicacional del sistema y se integran con los demás módulos al proporcionar información oficial para participantes, maestros responsables e instituciones interesadas.
