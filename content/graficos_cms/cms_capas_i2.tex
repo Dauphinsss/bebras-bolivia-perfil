@@ -1,0 +1,24 @@
+\begin{figure}[H]
+\centering
+\resizebox{0.68\textwidth}{!}{%
+\begin{tikzpicture}[node distance=0.85cm]
+    \node[cmsactor, minimum width=4.9cm, text width=4.6cm] (user) {Visitantes y\\administradores};
+    \node[cmssystem, below=of user, minimum width=4.9cm, text width=4.6cm] (presentation) {Presentación pública\\e interfaz CMS};
+    \node[cmscontainer, below=of presentation, minimum width=4.9cm, text width=4.6cm] (services2) {Servicios CMS\\contenido, blog, media,\\respaldos y publicación};
+    \node[cmsdocument, below left=1cm and -0.2cm of services2, minimum width=3.1cm, text width=2.8cm] (contentstore) {Content Store\\JSON, Markdown\\e imágenes};
+    \draw[black] ([xshift=-0.3cm]contentstore.north east) -- (contentstore.north east) -- ([yshift=-0.3cm]contentstore.north east);
+    \draw[black] ([xshift=-0.3cm]contentstore.north east) -- ([yshift=-0.3cm]contentstore.north east);
+    \node[cmsstore, below right=1cm and -0.2cm of services2, minimum width=2.8cm] (sqlite) {SQLite\\operativo};
+
+    \draw[cmsarrow] (user) -- node[right, font=\scriptsize] {consulta o administra} (presentation);
+    \draw[cmsarrow] (presentation) -- node[right, font=\scriptsize] {solicita operaciones} (services2);
+    \draw[cmsarrow] (services2) -- node[left, font=\scriptsize, align=center] {lee y escribe\\contenido} (contentstore);
+    \draw[cmsarrow] (services2) -- node[right, font=\scriptsize, align=center] {registra\\operación} (sqlite);
+    \coordinate (renderroute2) at ([xshift=-1.35cm]contentstore.west);
+    \draw[cmsarrow] (contentstore.west) -- (renderroute2) |- (presentation.west);
+    \node[font=\scriptsize, align=center, anchor=east] at ([xshift=-0.12cm]$(renderroute2)!0.5!(renderroute2|-presentation.west)$) {contenido\\renderizado};
+\end{tikzpicture}%
+}
+\caption[Capas del CMS en la Iteración 2]{Capas del CMS actualizadas para publicaciones, respaldos y publicación}
+\label{fig:cms_iteracion2_extension}
+\end{figure}

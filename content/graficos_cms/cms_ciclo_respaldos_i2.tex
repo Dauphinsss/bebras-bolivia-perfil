@@ -1,0 +1,24 @@
+\begin{figure}[H]
+\centering
+\resizebox{0.82\textwidth}{!}{%
+\begin{tikzpicture}[node distance=1.15cm]
+    \node[cmscontainer, minimum width=3.3cm] (snapshot) {Servicio de\\respaldos};
+    \node[cmsdocument, left=1.45cm of snapshot, minimum width=3.2cm] (current) {Contenido\\actual};
+    \draw[black] ([xshift=-0.32cm]current.north east) -- (current.north east) -- ([yshift=-0.32cm]current.north east);
+    \draw[black] ([xshift=-0.32cm]current.north east) -- ([yshift=-0.32cm]current.north east);
+    \node[cmsdocument, right=1.45cm of snapshot, minimum width=3.2cm] (copy) {Carpeta de\\respaldo};
+    \draw[black] ([xshift=-0.32cm]copy.north east) -- (copy.north east) -- ([yshift=-0.32cm]copy.north east);
+    \draw[black] ([xshift=-0.32cm]copy.north east) -- ([yshift=-0.32cm]copy.north east);
+    \node[cmsstore, below=1.35cm of snapshot, minimum width=2.75cm] (metadb) {SQLite\\metadatos};
+    \node[cmscontainer, below=1.35cm of copy, minimum width=3.2cm] (archive) {Archivo\\transferible};
+
+    \draw[cmsarrow] (current) -- node[above, font=\scriptsize, fill=white, inner sep=1pt] {copia} (snapshot);
+    \draw[cmsarrow] (snapshot) -- node[above, font=\scriptsize, align=center, fill=white, inner sep=1pt] {guarda\\archivos} (copy);
+    \draw[cmsarrow] (snapshot) -- node[right, font=\scriptsize, align=center, fill=white, inner sep=1pt] {registra\\autor y fecha} (metadb);
+    \draw[cmsarrow] (copy) -- node[right, font=\scriptsize, align=center, fill=white, inner sep=1pt] {exporta\\o importa} (archive);
+    \draw[cmsarrow] (copy.north west) -- ++(-0.65cm,0.7cm) -| node[pos=0.24, above, font=\scriptsize, fill=white, inner sep=1pt] {restaura contenido} (current.north);
+\end{tikzpicture}%
+}
+\caption[Ciclo de respaldos del CMS]{Ciclo de creación, transferencia y restauración de respaldos del contenido}
+\label{fig:cms_ciclo_respaldos}
+\end{figure}

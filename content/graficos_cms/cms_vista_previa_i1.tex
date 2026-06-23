@@ -1,0 +1,23 @@
+\begin{figure}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[node distance=1.45cm and 1.6cm]
+    \node[cmsactor] (admin) {Administrador};
+    \node[cmssystem, right=of admin] (editor) {Editor CMS\\contenido en edición};
+    \node[cmscontainer, right=of editor] (draft) {Borrador\\temporal};
+    \node[cmscontainer, right=of draft] (preview) {Servicio de\\vista previa};
+    \node[cmssystem, right=of preview] (server) {Servidor de\\previsualización};
+    \node[cmscontainer, right=of server] (iframe) {Vista previa\\en el panel};
+    \node[cmsnote, below=1.15cm of draft, xshift=2.3cm] (note) {No reemplaza la versión pública\\hasta confirmar publicación};
+
+    \draw[cmsarrow] (admin) -- node[above, font=\scriptsize, align=center] {edita\\campos} (editor);
+    \draw[cmsarrow] (editor) -- node[above, font=\scriptsize, align=center] {genera\\cambio} (draft);
+    \draw[cmsarrow] (draft) -- node[above, font=\scriptsize, align=center] {sincroniza\\borrador} (preview);
+    \draw[cmsarrow] (preview) -- node[above, font=\scriptsize, align=center] {sirve\\sitio} (server);
+    \draw[cmsarrow] (server) -- node[above, font=\scriptsize, align=center] {muestra\\resultado} (iframe);
+    \draw[cmsarrow, dashed] (draft) -- (note);
+\end{tikzpicture}%
+}
+\caption[Flujo de vista previa del CMS]{Flujo de vista previa de cambios antes de la publicación}
+\label{fig:cms_vista_previa}
+\end{figure}

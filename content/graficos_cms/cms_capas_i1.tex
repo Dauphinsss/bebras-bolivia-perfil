@@ -1,0 +1,22 @@
+\begin{figure}[H]
+\centering
+\resizebox{0.66\textwidth}{!}{%
+\begin{tikzpicture}[node distance=0.95cm]
+    \node[cmsactor, minimum width=4.2cm, text width=3.9cm] (user) {Visitantes y\\administradores};
+    \node[cmssystem, below=of user, minimum width=4.2cm, text width=3.9cm] (presentation) {Presentación pública\\e interfaz CMS};
+    \node[cmscontainer, below=of presentation, minimum width=4.2cm, text width=3.9cm] (services) {Servicios CMS\\contenido, sesión\\y vista previa};
+    \node[cmsdocument, below=of services] (content) {Almacén de\\contenido estructurado};
+    \draw[black] ([xshift=-0.42cm]content.north east) -- (content.north east) -- ([yshift=-0.42cm]content.north east);
+    \draw[black] ([xshift=-0.42cm]content.north east) -- ([yshift=-0.42cm]content.north east);
+
+    \draw[cmsarrow] (user) -- node[right, font=\scriptsize] {consulta o administra} (presentation);
+    \draw[cmsarrow] (presentation) -- node[right, font=\scriptsize] {solicita operaciones} (services);
+    \draw[cmsarrow] (services) -- node[right, font=\scriptsize] {lee y actualiza} (content);
+    \coordinate (renderroute) at ([xshift=-1.5cm]content.west);
+    \draw[cmsarrow] (content.west) -- (renderroute) |- (presentation.west);
+    \node[font=\scriptsize, align=center, anchor=east] at ([xshift=-0.15cm]$(renderroute)!0.5!(renderroute|-presentation.west)$) {contenido\\renderizado};
+\end{tikzpicture}%
+}
+\caption[Arquitectura por capas del CMS]{Arquitectura por capas orientada a contenido utilizada en la Iteración 1}
+\label{fig:cms_capas_contenido}
+\end{figure}
