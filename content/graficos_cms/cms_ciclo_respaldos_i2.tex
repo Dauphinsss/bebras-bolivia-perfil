@@ -13,7 +13,7 @@
     \node[cmscontainer, below=1.35cm of copy, minimum width=3.2cm] (archive) {Archivo\\transferible};
 
     \draw[cmsarrow] (current) -- node[above, font=\scriptsize, fill=white, inner sep=1pt] {copia} (snapshot);
-    \draw[cmsarrow] (snapshot) -- node[above, font=\scriptsize, align=center, fill=white, inner sep=1pt] {guarda\\archivos} (copy);
+    \draw[cmsarrow] (snapshot) -- node[above, font=\scriptsize, align=center, fill=white, inner sep=1pt, yshift=0.15cm] {guarda\\archivos} (copy);
     \draw[cmsarrow] (snapshot) -- node[right, font=\scriptsize, align=center, fill=white, inner sep=1pt] {registra\\autor y fecha} (metadb);
     \draw[cmsarrow] (copy) -- node[right, font=\scriptsize, align=center, fill=white, inner sep=1pt] {exporta\\o importa} (archive);
     \draw[cmsarrow] (copy.north west) -- ++(-0.65cm,0.7cm) -| node[pos=0.24, above, font=\scriptsize, fill=white, inner sep=1pt] {restaura contenido} (current.north);

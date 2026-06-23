@@ -12,8 +12,8 @@
 
     \draw[cmsarrow] (user) -- node[right, font=\scriptsize] {consulta o administra} (presentation);
     \draw[cmsarrow] (presentation) -- node[right, font=\scriptsize] {solicita operaciones} (services2);
-    \draw[cmsarrow] (services2) -- node[left, font=\scriptsize, align=center] {lee y escribe\\contenido} (contentstore);
-    \draw[cmsarrow] (services2) -- node[right, font=\scriptsize, align=center] {registra\\operación} (sqlite);
+    \draw[cmsarrow] (services2) -- node[left, font=\scriptsize, align=center, xshift=-0.4cm] {lee y escribe\\contenido} (contentstore);
+    \draw[cmsarrow] (services2) -- node[right, font=\scriptsize, align=center, xshift=0.4cm] {registra\\operación} (sqlite);
     \coordinate (renderroute2) at ([xshift=-1.35cm]contentstore.west);
     \draw[cmsarrow] (contentstore.west) -- (renderroute2) |- (presentation.west);
     \node[font=\scriptsize, align=center, anchor=east] at ([xshift=-0.12cm]$(renderroute2)!0.5!(renderroute2|-presentation.west)$) {contenido\\renderizado};

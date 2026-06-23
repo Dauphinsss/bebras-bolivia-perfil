@@ -14,7 +14,7 @@
     \draw[cmsarrow] (validation) -- node[above, font=\scriptsize, fill=white, inner sep=1pt] {guarda} (markdown);
     \draw[cmsarrow] (validation) -- node[right, font=\scriptsize, fill=white, inner sep=1pt] {renderiza} (preview);
     \draw[cmsarrow] (markdown) -- node[right, font=\scriptsize, fill=white, inner sep=1pt] {al publicar} (blogsite);
-    \draw[cmsarrow] (preview.east) -- ++(0.95cm,0) |- node[pos=0.27, below, font=\scriptsize, align=center, fill=white, inner sep=1pt] {revisión\\previa} (blogsite.west);
+    \draw[cmsarrow] (preview.south) -- ++(0,-0.65cm) -| node[pos=0.25, below, font=\scriptsize, align=center, fill=white, inner sep=1pt] {revisión\\previa} (blogsite.south);
 \end{tikzpicture}%
 }
 \caption[Flujo editorial de publicaciones]{Flujo editorial para crear, editar y previsualizar publicaciones informativas}
