@@ -431,6 +431,66 @@ CMS-01 a CMS-04 & Humo & Verificación general al cierre de la iteración & El s
 \label{tab:pruebas_cms_i1}
 \end{table}
 
+\subsection{Resultados}
+
+Los resultados visibles de la Iteración 1 se organizaron en torno a dos entregables principales: el sitio informativo público y la base operativa del CMS. En lugar de presentar una interfaz por cada historia de usuario, se muestran las pantallas que evidencian el funcionamiento integrado del módulo y la transición entre consulta pública, acceso administrativo, edición estructurada y vista previa del contenido.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|p{3.3cm}|p{4.9cm}|p{5.6cm}|}
+\hline
+\textbf{Resultado} & \textbf{Interfaz presentada} & \textbf{Descripción del resultado} \\ \hline
+Sitio informativo público & Inicio del sitio y sección para estudiantes & El módulo entrega una presencia pública navegable, con información principal del desafío, identidad visual del sitio y secciones dirigidas a distintos tipos de visitante. \\ \hline
+Acceso administrativo & Pantalla de inicio de sesión del CMS & La administración del contenido queda protegida mediante autenticación previa, separando el acceso público de las operaciones internas de edición. \\ \hline
+Espacio de trabajo editorial & Panel principal del CMS con navegación lateral & El administrador dispone de una interfaz centralizada para ubicar páginas editables, acceder a publicaciones y utilizar funciones operativas del sistema. \\ \hline
+Edición con vista previa & Editor de contenido con previsualización integrada & La modificación de páginas informativas y la revisión de resultados se realizan dentro del mismo flujo de trabajo, sin publicar los cambios todavía. \\ \hline
+\end{tabular}
+\caption[Resultados visuales de la Iteración 1]{Resultados visuales obtenidos en la Iteración 1 del módulo CMS}
+\label{tab:resultados_cms_i1}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{assets/ui/cms/sitio-inicio.png}
+        \caption*{(a) Página principal del sitio informativo}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{assets/ui/cms/sitio-estudiantes.png}
+        \caption*{(b) Sección pública orientada a estudiantes}
+    \end{minipage}
+    \caption[Interfaces públicas del sitio informativo]{Interfaces públicas construidas para la consulta de información general del desafío y de contenido específico para estudiantes}
+    \label{fig:cms_resultados_sitio_i1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{assets/ui/cms/cms-login.png}
+        \caption*{(a) Acceso al panel administrativo}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{assets/ui/cms/cms-panel.png}
+        \caption*{(b) Panel principal con navegación lateral}
+    \end{minipage}
+    \caption[Acceso y panel principal del CMS]{Pantallas que muestran el ingreso al CMS y el espacio principal desde el cual se organizan las operaciones de edición del contenido}
+    \label{fig:cms_resultados_panel_i1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{assets/ui/cms/cms-editor-preview.png}
+\caption[Editor de contenido con vista previa]{Interfaz de edición estructurada de páginas informativas con vista previa integrada para revisar cambios antes de su publicación}
+\label{fig:cms_resultados_editor_i1}
+\end{figure}
+
 \section{ITERACIÓN 2}
 
 La segunda iteración completó el ciclo editorial del CMS. Una vez validada la edición de páginas informativas, el trabajo se orientó a contenido dinámico de publicaciones, administración de imágenes, respaldo del estado del sitio, restauración de versiones y publicación controlada.
@@ -775,6 +835,59 @@ CMS-01 a CMS-13 & Regresión básica & Revisión de funciones previas después d
 \caption[Pruebas de la Iteración 2 del CMS]{Pruebas manuales ejecutadas durante la Iteración 2}
 \label{tab:pruebas_cms_i2}
 \end{table}
+
+\subsection{Resultados}
+
+La Iteración 2 consolidó el CMS como una herramienta editorial completa. Los resultados visuales más relevantes corresponden a la gestión de publicaciones, la edición enriquecida de noticias, la administración de respaldos y el control del proceso de publicación del sitio. Estas interfaces muestran el cierre del ciclo editorial que en la iteración anterior solo había quedado preparado para páginas informativas.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|p{3.3cm}|p{4.9cm}|p{5.6cm}|}
+\hline
+\textbf{Resultado} & \textbf{Interfaz presentada} & \textbf{Descripción del resultado} \\ \hline
+Gestión editorial de noticias & Listado de publicaciones informativas & El CMS incorpora una sección específica para administrar noticias, consultar publicaciones existentes y abrir flujos de creación o edición. \\ \hline
+Edición enriquecida de publicaciones & Editor de publicaciones con formulario y vista previa & El administrador puede preparar metadatos, redactar contenido enriquecido y revisar el resultado antes de guardar o publicar. \\ \hline
+Conservación y recuperación de contenido & Sección de respaldos del CMS & El sistema presenta respaldos recuperables con información temporal y acciones operativas para restaurar o transferir estados del contenido. \\ \hline
+Publicación controlada del sitio & Panel de publicación del CMS & El proceso final de despliegue muestra el estado editorial del sitio y concentra la revisión previa a la publicación definitiva. \\ \hline
+\end{tabular}
+\caption[Resultados visuales de la Iteración 2]{Resultados visuales obtenidos en la Iteración 2 del módulo CMS}
+\label{tab:resultados_cms_i2}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{assets/ui/cms/cms-publicaciones.png}
+        \caption*{(a) Listado de publicaciones informativas}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{assets/ui/cms/cms-publicacion-editor.png}
+        \caption*{(b) Editor de publicaciones con vista previa}
+    \end{minipage}
+    \caption[Gestión y edición de publicaciones]{Interfaces utilizadas para administrar noticias del sitio y editar publicaciones con contenido enriquecido y previsualización editorial}
+    \label{fig:cms_resultados_publicaciones_i2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{assets/ui/cms/cms-respaldos.png}
+        \caption*{(a) Gestión de respaldos del contenido}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{assets/ui/cms/cms-publicacion-sitio.png}
+        \caption*{(b) Control de publicación del sitio}
+    \end{minipage}
+\caption[Respaldos y publicación del sitio]{Pantallas que evidencian la conservación de estados del contenido y el control centralizado del proceso de publicación del sitio informativo}
+\label{fig:cms_resultados_operacion_i2}
+\end{figure}
 
 \section{SÍNTESIS DEL MÓDULO}
 
