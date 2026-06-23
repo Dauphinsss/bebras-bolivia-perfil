@@ -1,6 +1,6 @@
 \chapter{MÓDULO DE GESTIÓN DE CONTENIDO Y SITIO INFORMATIVO}
 
-El módulo de gestión de contenido y sitio informativo constituye el componente encargado de administrar la presencia pública de Bebras Bolivia. Su alcance no se limita al panel CMS, sino que incluye también el sitio informativo mediante el cual visitantes, estudiantes, maestros, coordinadores e instituciones pueden consultar información oficial sobre el desafío.
+El módulo de gestión de contenido y sitio informativo constituye el componente encargado de administrar la presencia pública de Bebras Bolivia. Su alcance no se limita al panel CMS, sino que incluye también el sitio informativo mediante el cual visitantes, estudiantes, maestros responsables e instituciones pueden consultar información oficial sobre el desafío.
 
 El módulo integra dos dimensiones complementarias. La primera corresponde al sitio público, compuesto por páginas informativas, navegación, contenido institucional, preguntas frecuentes, información para estudiantes y maestros, patrocinadores, contacto, registro informativo y publicaciones. La segunda corresponde al panel administrativo, desde el cual se puede editar contenido, administrar publicaciones, manejar imágenes, previsualizar cambios, crear respaldos, restaurar contenido y publicar el sitio.
 
@@ -56,7 +56,7 @@ Las tareas relacionadas descomponen historias amplias en actividades concretas d
 CMS-01-01 & CMS-01 & Mostrar información general del desafío & Iteración 1 \\ \hline
 CMS-01-02 & CMS-01 & Mostrar categorías de participación por edad & Iteración 1 \\ \hline
 CMS-01-03 & CMS-01 & Mostrar información para estudiantes & Iteración 1 \\ \hline
-CMS-01-04 & CMS-01 & Mostrar información para maestros y coordinadores & Iteración 1 \\ \hline
+CMS-01-04 & CMS-01 & Mostrar información para maestros responsables e instituciones & Iteración 1 \\ \hline
 CMS-01-05 & CMS-01 & Mostrar sistema de puntuación & Iteración 1 \\ \hline
 CMS-01-06 & CMS-01 & Mostrar preguntas frecuentes & Iteración 1 \\ \hline
 CMS-01-07 & CMS-01 & Mostrar patrocinadores e instituciones organizadoras & Iteración 1 \\ \hline
@@ -168,7 +168,7 @@ La planificación de la Iteración 1 consideró cuatro historias principales. La
         \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
         \multicolumn{4}{|p{14cm}|}{$\bullet$ Se muestra una página de inicio con la información principal del desafío.}\\
         \multicolumn{4}{|p{14cm}|}{$\bullet$ Se muestran categorías de participación por edad.}\\
-        \multicolumn{4}{|p{14cm}|}{$\bullet$ Se muestra información diferenciada para estudiantes, maestros y coordinadores.}\\
+        \multicolumn{4}{|p{14cm}|}{$\bullet$ Se muestra información diferenciada para estudiantes, maestros responsables e instituciones.}\\
         \multicolumn{4}{|p{14cm}|}{$\bullet$ Se muestra el sistema de puntuación, preguntas frecuentes, patrocinadores y canales de contacto.}\\
         \multicolumn{4}{|p{14cm}|}{$\bullet$ Se muestra el estado informativo del registro y los enlaces de navegación correspondientes.}\\
         \hline
@@ -252,7 +252,7 @@ La planificación de la Iteración 1 consideró cuatro historias principales. La
 
 \subsection{Diseño}
 
-El diseño de la Iteración 1 se centró en separar el contenido editable de la presentación visual del sitio. Esta decisión permitió que el sitio informativo funcionara como una landing pública generada a partir de contenido estructurado, mientras que el panel CMS quedó encargado de modificar, organizar y previsualizar dicho contenido antes de su publicación.
+El diseño de la Iteración 1 se centró en separar el contenido editable de la presentación visual del sitio. Esta decisión permitió que el sitio informativo funcionara como una sección pública generada a partir de contenido estructurado, mientras que el panel CMS quedó encargado de modificar, organizar y previsualizar dicho contenido antes de su publicación.
 
 Desde el enfoque XP, el diseño se mantuvo simple e incremental. No se incorporó una arquitectura compleja de gestión de contenido desde el inicio; se definió un flujo directo entre el administrador, el panel CMS, el almacén de contenido y el sitio público. Esta estructura permitió entregar valor en la iteración sin acoplar el contenido a las páginas del sitio.
 
@@ -269,7 +269,7 @@ Desde el enfoque XP, el diseño se mantuvo simple e incremental. No se incorpor�
 
 \subsubsection{Arquitectura por capas orientada a contenido}
 
-El módulo no se diseñó como una aplicación MVC, MVVM o HMVC-PAC estricta. En el caso del CMS, la solución combina una landing pública, una interfaz administrativa, servicios de contenido y un almacén estructurado. Por ello, la organización más adecuada fue una arquitectura por capas orientada a contenido, donde cada capa cumple una responsabilidad clara y se comunica con la siguiente mediante datos estructurados.
+El módulo no se diseñó como una aplicación MVC, MVVM o HMVC-PAC estricta. En el caso del CMS, la solución combina un sitio informativo público, una interfaz administrativa, servicios de contenido y un almacén estructurado. Por ello, la organización más adecuada fue una arquitectura por capas orientada a contenido, donde cada capa cumple una responsabilidad clara y se comunica con la siguiente mediante datos estructurados.
 
 \input{content/graficos_cms/cms_capas_i1}
 
@@ -282,7 +282,7 @@ El módulo no se diseñó como una aplicación MVC, MVVM o HMVC-PAC estricta. En
 Presentación pública & Renderizar las páginas informativas y mostrar el contenido organizado por secciones & Sitio visible con información general, categorías, estudiantes, maestros, puntuación, preguntas frecuentes, patrocinadores, contacto y registro informativo \\ \hline
 Interfaz administrativa & Permitir que el administrador acceda al panel y edite contenido mediante formularios y controles visuales & Panel protegido con navegación interna, editor de contenido y acciones de guardado o vista previa \\ \hline
 Servicios del CMS & Procesar solicitudes del panel, controlar acceso, leer contenido, guardar cambios y preparar vista previa & API administrativa para autenticación, edición de contenido y previsualización \\ \hline
-Almacén de contenido & Conservar la información editable en una estructura independiente de la presentación visual & Contenido reutilizable por el panel CMS y por la landing pública \\ \hline
+Almacén de contenido & Conservar la información editable en una estructura independiente de la presentación visual & Contenido reutilizable por el panel CMS y por el sitio informativo público \\ \hline
 \end{tabular}
 \caption[Capas de diseño de la Iteración 1]{Capas de diseño adoptadas durante la Iteración 1}
 \label{tab:capas_diseno_iteracion_1}
@@ -308,7 +308,7 @@ Mantener el acceso administrativo protegido & Restringe la edición del contenid
 
 \subsubsection{Arquitectura de contenido editable}
 
-La primera decisión de diseño fue tratar el contenido del sitio como información estructurada y no como texto fijo dentro de las páginas. El administrador modifica el contenido desde el panel CMS; el sistema guarda esos cambios en un almacén de contenido editable y luego sincroniza una versión consumible por la landing pública. De esta forma, el sitio puede mostrar información actualizada sin que el administrador tenga que modificar directamente la implementación visual.
+La primera decisión de diseño fue tratar el contenido del sitio como información estructurada y no como texto fijo dentro de las páginas. El administrador modifica el contenido desde el panel CMS; el sistema guarda esos cambios en un almacén de contenido editable y luego sincroniza una versión consumible por el sitio informativo público. De esta forma, el sitio puede mostrar información actualizada sin que el administrador tenga que modificar directamente la implementación visual.
 
 \input{content/graficos_cms/cms_contenido_editable_i1}
 
@@ -345,7 +345,7 @@ La implementación se organizó en unidades diferenciadas para mantener separado
 \hline
 \textbf{Unidad de implementación} & \textbf{Contenido principal} & \textbf{Uso dentro de la iteración} \\ \hline
 Sitio público & Páginas, layout, navegación y componentes visuales & Presentar la información pública del desafío y las secciones informativas \\ \hline
-Contenido editable & Datos estructurados, textos, secciones y configuración de páginas & Alimentar la landing y permitir su modificación desde el CMS \\ \hline
+Contenido editable & Datos estructurados, textos, secciones y configuración de páginas & Alimentar el sitio informativo y permitir su modificación desde el CMS \\ \hline
 Backend CMS & Autenticación, lectura de contenido, guardado y vista previa & Atender las operaciones administrativas protegidas \\ \hline
 Frontend CMS & Panel, editor, árbol de contenido y acciones de usuario & Permitir la edición visual del contenido por parte del administrador \\ \hline
 Scripts de apoyo & Ejecución local, construcción y sincronización de contenido & Facilitar el desarrollo y la generación del sitio \\ \hline
@@ -358,7 +358,7 @@ Esta organización es coherente con XP porque permitió implementar únicamente 
 
 \subsubsection{Desarrollo del sitio informativo}
 
-Para la historia CMS-01 se implementó la base pública del sitio informativo. El sitio fue construido como una landing compuesta por páginas y secciones reutilizables, de modo que la información principal del Desafío Bebras Bolivia pudiera presentarse de forma ordenada. La implementación incluyó contenido general del desafío, categorías de participación por edad, secciones para estudiantes, secciones para maestros y coordinadores, sistema de puntuación, preguntas frecuentes, patrocinadores, contacto institucional, estado informativo del registro y navegación entre páginas.
+Para la historia CMS-01 se implementó la base pública del sitio informativo. El sitio fue construido como un conjunto de páginas y secciones reutilizables, de modo que la información principal del Desafío Bebras Bolivia pudiera presentarse de forma ordenada. La implementación incluyó contenido general del desafío, categorías de participación por edad, secciones para estudiantes, secciones para maestros responsables e instituciones, sistema de puntuación, preguntas frecuentes, patrocinadores, contacto institucional, estado informativo del registro y navegación entre páginas.
 
 El desarrollo del sitio público se apoyó en un modelo de contenido estructurado. En lugar de escribir cada texto directamente dentro de las vistas, las páginas reciben datos organizados y los transforman en bloques visuales. Esta decisión reduce duplicación, facilita la actualización posterior del contenido y permite que el CMS pueda modificar información sin alterar la presentación base del sitio.
 
@@ -778,4 +778,4 @@ CMS-01 a CMS-13 & Regresión básica & Revisión de funciones previas después d
 
 \section{SÍNTESIS DEL MÓDULO}
 
-El módulo de gestión de contenido y sitio informativo permitió establecer la base pública de Bebras Bolivia y un panel de administración para mantener actualizado su contenido. A través de las iteraciones documentadas, el sistema incorporó páginas informativas, acceso protegido, edición de contenido, vista previa, publicaciones, manejo de imágenes, respaldos y publicación del sitio. Estas capacidades constituyen la base comunicacional del sistema y se integran con los demás módulos al proporcionar información oficial para participantes, maestros, coordinadores e instituciones interesadas.
+El módulo de gestión de contenido y sitio informativo permitió establecer la base pública de Bebras Bolivia y un panel de administración para mantener actualizado su contenido. A través de las iteraciones documentadas, el sistema incorporó páginas informativas, acceso protegido, edición de contenido, vista previa, publicaciones, manejo de imágenes, respaldos y publicación del sitio. Estas capacidades constituyen la base comunicacional del sistema y se integran con los demás módulos al proporcionar información oficial para participantes, maestros responsables e instituciones interesadas.

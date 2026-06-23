@@ -6,17 +6,17 @@
     \node[cmssystem, right=of admin] (cms) {Panel CMS\\edición protegida};
     \node[cmsstore, right=of cms] (store) {Almacén de\\contenido};
     \node[cmscontainer, right=of store] (sync) {Sincronización\\de contenido};
-    \node[cmssystem, right=of sync] (landing) {Landing\\informativa};
-    \node[cmsactor, right=of landing] (visitor) {Visitante\\del sitio};
+    \node[cmssystem, right=of sync] (sitio) {Sitio\\informativo};
+    \node[cmsactor, right=of sitio] (visitor) {Visitante\\del sitio};
 
     \node[cmsboundary, fit=(cms)(store), label={[font=\small]above:Entorno administrativo}] {};
-    \node[cmsboundary, fit=(sync)(landing), label={[font=\small]above:Sitio informativo}] {};
+    \node[cmsboundary, fit=(sync)(sitio), label={[font=\small]above:Sitio informativo}] {};
 
     \draw[cmsarrow] (admin) -- node[above, font=\scriptsize, align=center] {modifica\\contenido} (cms);
     \draw[cmsarrow] (cms) -- node[above, font=\scriptsize, align=center] {guarda\\estructura} (store);
     \draw[cmsarrow] (store) -- node[above, font=\scriptsize, align=center] {copia\\editable} (sync);
-    \draw[cmsarrow] (sync) -- node[above, font=\scriptsize, align=center] {actualiza\\datos} (landing);
-    \draw[cmsarrow] (landing) -- node[above, font=\scriptsize, align=center] {presenta\\información} (visitor);
+    \draw[cmsarrow] (sync) -- node[above, font=\scriptsize, align=center] {actualiza\\datos} (sitio);
+    \draw[cmsarrow] (sitio) -- node[above, font=\scriptsize, align=center] {presenta\\información} (visitor);
 \end{tikzpicture}%
 }
 \caption[Arquitectura de contenido editable]{Arquitectura de contenido editable del sitio informativo}
