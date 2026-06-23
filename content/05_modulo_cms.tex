@@ -141,6 +141,25 @@ Los principales resultados obtenidos fueron:
     \item Se preparó la base técnica necesaria para continuar con el desarrollo incremental en las siguientes iteraciones.
 \end{itemize}
 
+\subsection{Pruebas}
+
+En la Iteración 0 se aplicaron pruebas estáticas sobre los artefactos de planificación, de acuerdo con el enfoque de verificación documental descrito por \textcite{romero2025evaluacion}. La revisión permitió comprobar que el alcance del módulo, las historias de usuario y la estructura inicial del contenido fueran coherentes antes de iniciar la implementación funcional.
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|p{3.2cm}|p{5cm}|p{3.6cm}|p{1.8cm}|}
+\hline
+\textbf{Prueba} & \textbf{Escenario validado} & \textbf{Criterio aplicado} & \textbf{Resultado} \\ \hline
+Revisión de alcance & El módulo incluyó sitio informativo y panel administrativo & El alcance cubrió el objetivo del CMS sin invadir los módulos de concurso & Aprobado \\ \hline
+Revisión de historias & Las historias CMS-00 a CMS-13 fueron contrastadas con el alcance del módulo & Cada historia mantuvo actor, necesidad y beneficio identificables & Aprobado \\ \hline
+Revisión de estructura inicial & Se comprobó la organización de páginas, contenido editable y recursos visuales & La estructura permitió continuar con el desarrollo incremental & Aprobado \\ \hline
+\end{tabular}
+\caption[Pruebas de la Iteración 0 del CMS]{Pruebas estáticas ejecutadas durante la Iteración 0}
+\label{tab:pruebas_cms_i0}
+\end{table}
+
 \section{ITERACIÓN 1}
 
 La primera iteración del módulo se enfocó en construir la base visible y editable del sitio informativo. Bajo la lógica XP, se priorizó entregar software funcional en un plazo corto: un visitante debía poder consultar la información principal del desafío y un administrador debía poder ingresar al panel, modificar contenido estructurado y revisar el resultado antes de publicarlo.
@@ -410,6 +429,25 @@ Prettier & Formato automático para conservar consistencia visual en la base de 
 \end{table}
 
 \subsection{Pruebas}
+
+Las pruebas de la Iteración 1 se ejecutaron manualmente sobre el sitio informativo y el panel de administración. Se combinaron pruebas estáticas, pruebas de humo, pruebas de caja negra y pruebas de aceptación, tomando como referencia los criterios de aceptación de las historias CMS-01 a CMS-04. Este enfoque permitió validar el comportamiento observable del módulo sin depender de detalles internos del código.
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|p{2.2cm}|p{4.2cm}|p{4.8cm}|p{1.7cm}|}
+\hline
+\textbf{Historia} & \textbf{Prueba ejecutada} & \textbf{Criterio de aprobación} & \textbf{Resultado} \\ \hline
+CMS-01 & Navegación del sitio informativo & El visitante pudo acceder a las secciones principales del desafío desde la navegación pública & Aprobado \\ \hline
+CMS-02 & Acceso al panel administrativo & El sistema permitió el ingreso con credenciales válidas y restringió el acceso no autorizado & Aprobado \\ \hline
+CMS-03 & Edición de páginas informativas & El administrador modificó contenido estructurado y el sistema conservó la información guardada & Aprobado \\ \hline
+CMS-04 & Vista previa del sitio & Los cambios pudieron revisarse en una vista previa antes de afectar la versión publicada & Aprobado \\ \hline
+CMS-01 a CMS-04 & Prueba de humo de la iteración & El sitio público, el acceso administrativo, la edición y la vista previa estuvieron disponibles al finalizar la iteración & Aprobado \\ \hline
+\end{tabular}
+\caption[Pruebas de la Iteración 1 del CMS]{Pruebas manuales ejecutadas durante la Iteración 1}
+\label{tab:pruebas_cms_i1}
+\end{table}
 
 \section{ITERACIÓN 2}
 
@@ -734,6 +772,26 @@ Publicación programada & Registro de fecha, autor y estado de ejecución en SQL
 \end{table}
 
 \subsection{Pruebas}
+
+En la Iteración 2 se ejecutaron pruebas manuales orientadas al ciclo editorial completo del CMS. La validación se centró en escenarios de caja negra, regresión básica y aceptación, debido a que las funcionalidades agregadas debían integrarse con la base desarrollada en la Iteración 1 sin afectar la edición de contenido ni la navegación del sitio informativo.
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|p{2.2cm}|p{4.2cm}|p{4.8cm}|p{1.7cm}|}
+\hline
+\textbf{Historia} & \textbf{Prueba ejecutada} & \textbf{Criterio de aprobación} & \textbf{Resultado} \\ \hline
+CMS-05 y CMS-06 & Creación y edición de publicaciones & El administrador pudo registrar, modificar y guardar publicaciones informativas con sus metadatos principales & Aprobado \\ \hline
+CMS-07 & Manejo de imágenes & El sistema aceptó imágenes permitidas, rechazó archivos no válidos y generó rutas utilizables en publicaciones & Aprobado \\ \hline
+CMS-08 & Vista previa de publicaciones & La publicación pudo revisarse antes de guardarse y la vista previa reflejó los cambios realizados & Aprobado \\ \hline
+CMS-09 a CMS-11 & Respaldo, restauración y transferencia & El administrador pudo generar respaldos, restaurar contenido y transferir copias del estado editorial & Aprobado \\ \hline
+CMS-12 y CMS-13 & Publicación inmediata y programada & El sistema permitió revisar cambios pendientes, publicar el sitio y registrar o cancelar publicaciones programadas & Aprobado \\ \hline
+CMS-01 a CMS-13 & Regresión básica del CMS & Las funciones de acceso, navegación, edición y vista previa de la Iteración 1 continuaron operativas después de incorporar el ciclo editorial & Aprobado \\ \hline
+\end{tabular}
+\caption[Pruebas de la Iteración 2 del CMS]{Pruebas manuales ejecutadas durante la Iteración 2}
+\label{tab:pruebas_cms_i2}
+\end{table}
 
 \section{SÍNTESIS DEL MÓDULO}
 
