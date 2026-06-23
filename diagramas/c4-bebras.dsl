@@ -1,5 +1,5 @@
 // =====================================================================
-// Modelo C4 (Contexto y Contenedores) - Plataforma Bebras Bolivia
+// Modelo C4 (Contexto y Contenedores) - Sistema Bebras Bolivia
 // Structurizr DSL. Contiene AMBAS vistas (C1 y C2).
 // Colores: paleta oficial del modelo C4
 //   Person #08427b | Software System #1168bd | Container #438dd5
@@ -9,7 +9,7 @@
 //   structurizr/lite   (renombra a workspace.dsl o usa structurizr-cli)
 // =====================================================================
 
-workspace "Plataforma Bebras Bolivia" "Modelo C4 (contexto y contenedores) de la Plataforma Bebras Bolivia." {
+workspace "Sistema Bebras Bolivia" "Modelo C4 (contexto y contenedores) del Sistema Bebras Bolivia." {
 
     model {
         // ---- Actores ----
@@ -18,7 +18,7 @@ workspace "Plataforma Bebras Bolivia" "Modelo C4 (contexto y contenedores) de la
         estudiante = person "Estudiante" "Consulta informacion y rinde la competencia."
 
         // ---- Sistema ----
-        plataforma = softwareSystem "Plataforma Bebras Bolivia" "Plataforma web del Desafio Bebras en Bolivia. Servida mediante el servidor web Apache." {
+        sistema = softwareSystem "Sistema Bebras Bolivia" "Sistema web del Desafio Bebras en Bolivia. Servido mediante el servidor web Apache." {
 
             cms = container "CMS (panel de administracion)" "Permite al administrador editar y publicar el contenido del sitio informativo." "Astro + React"
 
@@ -58,12 +58,12 @@ workspace "Plataforma Bebras Bolivia" "Modelo C4 (contexto y contenedores) de la
     }
 
     views {
-        systemContext plataforma "C1_Contexto" "Diagrama de contexto de la Plataforma Bebras Bolivia" {
+        systemContext sistema "C1_Contexto" "Diagrama de contexto del Sistema Bebras Bolivia" {
             include *
             autolayout lr 150 100
         }
 
-        container plataforma "C2_Contenedores" "Diagrama de contenedores de la Plataforma Bebras Bolivia" {
+        container sistema "C2_Contenedores" "Diagrama de contenedores del Sistema Bebras Bolivia" {
             include *
             autolayout lr 150 100
         }
