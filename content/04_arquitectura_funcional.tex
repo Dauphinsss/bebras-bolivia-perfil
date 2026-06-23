@@ -122,91 +122,9 @@ La secuencia operativa del concurso organiza el proceso en pasos consecutivos qu
 
 Esta secuencia expresa un flujo lineal de referencia, pero la arquitectura modular permite que determinadas actividades se realicen de manera paralela. Por ejemplo, la preparación de contenido institucional puede continuar mientras se ajusta el banco de tareas, y el registro de participantes puede desarrollarse mientras la organización revisa aspectos operativos de la competencia. La separación de módulos facilita esta flexibilidad sin perder trazabilidad.
 
-\section{REPRESENTACIÓN GENERAL DEL SISTEMA}
+\section{ARQUITECTURA DEL SISTEMA SEGÚN EL MODELO C4}
 
-La representación general del sistema permite sintetizar visualmente la relación entre actores, módulos y procesos. Estas representaciones no sustituyen la descripción funcional, sino que la complementan mediante una lectura estructurada de las dependencias y flujos principales de la plataforma.
-
-\subsection{Mapa de interacción del sistema}
-
-El mapa de interacción presenta la relación general entre los actores del sistema y los módulos funcionales. En esta representación, los actores se ubican alrededor de la plataforma y se conectan con los componentes que utilizan durante el ciclo del concurso.
-
-\begin{figure}[H]
-\centering
-\begin{tikzpicture}[
-    actor/.style={rectangle, rounded corners, draw, align=center, minimum width=3.2cm, minimum height=1cm},
-    modulo/.style={rectangle, draw, align=center, minimum width=3.7cm, minimum height=1cm},
-    flecha/.style={-{Stealth[length=2.5mm]}, thick}
-]
-    \node[actor] (admin) at (0,4) {Administrador\\u organizador};
-    \node[actor] (maestro) at (-4,0) {Maestro};
-    \node[actor] (estudiante) at (4,0) {Estudiante};
-
-    \node[modulo] (cms) at (-3,2) {Sitio\\informativo};
-    \node[modulo] (competencias) at (3,2) {Gestión de\\competencias};
-    \node[modulo] (registro) at (-3,-2) {Registro de\\participantes};
-    \node[modulo] (evaluacion) at (3,-2) {Evaluación};
-
-    \draw[flecha] (admin) -- (cms);
-    \draw[flecha] (admin) -- (competencias);
-    \draw[flecha] (admin) -- (registro);
-    \draw[flecha] (admin) -- (evaluacion);
-
-    \draw[flecha] (maestro) -- (cms);
-    \draw[flecha] (maestro) -- (registro);
-    \draw[flecha] (maestro) -- (evaluacion);
-
-    \draw[flecha] (estudiante) -- (evaluacion);
-    \draw[flecha] (estudiante) -- (cms);
-
-    \draw[flecha] (cms) -- (registro);
-    \draw[flecha] (competencias) -- (evaluacion);
-    \draw[flecha] (registro) -- (evaluacion);
-\end{tikzpicture}
-\caption[Mapa de interacción de la plataforma]{Mapa general de interacción entre actores y módulos de la plataforma}
-\label{fig:mapa_interaccion_sistema}
-\end{figure}
-
-El mapa evidencia que el módulo de evaluación depende funcionalmente de la gestión de competencias y del registro de participantes. Asimismo, muestra que la gestión de contenido cumple una función transversal de comunicación mediante el sitio informativo, especialmente relevante para maestros, estudiantes e instituciones interesadas en el desafío. El administrador mantiene una relación de control con todos los módulos, mientras que los maestros y estudiantes acceden a componentes específicos según su rol, sin ingresar al panel CMS.
-
-\subsection{Diagrama general de módulos y procesos}
-
-El diagrama general de módulos y procesos representa el recorrido operativo del concurso desde la publicación de información institucional hasta la obtención de resultados. A diferencia del mapa de interacción, esta representación enfatiza la secuencia funcional de los procesos internos de la plataforma.
-
-\begin{figure}[H]
-\centering
-\begin{tikzpicture}[
-    proceso/.style={rectangle, rounded corners, draw, align=center, minimum width=3.3cm, minimum height=1.1cm},
-    soporte/.style={rectangle, draw, dashed, align=center, minimum width=3.3cm, minimum height=1.1cm},
-    flecha/.style={-{Stealth[length=2.5mm]}, thick}
-]
-    \node[proceso] (contenido) at (0,0) {Comunicación\\institucional};
-    \node[proceso] (config) at (4,0) {Configuración de\\competencias};
-    \node[proceso] (registro) at (8,0) {Registro de\\participantes};
-    \node[proceso] (ejecucion) at (4,-2.4) {Ejecución de\\la prueba};
-    \node[proceso] (calificacion) at (8,-2.4) {Calificación y\\resultados};
-    \node[soporte] (persistencia) at (4,-4.8) {Persistencia de datos\\y reglas del sistema};
-
-    \draw[flecha] (contenido) -- (config);
-    \draw[flecha] (config) -- (registro);
-    \draw[flecha] (registro) -- (ejecucion);
-    \draw[flecha] (ejecucion) -- (calificacion);
-
-    \draw[flecha] (config) -- (persistencia);
-    \draw[flecha] (registro) -- (persistencia);
-    \draw[flecha] (ejecucion) -- (persistencia);
-    \draw[flecha] (persistencia) -- (calificacion);
-\end{tikzpicture}
-\caption[Diagrama general de módulos y procesos]{Diagrama general del flujo modular y operativo de la plataforma}
-\label{fig:diagrama_modulos_procesos}
-\end{figure}
-
-El diagrama sintetiza la lógica de funcionamiento de la plataforma. La comunicación institucional habilita la participación informada; la configuración de competencias define el contenido y las reglas; el registro de participantes vincula a maestros y estudiantes con una competencia concreta; la ejecución permite la resolución de tareas; y la calificación consolida los resultados. La persistencia de datos funciona como soporte transversal, garantizando que configuraciones, inscripciones, respuestas y resultados se mantengan disponibles para los procesos que los requieren.
-
-En conjunto, estas representaciones muestran que la arquitectura del sistema no se organiza únicamente por capas tecnológicas, sino por responsabilidades funcionales vinculadas al ciclo de vida del concurso. Esta decisión permite que la plataforma sea comprensible para los actores involucrados, mantenible para el equipo de desarrollo y adaptable a futuras ediciones del Desafío Bebras Bolivia.
-
-\section{ARQUITECTURA EN NOTACIÓN C4}
-
-El modelo C4 permite representar la arquitectura de un sistema de software mediante niveles de abstracción progresivos. En este enfoque, el nivel de contexto muestra la relación entre el sistema y los actores externos, mientras que el nivel de contenedores describe las principales unidades ejecutables o desplegables que componen la solución. Para la plataforma Bebras Bolivia se presentan los niveles 1 y 2, con el fin de complementar la descripción funcional de la arquitectura mediante una lectura estructurada de sus actores, responsabilidades y relaciones tecnológicas principales.
+La descripción funcional anterior se sintetiza mediante el modelo C4, que permite representar la plataforma desde distintos niveles de abstracción. En este capítulo se emplean únicamente los niveles de contexto y contenedores, porque el propósito es explicar la arquitectura general del sistema y no el diseño interno de cada componente. Estas vistas permiten relacionar actores, responsabilidades y unidades tecnológicas principales sin incorporar detalle de implementación.
 
 \subsection{Nivel 1: contexto del sistema}
 
@@ -216,6 +134,8 @@ El nivel de contexto ubica a la Plataforma Bebras Bolivia como el sistema centra
 \centering
 \includegraphics[width=0.85\textwidth]{diagramas/C1_Contexto.png}
 \caption[Contexto de la Plataforma Bebras Bolivia]{Diagrama de contexto de la Plataforma Bebras Bolivia}
+\vspace{-0.2cm}
+{\small Fuente: elaboración propia.}
 \label{fig:c4_contexto_plataforma_bebras}
 \end{figure}
 
@@ -229,8 +149,12 @@ El nivel de contenedores describe la organización interna de la Plataforma Bebr
 \centering
 \includegraphics[width=\textwidth]{diagramas/C2_Contenedores.png}
 \caption[Contenedores de la Plataforma Bebras Bolivia]{Diagrama de contenedores de la Plataforma Bebras Bolivia}
+\vspace{-0.2cm}
+{\small Fuente: elaboración propia.}
 \label{fig:c4_contenedores_plataforma_bebras}
 \end{figure}
 
 El diagrama de contenedores muestra el flujo definitivo de la arquitectura. El administrador accede al CMS, implementado con Astro y React, para editar y publicar contenido. Este CMS utiliza SQLite para almacenar usuarios del panel, publicaciones y respaldos, y escribe los archivos editoriales en el \textit{Content Store} basado en JSON y Markdown. Dicho almacén funciona como fuente del proceso de construcción del sitio informativo, que se genera como sitio estático SSG con Astro y React y se publica mediante Apache. Maestros y estudiantes no acceden al CMS; consultan el sitio informativo ya publicado. Para la operación del concurso, los tres actores acceden al frontend del concurso, el cual consume por API REST el backend desarrollado con Express y TypeScript. Este backend implementa la lógica de competencias, registro de participantes y evaluación, y persiste sus datos en MariaDB mediante Prisma.
+
+En síntesis, la arquitectura separa la comunicación pública, la administración de contenido y la operación del concurso en contenedores con responsabilidades diferenciadas. Esta separación permite mantener bases de datos independientes para el CMS y el concurso, delimitar accesos por tipo de actor y facilitar la evolución posterior de cada módulo sin comprometer el funcionamiento general de la plataforma.
 
