@@ -1,444 +1,217 @@
-\chapter{MÓDULO DE GESTIÓN DE CONTENIDO Y SITIO INFORMATIVO}
+\chapter{MÓDULO DE GESTIÓN DE CONTENIDO (CMS)}
 
-El presente capítulo describe el desarrollo del módulo de gestión de contenido y sitio informativo de Bebras Bolivia. Este módulo cumple una doble función: por una parte, presenta información pública sobre el desafío a estudiantes, docentes, coordinadores e instituciones interesadas; por otra, proporciona un panel de administración para mantener actualizado el contenido, administrar publicaciones informativas, revisar cambios, generar respaldos y publicar el sitio.
+El módulo de gestión de contenido constituye el componente encargado de administrar el sitio informativo de Bebras Bolivia. Su desarrollo respondió a la necesidad de contar con una presencia institucional clara, actualizable y coherente con los procesos del desafío, sin depender de modificaciones directas en el código fuente para cada cambio de contenido. En este sentido, el módulo integra dos dimensiones complementarias: por una parte, el sitio público orientado a visitantes, estudiantes, docentes, coordinadores e instituciones; por otra, el panel administrativo que permite editar páginas, gestionar publicaciones, revisar cambios, generar respaldos y publicar contenido validado.
 
-El desarrollo se organizó mediante iteraciones XP de tres semanas. La Iteración 0 se destinó a la preparación funcional y técnica del módulo; la Iteración 1 concentró la implementación del sitio informativo, el acceso al panel y la edición de páginas; y la Iteración 2 consolidó la gestión editorial, respaldos, vista previa y publicación del contenido.
+El desarrollo del módulo se organizó de acuerdo con la metodología XP descrita previamente. Las funcionalidades fueron expresadas como historias de usuario y tareas asociadas, priorizadas según su impacto en la entrega de valor. La primera iteración concentró el sitio informativo base, el acceso administrativo, la edición de páginas y la vista previa de cambios. La segunda iteración amplió el alcance hacia publicaciones informativas, manejo de imágenes, respaldos, restauración y publicación del sitio.
 
 \section{PLANIFICACIÓN DEL MÓDULO}
 
-\subsection{Objetivo del módulo}
+La planificación del módulo partió de la identificación de los actores involucrados en la administración y consumo del contenido institucional. El visitante del sitio representa al público externo que requiere información clara sobre el desafío, sus categorías, formas de participación y canales de contacto. El administrador del sitio representa al usuario interno responsable de mantener vigente la información publicada y de controlar el flujo de edición, revisión y publicación. Finalmente, el equipo de desarrollo aparece en una tarea preparatoria destinada a establecer la base técnica del módulo.
 
-El objetivo del módulo es permitir la comunicación pública del Desafío Bebras Bolivia y facilitar la administración del contenido del sitio sin modificar directamente el código fuente. De esta manera, el sistema permite mantener actualizada la información institucional, las páginas informativas, las publicaciones y los recursos visuales asociados al desafío.
-
-\subsection{Historias de usuario seleccionadas}
-
-La Tabla~\ref{tab:historias_cms} presenta las historias de usuario consideradas para el desarrollo del módulo. Las tareas derivadas de estas historias fueron registradas como elementos relacionados en el tablero de proyecto, pero no se desarrollan como historias independientes dentro del documento.
-
-\begin{table}[H]
-\centering
-\renewcommand{\arraystretch}{1.25}
-\begin{tabular}{|p{2cm}|p{7cm}|p{3cm}|p{1.5cm}|p{1.5cm}|}
-\hline
-\textbf{ID} & \textbf{Historia} & \textbf{Usuario} & \textbf{Prioridad} & \textbf{Esf.} \\ \hline
-CMS-00 & Preparar la base funcional del módulo & Equipo de desarrollo & 1 & 5 \\ \hline
-CMS-01 & Presentar información pública del Desafío Bebras Bolivia & Visitante del sitio & 1 & 13 \\ \hline
-CMS-02 & Controlar el acceso al panel de administración & Administrador del sitio & 1 & 5 \\ \hline
-CMS-03 & Editar contenido de páginas informativas & Administrador del sitio & 1 & 13 \\ \hline
-CMS-04 & Previsualizar cambios del sitio antes de publicarlos & Administrador del sitio & 1 & 8 \\ \hline
-CMS-05 & Crear publicaciones informativas & Administrador del sitio & 1 & 5 \\ \hline
-CMS-06 & Editar publicaciones informativas & Administrador del sitio & 1 & 8 \\ \hline
-CMS-07 & Manejar imágenes para publicaciones informativas & Administrador del sitio & 2 & 5 \\ \hline
-CMS-08 & Previsualizar publicaciones antes de guardarlas & Administrador del sitio & 1 & 5 \\ \hline
-CMS-09 & Crear respaldos del contenido & Administrador del sitio & 1 & 5 \\ \hline
-CMS-10 & Restaurar contenido desde un respaldo & Administrador del sitio & 1 & 8 \\ \hline
-CMS-11 & Transferir respaldos del contenido & Administrador del sitio & 2 & 5 \\ \hline
-CMS-12 & Publicar cambios del sitio informativo & Administrador del sitio & 1 & 8 \\ \hline
-CMS-13 & Programar publicación del sitio informativo & Administrador del sitio & 2 & 5 \\ \hline
-\end{tabular}
-\caption[Historias de usuario del módulo CMS]{Historias de usuario seleccionadas para el módulo de gestión de contenido y sitio informativo}
-\label{tab:historias_cms}
-\end{table}
-
-\subsection{Distribución por iteraciones}
-
-La Tabla~\ref{tab:iteraciones_cms} muestra la distribución de las historias por iteración.
-
-\begin{table}[H]
-\centering
-\renewcommand{\arraystretch}{1.25}
-\begin{tabular}{|p{3cm}|p{9cm}|p{3cm}|}
-\hline
-\textbf{Iteración} & \textbf{Alcance principal} & \textbf{Historias} \\ \hline
-Iteración 0 & Preparación funcional, tecnológica y estructural del módulo & CMS-00 \\ \hline
-Iteración 1 & Sitio informativo, acceso administrativo, edición de contenido y vista previa del sitio & CMS-01, CMS-02, CMS-03, CMS-04 \\ \hline
-Iteración 2 & Publicaciones informativas, imágenes, respaldos, restauración, transferencia y publicación & CMS-05 a CMS-13 \\ \hline
-\end{tabular}
-\caption[Distribución de historias por iteración]{Distribución de historias de usuario del módulo CMS por iteración}
-\label{tab:iteraciones_cms}
-\end{table}
-
-\section{ITERACIÓN 0: PREPARACIÓN DEL MÓDULO}
-
-\subsection{Planificación de la iteración}
-
-La Iteración 0 se orientó a preparar la base del módulo. En esta etapa se definió el alcance del sitio informativo, se organizaron las páginas públicas, se seleccionó la pila tecnológica y se preparó la estructura inicial del repositorio. Esta iteración permitió establecer una base funcional sobre la cual se desarrollaron las historias de usuario de las siguientes iteraciones.
-
-\subsection{Actividades principales}
-
-\begin{table}[H]
-\centering
-\renewcommand{\arraystretch}{1.25}
-\begin{tabular}{|p{3cm}|p{10cm}|p{2.5cm}|}
-\hline
-\textbf{ID} & \textbf{Actividad} & \textbf{Resultado} \\ \hline
-CMS-00-01 & Definir el alcance del módulo de gestión de contenido y sitio informativo & Completado \\ \hline
-CMS-00-02 & Seleccionar tecnologías para el sitio y el panel de administración & Completado \\ \hline
-CMS-00-03 & Configurar la estructura inicial del repositorio & Completado \\ \hline
-CMS-00-04 & Organizar páginas, datos editables y recursos visuales iniciales & Completado \\ \hline
-\end{tabular}
-\caption[Actividades de preparación del módulo]{Actividades realizadas durante la Iteración 0}
-\label{tab:actividades_iteracion_0}
-\end{table}
-
-\subsection{Pruebas}
-
-\subsubsection{Pruebas funcionales}
-
-\subsubsection{Pruebas de configuración}
-
-\subsubsection{Resultados de la iteración}
-
-\section{ITERACIÓN 1: SITIO INFORMATIVO Y EDICIÓN DE CONTENIDO}
-
-\subsection{Planificación de la iteración}
-
-La Iteración 1 se enfocó en implementar la estructura pública del sitio informativo y las primeras capacidades del panel de administración. El objetivo fue contar con un sitio navegable, contenido institucional visible, acceso protegido al CMS, edición de páginas informativas y vista previa de cambios antes de publicar.
+Bajo el enfoque XP, las historias de usuario permitieron traducir necesidades funcionales en unidades de trabajo pequeñas, verificables y priorizadas. Las tareas asociadas descompusieron historias amplias en actividades concretas de implementación, especialmente en aquellas que involucraban varias páginas, componentes reutilizables o flujos administrativos.
 
 \subsection{Historias de usuario}
 
-\begin{table}[H]
-    \centering
-    \renewcommand{\arraystretch}{1.5}
-    \begin{tabular}{|p{2cm}|p{9cm}|p{2.5cm}|p{1.5cm}|}
-        \hline
-        \rowcolor{purplet!30}
-        ID: CMS-01 & Historia: Presentar información pública del Desafío Bebras Bolivia & \multicolumn{2}{c|}{Versión: 1} \\
-        \hline
-        \rowcolor{purplet!30}
-        \multicolumn{2}{|l|}{Usuario: Visitante del sitio} & Prioridad = 1 & Esf. = 13 \\
-        \hline
-        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
-        \multicolumn{4}{|p{16cm}|}{Como visitante del sitio, quiero consultar la información pública del Desafío Bebras Bolivia, para conocer el objetivo del desafío, las condiciones de participación y los canales oficiales de información.} \\
-        \hline
-        \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ Se muestra una página de inicio con la información principal del desafío.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ Se muestran categorías de participación por edad.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ Se muestra información diferenciada para estudiantes, docentes y coordinadores.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ Se muestra el sistema de puntuación, preguntas frecuentes, patrocinadores y canales de contacto.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ Se muestra el estado informativo del registro y los enlaces de navegación correspondientes.}\\
-        \hline
-    \end{tabular}
-\end{table}
+Las historias de usuario del módulo fueron registradas con identificador, usuario, iteración, prioridad y esfuerzo. Para evitar doble contabilización del esfuerzo en la planificación, las historias principales representan el valor funcional de cada entrega, mientras que las subtareas detallan el trabajo operativo necesario para completar dichas historias. La Tabla~\ref{tab:cms-hu-principales-i0-i1} presenta la base funcional y las historias principales de la primera iteración.
 
 \begin{table}[H]
-    \centering
-    \renewcommand{\arraystretch}{1.5}
-    \begin{tabular}{|p{2cm}|p{9cm}|p{2.5cm}|p{1.5cm}|}
-        \hline
-        \rowcolor{purplet!30}
-        ID: CMS-02 & Historia: Controlar el acceso al panel de administración & \multicolumn{2}{c|}{Versión: 1} \\
-        \hline
-        \rowcolor{purplet!30}
-        \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 1 & Esf. = 5 \\
-        \hline
-        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
-        \multicolumn{4}{|p{16cm}|}{Como administrador del sitio, quiero ingresar al panel de administración mediante credenciales, para proteger la edición del contenido público de Bebras Bolivia.} \\
-        \hline
-        \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ Se muestra una pantalla de inicio de sesión para el panel de administración.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema valida correo electrónico y contraseña antes de permitir el ingreso.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ Si las credenciales son incorrectas, se muestra un mensaje de error.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ Las rutas del panel de administración requieren sesión activa.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ El administrador puede cerrar sesión desde el panel de administración.}\\
-        \hline
-    \end{tabular}
+\centering
+\small
+\caption[Historias principales del CMS en la base funcional e Iteración 1]{Historias principales del CMS en la base funcional e Iteración 1}
+\label{tab:cms-hu-principales-i0-i1}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{1.8cm} X >{\raggedright\arraybackslash}p{2.6cm} >{\centering\arraybackslash}p{1.5cm} >{\centering\arraybackslash}p{1.5cm} >{\raggedright\arraybackslash}p{2cm}}
+\toprule
+\textbf{ID} & \textbf{Historia de usuario} & \textbf{Usuario} & \textbf{Prioridad} & \textbf{Esfuerzo} & \textbf{Iteración} \\
+\midrule
+CMS-00 & Preparar la base funcional del módulo. & Equipo de desarrollo & 1 & 5 & Iteración 0 \\
+CMS-01 & Presentar información pública del Desafío Bebras Bolivia. & Visitante del sitio & 1 & 13 & Iteración 1 \\
+CMS-02 & Controlar el acceso al panel de administración. & Administrador del sitio & 1 & 5 & Iteración 1 \\
+CMS-03 & Editar contenido de páginas informativas. & Administrador del sitio & 1 & 13 & Iteración 1 \\
+CMS-04 & Previsualizar cambios del sitio antes de publicarlos. & Administrador del sitio & 1 & 8 & Iteración 1 \\
+\bottomrule
+\end{tabularx}
 \end{table}
+
+La Tabla~\ref{tab:cms-hu-principales-i2} presenta las historias principales de la segunda iteración, centradas en publicaciones, recursos multimedia, respaldos y publicación del sitio informativo.
 
 \begin{table}[H]
-    \centering
-    \renewcommand{\arraystretch}{1.5}
-    \begin{tabular}{|p{2cm}|p{9cm}|p{2.5cm}|p{1.5cm}|}
-        \hline
-        \rowcolor{purplet!30}
-        ID: CMS-03 & Historia: Editar contenido de páginas informativas & \multicolumn{2}{c|}{Versión: 1} \\
-        \hline
-        \rowcolor{purplet!30}
-        \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 1 & Esf. = 13 \\
-        \hline
-        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
-        \multicolumn{4}{|p{16cm}|}{Como administrador del sitio, quiero modificar el contenido de las páginas informativas desde el panel de administración, para mantener actualizada la información pública del desafío.} \\
-        \hline
-        \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ Se muestra el listado de páginas informativas editables.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ El administrador puede seleccionar una página informativa para editar su contenido.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema permite modificar textos, enlaces, secciones y elementos configurables.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema valida la estructura del contenido antes de guardar cambios.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ Los cambios guardados quedan disponibles para vista previa y publicación.}\\
-        \hline
-    \end{tabular}
+\centering
+\small
+\caption[Historias principales del CMS en la Iteración 2]{Historias principales del CMS en la Iteración 2}
+\label{tab:cms-hu-principales-i2}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{1.8cm} X >{\raggedright\arraybackslash}p{2.6cm} >{\centering\arraybackslash}p{1.5cm} >{\centering\arraybackslash}p{1.5cm} >{\raggedright\arraybackslash}p{2cm}}
+\toprule
+\textbf{ID} & \textbf{Historia de usuario} & \textbf{Usuario} & \textbf{Prioridad} & \textbf{Esfuerzo} & \textbf{Iteración} \\
+\midrule
+CMS-05 & Crear publicaciones informativas. & Administrador del sitio & 1 & 5 & Iteración 2 \\
+CMS-06 & Editar publicaciones informativas. & Administrador del sitio & 1 & 8 & Iteración 2 \\
+CMS-07 & Manejar imágenes para publicaciones informativas. & Administrador del sitio & 2 & 5 & Iteración 2 \\
+CMS-08 & Previsualizar publicaciones antes de guardarlas. & Administrador del sitio & 1 & 5 & Iteración 2 \\
+CMS-09 & Crear respaldos del contenido. & Administrador del sitio & 1 & 5 & Iteración 2 \\
+CMS-10 & Restaurar contenido desde un respaldo. & Administrador del sitio & 1 & 8 & Iteración 2 \\
+CMS-11 & Transferir respaldos del contenido. & Administrador del sitio & 2 & 5 & Iteración 2 \\
+CMS-12 & Publicar cambios del sitio informativo. & Administrador del sitio & 1 & 8 & Iteración 2 \\
+CMS-13 & Programar publicación del sitio informativo. & Administrador del sitio & 2 & 5 & Iteración 2 \\
+\bottomrule
+\end{tabularx}
 \end{table}
+
+Las subtareas de la primera iteración se orientaron a completar la arquitectura de información del sitio público y las capacidades mínimas de edición del panel administrativo. La Tabla~\ref{tab:cms-subtareas-i1} muestra dichas subtareas.
 
 \begin{table}[H]
-    \centering
-    \renewcommand{\arraystretch}{1.5}
-    \begin{tabular}{|p{2cm}|p{9cm}|p{2.5cm}|p{1.5cm}|}
-        \hline
-        \rowcolor{purplet!30}
-        ID: CMS-04 & Historia: Previsualizar cambios del sitio antes de publicarlos & \multicolumn{2}{c|}{Versión: 1} \\
-        \hline
-        \rowcolor{purplet!30}
-        \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 1 & Esf. = 8 \\
-        \hline
-        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
-        \multicolumn{4}{|p{16cm}|}{Como administrador del sitio, quiero revisar los cambios del sitio en una vista previa, para verificar el contenido antes de publicarlo.} \\
-        \hline
-        \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ Se muestra una opción para iniciar la vista previa del sitio.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ La vista previa refleja cambios de contenido sin requerir publicación definitiva.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ La vista previa permite revisar páginas informativas antes de publicar.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ Si la vista previa no puede generarse, se muestra un mensaje de error.}\\
-        \hline
-    \end{tabular}
+\centering
+\scriptsize
+\caption[Subtareas del CMS en la Iteración 1]{Subtareas del CMS en la Iteración 1}
+\label{tab:cms-subtareas-i1}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{1.8cm} X >{\raggedright\arraybackslash}p{2.6cm} >{\centering\arraybackslash}p{1.5cm} >{\centering\arraybackslash}p{1.5cm} >{\raggedright\arraybackslash}p{2cm}}
+\toprule
+\textbf{ID} & \textbf{Historia de usuario} & \textbf{Usuario} & \textbf{Prioridad} & \textbf{Esfuerzo} & \textbf{Iteración} \\
+\midrule
+CMS-01-01 & Mostrar información general del desafío. & Visitante del sitio & 1 & 2 & Iteración 1 \\
+CMS-01-02 & Mostrar categorías de participación por edad. & Visitante del sitio & 1 & 1 & Iteración 1 \\
+CMS-01-03 & Mostrar información para estudiantes. & Visitante del sitio & 1 & 2 & Iteración 1 \\
+CMS-01-04 & Mostrar información para docentes y coordinadores. & Visitante del sitio & 1 & 2 & Iteración 1 \\
+CMS-01-05 & Mostrar sistema de puntuación. & Visitante del sitio & 2 & 1 & Iteración 1 \\
+CMS-01-06 & Mostrar preguntas frecuentes. & Visitante del sitio & 2 & 2 & Iteración 1 \\
+CMS-01-07 & Mostrar patrocinadores e instituciones organizadoras. & Visitante del sitio & 2 & 1 & Iteración 1 \\
+CMS-01-08 & Mostrar canales de contacto institucional. & Visitante del sitio & 2 & 1 & Iteración 1 \\
+CMS-01-09 & Mostrar estado informativo del registro. & Visitante del sitio & 2 & 1 & Iteración 1 \\
+CMS-01-10 & Organizar navegación del sitio informativo. & Visitante del sitio & 1 & 2 & Iteración 1 \\
+CMS-03-01 & Validar estructura del contenido antes de guardar cambios. & Administrador del sitio & 1 & 3 & Iteración 1 \\
+CMS-03-02 & Administrar secciones reutilizables del sitio. & Administrador del sitio & 2 & 3 & Iteración 1 \\
+CMS-03-03 & Ordenar componentes dentro de páginas informativas. & Administrador del sitio & 2 & 2 & Iteración 1 \\
+\bottomrule
+\end{tabularx}
 \end{table}
 
-\subsection{Diseño}
+Las subtareas de la segunda iteración complementaron las historias relacionadas con publicaciones, respaldos y publicación programada. La Tabla~\ref{tab:cms-subtareas-i2} presenta este conjunto de trabajo.
 
-\subsection{Codificación}
+\begin{table}[H]
+\centering
+\small
+\caption[Subtareas del CMS en la Iteración 2]{Subtareas del CMS en la Iteración 2}
+\label{tab:cms-subtareas-i2}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{1.8cm} X >{\raggedright\arraybackslash}p{2.6cm} >{\centering\arraybackslash}p{1.5cm} >{\centering\arraybackslash}p{1.5cm} >{\raggedright\arraybackslash}p{2cm}}
+\toprule
+\textbf{ID} & \textbf{Historia de usuario} & \textbf{Usuario} & \textbf{Prioridad} & \textbf{Esfuerzo} & \textbf{Iteración} \\
+\midrule
+CMS-06-01 & Editar publicaciones con contenido enriquecido. & Administrador del sitio & 1 & 3 & Iteración 2 \\
+CMS-11-01 & Descargar respaldo del contenido. & Administrador del sitio & 2 & 2 & Iteración 2 \\
+CMS-11-02 & Importar respaldo del contenido. & Administrador del sitio & 2 & 3 & Iteración 2 \\
+CMS-12-01 & Revisar cambios pendientes de publicación. & Administrador del sitio & 1 & 2 & Iteración 2 \\
+CMS-13-01 & Cancelar publicación programada. & Administrador del sitio & 3 & 1 & Iteración 2 \\
+\bottomrule
+\end{tabularx}
+\end{table}
 
-\subsection{Pruebas}
+En conjunto, las 32 unidades registradas permitieron cubrir tanto el valor visible para el usuario final como las tareas internas necesarias para sostener el flujo de edición y publicación. Las prioridades de nivel 1 se asociaron a funcionalidades imprescindibles para operar el sitio y el panel; las prioridades de nivel 2 ampliaron la completitud del módulo; y la prioridad de nivel 3 se asignó a una operación complementaria dentro del flujo de publicación programada.
 
-\subsubsection{Pruebas funcionales}
+\subsection{Plan de entregas y alcance del módulo}
 
-\subsubsection{Pruebas de interfaz}
+El alcance del módulo comprendió la construcción del sitio informativo de Bebras Bolivia y de un CMS local propio para administrar su contenido. El sitio público fue diseñado sobre Astro, con componentes Astro y React para organizar páginas, bloques reutilizables y elementos interactivos puntuales. El panel administrativo fue ubicado en la carpeta \texttt{cms/}, separado del sitio público, y se estructuró como una aplicación interna con servidor propio, interfaz administrativa y almacenamiento local de contenido editable.
 
-\subsubsection{Pruebas de validación de contenido}
+La base funcional CMS-00 permitió preparar el entorno: selección tecnológica, organización inicial de carpetas, definición de páginas editables y preparación de recursos visuales. Esta tarea antecedió a las dos iteraciones funcionales del módulo y operó como precondición técnica, no como entrega final al usuario.
 
-\subsubsection{Resultados de la iteración}
+La primera entrega correspondió a la Iteración 1. Su objetivo fue dejar operativo el sitio informativo básico y el primer flujo administrativo de edición. En esta etapa se completaron las historias CMS-01, CMS-02, CMS-03 y CMS-04, junto con sus subtareas. El resultado esperado fue un sitio con información pública navegable, un acceso administrativo protegido, edición estructurada de páginas y una vista previa que permitiera validar cambios antes de publicarlos.
 
-\section{ITERACIÓN 2: PUBLICACIONES, RESPALDOS Y PUBLICACIÓN}
+La segunda entrega correspondió a la Iteración 2. Su objetivo fue completar la administración editorial del sitio mediante publicaciones informativas, carga de imágenes, respaldos, restauración, revisión de cambios, publicación inmediata y publicación programada. Esta etapa incluyó las historias CMS-05 a CMS-13 y sus subtareas. El resultado esperado fue un CMS capaz de sostener el ciclo completo de mantenimiento del contenido institucional: creación, edición, previsualización, respaldo, restauración, publicación y transferencia de respaldos.
+
+El alcance del módulo no incluyó la gestión de participantes, competencias, tareas de evaluación ni resultados del concurso. Dichas funcionalidades pertenecen a los módulos posteriores del sistema. De esta forma, el CMS quedó delimitado como una herramienta de comunicación institucional y administración de contenido, integrada al ecosistema general de Bebras Bolivia pero funcionalmente separada de los procesos de competencia.
+
+\section{ITERACIÓN 1}
+
+La primera iteración del módulo se enfocó en construir la base visible y editable del sitio informativo. Bajo la lógica XP, se priorizó entregar software funcional en un plazo corto: un visitante debía poder consultar la información principal del desafío y un administrador debía poder ingresar al panel, modificar contenido estructurado y revisar el resultado antes de publicarlo.
 
 \subsection{Planificación de la iteración}
 
-La Iteración 2 se enfocó en consolidar las capacidades editoriales del CMS. En esta etapa se implementó la administración de publicaciones informativas, el manejo de imágenes, la vista previa de publicaciones, la creación y restauración de respaldos, la transferencia de respaldos y el flujo de publicación del sitio informativo.
+La planificación de la Iteración 1 consideró cuatro historias principales. La historia CMS-01 agrupó la presentación pública del desafío y se descompuso en subtareas relativas a información general, categorías por edad, contenido para estudiantes, contenido para docentes, puntuación, preguntas frecuentes, patrocinadores, contacto, estado de registro y navegación. La historia CMS-02 cubrió el control de acceso al panel administrativo. La historia CMS-03 abordó la edición de páginas informativas y se apoyó en subtareas de validación de estructura, administración de secciones reutilizables y ordenamiento de componentes. La historia CMS-04 incorporó la vista previa de cambios antes de su publicación.
 
-\subsection{Historias de usuario}
-
-\begin{table}[H]
-    \centering
-    \renewcommand{\arraystretch}{1.5}
-    \begin{tabular}{|p{2cm}|p{9cm}|p{2.5cm}|p{1.5cm}|}
-        \hline
-        \rowcolor{purplet!30}
-        ID: CMS-05 & Historia: Crear publicaciones informativas & \multicolumn{2}{c|}{Versión: 1} \\
-        \hline
-        \rowcolor{purplet!30}
-        \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 1 & Esf. = 5 \\
-        \hline
-        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
-        \multicolumn{4}{|p{16cm}|}{Como administrador del sitio, quiero crear publicaciones informativas, para comunicar novedades y anuncios relacionados con Bebras Bolivia.} \\
-        \hline
-        \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ Se muestra una opción para crear una nueva publicación informativa.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema solicita título, descripción, fecha, autor y contenido de la publicación.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ Si falta un dato obligatorio, no se guarda la publicación.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ Al guardar correctamente, la publicación aparece en el listado de publicaciones.}\\
-        \hline
-    \end{tabular}
-\end{table}
-
-\begin{table}[H]
-    \centering
-    \renewcommand{\arraystretch}{1.5}
-    \begin{tabular}{|p{2cm}|p{9cm}|p{2.5cm}|p{1.5cm}|}
-        \hline
-        \rowcolor{purplet!30}
-        ID: CMS-06 & Historia: Editar publicaciones informativas & \multicolumn{2}{c|}{Versión: 1} \\
-        \hline
-        \rowcolor{purplet!30}
-        \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 1 & Esf. = 8 \\
-        \hline
-        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
-        \multicolumn{4}{|p{16cm}|}{Como administrador del sitio, quiero editar publicaciones informativas existentes, para corregir o actualizar noticias publicadas en el sitio.} \\
-        \hline
-        \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ Se muestra el listado de publicaciones informativas existentes.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ El administrador puede abrir una publicación existente para editarla.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema permite modificar metadatos y cuerpo de la publicación.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema permite agregar formato enriquecido al contenido de la publicación.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ Si la publicación se guarda correctamente, los cambios quedan disponibles para vista previa.}\\
-        \hline
-    \end{tabular}
-\end{table}
-
-\begin{table}[H]
-    \centering
-    \renewcommand{\arraystretch}{1.5}
-    \begin{tabular}{|p{2cm}|p{9cm}|p{2.5cm}|p{1.5cm}|}
-        \hline
-        \rowcolor{purplet!30}
-        ID: CMS-07 & Historia: Manejar imágenes para publicaciones informativas & \multicolumn{2}{c|}{Versión: 1} \\
-        \hline
-        \rowcolor{purplet!30}
-        \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 2 & Esf. = 5 \\
-        \hline
-        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
-        \multicolumn{4}{|p{16cm}|}{Como administrador del sitio, quiero manejar imágenes para publicaciones informativas, para complementar visualmente las noticias del sitio.} \\
-        \hline
-        \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ El administrador puede subir una imagen para usarla en publicaciones informativas.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema acepta archivos con extensión jpg, jpeg, png, webp o gif.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema rechaza archivos con extensión no permitida.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ La imagen cargada queda disponible mediante una ruta utilizable en la publicación.}\\
-        \hline
-    \end{tabular}
-\end{table}
-
-\begin{table}[H]
-    \centering
-    \renewcommand{\arraystretch}{1.5}
-    \begin{tabular}{|p{2cm}|p{9cm}|p{2.5cm}|p{1.5cm}|}
-        \hline
-        \rowcolor{purplet!30}
-        ID: CMS-08 & Historia: Previsualizar publicaciones antes de guardarlas & \multicolumn{2}{c|}{Versión: 1} \\
-        \hline
-        \rowcolor{purplet!30}
-        \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 1 & Esf. = 5 \\
-        \hline
-        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
-        \multicolumn{4}{|p{16cm}|}{Como administrador del sitio, quiero revisar una vista previa de la publicación durante su edición, para verificar su contenido antes de guardarla.} \\
-        \hline
-        \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema genera una vista previa de la publicación mientras se edita.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ La vista previa muestra título, descripción, fecha, contenido y enlace de acción cuando corresponde.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ La vista previa se actualiza después de cambios en el contenido.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ Si la vista previa no puede generarse, se muestra un mensaje de error.}\\
-        \hline
-    \end{tabular}
-\end{table}
-
-\begin{table}[H]
-    \centering
-    \renewcommand{\arraystretch}{1.5}
-    \begin{tabular}{|p{2cm}|p{9cm}|p{2.5cm}|p{1.5cm}|}
-        \hline
-        \rowcolor{purplet!30}
-        ID: CMS-09 & Historia: Crear respaldos del contenido & \multicolumn{2}{c|}{Versión: 1} \\
-        \hline
-        \rowcolor{purplet!30}
-        \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 1 & Esf. = 5 \\
-        \hline
-        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
-        \multicolumn{4}{|p{16cm}|}{Como administrador del sitio, quiero crear respaldos del contenido, para conservar estados recuperables del sitio informativo.} \\
-        \hline
-        \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ Se muestra una opción para crear un respaldo del contenido actual.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ El administrador puede registrar una descripción corta del respaldo.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema registra autor y fecha de creación del respaldo.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ El respaldo creado aparece en la sección de respaldos.}\\
-        \hline
-    \end{tabular}
-\end{table}
-
-\begin{table}[H]
-    \centering
-    \renewcommand{\arraystretch}{1.5}
-    \begin{tabular}{|p{2cm}|p{9cm}|p{2.5cm}|p{1.5cm}|}
-        \hline
-        \rowcolor{purplet!30}
-        ID: CMS-10 & Historia: Restaurar contenido desde un respaldo & \multicolumn{2}{c|}{Versión: 1} \\
-        \hline
-        \rowcolor{purplet!30}
-        \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 1 & Esf. = 8 \\
-        \hline
-        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
-        \multicolumn{4}{|p{16cm}|}{Como administrador del sitio, quiero restaurar contenido desde un respaldo, para recuperar una versión anterior del sitio cuando sea necesario.} \\
-        \hline
-        \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ El administrador puede seleccionar un respaldo existente.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema permite revisar una vista previa del respaldo seleccionado.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema permite restaurar el contenido desde el respaldo seleccionado.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ Si el respaldo no existe o no puede restaurarse, se muestra un mensaje de error.}\\
-        \hline
-    \end{tabular}
-\end{table}
-
-\begin{table}[H]
-    \centering
-    \renewcommand{\arraystretch}{1.5}
-    \begin{tabular}{|p{2cm}|p{9cm}|p{2.5cm}|p{1.5cm}|}
-        \hline
-        \rowcolor{purplet!30}
-        ID: CMS-11 & Historia: Transferir respaldos del contenido & \multicolumn{2}{c|}{Versión: 1} \\
-        \hline
-        \rowcolor{purplet!30}
-        \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 2 & Esf. = 5 \\
-        \hline
-        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
-        \multicolumn{4}{|p{16cm}|}{Como administrador del sitio, quiero transferir respaldos del contenido, para conservar copias externas o incorporar respaldos previamente generados.} \\
-        \hline
-        \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ El administrador puede descargar un respaldo existente.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ El archivo descargado contiene la información necesaria para recuperar el contenido respaldado.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ El administrador puede importar un archivo de respaldo.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema rechaza archivos que no correspondan a un respaldo válido.}\\
-        \hline
-    \end{tabular}
-\end{table}
-
-\begin{table}[H]
-    \centering
-    \renewcommand{\arraystretch}{1.5}
-    \begin{tabular}{|p{2cm}|p{9cm}|p{2.5cm}|p{1.5cm}|}
-        \hline
-        \rowcolor{purplet!30}
-        ID: CMS-12 & Historia: Publicar cambios del sitio informativo & \multicolumn{2}{c|}{Versión: 1} \\
-        \hline
-        \rowcolor{purplet!30}
-        \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 1 & Esf. = 8 \\
-        \hline
-        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
-        \multicolumn{4}{|p{16cm}|}{Como administrador del sitio, quiero publicar cambios del sitio informativo, para actualizar la versión visible para los visitantes.} \\
-        \hline
-        \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema muestra los cambios pendientes antes de publicar.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ El administrador puede confirmar la publicación de cambios.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema ejecuta el proceso de publicación del sitio informativo.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ Si la publicación finaliza correctamente, se registra el estado exitoso.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ Si la publicación falla, se muestra el mensaje de error correspondiente.}\\
-        \hline
-    \end{tabular}
-\end{table}
-
-\begin{table}[H]
-    \centering
-    \renewcommand{\arraystretch}{1.5}
-    \begin{tabular}{|p{2cm}|p{9cm}|p{2.5cm}|p{1.5cm}|}
-        \hline
-        \rowcolor{purplet!30}
-        ID: CMS-13 & Historia: Programar publicación del sitio informativo & \multicolumn{2}{c|}{Versión: 1} \\
-        \hline
-        \rowcolor{purplet!30}
-        \multicolumn{2}{|l|}{Usuario: Administrador del sitio} & Prioridad = 2 & Esf. = 5 \\
-        \hline
-        \multicolumn{4}{|l|}{\textbf{Descripción del problema:}} \\
-        \multicolumn{4}{|p{16cm}|}{Como administrador del sitio, quiero programar la publicación del sitio informativo, para aplicar cambios en una fecha y hora definidas.} \\
-        \hline
-        \multicolumn{4}{|l|}{Criterios de Aceptación:} \\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ El administrador puede seleccionar fecha y hora para publicar cambios.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ El sistema registra una publicación programada si existen cambios pendientes.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ Se muestra la publicación programada activa con su fecha y estado.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ El administrador puede cancelar una publicación programada.}\\
-        \multicolumn{4}{|p{16cm}|}{$\bullet$ Si no existen cambios pendientes, no se habilita la programación de publicación.}\\
-        \hline
-    \end{tabular}
-\end{table}
+El objetivo de la iteración fue validar tempranamente la arquitectura de información del sitio y el flujo mínimo de administración. Para ello, se establecieron como criterios de cierre la disponibilidad de páginas públicas coherentes, el ingreso seguro al panel, la edición de contenido sin pérdida de acentos ni caracteres especiales, la validación de datos antes de guardar y la generación de una vista previa revisable por el administrador.
 
 \subsection{Diseño}
 
+El diseño de la Iteración 1 separó el sitio público del panel administrativo. El sitio público quedó organizado en la carpeta \texttt{src/}, con páginas orientadas a inicio, estudiantes, docentes, maestros, preguntas frecuentes, patrocinadores, contacto y registro. Esta estructura permitió que cada ruta atendiera una necesidad informativa específica sin mezclar responsabilidades de administración.
+
+Las entidades de contenido se definieron como archivos estructurados de datos. Entre ellas se incluyeron la página de inicio, categorías por edad, sistema de puntuación, preguntas frecuentes, instrucciones para docentes, patrocinadores, contacto, estado de registro, páginas para estudiantes y docentes, configuración de publicaciones y composición de páginas. Esta decisión permitió que el contenido institucional pudiera validarse de manera independiente de la presentación visual.
+
+El diseño de páginas se apoyó en secciones reutilizables. Se contemplaron bloques de texto enriquecido, grillas de elementos, listas de enlaces, preguntas frecuentes, llamadas a la acción, instituciones organizadoras, formularios de contacto, tablas de puntuación, categorías por edad y guías por pestañas. En lugar de diseñar cada página como una composición rígida, se adoptó un modelo de bloques configurables, de modo que una página pudiera ordenar y combinar secciones sin requerir cambios estructurales en el sitio.
+
+El flujo de edición se diseñó con una copia de trabajo ubicada en \texttt{cms/content/current}. Los cambios realizados desde el panel se almacenan primero en dicha área, luego se sincronizan hacia las fuentes consumidas por Astro para permitir revisión visual. La publicación definitiva se reservó para una etapa posterior, lo que permitió diferenciar entre guardar, previsualizar y publicar.
+
+Aunque los respaldos se desarrollaron en la segunda iteración, su necesidad fue considerada desde el diseño inicial. La separación entre contenido actual, contenido publicado y futuras instantáneas permitió preparar un flujo en el que el administrador pudiera recuperar estados anteriores sin depender de intervención manual sobre los archivos del proyecto.
+
 \subsection{Codificación}
+
+La codificación de la Iteración 1 implementó el sitio informativo con Astro, React y Tailwind CSS, manteniendo Bun como gestor de paquetes y entorno de ejecución. Las páginas públicas consumen datos desde \texttt{src/data} y renderizan componentes reutilizables ubicados en \texttt{src/components}. Esta organización permitió construir una interfaz institucional consistente, con navegación común, pie de página, encabezados internos, bloques dinámicos y componentes específicos para categorías, puntuación, preguntas frecuentes y contenido editorial.
+
+El panel administrativo se implementó dentro de \texttt{cms/}. El servidor del CMS expone servicios para autenticación, lectura y escritura de contenido, vista previa y sincronización. La interfaz administrativa, ubicada en \texttt{cms/ui}, fue construida como una aplicación Astro y React compilada hacia una distribución interna servida por el backend del CMS. El panel se sirve bajo una ruta administrativa configurable, lo que permite integrarlo con el sitio local sin exponerlo como parte de la navegación pública.
+
+Para el control de acceso se incorporó un inicio de sesión con correo electrónico y contraseña. Las credenciales se validan en el servidor y, cuando son correctas, se crea una sesión mediante token almacenado en una cookie. Las rutas administrativas requieren sesión activa y el cierre de sesión invalida el acceso desde el panel. También se incorporó limitación de intentos para reducir el riesgo de abuso sobre el formulario de ingreso.
+
+La edición de contenido se implementó a partir de esquemas de validación. Cada archivo editable posee una estructura esperada, de manera que el sistema verifica los datos antes de escribirlos en la copia de trabajo. Además, se incorporó una estrategia de preservación de acentos y caracteres especiales para evitar que la edición administrativa deteriorara textos en español. El editor del panel permite modificar campos, listas y secciones, así como reorganizar componentes dentro de páginas informativas.
+
+La vista previa se resolvió mediante sincronización controlada entre el contenido de trabajo del CMS y las carpetas consumidas por Astro. En desarrollo, el script \texttt{dev-all} sincroniza archivos de datos, publicaciones y medios, compila la interfaz del CMS y levanta simultáneamente el sitio público y el servidor administrativo. Esta automatización permitió revisar los cambios de contenido en el sitio sin ejecutar manualmente cada servicio por separado.
 
 \subsection{Pruebas}
 
-\subsubsection{Pruebas funcionales}
+Las pruebas de la Iteración 1 se organizaron a partir de los criterios de aceptación de las historias planificadas. Para CMS-01 se verificó que el sitio mostrara la página de inicio, categorías de participación, información para estudiantes, información para docentes y coordinadores, sistema de puntuación, preguntas frecuentes, patrocinadores, contacto y estado de registro. La validación se realizó revisando que cada ruta pública presentara el contenido correspondiente y que la navegación permitiera acceder a las secciones principales.
 
-\subsubsection{Pruebas de gestión de publicaciones}
+Para CMS-02 se comprobó el flujo de autenticación del panel. Se revisó la existencia de una pantalla de inicio de sesión, la validación de credenciales, la presentación de mensajes de error ante datos incorrectos, la protección de rutas administrativas y la posibilidad de cerrar sesión. Esta verificación permitió confirmar que el panel no quedara disponible para usuarios no autenticados.
 
-\subsubsection{Pruebas de respaldos y restauración}
+Para CMS-03 se validó el listado de páginas editables, la selección de una página, la modificación de textos, enlaces, listas y secciones, el ordenamiento de componentes y la validación previa al guardado. También se revisó que los caracteres propios del español se conservaran después de guardar cambios. Este punto fue relevante porque el sitio contiene contenido institucional en español y nombres propios que no deben alterarse durante la serialización de datos.
 
-\subsubsection{Pruebas de publicación}
+Para CMS-04 se verificó que el administrador pudiera iniciar una vista previa, observar cambios sin publicación definitiva, revisar páginas informativas y detener o limpiar la revisión al finalizar. También se consideró el manejo de error cuando la vista previa no pudiera generarse. Con ello se confirmó el flujo básico de revisión editorial antes de avanzar hacia la publicación formal implementada en la segunda iteración.
 
-\subsubsection{Resultados de la iteración}
+\section{ITERACIÓN 2}
 
-\section{SÍNTESIS DEL MÓDULO}
+La segunda iteración completó el ciclo editorial del CMS. Una vez validada la edición de páginas informativas, el trabajo se orientó a contenido dinámico de publicaciones, administración de imágenes, respaldo del estado del sitio, restauración de versiones y publicación controlada. Esta iteración convirtió al panel en una herramienta de mantenimiento institucional más completa, capaz de operar sobre contenido vigente y de reducir riesgos ante errores de edición.
 
-El módulo de gestión de contenido y sitio informativo permitió establecer la base pública de Bebras Bolivia y un panel de administración para mantener actualizado su contenido. A través de las iteraciones documentadas, el sistema incorporó páginas informativas, acceso protegido, edición de contenido, vista previa, publicaciones, manejo de imágenes, respaldos y publicación del sitio. Estas capacidades constituyen la base comunicacional del sistema y se integran con los demás módulos al proporcionar información oficial para participantes, docentes, coordinadores e instituciones interesadas.
+\subsection{Planificación de la iteración}
+
+La Iteración 2 incluyó nueve historias principales. Las historias CMS-05 y CMS-06 cubrieron la creación y edición de publicaciones informativas, complementadas por la subtarea CMS-06-01 para contenido enriquecido. La historia CMS-07 incorporó la carga y administración de imágenes para publicaciones. La historia CMS-08 permitió previsualizar publicaciones antes de guardarlas. Las historias CMS-09, CMS-10 y CMS-11 abordaron la creación, restauración y transferencia de respaldos, con subtareas específicas para descarga e importación. Finalmente, CMS-12 y CMS-13 cubrieron la publicación inmediata, revisión de cambios pendientes, publicación programada y cancelación de una programación activa.
+
+El objetivo de la iteración fue cerrar el flujo completo de contenido: el administrador debía poder crear o modificar una publicación, asociar imágenes, revisar una vista previa, respaldar el estado actual, restaurar versiones anteriores, transferir respaldos y publicar cambios con registro de resultado. La planificación priorizó primero la edición y publicación inmediata, luego la seguridad operativa mediante respaldos y finalmente la programación de publicaciones.
+
+\subsection{Diseño}
+
+El diseño de la segunda iteración amplió el modelo de contenido con publicaciones informativas. Estas publicaciones se organizaron como documentos con metadatos y cuerpo editorial: título, descripción, fecha, autor, imagen opcional, enlace de acción opcional y contenido principal. La ruta pública de cada publicación se deriva de un identificador legible, lo que facilita su consulta desde el índice de publicaciones y desde páginas individuales.
+
+El manejo de imágenes se diseñó como una biblioteca local de medios. Los archivos subidos desde el CMS se almacenan en \texttt{cms/content/media} y se sincronizan hacia \texttt{public/images/uploads} para ser utilizados por el sitio público. Se restringieron los formatos permitidos a imágenes de uso común y se excluyeron formatos con mayor riesgo de ejecución de contenido activo. Además, el flujo limita la operación de carga para mantener control sobre cada archivo incorporado.
+
+El flujo de publicación se diseñó con tres estados conceptuales: contenido de trabajo, contenido publicado y contenido respaldado. El contenido de trabajo reside en \texttt{cms/content/current}; el contenido publicado es el que consume el sitio Astro desde \texttt{src/data}, \texttt{src/content/blog} y \texttt{public/images/uploads}; y el contenido respaldado se almacena como instantáneas dentro de \texttt{cms/content/snapshots}. Esta separación permite revisar diferencias, publicar solo cuando el administrador confirma y recuperar estados previos si ocurre un error.
+
+Los respaldos se diseñaron como instantáneas numeradas con metadatos de descripción, autor y fecha de creación. Cada respaldo conserva los archivos de datos y publicaciones necesarios para reconstruir el estado del contenido. Además, se incorporó transferencia mediante archivos comprimidos de respaldo, de forma que un estado del CMS pueda descargarse, resguardarse externamente e importarse nuevamente si corresponde.
+
+La publicación programada se diseñó como una extensión del flujo de publicación inmediata. El administrador selecciona fecha y hora, el sistema registra una programación activa cuando existen cambios pendientes y el proceso se ejecuta automáticamente en el momento definido. El diseño también contempla cancelación de la programación y registro de estados, lo que permite conocer si una publicación fue completada, cancelada o fallida.
+
+\subsection{Codificación}
+
+La codificación de publicaciones se incorporó mediante servicios específicos para listar, crear, editar y eliminar entradas informativas. Cada publicación se almacena como documento editorial con metadatos validados y contenido principal. El panel administrativo presenta un listado de publicaciones existentes, permite abrir una entrada para edición, modificar sus datos y guardar los cambios en la copia de trabajo. Para el contenido enriquecido se habilitó una edición basada en texto estructurado, compatible con el renderizado público del blog.
+
+La vista previa de publicaciones se implementó mediante un documento temporal de previsualización. Cuando el administrador edita una publicación, el CMS genera una versión visible en el sitio público sin requerir guardado definitivo. Esta vista incluye título, descripción, fecha, contenido y enlace de acción cuando corresponde. Al salir del editor, el sistema limpia el elemento temporal para que no permanezca como contenido publicado.
+
+La administración de imágenes se incorporó con un servicio de medios que lista archivos disponibles, valida extensiones permitidas, limita el tamaño de archivo y genera rutas utilizables desde las publicaciones. Los archivos aceptados quedan disponibles en la carpeta de medios del CMS y luego se sincronizan hacia el directorio público de cargas del sitio. Este diseño evita que el administrador tenga que ubicar manualmente los archivos en la estructura del proyecto.
+
+El sistema de respaldos se implementó como un conjunto de servicios para crear, listar, inspeccionar, restaurar, exportar e importar instantáneas. Cada respaldo copia los datos editables y publicaciones vigentes en una carpeta propia, acompañada de metadatos. La restauración reemplaza el contenido de trabajo por los archivos del respaldo seleccionado, después de lo cual el administrador puede previsualizar el estado recuperado antes de publicarlo.
+
+La publicación se implementó como un proceso controlado. Antes de publicar, el CMS compara el contenido de trabajo con el contenido publicado y muestra cambios pendientes, distinguiendo archivos nuevos, modificados o eliminados. Al confirmar, el sistema crea un respaldo automático previo, copia datos, publicaciones y medios hacia las carpetas consumidas por Astro, ejecuta la construcción del sitio y registra el resultado en una bitácora. Si ocurre un fallo, el estado queda registrado y se presenta el mensaje correspondiente al administrador.
+
+La publicación programada se incorporó con almacenamiento local de programaciones y ejecución diferida. El sistema mantiene una publicación activa como máximo, calcula el momento de ejecución, dispara el proceso de publicación y actualiza el estado final. La cancelación de una publicación programada modifica su estado y evita su ejecución posterior. Esta funcionalidad permite preparar cambios editoriales y liberarlos en una fecha planificada sin intervención manual en ese momento.
+
+\subsection{Pruebas}
+
+Las pruebas de la Iteración 2 siguieron los criterios de aceptación de cada historia. Para CMS-05 se verificó que el panel permitiera crear una publicación nueva, solicitar título, descripción, fecha, autor y contenido, generar una ruta válida a partir del título, impedir el guardado cuando faltaran datos obligatorios y mostrar la publicación en el listado después de guardarla.
+
+Para CMS-06 y CMS-06-01 se verificó el listado de publicaciones existentes, la apertura de una publicación para edición, la modificación de metadatos y cuerpo, la incorporación de contenido enriquecido y la disponibilidad de los cambios para vista previa después del guardado. Esta prueba confirmó que el flujo editorial no se limitara a texto plano mínimo, sino que permitiera contenido institucional con estructura suficiente.
+
+Para CMS-07 se comprobó la carga de imágenes, la aceptación de archivos con extensiones jpg, jpeg, png, webp y gif, el rechazo de extensiones no permitidas, la carga de un solo archivo por operación y la generación de una ruta utilizable dentro de la publicación. La prueba permitió validar tanto la funcionalidad administrativa como la restricción de seguridad sobre tipos de archivo.
+
+Para CMS-08 se revisó la generación de vista previa durante la edición de publicaciones, la visualización de título, descripción, fecha, contenido y enlace de acción, la actualización de la vista después de cambios, el manejo de errores de previsualización y la limpieza del borrador temporal al salir del editor. Esta verificación fue importante para mantener separado el contenido en revisión del contenido publicado.
+
+Para CMS-09, CMS-10 y CMS-11 se verificó el ciclo de respaldos. Se comprobó la creación de respaldos con descripción, autor y fecha; la aparición de la instantánea en la sección correspondiente; el ordenamiento por antigüedad; la selección y previsualización de un respaldo; la restauración hacia la copia de trabajo; el manejo de error ante respaldos inexistentes; la descarga de un archivo con información recuperable; la importación de respaldos válidos; y el rechazo de archivos que no correspondieran al formato esperado.
+
+Para CMS-12 y CMS-12-01 se revisó la visualización de cambios pendientes antes de publicar, la confirmación de publicación, la ejecución del proceso de construcción del sitio, el registro de estado exitoso y la presentación de mensajes ante fallos. Finalmente, para CMS-13 y CMS-13-01 se verificó la selección de fecha y hora, el registro de una publicación programada solo cuando existían cambios pendientes, la visualización de la programación activa, la cancelación de dicha programación y la deshabilitación del flujo cuando no había contenido pendiente. Con estas pruebas se cerró el ciclo funcional completo del módulo CMS.
