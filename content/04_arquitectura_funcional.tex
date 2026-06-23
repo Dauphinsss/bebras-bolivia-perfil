@@ -87,7 +87,8 @@ La Figura \ref{fig:interaccion_actores_modulos} resume esta relación de manera 
     actor/.style={rectangle, rounded corners=2pt, draw=black, line width=0.55pt, fill=gray!8, text width=2.8cm, minimum height=0.85cm, align=center, font=\footnotesize\bfseries},
     modulo/.style={rectangle, rounded corners=2pt, draw=black, line width=0.55pt, fill=gray!4, text width=3.25cm, minimum height=0.85cm, align=center, font=\footnotesize},
     moduloClave/.style={rectangle, rounded corners=2pt, draw=black, line width=0.7pt, fill=gray!12, text width=3.25cm, minimum height=0.95cm, align=center, font=\footnotesize\bfseries},
-    flujo/.style={-{Stealth[length=2.4mm]}, line width=0.5pt}
+    flujo/.style={-{Stealth[length=2.4mm]}, line width=0.5pt},
+    consulta/.style={-{Stealth[length=2.2mm]}, line width=0.45pt, dashed}
 ]
     \draw[rounded corners=4pt, draw=gray!65, line width=0.55pt] (2.55,-3.05) rectangle (11.25,3.05);
     \node[font=\footnotesize\bfseries, fill=white, inner sep=2pt] at (6.9,3.05) {Sistema Bebras Bolivia};
@@ -103,10 +104,10 @@ La Figura \ref{fig:interaccion_actores_modulos} resume esta relación de manera 
     \node[moduloClave] (evaluacion) at (9.1,-0.65) {Evaluación\\digital e imprimible};
 
     \draw[flujo] (maestro.east) -- (registro.west);
-    \draw[flujo] (maestro.east) -- ++(0.6,0) |- (contenido.west);
+    \draw[consulta] (maestro.east) -- ++(1.05,0) |- (contenido.west);
 
     \draw[flujo] (admin.east) -- (contenido.west);
-    \draw[flujo] (admin.east) -- ++(0.8,0) |- (competencias.west);
+    \draw[flujo] (admin.east) -- ++(0.45,0) |- (competencias.west);
 
     \draw[flujo] (registro.east) -- ++(0.8,0) -| (evaluacion.north);
     \draw[flujo] (competencias.east) -- (evaluacion.west);
