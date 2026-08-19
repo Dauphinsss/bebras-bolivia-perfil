@@ -1,0 +1,143 @@
+\documentclass[12pt,letterpaper]{article}
+
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{ragged2e}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{pdflscape}
+
+\geometry{
+  left=3cm,
+  right=2cm,
+  top=2cm,
+  bottom=2cm
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setstretch{1.0}
+\addto\captionsspanish{\renewcommand{\tablename}{Tabla}}
+
+\begin{document}
+
+\begin{titlepage}
+\centering
+\vspace*{0cm}
+\begin{minipage}[c]{0.18\textwidth}
+  \centering
+  \includegraphics[width=0.8\textwidth]{../assets/logo_left.png}
+\end{minipage}%
+\hfill
+\begin{minipage}[c]{0.64\textwidth}
+  \centering
+  {\fontsize{12}{15}\selectfont\bfseries
+  UNIVERSIDAD MAYOR DE SAN SIMÓN\\[4pt]
+  FACULTAD DE CIENCIAS Y TECNOLOGÍA\\[4pt]
+  CARRERA DE INGENIERÍA INFORMÁTICA}
+\end{minipage}%
+\hfill
+\begin{minipage}[c]{0.18\textwidth}
+  \centering
+  \includegraphics[width=0.9\textwidth]{../assets/logo_right.png}
+\end{minipage}
+
+\vspace{3cm}
+
+{\fontsize{16}{32}\selectfont\bfseries SISTEMA WEB PARA LA ADMINISTRACIÓN \\[0.4cm] DEL DESAFÍO BEBRAS EN BOLIVIA}\\[0.8cm]
+
+{\fontsize{16}{20}\selectfont\bfseries CRONOGRAMA DE ACTIVIDADES}\\[0.3cm]
+
+\vspace{2cm}
+
+\setstretch{1.6}
+{\large
+\textbf{Desarrollado por:}\\[6pt]
+Castro Tejada Steven Lisandro\\
+Velasquez Vela Marcos\\[8pt]
+\textbf{Tutora:} Lic. Blanco Coca Leticia\\[8pt]
+\textbf{Supervisor:} Lic. Costas Jauregui Vladimir Abel\\[8pt]
+}
+
+\vfill
+
+{\large\bfseries COCHABAMBA -- BOLIVIA}\\[4pt]
+{\normalsize Agosto -- 2026}
+
+\end{titlepage}
+
+\begin{landscape}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.25}
+
+\begin{longtable}{|>{\centering\arraybackslash}p{0.045\linewidth}|p{0.25\linewidth}|>{\centering\arraybackslash}p{0.09\linewidth}|>{\centering\arraybackslash}p{0.09\linewidth}|p{0.20\linewidth}|p{0.245\linewidth}|}
+\caption{Cronograma de actividades del proyecto}\label{tab:cronograma-da}\\
+\hline
+\textbf{N.º} & \textbf{Actividad} & \textbf{Inicio} & \textbf{Fin} & \textbf{Recursos} & \textbf{Resultados} \\ \hline
+\endfirsthead
+
+\multicolumn{6}{c}{\tablename\ \thetable\ (continuación)}\\
+\hline
+\textbf{N.º} & \textbf{Actividad} & \textbf{Inicio} & \textbf{Fin} & \textbf{Recursos} & \textbf{Resultados} \\ \hline
+\endhead
+
+\hline
+\multicolumn{6}{r}{Continúa en la página siguiente}\\
+\endfoot
+
+\hline
+\endlastfoot
+
+1 & Analizar el proceso organizativo del Desafío Bebras, las plataformas de referencia y las necesidades del contexto escolar boliviano & 01/03/2026 & 15/03/2026 & Documentación de Bebras, plataformas internacionales, reuniones y observación & Mapa del proceso, interesados y restricciones identificados; primera versión del Capítulo I elaborada con los antecedentes y la descripción del problema \\ \hline
+
+2 & Definir la visión del producto, el alcance inicial, los criterios de éxito y los riesgos principales & 08/03/2026 & 22/03/2026 & Equipo de desarrollo, supervisor, tutora y representantes de Bebras Bolivia & Visión compartida, alcance priorizado y criterios de éxito definidos; Capítulo I actualizado con los objetivos del proyecto \\ \hline
+
+3 & Establecer la arquitectura inicial, el modelo de datos y la estrategia de integración y despliegue & 15/03/2026 & 05/04/2026 & Diagramas C4, Astro, Bun, Express, Prisma, bases de datos y alternativas de infraestructura & Línea base arquitectónica y decisiones tecnológicas justificadas; primera versión del Capítulo IV elaborada con la arquitectura funcional \\ \hline
+
+4 & Organizar el flujo de trabajo y el conjunto inicial de elementos priorizados & 23/03/2026 & 05/04/2026 & GitHub Projects, elementos de trabajo, políticas de flujo y criterios de terminación & Flujo visible, prioridades y criterios de terminación definidos; primera versión del Capítulo III elaborada con la metodología y el marco tecnológico \\ \hline
+
+5 & Construir la base del sitio informativo y del sistema de gestión de contenido & 06/04/2026 & 10/05/2026 & Astro, React, Bun, Express, SQLite, JSON, Markdown y GitHub & Sitio público, acceso administrativo, edición y vista previa validados; primera versión del Capítulo V elaborada con el diseño y los resultados iniciales \\ \hline
+
+6 & Completar el ciclo editorial, los respaldos y la publicación controlada del sitio & 11/05/2026 & 14/06/2026 & CMS, gestión de imágenes, respaldos, publicación programada y GitHub & Ciclo editorial, respaldos y publicación validados; Capítulo V completado con implementación, pruebas, evidencias y resultados finales del módulo \\ \hline
+
+7 & Desplegar el sitio informativo y el sistema de gestión de contenido en la infraestructura de la UMSS & 15/06/2026 & 28/06/2026 & Servidor de la UMSS, Apache, dominio institucional, certificados, respaldos y monitoreo & Sitio informativo y CMS disponibles en producción; primera evidencia de despliegue incorporada en el Capítulo IX \\ \hline
+
+8 & Construir y refinar el banco de tareas de pensamiento computacional & 29/06/2026 & 19/07/2026 & Astro, React, Express, editor por bloques, categorías Bebras y casos de prueba & Creación, edición, categorización y prueba de tareas verificadas; primera versión del Capítulo VI elaborada con el diseño del módulo \\ \hline
+
+9 & Construir la gestión de competencias y sus reglas de ejecución & 13/07/2026 & 02/08/2026 & Frontend del concurso, API, modelo de datos, reglas de puntuación y tareas Bebras & Gestión de competencias integrada y validada; Capítulo VI completado con implementación, pruebas y resultados del módulo \\ \hline
+
+10 & Construir el registro y la administración de maestros, unidades educativas, grupos y participantes & 27/07/2026 & 16/08/2026 & Formularios, API, datos de unidades educativas, documentos de respaldo y controles de acceso & Registro y administración de maestros, instituciones, grupos y participantes validados; Capítulo VII completado con pruebas y resultados \\ \hline
+
+11 & Construir la evaluación digital, la calificación y la consulta de resultados & 10/08/2026 & 06/09/2026 & Interfaz de evaluación, control de tiempo, guardado de respuestas, reglas Bebras y pruebas funcionales & Evaluación digital, calificación y consulta de resultados verificadas; Capítulo VIII completado con funcionamiento, pruebas y evidencias \\ \hline
+
+12 & Integrar continuamente los módulos del sistema de competencias y mantener actualizada la arquitectura funcional & 13/07/2026 & 16/10/2026 & Repositorios Git, contratos de API, modelo de datos, revisión conjunta y diagramas & Flujos completos integrados e incompatibilidades corregidas; capítulos IV y IX actualizados con la arquitectura consolidada y la estrategia de integración \\ \hline
+
+13 & Refinar la integridad funcional y de datos del sistema de competencias & 07/09/2026 & 20/09/2026 & Priorización por riesgo, versionado de tareas, transacciones, migraciones y pruebas de regresión & Historial de tareas protegido y procesos de evaluación consistentes; capítulos VI y VIII actualizados con las decisiones y pruebas de integridad \\ \hline
+
+14 & Preparar la arquitectura de producción del sistema de competencias & 14/09/2026 & 04/10/2026 & Infraestructura de producción, base de datos, gestión de secretos y entorno de preproducción & Arquitectura de producción definida y entorno de preproducción operativo; Capítulo IX actualizado con la estrategia de despliegue \\ \hline
+
+15 & Fortalecer seguridad, recuperación, concurrencia y capacidad operativa & 07/09/2026 & 16/10/2026 & Pruebas automatizadas, controles de acceso, respaldo, restauración, monitoreo y pruebas de carga & Seguridad básica, recuperación y capacidad operativa comprobadas; Capítulo IX actualizado con protocolos, resultados y evidencias de las pruebas \\ \hline
+
+16 & Elaborar y actualizar el informe académico y la documentación operativa & 01/03/2026 & 06/11/2026 & LaTeX, bibliografía, diagramas, resultados de pruebas y manuales & Capítulos I al IX actualizados progresivamente, observaciones incorporadas y documentación de instalación y operación consolidada \\ \hline
+
+17 & Validar los flujos completos con el supervisor, la tutora y usuarios de prueba & 28/09/2026 & 16/10/2026 & Entorno de preproducción, casos de aceptación, supervisor, tutora y estudiantes de apoyo & Criterios de aceptación comprobados y observaciones registradas; capítulos V al IX revisados con las evidencias de validación \\ \hline
+
+18 & Establecer el congelamiento funcional y corregir hallazgos bloqueantes & 17/10/2026 & 30/10/2026 & Registro de incidencias, pruebas de regresión, revisión de riesgos y control de cambios & Primera versión estabilizada y sin defectos bloqueantes conocidos; capítulos técnicos corregidos con los resultados de regresión \\ \hline
+
+19 & Desplegar el sistema de gestión de competencias, participantes y evaluación digital en el entorno de producción seleccionado & 19/10/2026 & 01/11/2026 & Infraestructura seleccionada, base de datos, monitoreo, copias de seguridad y plan de reversión & Plataforma desplegada, respaldo y reversión verificados; Capítulo IX completado con el segundo despliegue y sus resultados operativos \\ \hline
+
+20 & Configurar la competencia oficial, cargar datos y orientar a los responsables de operación & 02/11/2026 & 08/11/2026 & Banco de tareas, datos de la competencia, cuentas administrativas y documentación de uso & Competencia configurada, datos revisados y responsables preparados para operar el sistema \\ \hline
+
+21 & Ejecutar un ensayo general y resolver incidencias críticas previas al uso oficial & 09/11/2026 & 12/11/2026 & Usuarios de prueba, monitoreo, lista de verificación y canales de soporte & Flujo operativo ensayado e incidencias críticas resueltas; evidencias del ensayo incorporadas en el Capítulo IX \\ \hline
+
+22 & Acompañar el primer uso oficial del sistema y registrar sus resultados & 13/11/2026 & 13/11/2026 & Equipo de desarrollo, organizadores, monitoreo, respaldos y soporte operativo & Competencia oficial ejecutada y resultados operativos registrados; Capítulo X elaborado con el cumplimiento de objetivos, las incidencias y las recomendaciones \\ \hline
+
+\end{longtable}
+\end{landscape}
+
+\end{document}
