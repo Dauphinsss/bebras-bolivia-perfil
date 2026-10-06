@@ -1,0 +1,186 @@
+@startuml modelo-datos
+' Modelo entidad-relación de la plataforma del Desafío, en notación de pata de gallo.
+' PK: clave primaria. FK: clave foránea. UQ: valor único.
+' Las líneas punteadas son referencias lógicas sin clave foránea en la base.
+skinparam dpi 300
+skinparam linetype ortho
+skinparam shadowing false
+skinparam roundCorner 0
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 11
+skinparam nodesep 65
+skinparam ranksep 60
+skinparam class {
+  BackgroundColor white
+  BorderColor black
+  BorderThickness 1
+  ArrowColor black
+  ArrowThickness 0.8
+  HeaderBackgroundColor #E8E8E8
+  FontStyle bold
+}
+hide circle
+hide methods
+hide stereotypes
+
+entity "Usuario" as Usuario {
+  * id : entero <<PK>>
+  --
+  * correo : texto <<UQ>>
+  uid_firebase : texto <<UQ>>
+  nombres : texto
+  apellidos : texto
+  * rol : texto
+  * estado : texto
+  codigo_colegio : texto
+  departamento : texto
+  ciudad : texto
+  carta : texto
+  carnet_anverso : texto
+  carnet_reverso : texto
+}
+
+entity "ColegioAdicional" as ColegioAdicional {
+  * id : texto <<PK>>
+  --
+  * id_usuario : entero <<FK>>
+  codigo_colegio : texto
+  * nombre_colegio : texto
+  carta : texto
+  * estado : texto
+}
+
+entity "Colegio" as Colegio {
+  * codigo_ue : texto <<PK>>
+  --
+  * nombre : texto
+  * departamento : texto
+  * provincia : texto
+  * municipio : texto
+  * distrito : texto
+  nivel : texto
+  area : texto
+  latitud : real
+  longitud : real
+}
+
+entity "Tarea" as Tarea {
+  * id : texto <<PK>>
+  --
+  * titulo : texto
+  pais : texto
+  anio : entero
+  codigo_origen : texto
+  * dificultad_por_categoria : JSON
+  * enunciado : JSON
+  * pregunta : JSON
+  * tipo_respuesta : texto
+  * configuracion_respuesta : JSON
+  * clave_respuesta : JSON
+  * explicacion : JSON
+  * en_practica : booleano
+  * para_maestros : booleano
+}
+
+entity "Desafio" as Desafio {
+  * id : texto <<PK>>
+  --
+  * nombre : texto
+  * categorias : JSON
+  * duracion_minutos : entero
+  inicio_inscripcion : fecha
+  fin_inscripcion : fecha
+  inicio_rendicion : fecha
+  fin_rendicion : fecha
+  inicio_resultados : fecha
+  fin_resultados : fecha
+  puntaje : JSON
+  publicado_en : fecha
+  pausado_en : fecha
+  resultados_publicados_en : fecha
+  * es_practica : booleano
+  id_creador : entero <<FK>>
+}
+
+entity "PreguntaDesafio" as PreguntaDesafio {
+  * id : texto <<PK>>
+  --
+  * id_desafio : texto <<FK>>
+  * id_tarea : texto <<FK>>
+  * categoria : texto
+  * posicion : entero
+  * dificultad : texto
+  * puntaje_correcta : entero
+  * puntaje_incorrecta : entero
+  * puntaje_sin_respuesta : entero
+}
+
+entity "Grupo" as Grupo {
+  * id : texto <<PK>>
+  --
+  * id_desafio : texto <<FK>>
+  id_creador : entero
+  * nombre : texto
+  categoria : texto
+  * codigo_acceso : texto <<UQ>>
+}
+
+entity "Participante" as Participante {
+  * id : texto <<PK>>
+  --
+  * id_grupo : texto <<FK>>
+  * modalidad : texto
+  curso : texto
+  * nombres_1 : texto
+  * apellidos_1 : texto
+  nombres_2 : texto
+  apellidos_2 : texto
+  * codigo_personal : texto <<UQ>>
+}
+
+entity "Intento" as Intento {
+  * id : texto <<PK>>
+  --
+  * id_participante : texto <<FK, UQ>>
+  * estado : texto
+  * forma_rendicion : texto
+  inicio : fecha
+  fin_permitido : fecha
+  entrega : fecha
+}
+
+entity "Respuesta" as Respuesta {
+  * id : texto <<PK>>
+  --
+  * id_intento : texto <<FK>>
+  * id_tarea : texto <<FK>>
+  * respuesta : JSON
+  es_correcta : booleano
+  * puntaje : entero
+  respondida_en : fecha
+}
+
+entity "Resultado" as Resultado {
+  * id : texto <<PK>>
+  --
+  * id_intento : texto <<FK, UQ>>
+  * puntaje_total : entero
+  * correctas : entero
+  * respondidas : entero
+  puesto : entero
+}
+
+Usuario ||-left-o{ ColegioAdicional : "enseña en"
+Usuario }o.right.|| Colegio : "pertenece a"
+Usuario |o--o{ Desafio : "crea"
+Usuario ..o{ Grupo : "crea"
+Desafio ||--o{ Grupo : "tiene"
+Desafio ||--o{ PreguntaDesafio : "tiene"
+PreguntaDesafio }o-right-|| Tarea : "usa"
+Grupo ||--o{ Participante : "inscribe"
+Participante ||-right-o| Intento : "rinde"
+Intento ||-right-o{ Respuesta : "contiene"
+Respuesta }o-up-|| Tarea : "responde a"
+Intento ||--o| Resultado : "obtiene"
+Grupo -[hidden]right- PreguntaDesafio
+@enduml

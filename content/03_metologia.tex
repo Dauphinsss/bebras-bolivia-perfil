@@ -1,146 +1,163 @@
 \chapter{METODOLOGÍA Y MARCO TECNOLÓGICO}
 
-El presente capítulo describe el enfoque metodológico y las decisiones tecnológicas adoptadas para el desarrollo del sistema Bebras Bolivia. En primer lugar, se analizan plataformas nacionales de referencia con el propósito de identificar patrones de arquitectura, módulos funcionales y criterios de diseño reutilizables. Posteriormente, se examina la naturaleza de los sistemas de gestión de concursos en línea, distinguiéndolos de otras plataformas educativas y precisando los requisitos operativos que condicionan su implementación.
-
-Finalmente, se presentan las herramientas y tecnologías seleccionadas para la construcción del sistema, justificando su elección en función de criterios de rendimiento, mantenibilidad, coherencia de pila y adecuación al contexto del proyecto. Esta exposición metodológica y tecnológica permite fundamentar la solución propuesta no solo desde el punto de vista conceptual, sino también desde su viabilidad práctica e implementación efectiva.
+Este capítulo describe cómo se desarrolló el sistema y con qué herramientas. Primero analiza cuatro plataformas Bebras de otros países y lo que se tomó de cada una; luego precisa qué distingue a un sistema de gestión de concursos; después presenta la metodología, Extreme Programming, y por último las tecnologías elegidas y sus criterios.
 
 \section{ANÁLISIS COMPARATIVO DE PLATAFORMAS BEBRAS DE REFERENCIA}
 
-Con el propósito de fundamentar las decisiones de diseño funcional, arquitectónico y de interfaz del sistema propuesto para Bebras Bolivia, se realizó un análisis comparativo sobre un conjunto de implementaciones nacionales del Desafío Bebras. Este análisis no se limitó a una descripción general de los sitios o repositorios disponibles, sino que buscó identificar de manera sistemática, a partir de la observación de su funcionamiento y de la información técnica pública disponible, los componentes, patrones de organización, módulos funcionales y estrategias de interacción más relevantes de cada plataforma revisada.
+Para fundamentar las decisiones funcionales, de arquitectura y de interfaz, se analizaron cuatro implementaciones nacionales del Desafío Bebras al inicio del trabajo, antes de la primera iteración. Fue un análisis exploratorio, basado en sus sitios públicos y, cuando existía, en su código fuente, y buscó identificar sus módulos, su organización y su forma de interactuar con el usuario.
 
-La selección de los casos de estudio respondió a criterios complementarios: disponibilidad de código fuente o información técnica pública, grado de madurez de la implementación, representatividad dentro del ecosistema Bebras y utilidad como referencia para el contexto boliviano. A partir de esta revisión, fue posible reconocer fortalezas particulares en cada plataforma y extraer de ellas los elementos más valiosos para la definición de la propuesta tecnológica del presente trabajo. En consecuencia, el análisis realizado no tuvo como finalidad replicar una solución existente, sino sintetizar buenas prácticas dispersas en distintas implementaciones nacionales para integrarlas en un sistema propio, coherente con los requerimientos de Bebras Bolivia.
+Los casos se eligieron porque su código o su información técnica es pública, porque llevan varias ediciones en uso y porque cubren las dos necesidades de Bolivia: administrar la competencia y comunicar. El objetivo no fue replicar una plataforma, sino reunir las buenas prácticas que cada una aporta.
 
 \subsection{Plataforma de Francia --- Castor Informatique}
 
-La implementación francesa, \emph{Castor Informatique}, mantenida por France-IOI, constituye una de las referencias más consolidadas dentro del ecosistema Bebras y dispone de código fuente accesible públicamente \parencite{bebrasfrancia}. El análisis de su estructura permitió identificar una separación clara entre módulos de concurso, maestros y preguntas, así como una estrategia orientada a optimizar la entrega de contenido mediante generación o compilación previa de materiales de prueba.
-
-Desde la perspectiva de este análisis, el principal aporte de esta plataforma radica en su eficiencia para servir contenido y en la organización clara de sus componentes funcionales. Para Bebras Bolivia, esta referencia resultó especialmente útil en la definición de estrategias de entrega de contenido y en la inspiración de un esquema modular para separar áreas públicas, administrativas y de evaluación.
+\emph{Castor Informatique}, mantenida por France-IOI, es una de las referencias más consolidadas de Bebras; su código, en PHP, es público bajo licencia MIT \parencite{bebrasfrancia,franceioirepo}. Separa con claridad los módulos de la competencia, de los maestros y de las preguntas, y prepara de antemano el material de la prueba para entregarlo con rapidez. De ella se tomó la idea de separar las áreas pública, administrativa y de evaluación, y la de servir el contenido ya preparado.
 
 \subsection{Plataforma de Bélgica --- Rasbeb2}
 
-La plataforma belga \emph{Rasbeb2}, disponible bajo licencia MIT \parencite{bebrasbelgica}, presenta una arquitectura orientada a la gestión integral del concurso. Su implementación en Java y su organización por módulos administrativos, tareas interactivas y documentación permitieron identificar una estructura robusta para el manejo de procesos internos del sistema.
-
-El principal valor extraído de esta plataforma fue su diseño modular aplicado al flujo del concurso, particularmente en la separación entre inscripción, administración, ejecución y evaluación. Aunque no se adoptó su base tecnológica, su organización interna aportó criterios relevantes para estructurar el sistema Bebras Bolivia desde una lógica funcional más que desde una lógica de simple desarrollo web.
+\emph{Rasbeb2}, la plataforma de Bélgica, está escrita en Java y disponible bajo licencia MIT \parencite{bebrasbelgica,rasbeb2repo}; está y organizada en módulos administrativos, de tareas interactivas y de documentación. Su principal aporte fue el diseño modular del flujo de la competencia, que separa inscripción, administración, rendición y evaluación. No se adoptó su tecnología, pero su organización guió la estructura funcional del sistema.
 
 \subsection{Plataforma de Perú --- Bebras Perú}
 
-La plataforma de Bebras Perú \parencite{bebrasperu} ofrece una referencia importante desde el punto de vista comunicacional e institucional. Su sitio prioriza la presentación pública de información para maestros, instituciones educativas y participantes, organizando con claridad niveles, recursos, orientaciones y mecanismos de inscripción.
-
-A partir del análisis de esta plataforma, se identificó como fortaleza principal la claridad en la arquitectura de información orientada a usuarios no técnicos. Este aspecto fue considerado especialmente valioso para el diseño del sitio informativo de Bebras Bolivia, ya que evidencia la necesidad de estructurar el contenido de manera diferenciada para instituciones educativas, maestros, estudiantes y familias.
+La plataforma de Bebras Perú \parencite{bebrasperu} se centra en la comunicación institucional: presenta con claridad los niveles, los recursos, las orientaciones y la forma de inscribirse, pensando en maestros, unidades educativas y participantes. Su fortaleza es una organización de la información pensada para usuarios no técnicos, que sirvió de referencia para el sitio informativo.
 
 \subsection{Plataforma de Estados Unidos --- Bebras Computing Challenge}
 
-La plataforma de \textcite{bebraseeuu} combina un entorno de práctica abierta con acceso a tareas de ediciones anteriores y un espacio de gestión dirigido a responsables institucionales. Su interfaz organiza de forma clara las categorías, el formato del concurso y los mecanismos de participación, al mismo tiempo que ofrece una experiencia de resolución de ejercicios bien definida.
+La plataforma de \textcite{bebraseeuu} combina la práctica libre con tareas de ediciones anteriores y un espacio de gestión para los responsables de cada institución. Su aporte fue el modelo de interacción con los ejercicios: cómo presenta el problema, cómo se navega entre tareas, cómo informa al usuario y cómo une la práctica con la evaluación. Sirvió de referencia para la experiencia del estudiante al resolver tareas.
 
-Desde el análisis realizado, su principal aporte fue el modelo de interacción del módulo de ejercicios, especialmente en aspectos como la presentación del problema, la navegación entre tareas, la retroalimentación al usuario y la integración entre práctica y evaluación. Estos elementos sirvieron como referencia directa para definir la experiencia de uso esperada en el módulo de resolución de tareas de Bebras Bolivia.
+\subsection{Síntesis de aportes}
 
-\subsection{Síntesis de aportes extraídos del análisis comparativo}
+Ninguna de las plataformas resuelve por sí sola todo lo que necesita Bebras Bolivia, pero cada una aporta fortalezas concretas. El sistema no replica a ninguna: reúne lo mejor de cada una, como resume la Tabla~\ref{tab:retro_bebras}.
 
-El análisis comparativo de las plataformas revisadas permitió concluir que no existe una única implementación que resuelva de manera integral todos los requerimientos identificados para Bebras Bolivia. Sin embargo, cada una de las referencias estudiadas aporta fortalezas concretas que pueden ser integradas en una propuesta propia. En este sentido, el presente proyecto no se plantea como una réplica de ninguna plataforma existente, sino como una síntesis de buenas prácticas funcionales, arquitectónicas y de interfaz observadas en distintas implementaciones nacionales del ecosistema Bebras.
-
-\begin{table}[H]
-\centering
-\caption[Elementos recuperados de plataformas Bebras de referencia]{Elementos recuperados mediante el análisis comparativo de plataformas Bebras de referencia y su aplicación en Bebras Bolivia}
+\begin{table}[htbp]
+\footnotesize
+\renewcommand{\arraystretch}{1.3}
+\setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}
+\rowcolors{2}{white}{hufondo}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{3.1cm} >{\raggedright\arraybackslash}p{4.6cm} >{\raggedright\arraybackslash}X}
+\arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}
+\rowcolor{hufondo}\textbf{Plataforma} & \textbf{Elemento rescatado} & \textbf{Aplicación} \\
+\arrayrulecolor{hulinea}\midrule
+Castor Informatique & Separación entre la competencia, los maestros y el banco de preguntas; entrega eficiente del contenido & Base para dividir el sistema en módulos y para entregar las tareas ya preparadas \\
+Rasbeb2 & Organización modular del flujo de la competencia y soporte para tareas interactivas & Referencia para estructurar la inscripción, la rendición, la corrección y la administración en la plataforma del Desafío \\
+Bebras Perú & Información clara para maestros, unidades educativas y participantes & Base para diseñar el sitio informativo según el tipo de usuario \\
+Bebras Computing Challenge & Presentación de tareas, práctica previa y navegación entre ejercicios & Referencia para la experiencia del estudiante al resolver tareas y practicar \\
+\arrayrulecolor{hulinea}\bottomrule
+\end{tabularx}
+\arrayrulecolor{black}
+\caption[Elementos recuperados de plataformas Bebras de referencia]{Elementos recuperados de las plataformas Bebras de referencia y su aplicación en Bebras Bolivia}
 \label{tab:retro_bebras}
-\renewcommand{\arraystretch}{1.25}
-\begin{tabular}{|p{3.5cm}|p{4.8cm}|p{6cm}|}
-\hline
-\textbf{Plataforma} & \textbf{Elemento rescatado} & \textbf{Aplicación} \\ \hline
-Castor Informatique & Separación entre concurso, maestros y banco de preguntas; publicación eficiente de contenidos & Base para dividir el sistema en módulos administrativos, académicos y de evaluación, y para orientar la entrega optimizada de tareas y recursos \\ \hline
-Rasbeb2 & Organización modular del flujo del concurso y soporte para tareas interactivas & Referencia para estructurar los procesos de inscripción, ejecución, corrección y administración del concurso dentro del CMS \\ \hline
-Bebras Perú & Arquitectura de información clara para maestros, instituciones y postulantes & Base para diseñar el sitio informativo y ordenar la comunicación institucional según tipo de usuario \\ \hline
-Bebras Computing Challenge & Presentación de tareas, práctica previa y navegación entre ejercicios & Referencia para definir la experiencia del participante en el módulo de resolución de tareas y práctica \\ \hline
-\end{tabular}
 \end{table}
 
 \section{SISTEMAS DE GESTIÓN DE CONCURSOS EN LÍNEA}
 
-Un sistema de gestión de concursos en línea es una plataforma web que administra de manera integral el ciclo de vida de una competencia: el registro de participantes e instituciones, la configuración y distribución de pruebas, la ejecución controlada de exámenes en sesiones con tiempo limitado, la evaluación automática de respuestas y la publicación de resultados. Este tipo de sistemas se articula en torno a tres funciones esenciales: la autenticación segura de los participantes, la gestión del banco de preguntas y el motor de evaluación automática. Estos tres componentes están presentes en todas las implementaciones nacionales de Bebras analizadas y definen igualmente los módulos centrales del sistema desarrollado en este proyecto.
+Un sistema de gestión de concursos en línea administra el ciclo completo de una competencia: el registro de participantes e instituciones, la preparación de las pruebas, su rendición en sesiones con tiempo limitado, la corrección automática y la publicación de resultados. Las cuatro plataformas analizadas comparten tres funciones: la identificación de los participantes, el banco de preguntas y la corrección de las respuestas.
 
-A diferencia de un sistema de gestión de aprendizaje (\textit{Learning Management System}, LMS) de propósito general, un sistema de gestión de concursos educativos debe garantizar condiciones equivalentes para todos los participantes durante la ejecución de la prueba: disponibilidad simultánea para múltiples sesiones concurrentes, control estricto del tiempo por participante y registro confiable de respuestas ante posibles interrupciones de conectividad. Estos requisitos condicionan directamente las decisiones de arquitectura del sistema propuesto.
-
-La distinción funcional entre un sistema de gestión de concursos y un LMS se ilustra en la Figura~\ref{fig:cms_vs_lms}.
+Un sistema de gestión del aprendizaje (\textit{Learning Management System}, LMS) acompaña cursos en los que cada estudiante avanza a su ritmo. Una competencia como el Desafío, en cambio, reúne a muchos estudiantes en una misma ventana de tiempo, y de ahí salen tres requisitos de este sistema: atender muchas sesiones a la vez, controlar el tiempo de cada participante y no perder respuestas si se corta la conexión. El capítulo 4 muestra cómo los resuelve la arquitectura. La Figura~\ref{fig:cms_vs_lms} ilustra la diferencia.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.70\textwidth]{assets/cms_vs_lms.jpg}
-    \caption[Comparación entre CMS y LMS]{Comparación conceptual entre un \textit{Contest Management System} y un \textit{Learning Management System}}
+    \begin{minipage}[t]{0.48\textwidth}\centering
+        {\color{huazul}\textbf{Sistema de gestión de concursos}}\\[0.4em]
+        \includegraphics[width=\linewidth,height=3.6cm,keepaspectratio]{assets/ia/sistema-concursos-r.png}\\[0.2em]
+        {\small\color{hugris}Todos a la vez · Tiempo limitado\\Corrección inmediata}
+    \end{minipage}\hfill
+    \begin{minipage}[t]{0.48\textwidth}\centering
+        {\color{huazul}\textbf{Sistema de gestión del aprendizaje}}\\[0.4em]
+        \includegraphics[width=\linewidth,height=3.6cm,keepaspectratio]{assets/ia/sistema-aprendizaje-r.png}\\[0.2em]
+        {\small\color{hugris}Cada uno a su ritmo · Meses\\Seguimiento del progreso}
+    \end{minipage}
+    \caption[Sistema de gestión de concursos y sistema de gestión del aprendizaje]{Sistema de gestión de concursos frente a un sistema de gestión del aprendizaje}
     \label{fig:cms_vs_lms}
 \end{figure}
 
 \section{METODOLOGÍA DE ANÁLISIS Y DISEÑO}
 
-La metodología adoptada en este trabajo combina revisión documental, análisis comparativo de plataformas de referencia y definición de una arquitectura ajustada a los requisitos funcionales y no funcionales del proyecto. En una primera etapa, se realizó una revisión de literatura especializada sobre pensamiento computacional, el modelo Bebras y la construcción de tareas educativas de informática. En una segunda etapa, se analizaron distintas plataformas nacionales de Bebras con el fin de identificar módulos recurrentes, patrones de interacción y decisiones arquitectónicas relevantes.
-
-Sobre la base de este análisis, se procedió a definir los módulos que conforman la propuesta tecnológica para Bebras Bolivia: gestión de contenido y sitio informativo, gestión de competencias, registro de participantes y evaluación digital e imprimible. Finalmente, se seleccionó una pila tecnológica coherente con los requerimientos de rendimiento, mantenibilidad y escalabilidad identificados durante el proceso.
+El trabajo combinó revisión documental, análisis comparativo de plataformas y diseño de una arquitectura ajustada a los requisitos del proyecto. Primero se revisó la literatura sobre pensamiento computacional \parencite{wing2006,grover2013}, el modelo Bebras \parencite{dagienestupuriene2016,izumirolo2017} y el diseño de tareas \parencite{dagienefutschek2008}; luego se analizaron las plataformas nacionales descritas arriba. Con esa base se definieron los cuatro módulos del sistema (gestión de contenido, gestión de desafíos, registro y administración de participantes, y evaluación) y se eligieron las tecnologías.
 
 \subsection{Extreme Programming (XP)}
 
-El desarrollo del presente proyecto adoptó \textit{Extreme Programming} (XP) como metodología ágil de referencia. XP fue propuesto por \textcite{beck2004} como un enfoque orientado a equipos pequeños que trabajan sobre requisitos cambiantes, priorizando la entrega continua de software funcional y la incorporación sistemática de retroalimentación. Estas características lo hacen especialmente adecuado para un proyecto de grado en el que el desarrollo avanza de forma incremental, con revisiones periódicas por parte del supervisor y ajustes continuos al alcance y al diseño del sistema.
+El desarrollo siguió \textit{Extreme Programming} (XP), la metodología ágil que \textcite{beck2004} propuso para equipos pequeños que trabajan con requisitos cambiantes, con entregas frecuentes de software funcional y retroalimentación constante. Se ajusta a un proyecto de grado que avanza por incrementos y se revisa periódicamente con el supervisor.
 
-La elección de XP como metodología de referencia se fundamenta en una comparación con otras alternativas ampliamente utilizadas. Scrum, aunque popular en equipos de desarrollo profesional, presupone roles diferenciados \textit{Product Owner}, \textit{Scrum Master} y equipo de desarrollo y una estructura de ceremonias formales que no se corresponden con el equipo reducido de dos desarrolladores que conforma este proyecto \parencite{schwaber2020}. Kanban, por su parte, ofrece flexibilidad en la gestión del flujo de trabajo, pero carece de los mecanismos de planificación por valores y retroalimentación continua que XP incorpora de manera explícita \parencite{anderson2010}. En contraste, XP está diseñado para contextos donde el equipo es reducido, los requisitos evolucionan durante el desarrollo y la calidad del software es una prioridad sostenida a lo largo de todo el proceso.
+Se eligió frente a otras alternativas. Scrum reparte tres responsabilidades (\textit{Product Owner}, \textit{Scrum Master} y desarrolladores) dentro de un equipo y organiza el trabajo con eventos que suponen ese equipo \parencite{schwaber2020}; aquí una sola persona desarrolla el sistema. Kanban gestiona un flujo continuo de trabajo sin iteraciones de duración fija \parencite{anderson2010}, mientras que el cronograma del trabajo está organizado en iteraciones de dos semanas, que es justamente como trabaja XP.
 
-XP se articula en torno a cinco valores fundamentales que orientan las decisiones de diseño y desarrollo \parencite{beck2004}. La \textit{comunicación} se manifiesta en este proyecto a través del diálogo continuo con el supervisor, que permite alinear expectativas y corregir el rumbo en cada ciclo de avance. La \textit{simplicidad} guía las decisiones de arquitectura y diseño de módulos, priorizando soluciones directas y mantenibles sobre implementaciones sobredimensionadas. La \textit{retroalimentación} opera como mecanismo central de validación: cada entrega parcial es revisada y genera insumos concretos para la iteración siguiente. La \textit{valentía} se refleja en la disposición a refactorizar o rediseñar componentes cuando el análisis lo justifica, sin preservar decisiones técnicas por inercia. Finalmente, el \textit{respeto} se traduce en el cuidado por producir un sistema coherente, bien documentado y sostenible más allá del alcance inmediato del proyecto.
+XP se basa en cinco valores \parencite{beck2004}, que en este proyecto se tradujeron así: \textit{comunicación}, con el diálogo continuo con el supervisor; \textit{simplicidad}, con soluciones directas y mantenibles en lugar de diseños sobredimensionados; \textit{retroalimentación}, con la revisión de cada entrega como insumo de la siguiente iteración; \textit{valentía}, con la disposición a rehacer un componente cuando hacía falta; y \textit{respeto}, con el cuidado por entregar un sistema coherente y documentado.
 
-De las prácticas que XP propone, este proyecto incorpora de manera explícita el desarrollo iterativo e incremental, la integración continua de retroalimentación como insumo de corrección, la validación sostenida de decisiones de diseño y arquitectura y la programación en pareja, práctica que resulta especialmente adecuada para un equipo de dos desarrolladores. No se adoptaron, en cambio, prácticas pensadas para equipos numerosos, como la propiedad colectiva del código a gran escala, dado que el proyecto es desarrollado por un equipo de dos personas con responsabilidades claramente delimitadas. Esta selección de prácticas de XP es consistente con lo señalado por \textcite{shore2021}, quienes reconocen que los equipos pueden adoptar un subconjunto coherente de prácticas XP sin comprometer los principios fundamentales de la metodología.
+En XP, el cliente define qué se construye y acepta cada entrega. Ese papel lo compartieron el equipo organizador, que junto con el supervisor aportó los requisitos al inicio, y el supervisor, que al cierre de cada módulo revisó la versión funcional, formuló observaciones y, una vez corregidas, dio su conformidad, como establecen los términos de referencia del trabajo.
 
-Siguiendo el principio de iteraciones cortas de duración fija propio de XP, el desarrollo se organizó mediante \textit{timeboxing}. En XP, las iteraciones suelen mantenerse dentro de rangos breves, comúnmente entre una y tres semanas, con el propósito de entregar incrementos verificables y recibir retroalimentación frecuente. Para el presente proyecto se adoptaron iteraciones de tres semanas, debido a que el desarrollo se realizó en paralelo con actividades de análisis, documentación, validación con el supervisor y refinamiento funcional del producto.
+De las prácticas de XP se aplicaron el desarrollo iterativo con entregas pequeñas, el diseño simple, la refactorización, las pruebas automatizadas y la integración frecuente: cada cambio se integró a la rama principal y desde ella se desplegó automáticamente. Las prácticas que suponen un equipo, como la programación en pareja o la propiedad colectiva del código, no se aplicaron, porque el trabajo es individual; su función de revisión la cumplieron las reuniones con el supervisor. \textcite{shore2021} reconocen que se puede adoptar un subconjunto coherente de prácticas sin comprometer los principios de XP.
 
-Dado que los módulos del sistema presentan distinta extensión y complejidad, no existe una correspondencia directa entre un módulo y una única iteración. En lugar de extender la duración de una iteración para acomodar un módulo de mayor tamaño, cada módulo se desarrolla a lo largo del número de iteraciones que requiera, manteniendo invariable la caja de tiempo de tres semanas.
+Siguiendo el principio de iteraciones cortas y de duración fija, cada módulo se desarrolló en dos iteraciones de dos semanas, entre el 8 de junio y el 25 de septiembre de 2026: gestión de contenido en las iteraciones 1 y 2, gestión de desafíos en las 3 y 4, participantes en las 5 y 6, y evaluación en las 7 y 8. Las reuniones de seguimiento con el supervisor fueron las que fija el cronograma: la revisión de requisitos y diseño (5 de junio) y una al cierre de cada módulo (3 de julio, 31 de julio, 28 de agosto y 25 de septiembre). Sus observaciones se incorporaron en el módulo siguiente; las del último módulo, durante la integración y la validación final. Las interfaces se diseñaron junto con el desarrollo, dentro de cada iteración, y se ajustaron con esas mismas revisiones.
 
-\subsection{Diseño centrado en el usuario e interacción persona computadora}
-
-Complementariamente a XP, el desarrollo del sistema incorporó principios de diseño centrado en el usuario (\textit{User-Centered Design}, UCD), definidos en la norma \textcite{iso9241210}. Este enfoque establece que las decisiones de diseño deben fundamentarse en el conocimiento de los usuarios, sus tareas y su contexto de uso, con el propósito de producir sistemas que sean utilizables, accesibles y adecuados a las necesidades reales de quienes los emplean.
-
-La pertinencia de este enfoque en el presente proyecto se deriva de la diversidad de perfiles de usuario que interactúan con el sistema. La arquitectura funcional contempla tres actores principales: el \textbf{administrador u organizador}, responsable de la configuración global del concurso y de la administración del contenido; el \textbf{maestro}, encargado de articular la participación de su unidad educativa o grupo de estudiantes; y el \textbf{estudiante}, cuya interacción se concentra en el acceso y resolución de la prueba. Cada actor presenta competencias digitales, objetivos y contextos de uso diferentes, por lo que las decisiones de interfaz no pueden abordarse de manera uniforme. Las definiciones de navegación, estructura de información y presentación de contenido se orientaron en función de los requisitos específicos de cada rol, tomando como referencia los principios de usabilidad descritos por \textcite{norman2013}.
-
-El módulo de resolución de tareas merece una atención particular desde la perspectiva de la interacción persona computadora (\textit{Human-Computer Interaction}, HCI). Al tratarse del componente con el que interactúan directamente los estudiantes, el grupo de usuarios con menor experiencia digital y mayor heterogeneidad etaria dentro del sistema, su diseño debe atender criterios de usabilidad, claridad visual y accesibilidad de manera rigurosa. \textcite{preece2015} señalan que el diseño de interfaces para usuarios con perfiles cognitivos y etarios diversos exige una atención especial a la carga cognitiva, la consistencia visual y la retroalimentación inmediata ante las acciones del usuario. En este contexto, aspectos como el contraste visual, la legibilidad tipográfica, la navegación entre tareas y la presentación del tiempo disponible no son decisiones estéticas, sino funcionales: condicionan directamente la capacidad del estudiante para concentrarse en la resolución del problema sin ser obstaculizado por la interfaz misma.
-
-Adicionalmente, el sistema debe considerar criterios de accesibilidad web definidos por las \textit{Web Content Accessibility Guidelines} (WCAG) \parencite{w3c2023}, que establecen estándares internacionales para garantizar que el contenido digital sea perceptible, operable, comprensible y robusto para usuarios con distintas capacidades. Dado que el concurso está dirigido a estudiantes de nivel primario y secundario en un contexto educativo diverso, la accesibilidad no es un complemento opcional sino un requisito de equidad: un sistema que no puede ser utilizado eficazmente por todos los participantes compromete la validez misma del concurso.
+Los requisitos de cada módulo se expresaron como historias de usuario. Siguiendo a \textcite{cohn2004}, cada historia describe una funcionalidad que aporta valor a un usuario concreto, se redacta desde su punto de vista con la forma «como \ldots, quiero \ldots, para \ldots» y se acompaña de criterios de aceptación que permiten decidir cuándo está cumplida. Cada historia lleva además una prioridad y una estimación de esfuerzo, que sirven para repartirlas entre las iteraciones. La prioridad tiene dos niveles: 1, imprescindible para que el módulo cumpla su objetivo, y 2, una mejora importante sin la cual el módulo igual funciona. El esfuerzo se mide en puntos de historia, una unidad relativa y no en horas: una historia de 8 puntos cuesta cerca del doble que una de 5. Se usan los valores 3, 5, 8 y 13, de la serie de Fibonacci, porque cuanto más grande es una historia menos precisa es su estimación \parencite{cohn2004}. Los puntos se estimaron al planificar cada iteración y se reajustaron al terminarla, de acuerdo con lo que realmente costó implementar cada historia. Para no perder la visión de conjunto, las historias se agruparon en épicas que siguen las actividades de cada usuario, según el mapeo de historias de \textcite{patton2014}; ese mapa permitió decidir qué parte de cada actividad debía entregarse primero y cuál podía esperar. Las historias de cada módulo, con su prioridad, su esfuerzo y su iteración, están en los capítulos 5 a 8, y todas las tarjetas, con sus criterios de aceptación, en el Anexo A. Las historias forman una sola lista numerada, de HU-1 a HU-90, en el orden en que aparecen en el documento.
 
 \section{MARCO TECNOLÓGICO}
 
-El objetivo técnico central de este proyecto es el desarrollo de un sistema capaz de administrar de extremo a extremo el ciclo de vida del Desafío Bebras Bolivia: inscripción de instituciones y participantes, configuración y distribución de exámenes, ejecución controlada de pruebas en línea, registro automático de respuestas y consulta de resultados. A este sistema se suma un sitio informativo con capacidades propias de gestión de contenido, orientado a la comunicación institucional del desafío. La selección de tecnologías responde a criterios de rendimiento, coherencia de pila y mantenibilidad a largo plazo, considerando que ambos módulos deben operar de manera integrada sobre el mismo entorno de ejecución.
+El sistema tiene dos partes: el sitio informativo con su gestor de contenido, y la plataforma donde se rinde el Desafío. Ambas comparten el lenguaje, TypeScript, y las herramientas de interfaz, aunque se despliegan en entornos distintos. Las tecnologías se eligieron por su rendimiento, su coherencia entre sí y su mantenibilidad a largo plazo.
+
+\subsection{TypeScript}
+
+TypeScript agrega tipos estáticos a JavaScript y detecta muchos errores antes de ejecutar el código \parencite{typescript}. Usar un solo lenguaje en el navegador y en el servidor permitió compartir reglas entre ambos lados, como la corrección de las respuestas o la validación de datos.
 
 \subsection{Astro}
 
-Astro fue seleccionado para el sitio informativo por su enfoque en rendimiento y generación de contenido estático. \textcite{astro} destaca su modelo \textit{server-first} y la \emph{Islands Architecture}, que hidrata solo los componentes interactivos y reduce JavaScript en cliente. Además, su integración con \textit{Content Collections} permite administrar contenido institucional de forma tipada y mantenible, en coherencia con la pila basada en Bun.
+Astro genera sitios rápidos con un enfoque \textit{server-first} y su \emph{Islands Architecture}, que solo envía JavaScript a los componentes interactivos \parencite{astro}. Se usa en el sitio informativo, que se genera de forma estática, y en el frontend del Desafío.
+
+\subsection{React}
+
+React es una biblioteca para construir interfaces a partir de componentes \parencite{react}. Se usa en las partes interactivas: el panel del CMS y las pantallas del Desafío, como el editor de tareas o la rendición.
 
 \subsection{Bun}
 
-Bun se utiliza como entorno de ejecución unificado para JavaScript y TypeScript en el proyecto. \textcite{bun} lo describe como una alternativa de alto rendimiento que integra \textit{runtime}, gestor de paquetes y herramientas de desarrollo en una sola tecnología. Esta unificación simplifica la operación del sistema y reduce tiempos de ejecución y despliegue frente a cadenas de herramientas separadas.
+Bun reúne en una sola herramienta el entorno de ejecución de JavaScript y TypeScript, el gestor de paquetes y las herramientas de desarrollo \parencite{bun}. Esa unificación simplifica la configuración y reduce los tiempos de instalación y ejecución.
 
 \subsection{Express}
 
-Express se eligió para la capa API del sistema por su arquitectura modular basada en \textit{middleware}. \textcite{express} resalta su flexibilidad para estructurar rutas, validaciones y control de errores sin imponer una arquitectura rígida. Esto ofrece una base adecuada para implementar flujos como autenticación, gestión de sesiones de examen y registro de respuestas dentro de un sistema de este tipo.
+Express organiza el servidor en rutas y \textit{middleware} sin imponer una arquitectura rígida \parencite{express}. Se usa en la API del Desafío y en el servidor del CMS, para la autenticación, las validaciones y el control de errores.
 
 \subsection{Prisma ORM}
 
-Prisma ORM se adoptó para el acceso a datos por su tipado estático en TypeScript y su manejo controlado de migraciones. \textcite{prisma} identifica como componentes centrales Prisma Client, Prisma Migrate y Prisma Studio. En este proyecto, \texttt{schema.prisma} funciona como fuente única de verdad del modelo, lo que mejora la consistencia del esquema y reduce errores de consulta en la integración con MariaDB.
+Prisma da acceso tipado a la base de datos del Desafío y controla sus migraciones \parencite{prisma}. Su esquema es la fuente única del modelo de datos, lo que redujo los errores de consulta mientras el modelo cambiaba.
 
-\subsection{MariaDB}
+\subsection{Cloudflare Workers, D1 y R2}
 
-MariaDB fue seleccionado como motor relacional del sistema por su madurez, licencia libre y compatibilidad con MySQL. De acuerdo con \textcite{mariadb}, mantiene compatibilidad de interfaces y bibliotecas, incorporando mejoras para entornos productivos. Su compatibilidad con Prisma ORM, mediante el conector de MySQL, lo convierte en una base sólida para la persistencia de datos del sistema.
+La plataforma del Desafío se ejecuta en Cloudflare Workers, un entorno sin servidor que corre el código en la red de Cloudflare y escala con la demanda \parencite{cfworkers}. El mismo Worker atiende la API y entrega los archivos del frontend. Los datos se guardan en Cloudflare D1, una base relacional con motor SQLite compatible con Prisma \parencite{cfd1}, y los documentos de los maestros en Cloudflare R2, un almacenamiento de objetos privado \parencite{cfr2}. El diseño inicial contemplaba MariaDB en un servidor propio; el cambio eliminó el mantenimiento del servidor y permitió desplegar automáticamente desde el repositorio.
 
-La selección de las tecnologías descritas no respondió únicamente a criterios funcionales aislados, sino a una evaluación conjunta de sostenibilidad técnica, consumo de recursos, capacidad de escalamiento y afinidad con la experiencia previa del equipo de desarrollo. En este sentido, se priorizaron herramientas consolidadas, activamente mantenidas y adecuadas para una infraestructura moderada, evitando depender de soluciones excesivamente recientes o inciertas en su continuidad. La Tabla~\ref{tab:criterios_tecnologias} sintetiza estos criterios de selección.
+\subsection{SQLite}
 
-    \begin{table}[H]
-    \centering
-    \caption[Criterios de selección de tecnologías]{Criterios que fundamentan la selección de las tecnologías del proyecto}
-    \label{tab:criterios_tecnologias}
-    \renewcommand{\arraystretch}{1.2}
-    \begin{tabular}{|p{2.8cm}|p{4.2cm}|p{6.5cm}|}
-    \hline
-    \textbf{Tecnología} & \textbf{Criterio principal} & \textbf{Justificación} \\ \hline
-    Astro & Eficiencia y optimización en frontend & El sitio informativo no requiere reactividad compleja; minimizar JavaScript en cliente reduce tiempos de carga en conexiones lentas, condición frecuente en el contexto boliviano. 
-    \\ \hline
-    Bun & Rendimiento y entorno unificado & Eliminar la separación entre runtime y gestor de paquetes reduce la superficie de configuración en un proyecto mantenido por un equipo pequeño. 
-    \\ \hline
-    Express & Estabilidad y curva de aprendizaje baja & El equipo cuenta con experiencia previa en Express, lo que reduce el riesgo técnico en flujos críticos como la gestión de sesiones de examen. 
-    \\ \hline
-    Prisma ORM & Mantenibilidad del modelo de datos & El esquema del concurso evolucionará durante el desarrollo; un ORM con migraciones tipadas reduce el riesgo de inconsistencias entre el modelo y la base de datos. 
-    \\ \hline
-    MariaDB & Madurez y bajo costo operativo & La infraestructura disponible para el proyecto es moderada; MariaDB opera eficientemente en ese contexto sin requerir configuración compleja.
-    \\ \hline
-    \end{tabular}
-    \end{table}
+SQLite es una base de datos relacional que guarda todo en un solo archivo y no necesita un servidor aparte \parencite{sqlite}. El CMS la usa para sus usuarios, los respaldos, las publicaciones programadas y los certificados.
+
+\subsection{Firebase Authentication}
+
+Las cuentas de administradores y maestros de la plataforma del Desafío se gestionan con Firebase Authentication, que ofrece inicio de sesión con correo y contraseña o con Google, y la verificación del correo \parencite{firebaseauth}. El servidor valida en cada petición el token que emite Firebase. Los estudiantes no usan este servicio: entran con un código personal.
+
+\subsection{Playwright}
+
+Playwright automatiza navegadores reales para probar una aplicación de extremo a extremo, como lo haría un usuario \parencite{playwright}. Con él se escribieron las pruebas de interfaz de la plataforma del Desafío, del CMS y del sitio informativo.
+
+Además de su función, las tecnologías se eligieron por su sostenibilidad, su consumo de recursos, su capacidad de escalar y la experiencia previa del autor. Se prefirieron herramientas consolidadas, mantenidas activamente y adecuadas para una infraestructura modesta. La Tabla~\ref{tab:criterios_tecnologias} resume estos criterios.
+
+\begin{table}[htbp]
+\footnotesize
+\renewcommand{\arraystretch}{1.3}
+\setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}
+\rowcolors{2}{white}{hufondo}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{2.8cm} >{\raggedright\arraybackslash}p{3.6cm} >{\raggedright\arraybackslash}X}
+\arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}
+\rowcolor{hufondo}\textbf{Tecnología} & \textbf{Criterio principal} & \textbf{Justificación} \\
+\arrayrulecolor{hulinea}\midrule
+TypeScript & Prevención de errores & Un solo lenguaje con tipos en el navegador y el servidor permite compartir reglas y detectar errores antes de ejecutar. \\
+Astro & Eficiencia en el frontend & Enviar poco JavaScript reduce los tiempos de carga en conexiones lentas, frecuentes en el contexto boliviano. \\
+React & Interfaces interactivas & Los editores y la rendición necesitan componentes que reaccionen al instante a lo que hace el usuario. \\
+Bun & Rendimiento y entorno unificado & Un solo entorno para ejecutar e instalar reduce la configuración en un proyecto mantenido por una sola persona. \\
+Express & Estabilidad y curva de aprendizaje baja & La experiencia previa del autor con Express reduce el riesgo técnico en flujos críticos como la rendición. \\
+Prisma ORM & Mantenibilidad del modelo de datos & El modelo cambió durante el desarrollo; las migraciones tipadas evitan inconsistencias entre el código y la base. \\
+Cloudflare Workers, D1 y R2 & Escala y despliegue sin servidor & Muchos estudiantes rinden a la misma hora; el entorno escala con la demanda, como verificó la prueba de estrés del capítulo 9, y el despliegue sale del repositorio, sin un servidor que mantener. \\
+SQLite & Simplicidad & El CMS guarda pocos datos propios; un archivo sin servidor aparte es suficiente y fácil de respaldar. \\
+Firebase Authentication & Seguridad de las cuentas & Delega en un servicio probado el manejo de contraseñas, el inicio de sesión con Google y la verificación del correo. \\
+Playwright & Pruebas realistas & Prueba el sistema en navegadores reales, como lo usaría un maestro o un estudiante. \\
+\arrayrulecolor{hulinea}\bottomrule
+\end{tabularx}
+\arrayrulecolor{black}
+\caption[Criterios de selección de tecnologías]{Criterios que fundamentan la selección de las tecnologías del proyecto}
+\label{tab:criterios_tecnologias}
+\end{table}

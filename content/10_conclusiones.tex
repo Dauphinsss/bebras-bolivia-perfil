@@ -1,1 +1,23 @@
 \chapter{CONCLUSIONES Y RECOMENDACIONES}
+
+\section{CONCLUSIONES}
+
+Se implementó un sistema web que apoya la organización y administración del Desafío Bebras en Bolivia: desde la información pública y la inscripción de maestros y estudiantes hasta la rendición, los resultados y los certificados. Respecto de cada objetivo específico:
+
+\begin{itemize}
+    \item \textbf{Gestión de contenido.} El CMS permite editar las páginas del sitio informativo armándolas con bloques, administrar su menú y su pie, crear páginas nuevas, publicar noticias e imágenes, guardar y recuperar respaldos, y publicar los cambios, al instante o en una fecha programada. Sus 254 pruebas aprueban.
+    \item \textbf{Gestión de desafíos.} El banco de tareas representa las 43 tareas del cuadernillo Bebras 2024 con seis tipos de respuesta, cada una con su dificultad por categoría de edad y su probador. Un desafío reúne varias categorías con sus preguntas, sus fechas y su puntaje, y avanza solo por sus etapas. La práctica pública permite ejercitarse sin cuenta.
+    \item \textbf{Registro y administración de participantes.} Los maestros se registran con su unidad educativa del catálogo nacional y el organizador los aprueba con una carta del director. Cada maestro inscribe a sus estudiantes en grupos por categoría, uno a uno, con planilla o compartiendo un código, y cada estudiante rinde con un código personal, sin necesidad de cuenta.
+    \item \textbf{Evaluación.} El estudiante rinde en línea con sus respuestas guardadas y corregidas al instante; los puntajes, el ranking por categoría y los resultados se publican solos en la fecha fijada. La plataforma soportó 1600 estudiantes a la vez sin errores y con todos los puntajes exactos. Para las aulas sin conectividad, el maestro imprime la prueba y carga después las hojas de respuestas, que se corrigen como las demás.
+\end{itemize}
+
+Las pruebas automatizadas acompañaron cada iteración, como pide XP, y encontraron defectos que habrían impedido un desafío nacional antes de que llegaran a los usuarios. El traslado de la plataforma a Cloudflare hizo que el sistema escale con la demanda y se despliegue solo desde el repositorio.
+
+\section{RECOMENDACIONES}
+
+\begin{itemize}
+    \item Incorporar la prueba en papel a la batería de pruebas automatizadas.
+    \item Realizar pruebas de usabilidad con estudiantes y maestros reales antes de la primera edición.
+    \item Repetir la prueba de estrés en el entorno de pruebas de Cloudflare, para medir los tiempos reales.
+    \item Mejorar el rendimiento de la portada del sitio informativo, reduciendo el peso de sus imágenes.
+\end{itemize}

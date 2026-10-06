@@ -1,27 +1,235 @@
 \chapter{MÓDULO DE EVALUACIÓN}
 
+Este módulo es donde se rinde el Desafío. El estudiante entra con su código personal, resuelve las preguntas de su categoría en el tiempo fijado y entrega; el sistema corrige cada respuesta en el servidor, calcula los puntajes y el ranking de cada categoría y publica los resultados en la fecha prevista. En las aulas sin conectividad, la prueba se rinde en papel y el maestro carga después las respuestas, que se corrigen igual.
+
 \section{PLANIFICACIÓN DEL MÓDULO}
+
+\subsection{Objetivo del módulo}
+
+Soportar la resolución de los desafíos en entorno digital y la generación de formatos imprimibles para aulas sin conectividad, junto con la corrección de las respuestas y la generación de resultados.
 
 \subsection{Historias de usuario}
 
+Las historias responden al estudiante, que rinde; al administrador, que publica los resultados; y al maestro, que sigue a su grupo durante la prueba, imprime la prueba para las aulas sin conexión, carga las hojas de respuestas y revisa los resultados. Las tarjetas completas están en el Anexo A.
+
+{\small\renewcommand{\arraystretch}{1.3}\setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}\rowcolors{2}{white}{hufondo}
+\input{content/tablas/hus_cap8.tex}}
+
 \subsection{Plan de entregas y alcance del módulo}
+
+\begin{table}[H]
+\small
+\renewcommand{\arraystretch}{1.35}
+\setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}
+\begin{tabularx}{\linewidth}{l >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{3.6cm}}
+\arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}
+\rowcolor{hufondo}\textbf{Iteración} & \textbf{Alcance} & \textbf{Historias} \\
+\arrayrulecolor{hulinea}\midrule
+Iteración 7 (31 de agosto al 11 de septiembre) & Rendición: entrada con código, reglas, respuestas guardadas solas, tiempo, entrega y seguimiento del grupo & \mbox{HU-67} a \mbox{HU-73} \\
+\midrule
+Iteración 8 (14 al 25 de septiembre) & Corrección, ranking, resultados del estudiante, del grupo y del desafío, publicación, datos para los certificados y prueba en papel & \mbox{HU-74} a \mbox{HU-83} \\
+\arrayrulecolor{hulinea}\bottomrule
+\end{tabularx}
+\arrayrulecolor{black}
+\caption[Plan de entregas del módulo de evaluación]{Distribución de historias del módulo de evaluación por iteración}
+\label{tab:iteraciones_evaluacion}
+\end{table}
 
 \section{ITERACIÓN 7}
 
 \subsection{Planificación de la iteración}
 
+La iteración debía garantizar que un estudiante rinda de principio a fin sin perder nada: si se le corta la conexión, si recarga la página o si cambia de dispositivo. Como ejemplo, la tarjeta del guardado de respuestas:
+
+\input{content/tablas/tarjeta_hu_70.tex}
+
 \subsection{Diseño}
+
+Cada participante tiene un intento, que nace pendiente al inscribirse.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    every node/.append style={execute at begin node={\centering\hyphenpenalty=10000}},
+    estado/.style={rectangle, rounded corners=6pt, draw=huazul, fill=hufondo, line width=0.6pt, text width=2.3cm, minimum height=0.95cm, align=center, font=\footnotesize},
+    paso/.style={-{Stealth[length=2.3mm]}, line width=0.55pt, draw=huazul},
+    etq/.style={font=\scriptsize, text=hugris, align=center, fill=white, inner sep=1pt},
+]
+\node[estado] (pendiente) at (0,0) {Pendiente};
+\node[estado] (curso) at (4.2,0) {En curso};
+\node[estado] (terminado) at (8.4,0) {Terminado};
+\draw[paso] (pendiente) -- node[etq, above=2pt]{empezar} (curso);
+\draw[paso] (curso) -- node[etq, above=2pt]{entrega, fin del\\tiempo o cierre} (terminado);
+\end{tikzpicture}
+\caption{Estados del intento del estudiante}
+\label{fig:estados_intento}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{Tiempo.} Al empezar, el servidor fija el fin del intento: el menor entre el inicio más la duración y el cierre de la rendición. La cuenta regresiva usa la hora del servidor, no la del dispositivo.
+    \item \textbf{Sesión única.} El código personal abre una sesión que se mantiene con una señal cada diez segundos. Entrar desde otro dispositivo cierra la anterior, así el mismo estudiante no rinde dos veces a la vez.
+    \item \textbf{Guardado.} Cada respuesta se guarda en cuanto se da y se corrige en ese momento. Si un guardado falla, la pantalla lo avisa y lo reintenta; no se puede entregar con respuestas sin guardar.
+    \item \textbf{Privacidad.} El estudiante recibe cada tarea sin su clave ni su explicación. Con la opción de mezclar activada, cada intento ve las opciones en su propio orden, siempre el mismo.
+\end{itemize}
 
 \subsection{Codificación}
 
+La pantalla de rendición no muestra la cabecera ni el pie del sitio. Antes de empezar presenta las reglas: la categoría, los minutos, la cantidad de preguntas y cuánto suma o resta cada dificultad, junto con el nombre del estudiante y la opción «¿No eres tú?». Las preguntas se responden de a una o todas juntas, según el desafío, con los mismos componentes del probador y de la práctica. Si el administrador pausa el desafío, la pantalla queda en pausa y al reanudar el tiempo se devuelve.
+
+Mientras tanto, el maestro ve en la pestaña Resultados de su grupo quién está rindiendo y cuántas preguntas lleva, con una actualización cada quince segundos.
+
 \subsection{Pruebas}
+
+Además de los casos de la Tabla~\ref{tab:pruebas_i7}, la rendición se sometió a una prueba de estrés con 1600 estudiantes empezando a la vez, descrita en el capítulo 9.
+
+\begin{table}[H]
+\small
+\renewcommand{\arraystretch}{1.3}
+\setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{3.6cm} >{\raggedright\arraybackslash}X c c}
+\arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}
+\rowcolor{hufondo}\textbf{Tema} & \textbf{Qué se comprueba} & \textbf{Casos} & \textbf{Resultado} \\
+\arrayrulecolor{hulinea}\midrule
+Entrada y sesión & Entrada con el código personal, sesión única y hora del servidor antes de empezar & 3 & Aprobado \\
+\midrule
+Respuestas & Responder pregunta por pregunta, guardados en orden y entrega bloqueada con respuestas sin guardar & 4 & Aprobado \\
+\midrule
+Tiempo y pausa & Cierre automático al acabar el tiempo y vista en pausa & 2 & Aprobado \\
+\midrule
+Celular & La rendición ocupa toda la pantalla & 1 & Aprobado \\
+\arrayrulecolor{hulinea}\bottomrule
+\end{tabularx}
+\arrayrulecolor{black}
+\caption[Pruebas de la Iteración 7]{Pruebas de extremo a extremo de la Iteración 7}
+\label{tab:pruebas_i7}
+\end{table}
+
+\subsection{Resultados}
+
+El estudiante lee las reglas antes de empezar y luego resuelve cada pregunta con su tiempo a la vista.
+
+\parcapturas{assets/ui/desafio/rendir-reglas.jpg}{Reglas antes de empezar}{assets/ui/desafio/rendir-pregunta.jpg}{Pregunta durante la rendición}{Rendición del desafío}{fig:evaluacion_rendicion}
 
 \section{ITERACIÓN 8}
 
 \subsection{Planificación de la iteración}
 
+La iteración convirtió las respuestas en resultados: puntajes, ranking por categoría y lo que ve cada usuario. También llevó la prueba al papel, para que un aula sin conexión participe con las mismas preguntas y el mismo cálculo. Como ejemplo, la tarjeta de la corrección:
+
+\input{content/tablas/tarjeta_hu_74.tex}
+
 \subsection{Diseño}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    every node/.append style={execute at begin node={\centering\hyphenpenalty=10000}},
+    caja/.style={rectangle, rounded corners=6pt, draw=huazul, fill=hufondo, line width=0.6pt, text width=2.4cm, minimum height=1.05cm, align=center, font=\footnotesize},
+    paso/.style={-{Stealth[length=2.3mm]}, line width=0.55pt, draw=huazul},
+]
+\node[caja] (guardar) at (0,0) {Cada respuesta se corrige al guardarla};
+\node[caja] (cerrar) at (3.4,0) {Cierre de la rendición};
+\node[caja] (calcular) at (6.8,0) {Puntajes y ranking por categoría};
+\node[caja] (publicar) at (10.2,0) {Publicación a la hora fijada};
+\node[caja] (portada) at (10.2,-2.0) {Estudiante, maestro, portada y certificados};
+\draw[paso] (guardar) -- (cerrar);
+\draw[paso] (cerrar) -- (calcular);
+\draw[paso] (calcular) -- (publicar);
+\draw[paso] (publicar) -- (portada);
+\end{tikzpicture}
+\caption{De las respuestas a los resultados}
+\label{fig:flujo_resultados}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{Puntaje.} El puntaje de un estudiante es el puntaje inicial de su categoría más lo que suma o resta cada pregunta según su dificultad (Tabla~\ref{tab:puntaje}); una pregunta sin responder no resta.
+    \item \textbf{Ranking.} Se ordena por categoría: primero el mayor puntaje y, si hay empate, el menor tiempo usado.
+    \item \textbf{Publicación.} Los resultados se publican solos a la hora fijada o, sin fecha, al cerrar la rendición, una sola vez; el administrador puede ocultarlos y volver a publicarlos. Quedan visibles en la portada hasta el fin del periodo de resultados.
+    \item \textbf{Prueba en papel.} El maestro imprime un cuadernillo por categoría y una hoja de respuestas por estudiante, con su nombre y su código personal. Todo se marca en la hoja: el cuadernillo no lleva respuestas, así que se fotocopia y se vuelve a usar. Cada tipo de pregunta se adapta al papel con letras, números o una marca sobre la imagen (Tabla~\ref{tab:papel}), y la pantalla de carga usa las mismas letras y números, para que lo marcado se traslade sin dudas.
+    \item \textbf{Intento en papel.} Lo cargado se guarda como un intento más, marcado como rendido en papel, y se corrige igual que uno en línea. Cada estudiante rinde de una sola forma: con su hoja cargada no puede entrar en línea, y al revés. Como el papel no mide el tiempo, en un empate el intento en línea va primero.
+    \item \textbf{Plazos.} La prueba se imprime desde dos días antes de su inicio, para dar tiempo a fotocopiarla sin adelantar demasiado las preguntas. Las hojas se cargan desde el inicio hasta que se calculan los resultados.
+    \item \textbf{Qué ve cada uno.} El administrador decide qué ve el estudiante al entregar y qué al publicar: su puntaje, cuáles acertó y las soluciones. Su puesto solo aparece con los resultados publicados. En lo público, un menor aparece con su nombre y la inicial del apellido, su colegio y su ciudad.
+\end{itemize}
+
+\begin{table}[H]
+\small
+\renewcommand{\arraystretch}{1.3}
+\setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{3.2cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
+\arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}
+\rowcolor{hufondo}\textbf{Tipo de pregunta} & \textbf{En el cuadernillo} & \textbf{En la hoja de respuestas} \\
+\arrayrulecolor{hulinea}\midrule
+Opción múltiple & Las opciones con su letra & Un círculo por letra, para rellenar \\
+\midrule
+Respuesta corta & El enunciado & Un recuadro para escribir \\
+\midrule
+Arrastrar y soltar & La imagen con cada lugar numerado y las piezas con su letra & Una casilla por lugar, para la letra de la pieza \\
+\midrule
+Zonas sobre imagen & La imagen completa & Una copia pequeña de la imagen, para marcar una X \\
+\midrule
+Estados por casilla & Los estados con su letra & La cuadrícula, para escribir una letra en cada casilla \\
+\midrule
+Huecos en el texto & El texto con cada hueco numerado y las opciones con su letra & Una casilla por hueco \\
+\arrayrulecolor{hulinea}\bottomrule
+\end{tabularx}
+\arrayrulecolor{black}
+\caption[Adaptación de las preguntas al papel]{Cómo se presenta y se responde cada tipo de pregunta en papel}
+\label{tab:papel}
+\end{table}
 
 \subsection{Codificación}
 
+Como cada respuesta ya está corregida, cerrar todos los intentos abiertos y calcular los puntajes de un desafío completo son dos operaciones sobre la base de datos, y el ranking de todas las categorías, una sola; su costo no crece con la cantidad de estudiantes. Esta forma de cálculo reemplazó a una primera versión que recalculaba el ranking en cada entrega, y que con unos mil estudiantes habría superado el límite de consultas de Cloudflare D1.
+
+El maestro ve los resultados de su grupo con el puntaje, las correctas, el puesto y cada respuesta, la pregunta que más costó, y los descarga en Excel. El administrador ve los de todo el desafío por categoría. La portada muestra los diez primeros de cada categoría, y una exportación protegida con clave entrega los resultados al CMS para los certificados (capítulo 9).
+
+La prueba en papel se arma en el navegador con las mismas tareas que se rinden en línea, sin sus claves. Cada pregunta ocupa una hoja tamaño carta: si no cabe, el sistema reduce poco a poco sus imágenes, y solo las preguntas con mucho texto siguen en una segunda hoja, cortadas entre párrafos. La portada muestra el castor del departamento del colegio del maestro, las reglas, el puntaje y ejemplos de cómo marcar, solo de los tipos de pregunta que trae la prueba. El maestro la imprime o la descarga en PDF para llevarla a una fotocopiadora. Para cargar las hojas, una pantalla recorre a los estudiantes del grupo en orden, con controles que reproducen la hoja; al guardar, pasa al siguiente que tenga su hoja pendiente.
+
 \subsection{Pruebas}
+
+\begin{table}[H]
+\small
+\renewcommand{\arraystretch}{1.3}
+\setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{3.6cm} >{\raggedright\arraybackslash}X c c}
+\arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}
+\rowcolor{hufondo}\textbf{Tema} & \textbf{Qué se comprueba} & \textbf{Casos} & \textbf{Resultado} \\
+\arrayrulecolor{hulinea}\midrule
+Publicación & Publicación automática al cierre, también de quien no entregó; ocultar y volver a publicar; periodo de resultados & 4 & Aprobado \\
+\midrule
+Ranking & Desempate por tiempo y ranking público con nombre e inicial & 2 & Aprobado \\
+\midrule
+Resultados & Resultados del grupo y del desafío, con sus descargas & 2 & Aprobado \\
+\arrayrulecolor{hulinea}\bottomrule
+\end{tabularx}
+\arrayrulecolor{black}
+\caption[Pruebas de la Iteración 8]{Pruebas de extremo a extremo de la Iteración 8}
+\label{tab:pruebas_i8}
+\end{table}
+
+La prueba de estrés del capítulo 9 verificó además, al cierre, que los 1600 puntajes y el ranking coincidieran exactamente con las respuestas enviadas.
+
+La prueba en papel se comprobó con recorridos automatizados en el navegador, que todavía no forman parte de la batería de pruebas: el cuadernillo de cada categoría con una pregunta por hoja, igual en pantalla, en el PDF y al imprimir; la corrección de una hoja cargada con cada tipo de pregunta; el bloqueo de la rendición en línea para quien tiene su hoja cargada; quitar lo cargado; y los plazos de impresión y de carga.
+
+\subsection{Resultados}
+
+Al entregar, el estudiante ve lo que el desafío permite; el maestro sigue a su grupo y revisa sus resultados.
+
+\parcapturas{assets/ui/desafio/rendir-final.jpg}{Pantalla final del estudiante}{assets/ui/desafio/grupo-resultados.jpg}{Resultados del grupo}{Resultados del estudiante y del grupo}{fig:evaluacion_resultados_grupo}
+
+El administrador revisa los resultados por categoría y el público consulta el ranking.
+
+\parcapturas{assets/ui/desafio/desafio-resultados.jpg}{Resultados por categoría}{assets/ui/desafio/portada-ranking.jpg}{Ranking público}{Resultados del desafío}{fig:evaluacion_resultados}
+
+Para las aulas sin conexión, el maestro imprime la prueba de su grupo: la portada del cuadernillo, una pregunta por hoja y una hoja de respuestas para cada estudiante.
+
+\begin{figure}[htbp]
+\centering
+\captura{assets/ui/desafio/papel-hojas.jpg}
+\caption{Portada del cuadernillo, una pregunta y una hoja de respuestas}
+\label{fig:evaluacion_papel_hojas}
+\end{figure}
+
+Después de la prueba, copia en la pantalla de carga lo que marcó cada estudiante.
+
+\parcapturas{assets/ui/desafio/papel-imprimir.jpg}{Impresión de la prueba}{assets/ui/desafio/papel-carga.jpg}{Carga de una hoja de respuestas}{Prueba en papel}{fig:evaluacion_papel}

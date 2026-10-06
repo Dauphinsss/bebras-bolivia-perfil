@@ -1,0 +1,53 @@
+@startuml c2-contenedores
+' Diagrama C2 (contenedores) del Sistema Bebras Bolivia, con C4-PlantUML.
+!include <C4/C4_Container>
+skinparam dpi 300
+skinparam defaultFontName "Arial"
+skinparam linetype ortho
+skinparam nodesep 90
+skinparam ranksep 110
+LAYOUT_TOP_DOWN()
+HIDE_STEREOTYPE()
+
+Person(admin, "Administrador u organizador", "Administra el contenido y los desafíos.")
+Person(maestro, "Maestro", "Inscribe a sus estudiantes y sigue sus resultados.")
+Person(estudiante, "Estudiante", "Practica, rinde el desafío y consulta su certificado.")
+
+Boundary(sistema, "Sistema Bebras Bolivia", "Sistema de software") {
+  Boundary(contenido, "Gestión de contenido", "Servidor de la universidad con Apache") {
+    Container(cms, "CMS", "Express + Bun; panel Astro + React", "Edita las páginas, las noticias y los certificados, y publica el sitio.")
+    ContainerDb(cmsdb, "Base de datos del CMS", "SQLite", "Usuarios, respaldos, publicaciones programadas y certificados.")
+    ContainerDb(store, "Content Store", "Archivos JSON y Markdown", "Contenido editable; fuente del sitio.")
+    Container(sitio, "Sitio informativo", "Astro + React, estático", "Información del Desafío, noticias y certificados.")
+  }
+  Boundary(desafio, "Plataforma del Desafío", "Cloudflare") {
+    Container(front, "Frontend del Desafío", "Astro + React", "Tareas, desafíos, grupos, rendición y práctica.")
+    Container(api, "API del Desafío", "Express + TypeScript en Cloudflare Workers", "Reglas del desafío, corrección y resultados.")
+    ContainerDb(d1, "Base de datos del Desafío", "Cloudflare D1", "Tareas, desafíos, participantes, respuestas y resultados.")
+    ContainerDb(r2, "Archivos", "Cloudflare R2", "Cartas y carnets de los maestros.")
+  }
+}
+
+System_Ext(firebase, "Firebase Authentication", "Cuentas de la plataforma del Desafío.")
+
+Rel(admin, cms, "Administra el contenido")
+Rel(cms, cmsdb, "Lee y escribe")
+Rel(cms, store, "Escribe el contenido")
+Rel(store, sitio, "Fuente del build")
+Rel(maestro, sitio, "Consulta información")
+Rel(estudiante, sitio, "Consulta información y su certificado")
+
+Rel(admin, front, "Usa")
+Rel(maestro, front, "Usa")
+Rel(estudiante, front, "Usa")
+Rel(front, api, "Consume la API", "REST/JSON")
+Rel(api, d1, "Lee y escribe", "Prisma")
+Rel(api, r2, "Guarda documentos")
+Rel(front, firebase, "Inicia sesión")
+Rel(api, firebase, "Verifica las sesiones")
+Rel(cms, api, "Trae los certificados")
+
+Lay_R(admin, maestro)
+Lay_R(maestro, estudiante)
+Lay_R(contenido, desafio)
+@enduml

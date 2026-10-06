@@ -1,27 +1,205 @@
-\chapter{MÓDULO DE PARTICIPANTES}
+\chapter{MÓDULO DE REGISTRO Y ADMINISTRACIÓN DE PARTICIPANTES}
+
+Este módulo registra y verifica a los maestros responsables y, a través de ellos, inscribe a los estudiantes. El maestro es quien tiene cuenta: se registra con su unidad educativa, el organizador confirma con una carta firmada que de verdad enseña allí y, una vez aprobado, crea grupos para sus cursos. Los estudiantes no necesitan cuenta: reciben un código personal con el que rinden el desafío.
 
 \section{PLANIFICACIÓN DEL MÓDULO}
 
+\subsection{Objetivo del módulo}
+
+Permitir la inscripción de unidades educativas escolares, maestros responsables y estudiantes de nivel primario y secundario, con la verificación de los maestros y grupos con código de acceso.
+
 \subsection{Historias de usuario}
 
+Las historias responden a tres usuarios: el maestro, que se registra e inscribe a sus estudiantes; el administrador, que revisa las solicitudes; y el estudiante, que se inscribe con el código de su grupo. Las tarjetas completas están en el Anexo A.
+
+{\small\renewcommand{\arraystretch}{1.3}\setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}\rowcolors{2}{white}{hufondo}
+\input{content/tablas/hus_cap7.tex}}
+
 \subsection{Plan de entregas y alcance del módulo}
+
+\begin{table}[H]
+\small
+\renewcommand{\arraystretch}{1.35}
+\setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}
+\begin{tabularx}{\linewidth}{l >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{3.6cm}}
+\arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}
+\rowcolor{hufondo}\textbf{Iteración} & \textbf{Alcance} & \textbf{Historias} \\
+\arrayrulecolor{hulinea}\midrule
+Iteración 5 (3 al 14 de agosto) & Cuenta del maestro, documentos, revisión del administrador y administración de cuentas & \mbox{HU-46} a \mbox{HU-59} \\
+\midrule
+Iteración 6 (17 al 28 de agosto) & Grupos por categoría, inscripción uno a uno o con planilla, autoinscripción con código & \mbox{HU-60} a \mbox{HU-66} \\
+\arrayrulecolor{hulinea}\bottomrule
+\end{tabularx}
+\arrayrulecolor{black}
+\caption[Plan de entregas del módulo de participantes]{Distribución de historias del módulo de registro y administración de participantes por iteración}
+\label{tab:iteraciones_participantes}
+\end{table}
 
 \section{ITERACIÓN 5}
 
 \subsection{Planificación de la iteración}
 
+La iteración debía dejar listo el camino del maestro hasta su aprobación: registrarse, confirmar su correo, enviar sus documentos y ser revisado. Del lado del administrador, una bandeja con lo pendiente y la administración de las cuentas. Como ejemplo, la tarjeta del envío de documentos:
+
+\input{content/tablas/tarjeta_hu_50.tex}
+
 \subsection{Diseño}
+
+La cuenta del maestro pasa por cuatro estados. Mientras está pendiente puede entrar y completar su perfil, pero no crear grupos.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    every node/.append style={execute at begin node={\centering\hyphenpenalty=10000}},
+    estado/.style={rectangle, rounded corners=6pt, draw=huazul, fill=hufondo, line width=0.6pt, text width=2.3cm, minimum height=0.95cm, align=center, font=\footnotesize},
+    paso/.style={-{Stealth[length=2.3mm]}, line width=0.55pt, draw=huazul},
+    etq/.style={font=\scriptsize, text=hugris, align=center, fill=white, inner sep=1pt},
+]
+\node[estado] (registro) at (0,0) {Registro y correo verificado};
+\node[estado] (pendiente) at (3.8,0) {Pendiente};
+\node[estado] (aprobada) at (7.6,0) {Aprobada};
+\node[estado] (suspendida) at (11.4,0) {Suspendida};
+\node[estado] (rechazada) at (3.8,-2.2) {Rechazada};
+\draw[paso] (registro) -- (pendiente);
+\draw[paso] (pendiente) -- node[etq, above=2pt]{aprobar} (aprobada);
+\draw[paso] (pendiente) -- node[etq, right=2pt]{rechazar} (rechazada);
+\draw[paso] ([yshift=4pt]aprobada.east) -- node[etq, above=2pt]{suspender} ([yshift=4pt]suspendida.west);
+\draw[paso] ([yshift=-4pt]suspendida.west) -- node[etq, below=2pt]{reactivar} ([yshift=-4pt]aprobada.east);
+\end{tikzpicture}
+\caption{Estados de la cuenta del maestro}
+\label{fig:estados_maestro}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{Unidad educativa.} El maestro elige su colegio del catálogo nacional de 16\,098 unidades educativas. Si no está en la lista, o si enseña en casa, indica su departamento y su ciudad.
+    \item \textbf{Documentos.} Con colegio, sube la carta de autorización firmada y sellada por el director, a partir de una carta modelo; si enseña en casa, su carnet por ambos lados. Los documentos son privados: solo los ven su dueño y el administrador.
+    \item \textbf{Otros colegios.} Un maestro que enseña en más de un colegio pide cada uno por separado, con su propia carta y su propia aprobación.
+    \item \textbf{Identidad.} La cuenta vive en Firebase Authentication, que exige verificar el correo. El servidor del Desafío comprueba el token en cada petición y solo deja a cada maestro ver y cambiar lo suyo.
+\end{itemize}
 
 \subsection{Codificación}
 
+El registro valida cada campo mientras se escribe, con las mismas reglas que luego aplica el servidor: estas validaciones existen en una sola versión, copiada en el frontend y el backend, y una prueba comprueba que las dos copias sean idénticas. Los documentos se revisan por su contenido real (PDF, JPG o PNG de hasta 5 MB) y se guardan en Cloudflare R2 con un nombre aleatorio. La carta modelo se genera en PDF con los datos del maestro.
+
+El panel del administrador tiene dos vistas: «Por revisar», con cada solicitud pendiente y sus documentos, de la más antigua a la más nueva, y «Todos los maestros», con filtros por estado y búsqueda. Desde ahí se aprueba, se rechaza, se suspende y se corrigen los datos de un maestro. El administrador también nombra a otros organizadores.
+
 \subsection{Pruebas}
+
+\begin{table}[H]
+\small
+\renewcommand{\arraystretch}{1.3}
+\setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{3.6cm} >{\raggedright\arraybackslash}X c c}
+\arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}
+\rowcolor{hufondo}\textbf{Tema} & \textbf{Qué se comprueba} & \textbf{Casos} & \textbf{Resultado} \\
+\arrayrulecolor{hulinea}\midrule
+Registro & Colegio del catálogo, a mano o educación en casa; departamento y ciudad; correo, contraseña, nombres y teléfono, en computadora y en celular & 22 & Aprobado \\
+\midrule
+Inicio de sesión & Errores por campo y verificación del correo & 2 & Aprobado \\
+\midrule
+Documentos & Subida desde el perfil, rechazo de archivos falsos o grandes, carta modelo en PDF y privacidad & 6 & Aprobado \\
+\midrule
+Revisión y estados & Bandeja «Por revisar», otros colegios, aprobación, rechazo, suspensión y corrección de datos & 9 & Aprobado \\
+\midrule
+Administración & Organizadores, ajustes del sitio y acceso restringido a lo administrativo & 7 & Aprobado \\
+\arrayrulecolor{hulinea}\bottomrule
+\end{tabularx}
+\arrayrulecolor{black}
+\caption[Pruebas de la Iteración 5]{Pruebas de extremo a extremo de la Iteración 5}
+\label{tab:pruebas_i5}
+\end{table}
+
+\subsection{Resultados}
+
+El maestro se registra en dos pasos y, desde su perfil, ve en qué estado está su cuenta y qué le falta enviar.
+
+\parcapturas{assets/ui/desafio/registro-maestro.jpg}{Registro del maestro}{assets/ui/desafio/perfil-maestro.jpg}{Perfil con la cuenta pendiente}{Registro y perfil del maestro}{fig:participantes_registro}
+
+El administrador revisa cada solicitud con sus documentos y administra a todos los maestros desde el mismo panel.
+
+\parcapturas{assets/ui/desafio/maestros-revisar.jpg}{Solicitudes por revisar}{assets/ui/desafio/maestros-todos.jpg}{Todos los maestros}{Revisión de maestros}{fig:participantes_revision}
 
 \section{ITERACIÓN 6}
 
 \subsection{Planificación de la iteración}
 
+Con maestros aprobados, la iteración resolvió cómo llegan los estudiantes a un desafío: el maestro crea un grupo por categoría y lo llena, él mismo o compartiendo un código para que cada estudiante se inscriba. Como ejemplo, la tarjeta de la autoinscripción:
+
+\input{content/tablas/tarjeta_hu_66.tex}
+
 \subsection{Diseño}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    every node/.append style={execute at begin node={\centering\hyphenpenalty=10000}},
+    caja/.style={rectangle, rounded corners=6pt, draw=huazul, fill=hufondo, line width=0.6pt, text width=2.6cm, minimum height=1.05cm, align=center, font=\footnotesize},
+    paso/.style={-{Stealth[length=2.3mm]}, line width=0.55pt, draw=huazul},
+    etq/.style={font=\scriptsize, text=hugris, align=center, fill=white, inner sep=1pt},
+]
+\node[caja] (grupo) at (0,0) {Maestro aprobado crea un grupo};
+\node[caja] (codigo) at (3.7,0) {Código del grupo (6 caracteres)};
+\node[caja] (maestro) at (7.6,1.2) {El maestro inscribe uno a uno o con planilla};
+\node[caja] (estudiante) at (7.6,-1.2) {El estudiante se inscribe con el código};
+\node[caja] (personal) at (11.5,0) {Código personal (8 caracteres)};
+\draw[paso] (grupo) -- node[etq, above=2pt]{desafío y categoría} (codigo);
+\draw[paso] (codigo) |- (maestro);
+\draw[paso] (codigo) |- (estudiante);
+\draw[paso] (maestro) -| (personal);
+\draw[paso] (estudiante) -| (personal);
+\end{tikzpicture}
+\caption{Inscripción de estudiantes}
+\label{fig:flujo_inscripcion}
+\end{figure}
+
+El grupo pertenece a un desafío y a una categoría, y sus estudiantes solo pueden elegir los cursos de esa categoría. El código personal es la única credencial del estudiante para rendir. Las reglas principales son:
+
+\begin{itemize}
+    \item Solo se inscribe mientras la inscripción del desafío está abierta.
+    \item Un participante puede ser un estudiante o una pareja, si el desafío lo permite.
+    \item Un nombre no puede repetirse dentro de un mismo grupo; sí en grupos distintos, porque dos estudiantes de colegios diferentes pueden llamarse igual.
+    \item La planilla se importa entera o no se importa: si una fila falla, se indica cuál y no entra ninguna.
+    \item El curso de un estudiante queda fijo desde que empieza a rendir; su nombre se puede seguir corrigiendo.
+\end{itemize}
 
 \subsection{Codificación}
 
+Cada grupo tiene su pantalla, con el código grande, el enlace para compartir y dos pestañas: Estudiantes y Resultados. En Estudiantes, un formulario fijo inscribe uno tras otro, conservando el curso y la modalidad para el siguiente, y la lista permite corregir o quitar a cada uno. La planilla Excel se descarga ya preparada para el grupo, con los cursos en una lista desplegable; al subirla, el servidor la valida completa antes de escribir, y un bloqueo impide dos importaciones a la vez en el mismo desafío.
+
+El estudiante entra en la página de inscripción, escribe el código del grupo, elige su curso con botones y confirma. Recibe su código personal y una cuenta regresiva hasta la prueba. Si su nombre ya está inscrito, se le pide el código a su maestro: el sistema nunca devuelve el código de otro estudiante.
+
 \subsection{Pruebas}
+
+\begin{table}[H]
+\small
+\renewcommand{\arraystretch}{1.3}
+\setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{3.6cm} >{\raggedright\arraybackslash}X c c}
+\arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}
+\rowcolor{hufondo}\textbf{Tema} & \textbf{Qué se comprueba} & \textbf{Casos} & \textbf{Resultado} \\
+\arrayrulecolor{hulinea}\midrule
+Grupos & Creación con sus errores por campo, horario heredado del desafío y aislamiento entre maestros & 4 & Aprobado \\
+\midrule
+Inscripción manual & Validación, nombres repetidos, edición y curso fijo al empezar & 5 & Aprobado \\
+\midrule
+Planilla & Validación completa, importación atómica, hoja correcta del archivo y una importación a la vez & 6 & Aprobado \\
+\midrule
+Autoinscripción & Errores del código, parejas, nombres por grupo, cierre de la inscripción y códigos inexistentes & 7 & Aprobado \\
+\midrule
+Compartir & Copiar el código y el enlace del grupo & 1 & Aprobado \\
+\arrayrulecolor{hulinea}\bottomrule
+\end{tabularx}
+\arrayrulecolor{black}
+\caption[Pruebas de la Iteración 6]{Pruebas de extremo a extremo de la Iteración 6}
+\label{tab:pruebas_i6}
+\end{table}
+
+\subsection{Resultados}
+
+El maestro inscribe a sus estudiantes desde la pantalla del grupo; cada uno recibe su código personal.
+
+\parcapturas{assets/ui/desafio/grupos-lista.jpg}{Grupos del maestro}{assets/ui/desafio/grupo-estudiantes.jpg}{Estudiantes de un grupo}{Grupos e inscripción}{fig:participantes_grupos}
+
+El estudiante también puede inscribirse solo con el código de su grupo.
+
+\parcapturas{assets/ui/desafio/entrar-curso.jpg}{Elección del curso}{assets/ui/desafio/entrar-listo.jpg}{Código personal y cuenta regresiva}{Autoinscripción del estudiante}{fig:participantes_autoinscripcion}

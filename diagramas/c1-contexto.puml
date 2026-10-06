@@ -1,0 +1,20 @@
+@startuml c1-contexto
+' Diagrama C1 (contexto) del Sistema Bebras Bolivia, con C4-PlantUML.
+!include <C4/C4_Context>
+skinparam dpi 300
+skinparam defaultFontName "Arial"
+LAYOUT_LEFT_RIGHT()
+HIDE_STEREOTYPE()
+
+Person(admin, "Administrador u organizador", "Organiza el Desafío Bebras en Bolivia.")
+Person(maestro, "Maestro", "Responsable de sus estudiantes en una unidad educativa.")
+Person(estudiante, "Estudiante", "Participa en el Desafío, de primaria o secundaria.")
+
+System(sistema, "Sistema Bebras Bolivia", "Sitio informativo, gestión de contenido, desafíos, participantes y evaluación.")
+System_Ext(firebase, "Firebase Authentication", "Cuentas de la plataforma del Desafío.")
+
+Rel(admin, sistema, "Administra el contenido y los desafíos", "HTTPS")
+Rel(maestro, sistema, "Inscribe a sus estudiantes y sigue sus resultados", "HTTPS")
+Rel(estudiante, sistema, "Practica, rinde el desafío y consulta su certificado", "HTTPS")
+Rel(sistema, firebase, "Autentica las cuentas", "HTTPS")
+@enduml

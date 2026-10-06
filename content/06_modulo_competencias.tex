@@ -1,27 +1,257 @@
-\chapter{MÓDULO DE COMPETENCIAS Y TAREAS}
+\chapter{MÓDULO DE GESTIÓN DE DESAFÍOS}
+
+Con este módulo el organizador prepara cada edición del Desafío Bebras. Tiene dos partes que dependen una de la otra: el banco de tareas, donde se redactan las preguntas con su respuesta y su explicación, y los desafíos, que toman preguntas del banco, las ordenan por categoría de edad y definen cuándo y cómo se rinden. Incluye además la práctica, donde cualquier estudiante se ejercita con tareas liberadas.
+
+Las tareas Bebras no son solo de opción múltiple: el estudiante también arrastra piezas sobre un dibujo, señala una zona de una imagen, elige el estado de cada casilla de una cuadrícula o completa los huecos de un texto. Por eso el módulo ofrece seis tipos de respuesta, cada uno con su editor y su forma de corrección.
 
 \section{PLANIFICACIÓN DEL MÓDULO}
 
+\subsection{Objetivo del módulo}
+
+Permitir la creación, categorización y administración de tareas de pensamiento computacional según rangos de edad y niveles de dificultad, y organizar con ellas desafíos para varias categorías a la vez.
+
 \subsection{Historias de usuario}
 
+Las historias responden a las necesidades del administrador, que prepara las tareas y los desafíos, y del visitante, que practica y consulta los desafíos vigentes. Cada una representa una sola necesidad y lleva criterios de aceptación que permiten decidir cuándo está cumplida \parencite{cohn2004}; se agrupan según la actividad del usuario, siguiendo el mapeo de historias de \textcite{patton2014}. La prioridad 1 marca lo imprescindible para realizar un desafío y la 2, las mejoras que no lo impiden; el esfuerzo se mide en puntos, con la escala del módulo de gestión de contenido. Las tarjetas completas están en el Anexo A.
+
+{\small\renewcommand{\arraystretch}{1.3}\setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}\rowcolors{2}{white}{hufondo}
+\input{content/tablas/hus_cap6.tex}}
+
 \subsection{Plan de entregas y alcance del módulo}
+
+La primera iteración construye el banco de tareas, porque un desafío no puede armarse sin preguntas; la segunda organiza los desafíos, la práctica y su presentación al público.
+
+\begin{table}[H]
+\small
+\renewcommand{\arraystretch}{1.35}
+\setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}
+\begin{tabularx}{\linewidth}{l >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{3.6cm}}
+\arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}
+\rowcolor{hufondo}\textbf{Iteración} & \textbf{Alcance} & \textbf{Historias} \\
+\arrayrulecolor{hulinea}\midrule
+Iteración 3 (6 al 17 de julio) & Banco de tareas: redacción y explicación, seis tipos de respuesta, dificultad por categoría, probador, visibilidad y búsqueda & \mbox{HU-18} a \mbox{HU-30} \\
+\midrule
+Iteración 4 (20 al 31 de julio) & Desafíos por categoría con sus preguntas, fechas, puntaje, publicación y pausa; práctica; portada pública & \mbox{HU-31} a \mbox{HU-45} \\
+\arrayrulecolor{hulinea}\bottomrule
+\end{tabularx}
+\arrayrulecolor{black}
+\caption[Plan de entregas del módulo de gestión de desafíos]{Distribución de historias del módulo de gestión de desafíos por iteración}
+\label{tab:iteraciones_desafios}
+\end{table}
 
 \section{ITERACIÓN 3}
 
 \subsection{Planificación de la iteración}
 
+La iteración debía permitir que el organizador redactara una tarea completa, eligiera cómo la responde el estudiante y la probara antes de usarla, de modo que las 43 tareas del cuadernillo Bebras 2024 pudieran representarse con fidelidad. Arrastrar y soltar, zonas sobre una imagen y completar huecos concentraron el mayor esfuerzo, por su interacción directa sobre imágenes y textos. Como ejemplo, la tarjeta de una de ellas:
+
+\input{content/tablas/tarjeta_hu_20.tex}
+
 \subsection{Diseño}
+
+Una tarea tiene un enunciado, una pregunta y una explicación, armados con bloques de texto con formato e imágenes, y una dificultad para cada categoría de edad en la que se puede usar. Su respuesta se describe con dos datos separados: una configuración pública, que es lo que el estudiante necesita para responder, y una clave privada, que solo usa el servidor para corregir. Esa separación hace imposible mandarle la solución al estudiante por accidente, y permitió agregar los seis tipos sin cambiar el modelo de datos.
+
+\begin{table}[H]
+\small
+\renewcommand{\arraystretch}{1.3}
+\setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{3.3cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
+\arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}
+\rowcolor{hufondo}\textbf{Tipo} & \textbf{Cómo responde el estudiante} & \textbf{Cómo se corrige} \\
+\arrayrulecolor{hulinea}\midrule
+Opción múltiple & Elige una o varias opciones, de texto o de imagen & Una correcta, o varias: todas o al menos una \\
+\midrule
+Respuesta corta & Escribe un número o una palabra & Igualdad de texto, sin distinguir mayúsculas ni espacios \\
+\midrule
+Arrastrar y soltar & Lleva cada pieza a su lugar sobre un dibujo & Cada pieza en su lugar; admite otras soluciones y trata como iguales las piezas con la misma imagen \\
+\midrule
+Zonas sobre una imagen & Toca una zona del dibujo & La zona elegida está entre las aceptadas \\
+\midrule
+Estados por casilla & Elige el estado de cada casilla de una cuadrícula & La cuadrícula completa coincide con una respuesta aceptada \\
+\midrule
+Huecos en el texto & Completa cada hueco con una palabra de un banco & El texto completo coincide con una respuesta aceptada \\
+\arrayrulecolor{hulinea}\bottomrule
+\end{tabularx}
+\arrayrulecolor{black}
+\caption{Tipos de respuesta y su corrección}
+\label{tab:tipos_respuesta}
+\end{table}
+
+La dificultad se fija por categoría, porque una misma tarea puede ser difícil para los menores y fácil para los mayores. Las categorías siguen las de Bebras, con nombres de animales de Bolivia:
+
+\begin{table}[H]
+\small
+\renewcommand{\arraystretch}{1.25}
+\setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}
+\rowcolors{2}{white}{hufondo}
+\begin{tabularx}{\linewidth}{l c X}
+\arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}
+\rowcolor{hufondo}\textbf{Categoría} & \textbf{Edad} & \textbf{Cursos} \\
+\arrayrulecolor{hulinea}\midrule
+Guacamayo & 5 a 8 & 1.º y 2.º de primaria \\
+Capibara & 8 a 10 & 3.º y 4.º de primaria \\
+Titi & 10 a 12 & 5.º y 6.º de primaria \\
+Jucumari & 12 a 14 & 1.º y 2.º de secundaria \\
+Yaguareté & 14 a 16 & 3.º y 4.º de secundaria \\
+Kuntur & 17 a 18 & 5.º y 6.º de secundaria \\
+\arrayrulecolor{hulinea}\bottomrule
+\end{tabularx}
+\arrayrulecolor{black}
+\caption{Categorías del Desafío Bebras Bolivia}
+\label{tab:categorias}
+\end{table}
 
 \subsection{Codificación}
 
+El editor de tareas es una sola pantalla para crear y para editar. Arriba se elige cómo responde el estudiante y, según el tipo, cambia solo la sección de la respuesta; el enunciado y la explicación usan el mismo editor de bloques, con texto con formato, imágenes que se agrandan tirando de su borde e imágenes dentro de la línea. Antes de guardar, el editor revisa la tarea y dice qué falta; el servidor repite la misma validación, así que una tarea inválida nunca se guarda.
+
+El probador muestra la tarea con los mismos componentes que ve el estudiante y la corrige en el servidor, con las mismas reglas que se aplicarán en el desafío. Desde el editor, «Probar» lleva lo que está en pantalla sin guardarlo. Las 43 tareas del cuadernillo se cargaron con un validador que comprueba que estén todas, en orden y con sus metadatos; los recortes de sus imágenes se generaron desde el PDF original.
+
 \subsection{Pruebas}
+
+Cada historia se verificó con pruebas de extremo a extremo que reproducen lo que hace el administrador en el navegador, y la lógica de corrección, con pruebas unitarias. La Tabla~\ref{tab:pruebas_i3} resume los casos por tema; el capítulo 9 describe la estrategia completa.
+
+\begin{table}[H]
+\small
+\renewcommand{\arraystretch}{1.3}
+\setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{3.6cm} >{\raggedright\arraybackslash}X c c}
+\arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}
+\rowcolor{hufondo}\textbf{Tema} & \textbf{Qué se comprueba} & \textbf{Casos} & \textbf{Resultado} \\
+\arrayrulecolor{hulinea}\midrule
+Editor y probador & Crear, validar, probar sin guardar, reordenar opciones, filtros del banco y editor en celular & 8 & Aprobado \\
+\midrule
+Arrastrar y soltar & Armado sobre el dibujo, gesto en computadora y celular, soluciones alternativas y piezas equivalentes & 14 & Aprobado \\
+\midrule
+Zonas sobre una imagen & Dibujo de zonas, deshacer, selección con mouse, teclado y toque, y puntaje en un desafío & 5 & Aprobado \\
+\midrule
+Estados y huecos & Configuración, respuesta con banco de palabras, respuestas parciales y las cinco tareas del cuadernillo en desafíos reales & 11 & Aprobado \\
+\midrule
+Privacidad y visibilidad & El estudiante nunca recibe la clave; cada nivel de visibilidad decide quién ve la tarea & 5 & Aprobado \\
+\arrayrulecolor{hulinea}\bottomrule
+\end{tabularx}
+\arrayrulecolor{black}
+\caption[Pruebas de la Iteración 3]{Pruebas de extremo a extremo de la Iteración 3}
+\label{tab:pruebas_i3}
+\end{table}
+
+\subsection{Resultados}
+
+La iteración dejó el banco de tareas completo: las 43 tareas del cuadernillo Bebras 2024 están cargadas y cada una se responde como pide su enunciado. El administrador ve todas las tareas en una lista que filtra por tipo de respuesta y por categoría, y edita cada una en una sola pantalla.
+
+\parcapturas{assets/ui/desafio/tareas-lista.jpg}{Banco de tareas con sus filtros}{assets/ui/desafio/tarea-opcion-multiple.jpg}{Editor de una tarea de opción múltiple}{Banco de tareas y editor}{fig:desafio_tareas}
+
+El tipo de respuesta cambia solo la sección Respuesta del editor. En arrastrar y soltar, cada pieza se suelta sobre el dibujo en el lugar que le corresponde; en las zonas, se marcan sobre la imagen y la correcta queda en verde.
+
+\parcapturas{assets/ui/desafio/tarea-arrastrar.jpg}{Arrastrar y soltar}{assets/ui/desafio/tarea-zonas.jpg}{Zonas sobre una imagen}{Editores de respuesta interactiva}{fig:desafio_editores}
+
+En los huecos, el autor selecciona palabras de la pregunta y las convierte en el hueco. Antes de usar una tarea, el probador la muestra tal como la verá el estudiante y la corrige.
+
+\parcapturas{assets/ui/desafio/tarea-huecos.jpg}{Completar huecos}{assets/ui/desafio/tarea-probador.jpg}{Probador con la tarea corregida}{Huecos en el texto y probador}{fig:desafio_probador}
 
 \section{ITERACIÓN 4}
 
 \subsection{Planificación de la iteración}
 
+Con el banco listo, la iteración organizó los desafíos: un mismo desafío reúne varias categorías, cada una con sus preguntas, y avanza solo de la inscripción a la rendición según sus fechas. Se sumaron la práctica pública y la portada, que muestra al público los desafíos vigentes. Como ejemplo, la tarjeta de las fechas del desafío:
+
+\input{content/tablas/tarjeta_hu_33.tex}
+
 \subsection{Diseño}
+
+El estado de un desafío no se guarda: se calcula con sus fechas y con las acciones del administrador. Así el desafío avanza solo, sin procesos programados que puedan fallar.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    every node/.append style={execute at begin node={\centering\hyphenpenalty=10000}},
+    estado/.style={rectangle, rounded corners=6pt, draw=huazul, fill=hufondo, line width=0.6pt, text width=2.3cm, minimum height=0.95cm, align=center, font=\footnotesize},
+    paso/.style={-{Stealth[length=2.3mm]}, line width=0.55pt, draw=huazul},
+    etq/.style={font=\scriptsize, text=hugris, align=center, fill=white, inner sep=1pt},
+]
+\node[estado] (borrador) at (0,0) {Borrador};
+\node[estado] (inscripcion) at (3.8,0) {Inscripción abierta};
+\node[estado] (preparacion) at (7.6,0) {Inscripción cerrada};
+\node[estado] (curso) at (11.4,0) {En curso};
+\node[estado] (pausado) at (11.4,-2.1) {Pausado};
+\node[estado] (terminado) at (11.4,-4.2) {Terminado};
+\node[estado] (listos) at (7.6,-4.2) {Resultados listos};
+\node[estado] (publicados) at (3.8,-4.2) {Resultados publicados};
+\draw[paso] (borrador) -- node[etq, above=2pt]{publicar} (inscripcion);
+\draw[paso] (inscripcion) -- node[etq, above=2pt]{cierre} (preparacion);
+\draw[paso] (preparacion) -- node[etq, above=2pt]{inicio} (curso);
+\draw[paso] ([xshift=-4pt]curso.south) -- node[etq, left=2pt]{pausar} ([xshift=-4pt]pausado.north);
+\draw[paso] ([xshift=4pt]pausado.north) -- node[etq, right=2pt]{reanudar} ([xshift=4pt]curso.south);
+\draw[paso] (curso.east) -- ++(0.6,0) |- node[etq, pos=0.25, right=2pt]{cierre} (terminado.east);
+\draw[paso] (terminado) -- node[etq, above=2pt]{calcular} (listos);
+\draw[paso] (listos) -- node[etq, above=2pt]{publicar} (publicados);
+\end{tikzpicture}
+\caption{Estados de un desafío}
+\label{fig:estados_desafio}
+\end{figure}
+
+El paso del tiempo mueve el desafío entre inscripción, rendición y cierre; el administrador lo publica, lo pausa y lo reanuda. Un desafío en curso o terminado no se puede editar, y solo se elimina en borrador. Los resultados se calculan y publican en el módulo de evaluación (capítulo 8).
+
+El puntaje sigue el estándar de Bebras y se puede ajustar en cada desafío. Cada categoría parte de un puntaje inicial igual a la suma de todas las penalizaciones posibles, así el total nunca baja de cero.
+
+\begin{table}[H]
+\small
+\renewcommand{\arraystretch}{1.25}
+\setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}
+\begin{tabularx}{0.7\linewidth}{X c c c}
+\arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}
+\rowcolor{hufondo}\textbf{Dificultad} & \textbf{Correcta} & \textbf{Incorrecta} & \textbf{Sin responder} \\
+\arrayrulecolor{hulinea}\midrule
+Fácil & +6 & $-2$ & 0 \\
+Medio & +9 & $-3$ & 0 \\
+Difícil & +12 & $-4$ & 0 \\
+\arrayrulecolor{hulinea}\bottomrule
+\end{tabularx}
+\arrayrulecolor{black}
+\caption{Puntaje estándar por dificultad}
+\label{tab:puntaje}
+\end{table}
 
 \subsection{Codificación}
 
+El desafío se edita en una sola pantalla, con sus categorías, sus fechas, su puntaje y lo que verá el estudiante; las preguntas de cada categoría se eligen en otra, con los mismos filtros del banco. Al agregar una pregunta se copian su dificultad y su puntaje, así un cambio posterior en el banco no altera un desafío ya armado. Las reglas del desafío (estados, ventanas, categorías, cursos y puntaje) viven en un módulo propio que recibe la hora como dato, lo que permite probarlas sin servidor.
+
+La práctica pública lista las tareas liberadas de cada categoría, de la más fácil a la más difícil, las corrige en el servidor y recuerda en el navegador cuáles resolvió el estudiante, que no necesita cuenta. El maestro puede armar además una práctica con tareas liberadas para sus estudiantes.
+
 \subsection{Pruebas}
+
+\begin{table}[H]
+\small
+\renewcommand{\arraystretch}{1.3}
+\setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{3.6cm} >{\raggedright\arraybackslash}X c c}
+\arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}
+\rowcolor{hufondo}\textbf{Tema} & \textbf{Qué se comprueba} & \textbf{Casos} & \textbf{Resultado} \\
+\arrayrulecolor{hulinea}\midrule
+Categorías y fechas & Un desafío con varias categorías, cursos válidos de cada una y fases programadas & 5 & Aprobado \\
+\midrule
+Protección y pausa & Un desafío en curso no se edita, la pausa bloquea a los estudiantes y devuelve el tiempo, y no se borra lo ya rendido & 8 & Aprobado \\
+\midrule
+Puntaje & Escalas de Bebras y la distribución estándar de 0 a 180 puntos & 2 & Aprobado \\
+\midrule
+Probar como estudiante & Recorrer el desafío sin dejar rastro & 1 & Aprobado \\
+\midrule
+Práctica & Corrección de todos los tipos, accesibilidad, orden por dificultad, avance guardado y prácticas del maestro & 15 & Aprobado \\
+\midrule
+Portada y escala & Solo desafíos publicados, acciones según la etapa y listados con más de cien registros & 3 & Aprobado \\
+\arrayrulecolor{hulinea}\bottomrule
+\end{tabularx}
+\arrayrulecolor{black}
+\caption[Pruebas de la Iteración 4]{Pruebas de extremo a extremo de la Iteración 4}
+\label{tab:pruebas_i4}
+\end{table}
+
+\subsection{Resultados}
+
+Un desafío reúne varias categorías, cada una con sus preguntas, y su estado (borrador, inscripción abierta, en curso o resultados publicados) se ve en la lista.
+
+\parcapturas{assets/ui/desafio/desafios-lista.jpg}{Lista de desafíos}{assets/ui/desafio/desafio-editor.jpg}{Editor del desafío por categorías}{Gestión de desafíos}{fig:desafio_gestion}
+
+Las preguntas de cada categoría se eligen del banco con los mismos filtros, y el sistema avisa si una pregunta ya es pública en la práctica. La portada muestra al público los desafíos vigentes con lo que cada visitante puede hacer en ese momento.
+
+\parcapturas{assets/ui/desafio/desafio-preguntas.jpg}{Elección de preguntas}{assets/ui/desafio/portada.jpg}{Portada con los desafíos}{Preguntas del desafío y portada}{fig:desafio_portada}

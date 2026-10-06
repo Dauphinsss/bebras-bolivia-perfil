@@ -4,9 +4,6 @@
 # PDFs and render artifacts generated locally
 /Perfil-Bebras.pdf
 /main.pdf
-/Caratula-Indice.pdf
-/_c4page-*.png
-/indice-completo.toc
 
 *.aux
 *.bbl

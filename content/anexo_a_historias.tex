@@ -1,0 +1,663 @@
+\chapter*{ANEXO A. HISTORIAS DE USUARIO}
+\addcontentsline{toc}{chapter}{ANEXO A. HISTORIAS DE USUARIO}
+
+Tarjetas completas de las historias de usuario de la plataforma, con sus criterios de aceptación. Están numeradas en el orden en que aparecen en el documento.
+
+\tcbset{hucolocacion/.style={nofloat, before skip=10pt, after skip=10pt}}
+
+\section*{Módulo de gestión de contenido}
+\addcontentsline{toc}{section}{Módulo de gestión de contenido}
+
+\begin{historia}[2]{HU-1}{Recorrer el sitio informativo}{Visitante}{1}{13}{\textbf{Como} visitante, \textbf{quiero} recorrer las páginas del sitio de Bebras Bolivia, organizadas en un menú y compuestas por secciones de textos, imágenes, preguntas frecuentes y otros bloques, \textbf{para} enterarme de qué es el Desafío y cómo participar.}
+\hucriterio{El sitio muestra las páginas armadas en el CMS, con sus secciones en el orden definido por el administrador.}
+\hucriterio{El menú principal lleva a cada página activa; en el celular se abre como un menú desplegable.}
+\hucriterio{Las páginas desactivadas no aparecen en el menú ni se pueden abrir.}
+\hucriterio{El pie de página muestra los enlaces, las redes sociales y los datos de contacto configurados.}
+\hucriterio{Las secciones interactivas funcionan en el sitio publicado: las preguntas se despliegan, las pestañas cambian de contenido y el formulario de contacto abre el correo del visitante con el mensaje ya escrito.}
+\hucriterio{El sitio es estático y sigue disponible aunque el CMS esté apagado.}
+\end{historia}
+
+\begin{historia}[2]{HU-2}{Entrar al panel de administración}{Administrador}{1}{5}{\textbf{Como} administrador, \textbf{quiero} entrar al panel del CMS con mi correo y mi contraseña, que es el único acceso para modificar el contenido del sitio, \textbf{para} que nadie más pueda cambiarlo.}
+\hucriterio{El acceso se realiza con correo y contraseña, y la contraseña se puede mostrar mientras se escribe.}
+\hucriterio{Ante credenciales incorrectas, el sistema muestra un mensaje de error.}
+\hucriterio{Después de varios intentos fallidos seguidos, el panel deja de aceptar intentos durante un tiempo.}
+\hucriterio{Sin sesión iniciada o con la sesión vencida, cualquier pantalla o acción del panel lleva al inicio de sesión.}
+\hucriterio{Al cerrar sesión, el panel pide confirmación y avisa si hay cambios sin guardar.}
+\end{historia}
+
+\begin{historia}[2]{HU-3}{Editar una página}{Administrador}{1}{13}{\textbf{Como} administrador, \textbf{quiero} modificar desde el panel los textos, enlaces, imágenes y listas de cada página del sitio, mediante formularios que se generan a partir de su estructura, \textbf{para} mantener el sitio al día sin tocar código.}
+\hucriterio{El panel muestra las páginas del sitio y la configuración general; al elegir una página se abren sus secciones.}
+\hucriterio{Cada campo tiene un nombre claro, como «Título», «Párrafo» o «Texto del botón», y no su nombre técnico.}
+\hucriterio{En las listas, como tarjetas, preguntas o filas de una tabla, es posible agregar, quitar y reordenar elementos arrastrándolos.}
+\hucriterio{Las imágenes se suben, se eligen de la galería o se indican con su enlace.}
+\hucriterio{Antes de guardar, el sistema revisa que el contenido tenga la forma correcta; si no la tiene, no guarda e indica qué falta.}
+\hucriterio{Los acentos y los caracteres especiales se conservan al guardar.}
+\hucriterio{Al intentar salir con cambios sin guardar, el sistema muestra un aviso.}
+\end{historia}
+
+\begin{historia}[1]{HU-4}{Armar una página con bloques}{Administrador}{1}{13}{\textbf{Como} administrador, \textbf{quiero} armar cada página combinando bloques ya diseñados, como textos, tarjetas, tablas, preguntas frecuentes o llamados a la acción, y ajustar su orden y su diseño, \textbf{para} presentar cualquier contenido con el estilo del sitio sin depender de un programador.}
+\hucriterio{«Agregar sección» muestra el catálogo de bloques, cada uno con su vista previa: texto, tarjetas con ícono o con imagen, pasos numerados, lista de enlaces, lista de características, estadísticas, categorías por edad, tabla, preguntas frecuentes, pestañas, formulario de contacto, llamado a la acción e institución destacada, entre otros.}
+\hucriterio{Cada bloque nuevo llega con contenido de ejemplo para reemplazar.}
+\hucriterio{Las secciones se reordenan arrastrándolas y se les puede cambiar el nombre.}
+\hucriterio{Cada sección tiene ajustes de diseño, como la cantidad de columnas y el color.}
+\hucriterio{Es posible quitar una sección de la página.}
+\hucriterio{Las secciones de estructura fija solo permiten editar sus campos, sin agregar ni quitar partes.}
+\end{historia}
+
+\begin{historia}[1]{HU-5}{Cambiar el menú, el pie y los datos generales}{Administrador}{2}{5}{\textbf{Como} administrador, \textbf{quiero} editar en un solo lugar las partes que comparten todas las páginas: el menú principal, el pie de página y los datos generales del sitio, \textbf{para} cambiarlas una sola vez y que se actualicen en todo el sitio.}
+\hucriterio{Se editan los enlaces del menú principal y el botón destacado del encabezado.}
+\hucriterio{Se editan las columnas del pie de página y las redes sociales.}
+\hucriterio{Se editan los datos generales del sitio, como su nombre, su descripción y su correo de contacto.}
+\hucriterio{Los enlaces solo aceptan direcciones seguras; uno con un protocolo no permitido se rechaza.}
+\end{historia}
+
+\begin{historia}[2]{HU-6}{Ver la página mientras la edito}{Administrador}{1}{8}{\textbf{Como} administrador, \textbf{quiero} ver junto al editor una vista previa de la página tal como quedará en el sitio, actualizada con los cambios aún no guardados, \textbf{para} corregir lo que no se vea bien antes de que llegue al público.}
+\hucriterio{Junto al editor se muestra la página como se verá en el sitio.}
+\hucriterio{La vista previa se actualiza con los cambios, incluso antes de guardarlos.}
+\hucriterio{Una página recién creada también tiene vista previa, aunque todavía no esté publicada.}
+\hucriterio{Si la vista previa no se puede generar, el sistema avisa y la edición continúa.}
+\hucriterio{La vista previa no cambia el sitio publicado; al salir del editor, el borrador se elimina.}
+\end{historia}
+
+\begin{historia}[2]{HU-7}{Escribir una noticia}{Administrador}{1}{8}{\textbf{Como} administrador, \textbf{quiero} publicar noticias en el sitio, cada una con título, resumen, fecha, contenido con formato e imágenes y, si hace falta, un botón con enlace, \textbf{para} avisar las novedades del Desafío.}
+\hucriterio{«Nueva publicación» pide el título, el resumen, la fecha y el contenido.}
+\hucriterio{La dirección de la noticia se genera a partir del título.}
+\hucriterio{El contenido se escribe con una barra de formato y con atajos de Markdown: títulos, negrita, listas, enlaces e imágenes.}
+\hucriterio{Es posible agregar un botón al final con su texto y su enlace; si se completa uno, el otro también es obligatorio.}
+\hucriterio{Una noticia sin título, resumen o fecha no se guarda.}
+\hucriterio{Al guardarla, la noticia aparece en la lista de noticias y en el sitio.}
+\end{historia}
+
+\begin{historia}[2]{HU-8}{Corregir o quitar una noticia}{Administrador}{1}{5}{\textbf{Como} administrador, \textbf{quiero} modificar los datos o el contenido de una noticia ya publicada, o eliminarla, \textbf{para} corregir errores o retirar lo que ya no corresponde.}
+\hucriterio{La lista muestra todas las noticias y cualquiera se puede abrir para editarla.}
+\hucriterio{Se pueden cambiar sus datos y su contenido; su dirección se mantiene.}
+\hucriterio{Eliminar una noticia pide confirmación y advierte que no se puede deshacer.}
+\hucriterio{El sitio refleja la corrección o la eliminación.}
+\end{historia}
+
+\begin{historia}[2]{HU-9}{Ver la noticia antes de guardarla}{Administrador}{1}{5}{\textbf{Como} administrador, \textbf{quiero} ver la noticia que estoy escribiendo dentro de la página real del blog, con el diseño del sitio, \textbf{para} revisarla antes de que se publique.}
+\hucriterio{La vista previa muestra la noticia con el diseño del sitio: título, fecha, contenido, imágenes y botón.}
+\hucriterio{La vista previa se actualiza a medida que se escribe.}
+\hucriterio{Si la vista previa no se puede generar, el sistema avisa.}
+\hucriterio{Al salir del editor, el borrador de la vista previa se elimina.}
+\end{historia}
+
+\begin{historia}[1]{HU-10}{Leer las noticias}{Visitante}{2}{3}{\textbf{Como} visitante, \textbf{quiero} consultar las noticias de Bebras Bolivia en una lista ordenada por fecha y leer cada una en su propia página, \textbf{para} estar al tanto de las novedades del Desafío.}
+\hucriterio{La lista de noticias muestra primero las más recientes, con su título, su resumen y su fecha.}
+\hucriterio{Cada noticia tiene su propia página con todo su contenido y sus imágenes.}
+\hucriterio{Si la noticia tiene un botón, este aparece al final y lleva al enlace indicado.}
+\hucriterio{La portada destaca la noticia más reciente.}
+\end{historia}
+
+\begin{historia}[2]{HU-11}{Usar imágenes}{Administrador}{2}{5}{\textbf{Como} administrador, \textbf{quiero} subir imágenes a una galería común y reutilizarlas en las noticias y en las páginas, \textbf{para} ilustrar el sitio sin subir el mismo archivo varias veces.}
+\hucriterio{La galería permite subir una imagen arrastrándola o eligiendo el archivo, y elegir una ya subida.}
+\hucriterio{Se aceptan imágenes JPG, PNG, WebP, GIF y SVG de hasta 5 MB; un archivo vacío o de otro tipo se rechaza con un mensaje.}
+\hucriterio{Una imagen SVG se limpia de código peligroso antes de guardarse.}
+\hucriterio{Al insertar una imagen en una noticia, se elige su tamaño.}
+\hucriterio{Es posible borrar de la galería una imagen que ya no se usa.}
+\end{historia}
+
+\begin{historia}[1]{HU-12}{Crear páginas nuevas}{Administrador}{2}{8}{\textbf{Como} administrador, \textbf{quiero} crear páginas nuevas, que se agregan al menú y se arman con bloques, y activarlas o desactivarlas según la etapa del Desafío, \textbf{para} agregar al sitio la información que haga falta en cada momento.}
+\hucriterio{Una página se crea escribiendo su nombre; su dirección se genera a partir de él.}
+\hucriterio{La página nueva se agrega al menú y queda lista para armarla con bloques.}
+\hucriterio{Una página desactivada deja de verse en el sitio y en el menú, pero conserva su contenido.}
+\hucriterio{Al volver a activarla, la página aparece otra vez con su misma dirección.}
+\hucriterio{Eliminar una página pide confirmación.}
+\end{historia}
+
+\begin{historia}[2]{HU-13}{Guardar un respaldo}{Administrador}{1}{8}{\textbf{Como} administrador, \textbf{quiero} guardar copias con nombre del contenido del sitio, además de las que el sistema crea de forma automática, \textbf{para} poder recuperarlo si algo sale mal.}
+\hucriterio{«Crear respaldo» pide un nombre que lo identifique; no puede quedar vacío ni ser demasiado largo.}
+\hucriterio{Cada respaldo registra quién lo creó y cuándo.}
+\hucriterio{El sistema crea además respaldos automáticos, uno diario y otro antes de cada publicación, marcados como «Automático».}
+\hucriterio{La lista agrupa los respaldos por antigüedad: últimos 30 días, últimos 12 meses y años anteriores.}
+\hucriterio{Los respaldos automáticos antiguos se depuran solos (queda uno por día durante el último mes y uno por mes durante el último año); los creados a mano nunca se borran solos.}
+\hucriterio{Un respaldo se puede eliminar, con confirmación.}
+\end{historia}
+
+\begin{historia}[2]{HU-14}{Volver a una versión anterior}{Administrador}{1}{8}{\textbf{Como} administrador, \textbf{quiero} revisar cómo se veía el sitio con un respaldo y restaurar su contenido, \textbf{para} deshacer cambios que salieron mal.}
+\hucriterio{Antes de restaurar, es posible ver cómo se veía el sitio con ese respaldo y cerrar esa vista al terminar.}
+\hucriterio{Restaurar pide confirmación y advierte que se reemplaza el contenido actual.}
+\hucriterio{Después de restaurar, el CMS queda con el contenido del respaldo, listo para publicarse.}
+\hucriterio{Si el respaldo no existe o no se puede restaurar, el sistema avisa.}
+\end{historia}
+
+\begin{historia}[2]{HU-15}{Llevar un respaldo a otro lugar}{Administrador}{2}{5}{\textbf{Como} administrador, \textbf{quiero} descargar un respaldo como archivo y volver a subirlo, \textbf{para} guardarlo fuera del servidor o pasarlo a otra instalación del CMS.}
+\hucriterio{Cualquier respaldo se puede descargar como un archivo.}
+\hucriterio{Un archivo de respaldo subido aparece en la lista.}
+\hucriterio{Un archivo dañado o que no es un respaldo se rechaza con un mensaje.}
+\end{historia}
+
+\begin{historia}[2]{HU-16}{Publicar los cambios}{Administrador}{1}{13}{\textbf{Como} administrador, \textbf{quiero} que lo que guardo en el CMS se publique en el sitio público, con un respaldo previo y un resumen de los cambios pendientes y de la última publicación, \textbf{para} que los visitantes vean la información actualizada.}
+\hucriterio{Al guardar, el sitio se publica solo en pocos segundos; varios guardados seguidos se juntan en una sola publicación.}
+\hucriterio{Antes de cada publicación se crea un respaldo automático.}
+\hucriterio{La publicación vuelve a generar el sitio estático y guarda la versión publicada en el repositorio.}
+\hucriterio{La pantalla de publicación muestra los cambios pendientes del contenido y de las noticias (nuevos, modificados y eliminados) o, si no hay, «Todo está publicado».}
+\hucriterio{La pantalla muestra la última publicación con su fecha y su resultado; si falló, muestra el error.}
+\hucriterio{«Publicar sitio» permite publicar en cualquier momento.}
+\end{historia}
+
+\begin{historia}[2]{HU-17}{Programar una publicación}{Administrador}{2}{5}{\textbf{Como} administrador, \textbf{quiero} elegir el día y la hora en que se publican los cambios guardados, \textbf{para} preparar un anuncio con anticipación y que salga en el momento justo.}
+\hucriterio{Se elige una fecha y una hora futuras; una fecha no válida se rechaza con un aviso.}
+\hucriterio{La publicación programada aparece con su fecha y su estado.}
+\hucriterio{Una publicación programada se puede cancelar, con confirmación.}
+\hucriterio{Mientras haya una publicación programada, guardar no publica nada antes de esa fecha.}
+\hucriterio{Llegado el momento, el sitio se publica solo.}
+\end{historia}
+
+\section*{Módulo de gestión de desafíos}
+\addcontentsline{toc}{section}{Módulo de gestión de desafíos}
+
+\begin{historia}[1]{HU-18}{Registrar una tarea de opción múltiple}{Administrador}{1}{13}{\textbf{Como} administrador, \textbf{quiero} registrar una tarea de opción múltiple, que consta de un título, un enunciado, la pregunta que debe responder el estudiante y al menos dos opciones de respuesta, de las cuales una o más se marcan como correctas, \textbf{para} contar en el banco de preguntas del Desafío Bebras con tareas donde el estudiante elige su respuesta.}
+\hucriterio{Se registran el título de la tarea, su enunciado y la pregunta que se le hace al estudiante.}
+\hucriterio{El enunciado admite texto con formato e imágenes de tamaño ajustable, incluso imágenes pequeñas dentro de una línea de texto, como los dibujos del cuadernillo.}
+\hucriterio{Las opciones pueden ser textos o imágenes.}
+\hucriterio{La opción correcta se marca seleccionando su letra.}
+\hucriterio{Es posible cambiar el orden de las opciones; la primera siempre queda como la A.}
+\hucriterio{Si hay más de una opción correcta, se define si el estudiante debe marcar todas o le basta con una.}
+\hucriterio{Antes de guardar, el sistema lista los datos obligatorios que faltan, como el título, la pregunta o la respuesta correcta, y la lista se actualiza a medida que se completan.}
+\end{historia}
+
+\begin{historia}[1]{HU-19}{Registrar una tarea de respuesta corta}{Administrador}{1}{3}{\textbf{Como} administrador, \textbf{quiero} registrar una tarea de respuesta corta, que consta de un título, un enunciado, la pregunta y la respuesta exacta que el estudiante debe escribir, como un número o una palabra, \textbf{para} contar en el banco de preguntas con tareas de respuesta abierta que se corrigen de forma automática.}
+\hucriterio{Se registran el título de la tarea, su enunciado y la pregunta que se le hace al estudiante.}
+\hucriterio{El enunciado admite texto con formato e imágenes de tamaño ajustable, incluso imágenes pequeñas dentro de una línea de texto, como los dibujos del cuadernillo.}
+\hucriterio{Se registra la respuesta esperada.}
+\hucriterio{Al corregir no se distinguen mayúsculas de minúsculas ni se toman en cuenta los espacios al principio o al final.}
+\hucriterio{Antes de guardar, el sistema lista los datos obligatorios que faltan, como el título, la pregunta o la respuesta correcta, y la lista se actualiza a medida que se completan.}
+\end{historia}
+
+\begin{historia}[1]{HU-20}{Registrar una tarea de arrastrar y soltar}{Administrador}{1}{13}{\textbf{Como} administrador, \textbf{quiero} registrar una tarea de arrastrar y soltar, que consta de un título, un enunciado, la pregunta, una imagen de fondo y las piezas que el estudiante debe colocar en su lugar sobre ella, \textbf{para} contar en el banco de preguntas con tareas donde hay que mover objetos a su lugar.}
+\hucriterio{Se registran el título de la tarea, su enunciado y la pregunta que se le hace al estudiante.}
+\hucriterio{El enunciado admite texto con formato e imágenes de tamaño ajustable, incluso imágenes pequeñas dentro de una línea de texto, como los dibujos del cuadernillo.}
+\hucriterio{Se registran la imagen de fondo y una imagen por cada pieza.}
+\hucriterio{El lugar correcto de cada pieza se define soltándola sobre el fondo.}
+\hucriterio{El tamaño del fondo y de cada pieza se puede ajustar, y el editor muestra el tamaño que verá el estudiante.}
+\hucriterio{Es posible marcar lugares adicionales donde se puede soltar una pieza aunque no sea la respuesta.}
+\hucriterio{Si la tarea tiene más de una solución, se pueden registrar otras respuestas correctas.}
+\hucriterio{Dos piezas con la misma imagen se consideran iguales: es indistinto cuál ocupa cada lugar.}
+\hucriterio{Antes de guardar, el sistema lista los datos obligatorios que faltan, como el título, la pregunta o la respuesta correcta, y la lista se actualiza a medida que se completan.}
+\end{historia}
+
+\begin{historia}[1]{HU-21}{Registrar una tarea de zonas sobre una imagen}{Administrador}{2}{13}{\textbf{Como} administrador, \textbf{quiero} registrar una tarea de zonas sobre una imagen, que consta de un título, un enunciado, la pregunta y una imagen con zonas marcadas, de las cuales una o más son correctas, \textbf{para} contar en el banco de preguntas con tareas donde el estudiante señala una parte del dibujo, como un camino o un punto.}
+\hucriterio{Se registran el título de la tarea, su enunciado y la pregunta que se le hace al estudiante.}
+\hucriterio{El enunciado admite texto con formato e imágenes de tamaño ajustable, incluso imágenes pequeñas dentro de una línea de texto, como los dibujos del cuadernillo.}
+\hucriterio{Sobre la imagen se marcan puntos o se dibujan zonas de cualquier forma, incluso una zona de varias partes.}
+\hucriterio{Las zonas dibujadas se pueden mover y ajustar.}
+\hucriterio{Se indica cuál zona es correcta, o cuáles si hay más de una.}
+\hucriterio{Los cambios se pueden deshacer y rehacer.}
+\hucriterio{El sistema impide guardar zonas que se superponen.}
+\hucriterio{Antes de guardar, el sistema lista los datos obligatorios que faltan, como el título, la pregunta o la respuesta correcta, y la lista se actualiza a medida que se completan.}
+\end{historia}
+
+\begin{historia}[1]{HU-22}{Registrar una tarea de completar huecos}{Administrador}{2}{13}{\textbf{Como} administrador, \textbf{quiero} registrar una tarea de completar huecos, que consta de un título, un enunciado, la pregunta a responder y un texto de respuesta en el que algunas palabras se convierten en huecos que el estudiante completa de manera controlada y guiada, eligiendo entre opciones, \textbf{para} contar en el banco de preguntas con tareas donde se completa una frase o un programa.}
+\hucriterio{Se registran el título de la tarea, su enunciado y la pregunta que se le hace al estudiante.}
+\hucriterio{El enunciado admite texto con formato e imágenes de tamaño ajustable, incluso imágenes pequeñas dentro de una línea de texto, como los dibujos del cuadernillo.}
+\hucriterio{Se permite seleccionar una o más palabras del texto para convertirlas en un hueco.}
+\hucriterio{Las palabras seleccionadas se registran como la respuesta correcta del hueco.}
+\hucriterio{Se permite agregar opciones incorrectas a un hueco, para que el estudiante tenga de dónde elegir.}
+\hucriterio{Es posible definir varios huecos en el texto y decidir qué opciones aparecen en cada uno.}
+\hucriterio{Las opciones de un hueco pueden ser palabras o imágenes.}
+\hucriterio{Antes de guardar, el sistema lista los datos obligatorios que faltan, como el título, la pregunta o la respuesta correcta, y la lista se actualiza a medida que se completan.}
+\end{historia}
+
+\begin{historia}[1]{HU-23}{Registrar una tarea de estados por casilla}{Administrador}{2}{8}{\textbf{Como} administrador, \textbf{quiero} registrar una tarea de estados por casilla, que consta de un título, un enunciado, la pregunta y una cuadrícula en la que cada casilla tiene un estado correcto, representado por una imagen, \textbf{para} contar en el banco de preguntas con tareas donde el estudiante decide qué va en cada posición.}
+\hucriterio{Se registran el título de la tarea, su enunciado y la pregunta que se le hace al estudiante.}
+\hucriterio{El enunciado admite texto con formato e imágenes de tamaño ajustable, incluso imágenes pequeñas dentro de una línea de texto, como los dibujos del cuadernillo.}
+\hucriterio{Se define cuántas filas y columnas tiene la cuadrícula.}
+\hucriterio{Se registra una imagen por cada estado posible.}
+\hucriterio{Se marca el estado correcto de cada casilla y, si hace falta, se le pone un rótulo.}
+\hucriterio{Una cuadrícula a medio completar no se considera correcta.}
+\hucriterio{Antes de guardar, el sistema lista los datos obligatorios que faltan, como el título, la pregunta o la respuesta correcta, y la lista se actualiza a medida que se completan.}
+\end{historia}
+
+\begin{historia}[1]{HU-24}{Explicar la solución}{Administrador}{1}{5}{\textbf{Como} administrador, \textbf{quiero} registrar la explicación de la solución de una tarea, que puede incluir una sección adicional sobre su relación con la informática, \textbf{para} que el estudiante entienda la respuesta después de intentarla.}
+\hucriterio{La explicación admite texto con formato e imágenes de tamaño ajustable.}
+\hucriterio{La explicación es obligatoria para guardar la tarea.}
+\hucriterio{Es posible agregar, de forma opcional, la sección «¿Qué tiene que ver con informática?».}
+\end{historia}
+
+\begin{historia}[1]{HU-25}{Clasificar una tarea}{Administrador}{1}{3}{\textbf{Como} administrador, \textbf{quiero} registrar los datos de clasificación de una tarea: el país que la propuso y el año de la edición de la que proviene, el área de la informática que trabaja, las categorías en las que se puede usar y su dificultad en cada una, \textbf{para} identificarla y usarla solo en las pruebas de las edades que corresponden.}
+\hucriterio{Se registran el país y el año de origen de la tarea.}
+\hucriterio{Con el país y el año, el sistema asigna a la tarea un código con la forma año-país-número, por ejemplo 2024-BR-04.}
+\hucriterio{Se registra el área de la informática que trabaja la tarea.}
+\hucriterio{Para cada categoría se elige la dificultad fácil, media o difícil, o se deja sin asignar.}
+\hucriterio{La tarea solo se puede usar en las categorías donde tiene dificultad.}
+\end{historia}
+
+\begin{historia}[1]{HU-26}{Probar una tarea antes de usarla}{Administrador}{1}{5}{\textbf{Como} administrador, \textbf{quiero} resolver una tarea guardada o en edición tal como la vería un estudiante, comprobando la respuesta y viendo la explicación, \textbf{para} asegurarme de que funciona y de que la respuesta correcta está bien registrada.}
+\hucriterio{Es posible probar una tarea guardada o el contenido del editor sin guardarlo todavía.}
+\hucriterio{Al comprobar, el sistema indica si la respuesta fue correcta y muestra la explicación.}
+\hucriterio{La prueba muestra la dificultad de la tarea en cada categoría, con un acceso directo para cambiarla.}
+\hucriterio{Desde la prueba se vuelve al editor sin perder los cambios no guardados.}
+\end{historia}
+
+\begin{historia}[1]{HU-27}{Decidir quién puede ver una tarea}{Administrador}{1}{3}{\textbf{Como} administrador, \textbf{quiero} definir la visibilidad de cada tarea: pública, solo para maestros o reservada para los desafíos oficiales, \textbf{para} que las preguntas de los desafíos oficiales no se conozcan antes de tiempo.}
+\hucriterio{Una tarea pública aparece en la práctica abierta y cualquiera la puede resolver.}
+\hucriterio{Una tarea para maestros solo se puede usar en las prácticas que ellos arman.}
+\hucriterio{Una tarea reservada no aparece en ninguna práctica.}
+\end{historia}
+
+\begin{historia}[1]{HU-28}{Encontrar una tarea en el banco}{Administrador}{2}{3}{\textbf{Como} administrador, \textbf{quiero} buscar las tareas del banco por texto y filtrarlas por tipo de respuesta, categoría, dificultad y visibilidad, \textbf{para} encontrar rápido la que necesito entre muchas.}
+\hucriterio{La búsqueda considera el título, el código y el país, aunque se escriba sin tildes.}
+\hucriterio{Las tareas se filtran por tipo de respuesta, por categoría y por visibilidad.}
+\hucriterio{Al elegir una categoría, también se filtra por dificultad y la lista se ordena de fácil a difícil.}
+\hucriterio{Si ninguna tarea coincide, todos los filtros se pueden quitar de una vez.}
+\end{historia}
+
+\begin{historia}[1]{HU-29}{Borrar una tarea que ya no sirve}{Administrador}{2}{3}{\textbf{Como} administrador, \textbf{quiero} eliminar del banco una tarea que ya no se usará, siempre que no forme parte de un desafío, \textbf{para} mantener el banco ordenado.}
+\hucriterio{El sistema pide confirmación antes de borrar.}
+\hucriterio{No se puede borrar una tarea que ya se usó en un desafío.}
+\end{historia}
+
+\begin{historia}[1]{HU-30}{No alterar una tarea mientras se rinde}{Administrador}{1}{3}{\textbf{Como} administrador, \textbf{quiero} que el sistema bloquee los cambios a una tarea que forma parte de un desafío oficial en curso, \textbf{para} que no queden estudiantes corregidos con respuestas distintas.}
+\hucriterio{Si la tarea está en un desafío oficial que se está rindiendo, no se puede guardar ningún cambio.}
+\hucriterio{El sistema explica el motivo y permite el cambio cuando el desafío termina.}
+\end{historia}
+
+\begin{historia}[1]{HU-31}{Crear un desafío}{Administrador}{1}{5}{\textbf{Como} administrador, \textbf{quiero} crear un desafío con su nombre, las categorías que participan, la duración de la prueba y la forma de participación, \textbf{para} organizar una ronda del Desafío Bebras para varias edades a la vez.}
+\hucriterio{El desafío tiene un nombre, sus categorías y la duración de la prueba.}
+\hucriterio{Se define si los estudiantes rinden solos, en pareja o de las dos formas.}
+\hucriterio{Mientras no se publica, el desafío es un borrador que se puede modificar o eliminar.}
+\end{historia}
+
+\begin{historia}[1]{HU-32}{Elegir las preguntas de cada categoría}{Administrador}{1}{8}{\textbf{Como} administrador, \textbf{quiero} elegir del banco las tareas que forman la prueba de cada categoría del desafío y definir su orden, \textbf{para} que cada edad rinda una prueba a su medida.}
+\hucriterio{Las preguntas se eligen del banco, categoría por categoría.}
+\hucriterio{Solo aparecen las tareas que tienen dificultad para esa categoría.}
+\hucriterio{Es posible buscar, filtrar por tipo o dificultad y ver solo las tareas ya elegidas.}
+\hucriterio{El orden en que aparecen las preguntas se puede cambiar.}
+\hucriterio{El sistema avisa si una pregunta elegida es pública en la práctica, porque los estudiantes ya podrían conocer su solución.}
+\end{historia}
+
+\begin{historia}[1]{HU-33}{Programar las fechas del desafío}{Administrador}{1}{8}{\textbf{Como} administrador, \textbf{quiero} fijar los periodos de inscripción, de rendición y de publicación de resultados del desafío, \textbf{para} que avance solo por sus etapas sin intervención manual.}
+\hucriterio{Se fijan la inscripción, la rendición y el periodo en que se muestran los resultados.}
+\hucriterio{Las fechas no son obligatorias para publicar: sin fechas de inscripción, la inscripción dura hasta que empieza la prueba.}
+\hucriterio{La inscripción debe cerrar antes de que empiece la prueba.}
+\hucriterio{El estado del desafío (inscripción abierta, en curso, terminado…) cambia solo según la hora.}
+\end{historia}
+
+\begin{historia}[1]{HU-34}{Ajustar el puntaje}{Administrador}{2}{3}{\textbf{Como} administrador, \textbf{quiero} definir cuántos puntos suma una respuesta correcta y cuántos resta una incorrecta según la dificultad de la pregunta, \textbf{para} adaptar la evaluación cuando no se quiere usar la estándar de Bebras.}
+\hucriterio{Por defecto se usa el puntaje de Bebras: 6, 9 y 12 puntos para las preguntas fáciles, medias y difíciles, y $-$2, $-$3 y $-$4 si se responden mal.}
+\hucriterio{Los valores se pueden cambiar para cada dificultad.}
+\hucriterio{Una pregunta sin responder no suma ni resta.}
+\end{historia}
+
+\begin{historia}[1]{HU-35}{Decidir qué ve el estudiante al terminar}{Administrador}{2}{5}{\textbf{Como} administrador, \textbf{quiero} elegir si el estudiante ve su puntaje, sus aciertos y las soluciones, y si los ve al entregar o al publicarse los resultados, \textbf{para} no revelar resultados ni soluciones antes de tiempo.}
+\hucriterio{Por separado se decide si el estudiante ve su puntaje, qué respuestas acertó y las soluciones.}
+\hucriterio{Para cada uno se elige si se muestra al entregar o recién cuando se publican los resultados.}
+\hucriterio{Lo que se muestra al entregar se sigue mostrando después.}
+\end{historia}
+
+\begin{historia}[1]{HU-36}{Mezclar el orden de las opciones}{Administrador}{2}{3}{\textbf{Como} administrador, \textbf{quiero} que las opciones de cada pregunta aparezcan en un orden distinto para cada estudiante, \textbf{para} que sea más difícil copiarse del compañero.}
+\hucriterio{Cada estudiante ve su propio orden, que se mantiene cada vez que vuelve a la pregunta.}
+\hucriterio{Las opciones conservan su letra, así la explicación («la respuesta es C») sigue siendo válida.}
+\end{historia}
+
+\begin{historia}[1]{HU-37}{Publicar el desafío}{Administrador}{1}{5}{\textbf{Como} administrador, \textbf{quiero} publicar el desafío una vez que tiene nombre, categorías y preguntas, \textbf{para} que aparezca en la portada y los maestros puedan empezar a inscribir estudiantes.}
+\hucriterio{Solo se puede publicar si el desafío tiene nombre, al menos una categoría y preguntas en cada categoría.}
+\hucriterio{Si falta algún dato, el sistema indica cuál.}
+\hucriterio{Un desafío publicado aparece en la portada del desafío.}
+\hucriterio{Una vez que empieza la prueba, el desafío ya no se puede modificar.}
+\end{historia}
+
+\begin{historia}[1]{HU-38}{Recorrer el desafío como un estudiante}{Administrador}{2}{5}{\textbf{Como} administrador, \textbf{quiero} rendir la prueba de cada categoría del desafío como lo haría un estudiante, sin que quede registrada, \textbf{para} revisar que todo esté bien antes de que empiece de verdad.}
+\hucriterio{Cada categoría se puede probar por separado.}
+\hucriterio{La prueba no guarda nada ni aparece en los resultados.}
+\hucriterio{Al terminar se muestra lo que vería el estudiante al entregar y lo que vería cuando se publiquen los resultados.}
+\end{historia}
+
+\begin{historia}[1]{HU-39}{Pausar un desafío en curso}{Administrador}{2}{8}{\textbf{Como} administrador, \textbf{quiero} pausar un desafío mientras se rinde y reanudarlo después, devolviendo a cada estudiante el tiempo de la pausa, \textbf{para} resolver un problema, como un corte de luz o de internet, sin que los estudiantes pierdan tiempo.}
+\hucriterio{Durante la pausa nadie puede responder ni entregar, y los estudiantes ven que el desafío está en pausa.}
+\hucriterio{Al reanudar, cada estudiante recupera el tiempo que duró la pausa.}
+\hucriterio{La hora de cierre del desafío también se corre lo que duró la pausa.}
+\hucriterio{Si la pausa supera la hora de cierre, el desafío sigue pausado y no se cierra.}
+\end{historia}
+
+\begin{historia}[1]{HU-40}{Practicar sin crear una cuenta}{Estudiante}{1}{8}{\textbf{Como} estudiante, \textbf{quiero} resolver sin registrarme las tareas públicas de mi categoría, ordenadas por dificultad, comprobar mis respuestas y leer sus explicaciones, \textbf{para} prepararme para el Desafío cuando quiera.}
+\hucriterio{El estudiante elige su categoría y ve sus tareas ordenadas de la más fácil a la más difícil.}
+\hucriterio{Al comprobar la respuesta, el sistema indica si es correcta.}
+\hucriterio{La explicación se muestra recién después de comprobar la respuesta, con la sección «¿Qué tiene que ver con informática?» plegada.}
+\hucriterio{Es posible intentar de nuevo, saltar la pregunta o pasar a la siguiente.}
+\end{historia}
+
+\begin{historia}[1]{HU-41}{Ver cuánto avancé en la práctica}{Estudiante}{2}{3}{\textbf{Como} estudiante, \textbf{quiero} ver qué preguntas de práctica ya resolví y cuáles conviene repetir, \textbf{para} retomar donde me quedé.}
+\hucriterio{La lista marca las preguntas resueltas y las que conviene volver a intentar.}
+\hucriterio{El avance se conserva al volver otro día desde el mismo navegador.}
+\end{historia}
+
+\begin{historia}[1]{HU-42}{Armar una práctica para un grupo}{Maestro}{2}{8}{\textbf{Como} maestro, \textbf{quiero} preparar una práctica con una categoría, un horario y las preguntas que elija entre las liberadas por el organizador, \textbf{para} que mis estudiantes ensayen antes del desafío.}
+\hucriterio{Se eligen la categoría, las preguntas y el horario en que se puede rendir.}
+\hucriterio{Solo se pueden elegir preguntas que el organizador liberó para maestros o para práctica.}
+\hucriterio{La práctica tiene un código de grupo para compartir con los estudiantes.}
+\hucriterio{Al terminar, los resultados de los estudiantes se muestran igual que en un desafío.}
+\end{historia}
+
+\begin{historia}[1]{HU-43}{Rendir la práctica de un maestro}{Estudiante}{2}{3}{\textbf{Como} estudiante, \textbf{quiero} entrar con el código de grupo a la práctica que armó mi maestro y rendirla, \textbf{para} ensayar como si fuera el desafío real.}
+\hucriterio{Se entra con el código del grupo y el nombre, sin necesidad de un código personal.}
+\hucriterio{Al entregar, el estudiante ve su puntaje y las soluciones.}
+\end{historia}
+
+\begin{historia}[1]{HU-44}{Ver qué desafíos hay}{Visitante}{1}{5}{\textbf{Como} visitante, \textbf{quiero} ver en la portada los desafíos publicados, la etapa en que está cada uno y cuánto falta para la siguiente, \textbf{para} saber qué puedo hacer en este momento.}
+\hucriterio{Se muestran los desafíos publicados, nunca los borradores.}
+\hucriterio{Los desafíos en curso aparecen primero, después los que tienen la inscripción abierta y al final los que tienen resultados.}
+\hucriterio{Cada desafío muestra una cuenta regresiva y cuántos estudiantes participan.}
+\end{historia}
+
+\begin{historia}[1]{HU-45}{Llegar rápido a lo que necesito}{Visitante}{2}{3}{\textbf{Como} visitante, \textbf{quiero} que cada desafío de la portada muestre la acción que corresponde a su etapa, como inscribirme, entrar a la prueba o ver los resultados, \textbf{para} no perderme buscando dónde entrar.}
+\hucriterio{Durante la inscripción, el desafío muestra «Inscribirme»; durante la prueba, «Entrar al desafío»; y con resultados publicados, «Ver mis resultados».}
+\hucriterio{Un maestro con sesión iniciada va directo a sus grupos.}
+\hucriterio{La portada siempre ofrece un acceso para entrar con el código y otro para los maestros.}
+\end{historia}
+
+\section*{Módulo de registro y administración de participantes}
+\addcontentsline{toc}{section}{Módulo de registro y administración de participantes}
+
+\begin{historia}[1]{HU-46}{Crear una cuenta de maestro}{Maestro}{1}{8}{\textbf{Como} maestro, \textbf{quiero} registrarme con mis datos personales, mi correo y el colegio donde enseño, elegido de la lista nacional de unidades educativas, \textbf{para} poder inscribir a mis estudiantes en el Desafío Bebras.}
+\hucriterio{El registro se realiza con correo y contraseña, o con una cuenta de Google.}
+\hucriterio{Mientras se escribe la contraseña, el formulario muestra los requisitos que faltan cumplir.}
+\hucriterio{El colegio se busca en la lista nacional de unidades educativas; si no está, se puede escribir.}
+\hucriterio{Es posible indicar que se enseña en casa.}
+\hucriterio{Si el colegio no está en la lista o se enseña en casa, se registran el departamento y la ciudad.}
+\hucriterio{Si el correo ya tiene una cuenta, el sistema lo avisa.}
+\hucriterio{Al terminar, la cuenta queda pendiente de revisión.}
+\end{historia}
+
+\begin{historia}[1]{HU-47}{Confirmar el correo}{Maestro}{1}{3}{\textbf{Como} maestro, \textbf{quiero} confirmar, mediante un enlace enviado a mi correo, que la dirección con la que me registré es mía, \textbf{para} poder entrar a mi cuenta.}
+\hucriterio{Después del registro, el maestro recibe un correo con un enlace de confirmación.}
+\hucriterio{Si el correo no llega, se puede pedir otro envío después de unos segundos.}
+\hucriterio{Si el correo registrado es incorrecto, se puede volver atrás y usar otro.}
+\end{historia}
+
+\begin{historia}[1]{HU-48}{Iniciar sesión}{Maestro}{1}{3}{\textbf{Como} maestro, \textbf{quiero} entrar a mi cuenta con mi correo y mi contraseña o con Google, \textbf{para} seguir con la inscripción y el seguimiento de mis estudiantes.}
+\hucriterio{El acceso se realiza con correo y contraseña o con Google.}
+\hucriterio{Si hay un error, el mensaje aparece junto al campo que se debe corregir.}
+\hucriterio{Al entrar, el maestro llega a su perfil.}
+\end{historia}
+
+\begin{historia}[1]{HU-49}{Conseguir la carta modelo}{Maestro}{2}{3}{\textbf{Como} maestro, \textbf{quiero} descargar un modelo de la carta de autorización que debe firmar el director de mi colegio, \textbf{para} que la firme y poder enviarla como respaldo de mi cuenta.}
+\hucriterio{La carta se puede ver sin iniciar sesión.}
+\hucriterio{La carta se puede descargar en PDF.}
+\end{historia}
+
+\begin{historia}[1]{HU-50}{Enviar los documentos de verificación}{Maestro}{1}{8}{\textbf{Como} maestro, \textbf{quiero} subir la carta firmada por el director de mi colegio o, si enseño en casa, mi carnet de identidad, \textbf{para} que el organizador pueda confirmar que realmente soy docente.}
+\hucriterio{Quien enseña en un colegio sube la carta firmada y sellada por el director.}
+\hucriterio{Quien enseña en casa sube su carnet por los dos lados.}
+\hucriterio{Los documentos se suben desde el perfil, en cualquier momento después del registro.}
+\hucriterio{Antes de enviar un archivo, es posible verlo y reemplazarlo.}
+\hucriterio{Solo se aceptan archivos PDF, JPG o PNG de hasta 5 MB, y se rechaza un archivo cuyo contenido no corresponde a su tipo.}
+\end{historia}
+
+\begin{historia}[1]{HU-51}{Saber si una cuenta ya fue verificada}{Maestro}{1}{5}{\textbf{Como} maestro, \textbf{quiero} ver en mi perfil el estado de revisión de mi cuenta y los documentos que faltan, \textbf{para} saber si ya puedo inscribir a mis estudiantes o qué me falta.}
+\hucriterio{El perfil muestra si la cuenta está pendiente, verificada, suspendida o rechazada.}
+\hucriterio{Mientras está pendiente, el perfil indica qué documentos faltan y el tiempo aproximado de la revisión.}
+\hucriterio{Los documentos enviados se pueden abrir desde el perfil.}
+\hucriterio{Los grupos y las prácticas aparecen bloqueados hasta que la cuenta se verifica.}
+\end{historia}
+
+\begin{historia}[1]{HU-52}{Agregar otro colegio donde enseño}{Maestro}{2}{5}{\textbf{Como} maestro que trabaja en más de un colegio, \textbf{quiero} agregar a mi cuenta otro colegio, con la carta de su director, \textbf{para} poder inscribir también a los estudiantes de ese colegio.}
+\hucriterio{El colegio se busca en la lista nacional y se agrega a la cuenta.}
+\hucriterio{La carta del director de ese colegio se envía en el momento o más tarde.}
+\hucriterio{El colegio nuevo queda pendiente hasta que el organizador lo apruebe, aunque la cuenta ya esté verificada.}
+\end{historia}
+
+\begin{historia}[1]{HU-53}{Ver lo que está pendiente de revisar}{Administrador}{1}{5}{\textbf{Como} administrador, \textbf{quiero} ver juntas las cuentas nuevas y los colegios agregados que esperan revisión, con los documentos que envió cada maestro, \textbf{para} atenderlos sin que se pase ninguno.}
+\hucriterio{Las cuentas nuevas y los colegios agregados aparecen por separado.}
+\hucriterio{Las solicitudes más antiguas aparecen primero.}
+\hucriterio{Cada solicitud permite abrir los documentos que envió el maestro.}
+\hucriterio{Si falta un documento, la solicitud lo indica.}
+\hucriterio{La lista muestra cuántas solicitudes quedan pendientes.}
+\end{historia}
+
+\begin{historia}[1]{HU-54}{Aprobar o rechazar una solicitud}{Administrador}{1}{3}{\textbf{Como} administrador, \textbf{quiero} aprobar o rechazar cada cuenta de maestro y cada colegio agregado después de revisar sus documentos, \textbf{para} que solo participen docentes verificados.}
+\hucriterio{La cuenta de un maestro y cada colegio que agregó se aprueban o rechazan por separado.}
+\hucriterio{El sistema pide confirmación antes de rechazar.}
+\hucriterio{Un maestro aprobado puede crear grupos y prácticas.}
+\hucriterio{Un maestro rechazado ya no puede entrar al sistema.}
+\end{historia}
+
+\begin{historia}[1]{HU-55}{Suspender a un maestro}{Administrador}{2}{3}{\textbf{Como} administrador, \textbf{quiero} suspender a un maestro y reactivarlo después, \textbf{para} frenar su acceso mientras se aclara algún problema.}
+\hucriterio{Un maestro suspendido no puede crear grupos.}
+\hucriterio{La cuenta suspendida se puede reactivar en cualquier momento.}
+\hucriterio{Estas acciones no se pueden aplicar a otro administrador.}
+\end{historia}
+
+\begin{historia}[1]{HU-56}{Encontrar a un maestro}{Administrador}{2}{3}{\textbf{Como} administrador, \textbf{quiero} buscar entre todos los maestros registrados por sus datos o su colegio y filtrarlos por estado, \textbf{para} ubicar rápido a uno cuando consultan por él.}
+\hucriterio{La búsqueda considera el nombre, el correo, el colegio y la ciudad.}
+\hucriterio{La lista se puede filtrar por estado, por ejemplo para ver solo a los suspendidos.}
+\hucriterio{La lista se puede ordenar.}
+\end{historia}
+
+\begin{historia}[1]{HU-57}{Corregir los datos de un maestro}{Administrador}{2}{5}{\textbf{Como} administrador, \textbf{quiero} corregir los nombres, el teléfono o el colegio que un maestro registró mal, \textbf{para} que su información aparezca bien en los grupos, el ranking y los certificados.}
+\hucriterio{Se pueden cambiar nombres, apellidos, teléfono y colegio.}
+\hucriterio{Los datos se validan con las mismas reglas que en el registro.}
+\hucriterio{El correo no se puede cambiar, porque es la cuenta con la que entra el maestro.}
+\end{historia}
+
+\begin{historia}[1]{HU-58}{Sumar a otro organizador}{Administrador}{2}{3}{\textbf{Como} administrador, \textbf{quiero} dar permisos de administrador a otra persona a partir de su correo, \textbf{para} que me ayude a organizar el Desafío Bebras.}
+\hucriterio{Se escribe el correo de la persona y se confirma antes de dar los permisos.}
+\hucriterio{Si la persona todavía no tiene cuenta, recibe los permisos la primera vez que entra con ese correo.}
+\hucriterio{El sistema advierte que un administrador no se puede quitar después.}
+\end{historia}
+
+\begin{historia}[1]{HU-59}{Enlazar el sitio informativo}{Administrador}{2}{3}{\textbf{Como} administrador, \textbf{quiero} registrar en la plataforma del desafío el enlace al sitio informativo de Bebras Bolivia, \textbf{para} que quien llegue a la plataforma también encuentre la información general.}
+\hucriterio{El enlace se puede guardar o quitar.}
+\hucriterio{Mientras haya un enlace guardado, la portada del desafío lo muestra.}
+\end{historia}
+
+\begin{historia}[1]{HU-60}{Crear un grupo para un curso}{Maestro}{1}{5}{\textbf{Como} maestro, \textbf{quiero} crear un grupo dentro de un desafío, con un nombre y una categoría, \textbf{para} reunir en él a los estudiantes de mi curso.}
+\hucriterio{Se eligen el desafío y la categoría del grupo, y se le pone un nombre.}
+\hucriterio{Si el desafío tiene varias categorías, la categoría del grupo es obligatoria.}
+\hucriterio{Solo se pueden crear grupos mientras la inscripción del desafío está abierta.}
+\hucriterio{El nombre del grupo se puede cambiar en cualquier momento.}
+\end{historia}
+
+\begin{historia}[1]{HU-61}{Compartir el grupo con los estudiantes}{Maestro}{1}{3}{\textbf{Como} maestro, \textbf{quiero} compartir el código o el enlace de mi grupo, \textbf{para} que mis estudiantes se puedan inscribir ellos mismos.}
+\hucriterio{Cada grupo tiene un código propio que se muestra en su pantalla.}
+\hucriterio{Es posible copiar el código o un enlace directo para enviarlo a los estudiantes.}
+\end{historia}
+
+\begin{historia}[1]{HU-62}{Inscribir estudiantes uno por uno}{Maestro}{1}{8}{\textbf{Como} maestro, \textbf{quiero} inscribir a cada estudiante con sus nombres, sus apellidos, su curso y su forma de participación, \textbf{para} dejarlo listo para el desafío con su código personal.}
+\hucriterio{Se registran nombres y apellidos, el curso y si el estudiante rinde solo o en pareja.}
+\hucriterio{Solo aparecen los cursos de la categoría del grupo.}
+\hucriterio{Cada estudiante inscrito recibe su código personal para entrar al desafío.}
+\hucriterio{Después de inscribir, el formulario queda listo para el siguiente estudiante, con el mismo curso.}
+\hucriterio{No se puede inscribir dos veces el mismo nombre en un grupo; en grupos distintos sí, porque los nombres se repiten.}
+\end{historia}
+
+\begin{historia}[1]{HU-63}{Inscribir a todo el curso con una planilla}{Maestro}{2}{8}{\textbf{Como} maestro, \textbf{quiero} subir una planilla de Excel con los datos de todos mis estudiantes, preparada a partir de una plantilla del grupo, \textbf{para} no tener que inscribirlos uno por uno.}
+\hucriterio{El sistema ofrece una plantilla preparada para el grupo, con el curso para elegir de una lista.}
+\hucriterio{Si alguna fila tiene un error, no se inscribe a nadie y el sistema indica qué fila corregir.}
+\hucriterio{Si todas las filas son válidas, todos quedan inscritos a la vez, cada uno con su código personal.}
+\end{historia}
+
+\begin{historia}[1]{HU-64}{Corregir los datos de un estudiante}{Maestro}{2}{3}{\textbf{Como} maestro, \textbf{quiero} corregir el nombre o el curso de un estudiante inscrito, \textbf{para} arreglar un error sin tener que inscribirlo otra vez.}
+\hucriterio{El nombre se puede corregir en cualquier momento.}
+\hucriterio{El curso ya no se puede cambiar cuando el estudiante empezó a rendir, porque lo pasaría a otra categoría.}
+\end{historia}
+
+\begin{historia}[1]{HU-65}{Quitar a un estudiante o borrar un grupo}{Maestro}{2}{3}{\textbf{Como} maestro, \textbf{quiero} quitar a un estudiante que no va a participar, o borrar un grupo que ya no uso, mientras la inscripción está abierta, \textbf{para} mantener mis listas al día.}
+\hucriterio{Solo se puede hacer mientras la inscripción del desafío está abierta.}
+\hucriterio{No se puede quitar a un estudiante que ya empezó a rendir.}
+\end{historia}
+
+\begin{historia}[1]{HU-66}{Inscribirse con el código del grupo}{Estudiante}{1}{5}{\textbf{Como} estudiante, \textbf{quiero} inscribirme yo mismo con el código de grupo que me dio mi maestro, registrando mis datos y mi curso, \textbf{para} quedar anotado en el desafío y recibir mi código personal.}
+\hucriterio{El estudiante escribe el código del grupo y sus datos, y elige su curso entre los de la categoría.}
+\hucriterio{Antes de terminar, el estudiante revisa y confirma sus datos.}
+\hucriterio{Al final, el sistema muestra su código personal y cuánto falta para la prueba.}
+\hucriterio{Si su nombre ya estaba inscrito en el grupo, el sistema le indica que pida su código a su maestro, sin mostrar el de nadie.}
+\end{historia}
+
+\section*{Módulo de evaluación}
+\addcontentsline{toc}{section}{Módulo de evaluación}
+
+\begin{historia}[1]{HU-67}{Entrar al desafío}{Estudiante}{1}{5}{\textbf{Como} estudiante, \textbf{quiero} entrar al desafío solo con mi código personal, sin crear una cuenta, \textbf{para} rendir mi prueba.}
+\hucriterio{El código personal basta para entrar.}
+\hucriterio{Si el código no existe, el sistema avisa sin mostrar datos de nadie.}
+\hucriterio{La prueba solo puede estar abierta en un dispositivo: al entrar desde otro, en el anterior aparece que la sesión se cerró.}
+\end{historia}
+
+\begin{historia}[1]{HU-68}{Prepararme antes de empezar}{Estudiante}{1}{3}{\textbf{Como} estudiante, \textbf{quiero} ver antes de empezar las reglas de la prueba: mi categoría, la duración, la cantidad de preguntas y el puntaje de cada una, \textbf{para} saber cuánto tiempo tengo y cómo me van a calificar.}
+\hucriterio{La pantalla muestra la categoría, los minutos que dura la prueba, la cantidad de preguntas y el valor de cada una según su dificultad.}
+\hucriterio{La pantalla muestra el nombre con el que se entró y permite salir si no corresponde.}
+\hucriterio{Si la prueba todavía no empezó, se muestra una cuenta regresiva y se puede esperar en esa pantalla.}
+\hucriterio{El botón para empezar se habilita después de unos segundos, para dar tiempo a leer las reglas.}
+\end{historia}
+
+\begin{historia}[1]{HU-69}{Responder las preguntas}{Estudiante}{1}{8}{\textbf{Como} estudiante, \textbf{quiero} responder las preguntas según su tipo y moverme entre ellas libremente, con mis respuestas guardadas en todo momento, \textbf{para} resolver la prueba en el orden que me resulte más cómodo.}
+\hucriterio{Cada pregunta se responde según su tipo: elegir una opción, escribir, arrastrar piezas, tocar una zona o completar huecos.}
+\hucriterio{Las respuestas se pueden cambiar mientras quede tiempo.}
+\hucriterio{Las respuestas se guardan automáticamente.}
+\end{historia}
+
+\begin{historia}[1]{HU-70}{No perder las respuestas}{Estudiante}{1}{5}{\textbf{Como} estudiante, \textbf{quiero} que el sistema me avise si alguna respuesta no se guardó y que vuelva a intentar guardarla, \textbf{para} no perder mi trabajo si falla la conexión.}
+\hucriterio{Si una respuesta no se pudo guardar, la pantalla avisa que hay respuestas sin guardar.}
+\hucriterio{El sistema vuelve a intentar guardarlas automáticamente.}
+\hucriterio{No se puede entregar hasta que todas las respuestas estén guardadas.}
+\end{historia}
+
+\begin{historia}[1]{HU-71}{Controlar el tiempo}{Estudiante}{1}{5}{\textbf{Como} estudiante, \textbf{quiero} ver en todo momento el tiempo que me queda, medido con la hora del servidor, \textbf{para} organizarme y no quedarme sin responder.}
+\hucriterio{El tiempo restante está siempre a la vista.}
+\hucriterio{El tiempo se calcula con la hora del servidor, de modo que no influye si el reloj del dispositivo está mal.}
+\hucriterio{Cuando el tiempo se acaba, la prueba se entrega sola con lo respondido.}
+\hucriterio{Si el organizador pausa el desafío, el tiempo también se detiene.}
+\end{historia}
+
+\begin{historia}[1]{HU-72}{Entregar la prueba}{Estudiante}{1}{3}{\textbf{Como} estudiante, \textbf{quiero} entregar mi prueba al terminar y ver lo que el organizador permita de mis resultados, \textbf{para} cerrar mi participación.}
+\hucriterio{Después de entregar, las respuestas ya no se pueden cambiar.}
+\hucriterio{La pantalla final indica si la prueba la entregó el estudiante o si se acabó el tiempo.}
+\hucriterio{Según lo definido por el organizador, la pantalla muestra el puntaje y las respuestas.}
+\end{historia}
+
+\begin{historia}[1]{HU-73}{Seguir al grupo durante la prueba}{Maestro}{2}{5}{\textbf{Como} maestro, \textbf{quiero} ver mientras se rinde la prueba quiénes de mis estudiantes no empezaron, quiénes están rindiendo y cuántas preguntas llevan, y quiénes terminaron, \textbf{para} acompañar a mi grupo durante el desafío.}
+\hucriterio{El seguimiento muestra quién no empezó, quién está rindiendo y cuántas preguntas lleva, y quién terminó.}
+\hucriterio{La información se actualiza sola mientras dura la prueba.}
+\hucriterio{Cada maestro solo ve sus propios grupos, nunca los de otro maestro.}
+\end{historia}
+
+\begin{historia}[1]{HU-74}{Corregir las pruebas automáticamente}{Administrador}{1}{13}{\textbf{Como} administrador, \textbf{quiero} que el sistema corrija cada respuesta con la clave de la tarea y calcule el puntaje según la dificultad de cada pregunta, \textbf{para} no tener que revisar miles de pruebas a mano.}
+\hucriterio{Cada respuesta se corrige según el tipo de pregunta, con la clave que se definió en la tarea.}
+\hucriterio{El puntaje suma o resta según la dificultad de la pregunta en la categoría del estudiante.}
+\hucriterio{Cada estudiante empieza con un puntaje inicial, para que no termine con un puntaje negativo.}
+\hucriterio{Una respuesta incompleta, como un arrastre a medias, cuenta como incorrecta.}
+\end{historia}
+
+\begin{historia}[1]{HU-75}{Ordenar a los estudiantes en un ranking}{Administrador}{1}{5}{\textbf{Como} administrador, \textbf{quiero} que el sistema ordene a los estudiantes de cada categoría por su puntaje y, en caso de empate, por su tiempo, \textbf{para} saber quiénes obtuvieron los mejores resultados.}
+\hucriterio{Cada categoría tiene su propio ranking.}
+\hucriterio{Si dos estudiantes empatan, queda primero el que tardó menos.}
+\hucriterio{También entran al ranking los estudiantes a los que se les acabó el tiempo sin entregar.}
+\end{historia}
+
+\begin{historia}[1]{HU-76}{Publicar los resultados}{Administrador}{1}{13}{\textbf{Como} administrador, \textbf{quiero} que al cierre del desafío se calculen los puntajes y el ranking y que los resultados se publiquen en la fecha prevista, \textbf{para} que estudiantes y maestros los conozcan sin demoras.}
+\hucriterio{Al cerrar la prueba, el sistema cierra los intentos que quedaron abiertos y calcula los puntajes y el ranking.}
+\hucriterio{Los resultados se publican solos en la fecha definida o, si no se definió ninguna, al cierre.}
+\hucriterio{Los resultados también se pueden publicar u ocultar a mano.}
+\hucriterio{Si se ocultan a mano, no se vuelven a publicar solos.}
+\end{historia}
+
+\begin{historia}[1]{HU-77}{Ver los resultados propios}{Estudiante}{1}{5}{\textbf{Como} estudiante, \textbf{quiero} ver mi puntaje, mis aciertos, mi puesto y, si se permite, las soluciones cuando se publican los resultados, \textbf{para} saber cómo me fue y aprender de mis errores.}
+\hucriterio{Se muestran el puntaje del estudiante y cuántas preguntas acertó.}
+\hucriterio{El puesto en la categoría aparece recién cuando los resultados están publicados.}
+\hucriterio{Si el organizador lo permite, se muestra la solución de cada pregunta.}
+\hucriterio{Mientras los resultados no se publican, se muestra cuánto falta para su publicación.}
+\end{historia}
+
+\begin{historia}[1]{HU-78}{Revisar los resultados de un grupo}{Maestro}{2}{8}{\textbf{Como} maestro, \textbf{quiero} ver el puntaje y las respuestas de cada uno de mis estudiantes y cuántos acertaron cada pregunta, \textbf{para} analizar en qué temas tuvieron más dificultad.}
+\hucriterio{Al terminar la prueba, se muestra el puntaje de cada estudiante y qué preguntas acertó, falló o dejó sin responder.}
+\hucriterio{Se muestra cuántos estudiantes acertaron cada pregunta y cuál fue la más difícil para el grupo.}
+\hucriterio{El puesto oficial de cada estudiante aparece cuando se publican los resultados.}
+\hucriterio{Los resultados se pueden descargar en una planilla de Excel.}
+\end{historia}
+
+\begin{historia}[1]{HU-79}{Revisar los resultados del desafío}{Administrador}{1}{3}{\textbf{Como} administrador, \textbf{quiero} ver los resultados de todos los participantes separados por categoría y descargarlos, \textbf{para} conocer cómo le fue a cada categoría.}
+\hucriterio{Los resultados se muestran separados por categoría.}
+\hucriterio{La lista completa de resultados se puede descargar.}
+\end{historia}
+
+\begin{historia}[1]{HU-80}{Conocer a los mejores de cada categoría}{Visitante}{2}{5}{\textbf{Como} visitante, \textbf{quiero} ver el ranking público con los diez primeros de cada categoría del último desafío, \textbf{para} conocer a los estudiantes que se destacaron.}
+\hucriterio{Se muestran los diez primeros de cada categoría.}
+\hucriterio{De cada estudiante solo se muestran el nombre y la inicial del apellido, porque son menores de edad.}
+\hucriterio{También se muestran su colegio y su ciudad.}
+\hucriterio{El ranking deja de mostrarse cuando termina el periodo de resultados del desafío.}
+\end{historia}
+
+\begin{historia}[1]{HU-81}{Enviar los resultados para los certificados}{Administrador}{2}{8}{\textbf{Como} administrador, \textbf{quiero} entregar los resultados de los desafíos al sitio informativo mediante un enlace protegido con una clave, \textbf{para} que cada estudiante pueda consultar su certificado aunque la plataforma del desafío ya no esté en línea.}
+\hucriterio{El sistema genera un enlace protegido con una clave para que el sitio informativo descargue los resultados.}
+\hucriterio{El enlace entrega solo los desafíos oficiales con resultados publicados y los estudiantes que rindieron.}
+\hucriterio{Al generar un enlace nuevo, el anterior deja de funcionar.}
+\end{historia}
+
+\begin{historia}[1]{HU-82}{Imprimir el cuadernillo de preguntas}{Maestro}{1}{8}{\textbf{Como} maestro, \textbf{quiero} imprimir, o descargar en PDF, un cuadernillo con las preguntas del desafío para cada categoría de mi grupo, \textbf{para} que mis estudiantes rindan el Desafío en un aula sin conexión a internet.}
+\hucriterio{El cuadernillo tiene una portada con las reglas, el valor de cada pregunta según su dificultad y la forma de marcar la hoja, y luego una pregunta por página.}
+\hucriterio{Cada tipo de pregunta se adapta al papel: las opciones llevan su letra, los lugares de las piezas y los huecos del texto llevan un número, y las zonas se marcan con una X sobre una copia pequeña de la imagen.}
+\hucriterio{El cuadernillo no lleva respuestas escritas, así que se puede fotocopiar y volver a usar.}
+\hucriterio{Las páginas son de tamaño carta y el PDF descargado coincide con lo que se imprime.}
+\hucriterio{El cuadernillo se puede imprimir desde dos días antes de que empiece el desafío.}
+\end{historia}
+
+\begin{historia}[1]{HU-83}{Imprimir las hojas de respuestas}{Maestro}{1}{5}{\textbf{Como} maestro, \textbf{quiero} imprimir, o descargar en PDF, una hoja de respuestas para cada estudiante inscrito en mi grupo, con su nombre y su código, \textbf{para} que cada estudiante marque sus respuestas en papel y yo sepa de quién es cada hoja.}
+\hucriterio{Cada estudiante inscrito tiene una hoja con su nombre, su curso y su código personal.}
+\hucriterio{La hoja tiene un espacio de marcado por cada pregunta, con las mismas letras, números y casillas del cuadernillo.}
+\hucriterio{No se imprimen hojas en blanco: cada hoja corresponde a un estudiante inscrito.}
+\hucriterio{Las páginas son de tamaño carta y el PDF descargado coincide con lo que se imprime.}
+\hucriterio{Las hojas se pueden imprimir desde dos días antes de que empiece el desafío.}
+\end{historia}
+
+\begin{historia}[1]{HU-84}{Cargar las hojas de respuestas}{Maestro}{1}{8}{\textbf{Como} maestro, \textbf{quiero} registrar en el sistema lo que cada estudiante marcó en su hoja de respuestas, \textbf{para} que su prueba se corrija y cuente en los resultados igual que una rendida en línea.}
+\hucriterio{Las respuestas se registran con controles que reproducen la hoja: las mismas letras, números y casillas.}
+\hucriterio{Al guardar, la prueba se corrige como una rendida en línea y cuenta para el ranking y los certificados.}
+\hucriterio{Al guardar es posible pasar al siguiente estudiante que tenga hoja pendiente, y el sistema avisa si quedan cambios sin guardar.}
+\hucriterio{Una hoja sin ninguna respuesta pide confirmación antes de guardarse.}
+\hucriterio{Un estudiante con su hoja cargada no puede rendir en línea, y uno que ya rindió en línea no admite hoja.}
+\hucriterio{Las hojas se cargan desde el inicio de la prueba hasta que se calculan los resultados; en ese plazo es posible corregir o quitar lo cargado.}
+\end{historia}
+
+\section*{Integración entre el CMS y el Desafío}
+\addcontentsline{toc}{section}{Integración entre el CMS y el Desafío}
+
+\begin{historia}[1]{HU-85}{Abrir o cerrar las inscripciones}{Administrador}{1}{3}{\textbf{Como} administrador, \textbf{quiero} registrar en el CMS el enlace de inscripción del Desafío, o dejarlo vacío, \textbf{para} que el sitio indique si las inscripciones están abiertas y lleve a los visitantes al lugar correcto.}
+\hucriterio{En la página de registro se registran el enlace de inscripción del Desafío y los textos del botón.}
+\hucriterio{Con enlace, las inscripciones quedan abiertas; sin enlace, el sitio muestra el Desafío en espera.}
+\hucriterio{No hace falta cambiar ninguna otra página: todos los enlaces al registro se ajustan solos.}
+\end{historia}
+
+\begin{historia}[1]{HU-86}{Saber si es posible inscribirse}{Visitante}{1}{3}{\textbf{Como} visitante, \textbf{quiero} saber en el sitio si las inscripciones al Desafío están abiertas y, si lo están, llegar directo al formulario, \textbf{para} inscribirme a tiempo o saber que todavía tengo que esperar.}
+\hucriterio{Si las inscripciones están abiertas, la página de registro muestra el botón que lleva al Desafío.}
+\hucriterio{Mientras están abiertas, cualquier enlace del sitio hacia el registro, incluidos los del menú, lleva directo al Desafío.}
+\hucriterio{Si están cerradas, la página indica que el Desafío está en espera y el botón aparece deshabilitado.}
+\end{historia}
+
+\begin{historia}[1]{HU-87}{Traer los certificados del Desafío}{Administrador}{1}{13}{\textbf{Como} administrador, \textbf{quiero} importar al CMS los certificados de cada desafío con resultados publicados, mediante el enlace que entrega la plataforma del Desafío, \textbf{para} que los estudiantes puedan consultarlos aunque la plataforma ya no esté en línea.}
+\hucriterio{Se registra el enlace de certificados que entrega el panel de administración del Desafío.}
+\hucriterio{«Actualizar» trae los certificados de los desafíos que ya tienen sus resultados publicados.}
+\hucriterio{Solo se reemplazan los desafíos que llegan; los de años anteriores se conservan.}
+\hucriterio{La lista muestra los desafíos guardados, y es posible quitar uno con sus certificados.}
+\hucriterio{Los certificados se publican cifrados: el sitio solo abre el de quien tiene el código.}
+\hucriterio{Al terminar, el sitio se publica solo.}
+\end{historia}
+
+\begin{historia}[1]{HU-88}{Dar un certificado a quien no rindió en línea}{Administrador}{2}{8}{\textbf{Como} administrador, \textbf{quiero} crear a mano el certificado de una persona, con su nombre, el desafío, el tipo de certificado, su categoría, su departamento y, si se conoce, su colegio, \textbf{para} reconocer a quien participó fuera de la plataforma del Desafío.}
+\hucriterio{Se registran el nombre, el desafío (con sugerencias), el tipo (participación, mención de honor, 1.º, 2.º o 3.º lugar), la categoría, el curso y la fecha de emisión; la categoría es obligatoria salvo en participación.}
+\hucriterio{El departamento es obligatorio; el colegio y la ciudad son opcionales.}
+\hucriterio{El colegio se busca en el catálogo nacional de unidades educativas y, al elegirlo, se completan el departamento y la ciudad. Si no está en el catálogo, se escribe a mano.}
+\hucriterio{Cada certificado recibe un código propio que no se repite y que no usa caracteres que se confunden, como la O y el 0.}
+\hucriterio{Al agregarlo, se muestra su enlace de verificación, con «Copiar enlace» y «Abrir».}
+\hucriterio{Estos certificados se guardan aparte: actualizar o quitar los del Desafío no los afecta.}
+\hucriterio{Al quitar uno, su enlace deja de funcionar.}
+\end{historia}
+
+\begin{historia}[1]{HU-89}{Cambiar los logos del certificado}{Administrador}{2}{5}{\textbf{Como} administrador, \textbf{quiero} elegir, ordenar y dimensionar los logos de las instituciones que organizan cada edición, \textbf{para} que el certificado muestre a quienes la hicieron posible.}
+\hucriterio{La franja de logos se muestra con las mismas proporciones que tendrá en el certificado.}
+\hucriterio{Es posible agregar un logo, cambiar su imagen o quitarlo.}
+\hucriterio{Los logos se ordenan arrastrándolos y su tamaño se ajusta desde la esquina o con el teclado.}
+\hucriterio{El editor impide agregar o agrandar un logo que chocaría con el sello del certificado, y lo avisa.}
+\hucriterio{El logo de Bebras Bolivia queda siempre fijo.}
+\hucriterio{Al guardar, el sitio se publica solo.}
+\end{historia}
+
+\begin{historia}[1]{HU-90}{Ver y verificar un certificado}{Estudiante}{1}{13}{\textbf{Como} estudiante, \textbf{quiero} ver mi certificado del Desafío con mi código personal, descargarlo y que cualquiera pueda comprobar su autenticidad mediante un código QR, \textbf{para} tenerlo aunque el sitio del Desafío ya no esté en línea.}
+\hucriterio{El certificado se consulta escribiendo el código personal en la página de certificados o abriendo el enlace que ya lo trae.}
+\hucriterio{El certificado se muestra en una hoja A4 horizontal con el nombre, la categoría, el curso y el colegio del estudiante.}
+\hucriterio{El tipo de certificado depende del resultado: de excelencia para los tres primeros de la categoría, de mérito (mención de honor) para el 10 \% con mejor puntaje de una categoría de al menos 10 participantes, y de participación en los demás casos; solo los dos primeros muestran el puntaje y el lugar.}
+\hucriterio{El certificado se puede descargar en PDF o imprimir en una sola hoja.}
+\hucriterio{Cada certificado lleva un código QR y el código escrito: quien lo escanea ve el certificado original.}
+\hucriterio{Si el código no existe, el sistema avisa.}
+\hucriterio{Sin el código nadie puede saber de quién es un certificado ni leerlo, porque los certificados de menores de edad no se publican en una lista.}
+\end{historia}

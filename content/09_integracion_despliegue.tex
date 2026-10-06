@@ -1,7 +1,261 @@
 \chapter{INTEGRACIÓN, DESPLIEGUE Y PRUEBAS DEL SISTEMA}
 
+Este capítulo une las dos partes del sistema: cómo se comunican la gestión de contenido y la plataforma del Desafío, cómo se despliega cada una y cómo se probó el sistema completo.
+
 \section{INTEGRACIÓN DE LOS MÓDULOS}
 
-\section{CONTENERIZACIÓN Y DESPLIEGUE}
+Las dos partes del sistema se despliegan por separado y se conectan en tres puntos.
 
-\section{PRUEBAS FUNCIONALES DEL SISTEMA INTEGRADO}
+\begin{table}[H]
+\small
+\renewcommand{\arraystretch}{1.3}
+\setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{3.4cm} >{\raggedright\arraybackslash}X}
+\arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}
+\rowcolor{hufondo}\textbf{Integración} & \textbf{Cómo funciona} \\
+\arrayrulecolor{hulinea}\midrule
+Inscripción desde el sitio & El administrador pega en el CMS el enlace de inscripción del Desafío. Con el enlace, todo acceso al registro del sitio lleva directo a la plataforma; vacío, el sitio muestra el Desafío en espera. \\
+\midrule
+Enlace al sitio informativo & El administrador guarda en la plataforma del Desafío la dirección del sitio informativo, que aparece en la portada. \\
+\midrule
+Certificados & El CMS descarga de la plataforma, con una clave, los resultados publicados y genera los certificados que el estudiante consulta en el sitio con su código. \\
+\arrayrulecolor{hulinea}\bottomrule
+\end{tabularx}
+\arrayrulecolor{black}
+\caption{Puntos de integración entre las partes del sistema}
+\label{tab:integraciones}
+\end{table}
+
+Estas integraciones se desarrollaron después del módulo de evaluación, porque dependen de sus resultados. Sus historias, en el mismo formato que las del CMS, son las siguientes; sus tarjetas están en el Anexo A.
+
+{\small\renewcommand{\arraystretch}{1.3}\setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}\rowcolors{2}{white}{hufondo}
+\input{content/tablas/hus_integracion.tex}}
+
+\subsection{Apertura de inscripciones}
+
+La inscripción se abre o se cierra con un solo campo del CMS, y todos los enlaces del sitio se ajustan solos.
+
+\parcapturas{assets/ui/cms/cms-registro.jpg}{Enlace de inscripción en el CMS}{assets/ui/cms/sitio-registro.jpg}{Registro en espera en el sitio}{Apertura de inscripciones}{fig:cms_registro}
+
+\subsection{Certificados}
+
+La plataforma del Desafío no queda en línea para siempre, pero los certificados deben poder consultarse años después. Por eso el CMS los guarda y el sitio informativo, que es estático, los muestra.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    every node/.append style={execute at begin node={\centering\hyphenpenalty=10000}},
+    caja/.style={rectangle, rounded corners=6pt, draw=huazul, fill=hufondo, line width=0.6pt, text width=2.6cm, minimum height=1.15cm, align=center, font=\footnotesize},
+    paso/.style={-{Stealth[length=2.3mm]}, line width=0.55pt, draw=huazul},
+    etq/.style={font=\scriptsize, text=hugris, align=center, fill=white, inner sep=1pt},
+]
+\node[caja] (api) at (0,0) {Plataforma del Desafío: resultados publicados};
+\node[caja] (cms) at (4.1,0) {CMS: guarda los certificados};
+\node[caja] (archivos) at (8.2,0) {Un archivo cifrado por certificado};
+\node[caja] (sitio) at (12.3,0) {Sitio: el estudiante escribe su código};
+\draw[paso] (api) -- node[etq, above=2pt]{exportación\\con clave} (cms);
+\draw[paso] (cms) -- node[etq, above=2pt]{publica} (archivos);
+\draw[paso] (archivos) -- node[etq, above=2pt]{descifra en\\el navegador} (sitio);
+\end{tikzpicture}
+\caption{Flujo de los certificados}
+\label{fig:flujo_certificados}
+\end{figure}
+
+Los certificados son de menores de edad, así que el sitio no publica ninguna lista. Cada certificado se guarda en un archivo cifrado cuyo nombre y cuya clave se derivan del código personal del estudiante; sin el código no se sabe de quién es un archivo ni se puede leer. El tipo depende del resultado: de excelencia para los tres primeros de cada categoría, de mérito para el diez por ciento con mejor puntaje y de participación para los demás. El administrador puede agregar además certificados de quienes no rindieron en línea y elegir los logos de los organizadores.
+
+\parcapturas{assets/ui/cms/cms-certificados.jpg}{Certificados del Desafío}{assets/ui/cms/cms-logos.jpg}{Logos de los organizadores}{Administración de certificados}{fig:cms_certificados}
+
+Cada hoja lleva un código QR que remite al original, para que cualquiera pueda verificarla, y se descarga en PDF.
+
+\begin{figure}[htbp]
+\centering
+\captura{assets/ui/cms/sitio-certificado.jpg}
+\caption{Certificado consultado en el sitio}
+\label{fig:cms_certificado_sitio}
+\end{figure}
+
+\section{DESPLIEGUE}
+
+\subsection{Plataforma del Desafío}
+
+La plataforma tiene tres entornos, cada uno con su base de datos, su almacén de archivos y su proyecto de autenticación.
+
+\begin{table}[H]
+\small
+\renewcommand{\arraystretch}{1.3}
+\setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}
+\begin{tabularx}{\linewidth}{l >{\raggedright\arraybackslash}X}
+\arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}
+\rowcolor{hufondo}\textbf{Entorno} & \textbf{Uso} \\
+\arrayrulecolor{hulinea}\midrule
+Local & Desarrollo y pruebas automáticas, con la base, los archivos y la autenticación simulados en la propia computadora. \\
+\midrule
+Pruebas (\textit{staging}) & Revisión con el supervisor antes de pasar a producción. \\
+\midrule
+Producción & Uso real del Desafío. \\
+\arrayrulecolor{hulinea}\bottomrule
+\end{tabularx}
+\arrayrulecolor{black}
+\caption{Entornos de la plataforma del Desafío}
+\label{tab:entornos}
+\end{table}
+
+El repositorio está conectado a Cloudflare. Cada vez que se sube un cambio a la rama de un entorno, Cloudflare instala las dependencias, aplica las migraciones pendientes de la base de datos, comprueba que su historial coincida con el del repositorio, compila el frontend y publica el Worker. Si una migración falla, el despliegue se detiene sin publicar nada. El despliegue nunca borra datos: el banco de tareas y el catálogo de colegios se cargan aparte, solo con lo que falta.
+
+\subsection{Gestión de contenido}
+
+El sitio informativo y el CMS corren en un servidor de la universidad, provisto por la unidad patrocinadora, y se publican con Apache. Los cambios de contenido los publica el propio CMS: genera el sitio, crea un respaldo y guarda la versión en el repositorio. Los cambios de código llegan por GitHub: un servicio del proyecto en el servidor recibe el aviso firmado de cada envío, actualiza el código, compila el sitio y activa la nueva versión.
+
+\section{PRUEBAS DEL SISTEMA}
+
+\subsection{Estrategia}
+
+Siguiendo la práctica de XP, las pruebas se escribieron junto con cada historia y se ejecutan en cada iteración. Se trabajó en cinco niveles:
+
+\begin{table}[H]
+\small
+\renewcommand{\arraystretch}{1.3}
+\setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{3.4cm} >{\raggedright\arraybackslash}X}
+\arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}
+\rowcolor{hufondo}\textbf{Nivel} & \textbf{Qué comprueba} \\
+\arrayrulecolor{hulinea}\midrule
+Extremo a extremo & Lo que hace una persona real en el navegador, y las reglas del servidor por la API. Es la prueba principal de cada historia. \\
+\midrule
+Unitarias & La lógica pura: reglas del desafío, puntaje, corrección de los seis tipos de respuesta, privacidad y validaciones. \\
+\midrule
+Estrés & Un desafío con 1600 estudiantes rindiendo a la vez. \\
+\midrule
+Escala & Listados con más de cien maestros, grupos y desafíos dentro de los límites de la base de datos. \\
+\midrule
+Verificación estática & Tipos y estilo del código antes de cada entrega. \\
+\arrayrulecolor{hulinea}\bottomrule
+\end{tabularx}
+\arrayrulecolor{black}
+\caption{Niveles de prueba}
+\label{tab:niveles_prueba}
+\end{table}
+
+Las pruebas corren contra el mismo código que se despliega, con una base de datos nueva en cada ejecución, autenticación simulada y un reloj de pruebas que adelanta la hora del servidor para recorrer inscripciones, rendiciones y cierres sin esperar.
+
+\subsection{Resultados de la plataforma del Desafío}
+
+\begin{table}[H]
+\small
+\renewcommand{\arraystretch}{1.25}
+\setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}
+\rowcolors{2}{white}{hufondo}
+\begin{tabularx}{\linewidth}{X c c c}
+\arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}
+\rowcolor{hufondo}\textbf{Módulo de pruebas} & \textbf{Casos} & \textbf{Aprobados} & \textbf{Fallidos} \\
+\arrayrulecolor{hulinea}\midrule
+Tareas & 41 & 41 & 0 \\
+Desafíos & 24 & 24 & 0 \\
+Grupos & 20 & 20 & 0 \\
+Rendición & 9 & 9 & 0 \\
+Práctica & 12 & 12 & 0 \\
+Cuentas & 44 & 44 & 0 \\
+Interfaz & 14 & 14 & 0 \\
+\arrayrulecolor{hulinea}\midrule
+\rowcolor{white}\textbf{Total} & \textbf{164} & \textbf{164} & \textbf{0} \\
+\arrayrulecolor{hulinea}\bottomrule
+\end{tabularx}
+\arrayrulecolor{black}
+\caption[Pruebas de extremo a extremo de la plataforma]{Ejecución completa de las pruebas de extremo a extremo de la plataforma del Desafío, 29 de septiembre de 2026}
+\label{tab:resultado_e2e}
+\end{table}
+
+La ejecución completa duró siete minutos sobre una base de datos nueva. Después se agregaron nueve casos para criterios que no tenían prueba propia, que también aprueban. Las 198 pruebas unitarias aprueban y cubren el 88,4\,\% de las líneas y el 89,9\,\% de las ramas del código; las reglas del desafío y la corrección superan el 95\,\%.
+
+\subsection{Prueba de estrés}
+
+La prueba reproduce el peor momento de un desafío real: 1600 estudiantes de 40 grupos y tres categorías entran antes de la hora, empiezan juntos, responden con su señal cada diez segundos y entregan, mientras 100 visitantes consultan la portada y el ranking. Al final se adelanta el reloj, se publican los resultados y se compara cada puntaje y cada puesto con las respuestas enviadas.
+
+\begin{table}[H]
+\small
+\renewcommand{\arraystretch}{1.25}
+\setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}
+\rowcolors{2}{white}{hufondo}
+\begin{tabularx}{\linewidth}{X r}
+\arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}
+\rowcolor{hufondo}\textbf{Indicador} & \textbf{Valor} \\
+\arrayrulecolor{hulinea}\midrule
+Peticiones durante la carga & 33\,099 \\
+Peticiones fallidas & 0 \\
+Puntajes correctos & 1600 de 1600 \\
+Errores en el ranking & 0 \\
+Consultas a la base por petición, máximo de un estudiante & 17 \\
+Consultas para cerrar el desafío completo & 33 \\
+\arrayrulecolor{hulinea}\bottomrule
+\end{tabularx}
+\arrayrulecolor{black}
+\caption{Resultados de la prueba de estrés}
+\label{tab:estres}
+\end{table}
+
+Ninguna operación depende de la cantidad de participantes, así que su costo no crece con el tamaño del desafío y queda por debajo del límite de 50 consultas por petición del plan gratuito de Cloudflare D1.
+
+\subsection{Resultados de la gestión de contenido}
+
+El CMS y el sitio informativo se probaron con un servidor del CMS real sobre una copia aislada del contenido, sin publicar nada en producción.
+
+\begin{table}[H]
+\small
+\renewcommand{\arraystretch}{1.25}
+\setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}
+\rowcolors{2}{white}{hufondo}
+\begin{tabularx}{\linewidth}{X c c}
+\arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}
+\rowcolor{hufondo}\textbf{Grupo} & \textbf{Casos} & \textbf{Aprobados} \\
+\arrayrulecolor{hulinea}\midrule
+Unitarias & 74 & 74 \\
+API del CMS & 126 & 126 \\
+Interfaz del CMS & 20 & 20 \\
+Sitio compilado & 29 & 29 \\
+Integración CMS y sitio & 5 & 5 \\
+\arrayrulecolor{hulinea}\midrule
+\rowcolor{white}\textbf{Total} & \textbf{254} & \textbf{254} \\
+\arrayrulecolor{hulinea}\bottomrule
+\end{tabularx}
+\arrayrulecolor{black}
+\caption{Pruebas del CMS y del sitio informativo}
+\label{tab:pruebas_cms}
+\end{table}
+
+En la medición con Lighthouse en celular, las ocho páginas del sitio obtuvieron 100 en accesibilidad. El rendimiento de la portada (48) queda como mejora pendiente: tres fotografías externas suman la mayor parte de su peso.
+
+Además de las pruebas, el CMS y el sitio informativo están en uso real desde el cierre de su segunda iteración, el 3 de julio de 2026: el equipo organizador mantiene con el CMS el contenido público del Desafío y no ha reportado problemas de uso.
+
+\subsection{Defectos encontrados y corregidos}
+
+Las pruebas y una revisión completa del código encontraron 24 defectos en la plataforma del Desafío y 9 en la gestión de contenido. Todos se corrigieron y cada corrección quedó cubierta por una prueba. Los más graves fueron:
+
+\begin{table}[H]
+\small
+\renewcommand{\arraystretch}{1.3}
+\setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
+\arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}
+\rowcolor{hufondo}\textbf{Defecto} & \textbf{Corrección} \\
+\arrayrulecolor{hulinea}\midrule
+Al autoinscribirse con el nombre de un compañero ya inscrito, el sistema devolvía su código personal. & Nunca se devuelve el código de otro; se pide el código al maestro. \\
+\midrule
+Dos estudiantes con el mismo nombre, de colegios distintos, no podían rendir el mismo desafío. & Los nombres repetidos se controlan solo dentro de cada grupo. \\
+\midrule
+Cada entrega recalculaba el ranking completo: con unos mil estudiantes se superaba el límite de consultas de la base de datos. & Cada respuesta se corrige al guardarla y el ranking se calcula una sola vez, al cierre. \\
+\midrule
+En el CMS, el límite de intentos de inicio de sesión se podía eludir cambiando una cabecera. & El límite usa la dirección real de la conexión. \\
+\arrayrulecolor{hulinea}\bottomrule
+\end{tabularx}
+\arrayrulecolor{black}
+\caption{Defectos más graves y su corrección}
+\label{tab:defectos}
+\end{table}
+
+\subsection{Limitaciones}
+
+\begin{itemize}
+    \item Las pruebas corrieron en un entorno local equivalente al de producción, no en la infraestructura real de Cloudflare; los tiempos medidos no son los de producción.
+    \item La autenticación se probó con un emulador: no se probaron el envío real de correos ni el inicio de sesión con Google.
+    \item La plataforma del Desafío todavía no fue usada por estudiantes y maestros reales, así que no hubo pruebas de usabilidad con ellos.
+\end{itemize}
