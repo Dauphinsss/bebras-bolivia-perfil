@@ -14,8 +14,8 @@ Documento final de grado (adscripción, Licenciatura en Ingeniería Informática
 
 - Título: **Sistema web para la administración del Desafío Bebras en Bolivia**. Autor único: Velasquez Vela Marcos (el equipo de dos personas terminó con la carta de cambio leve de sept. 2026).
 - Tutora: MSc. Blanco Coca Maria Leticia. Supervisor: MSc. Costas Jauregui Vladimir Abel. Docente de la materia: Dra. Romero Rodríguez Patricia Elizabeth.
-- **Alineado con los papeles oficiales** (`adscripcion/finales/`: formulario de tema, carta de cambio leve, términos de referencia, convenio): 4 objetivos específicos (A contenido, B desafíos, C participantes, D evaluación) y alcances copiados casi literal de los términos de referencia. **No cambiarlos sin hablar con el usuario.**
-- Fechas de referencia: primera edición prevista 13/11/2026 (el sitio dice 16 a 20 de noviembre); validación final 23/10; «sistema desplegado y probado antes de diciembre de 2026»; el trabajo no demanda financiamiento.
+- **Alineado con los papeles oficiales** (`adscripcion/finales/`: formulario de tema, carta de cambio leve, términos de referencia, convenio): 4 objetivos específicos (A contenido, B desafíos, C participantes, D evaluación) y alcances copiados casi literal de los términos de referencia. **No cambiarlos sin hablar con el usuario.** El objetivo A manda como está en el formulario firmado (cambio leve): «administrar la información institucional y las publicaciones del sitio web informativo»; «rangos de edad» del objetivo B se queda, porque los cursos agrupan esas edades (las categorías se definen por curso, nunca por edad).
+- Fechas de referencia: primera edición prevista del 16 al 20 de noviembre de 2026; el supervisor ya revisó el sistema desplegado; «sistema desplegado y probado antes de diciembre de 2026»; el trabajo no demanda financiamiento.
 - Pila real: Astro, React, Bun, Express, Prisma, SQLite (CMS) y D1 en Cloudflare (concurso). MariaDB y Docker fueron un diseño inicial descartado.
 
 ## Reglas de redacción
@@ -63,7 +63,7 @@ Documento final de grado (adscripción, Licenciatura en Ingeniería Informática
 
 1. Revisar con Codex (solo lectura) los caps. 4 a 10 y el Anexo A.
 2. Formatos imprimibles: hechos (2026-10-05): HU-82 a HU-84 en el cap. 8 (las de integración pasaron a HU-85 a HU-91), tabla de adaptación al papel con sus 4 pruebas e2e, capturas `papel-*.jpg` y columna `forma_rendicion` del intento en el ER.
-3. Despliegue: hecho el 2026-10-06; falta la validación con el supervisor y las pruebas de usabilidad.
+3. Despliegue: hecho el 2026-10-06; el supervisor ya lo revisó; faltan las pruebas de usabilidad.
 4. Cap. 9 y `../bebras-bolivia/_informe_pruebas_cms_sitio.md` dicen accesibilidad 100: con los colores originales restaurados hay que volver a medir.
 5. Menores: entradas `bebras`, `bebrascms`, `bebrastaskworkshops`, `bebrasstructure` apuntan a la portada de bebras.org; `\clearpage` del cap. 1; pruebas de usabilidad con usuarios reales.
 6. Difusión en redes: pasar `../marketing/REGISTRO.md` al documento cuando el usuario lo pida (no está entre los alcances oficiales: preguntar dónde va).

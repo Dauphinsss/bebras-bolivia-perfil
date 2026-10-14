@@ -12,7 +12,7 @@ Soportar la resolución de los desafíos en entorno digital y la generación de 
 
 \subsection{Historias de usuario}
 
-Las historias responden al estudiante, que rinde; al administrador, que publica los resultados; y al maestro, que sigue a su grupo durante la prueba, imprime la prueba para las aulas sin conexión, carga las hojas de respuestas y revisa los resultados. Las tarjetas completas están en el Anexo A.
+Las historias responden al estudiante, que rinde; al administrador, que publica los resultados; y al maestro, que sigue a su grupo durante la prueba, imprime la prueba para las aulas sin conexión, carga las hojas de respuestas y revisa los resultados. La Tabla~\ref{tab:historias_evaluacion} las lista; las tarjetas completas están en el Anexo A.
 
 {\estilotabla
 \input{content/tablas/hus_cap8.tex}}
@@ -177,6 +177,8 @@ El maestro ve los resultados de su grupo con el puntaje, las correctas, el puest
 La prueba en papel se arma en el navegador con las mismas tareas que se rinden en línea, sin sus claves. Cada pregunta ocupa una hoja tamaño carta: si no cabe, el sistema reduce poco a poco sus imágenes, y solo las preguntas con mucho texto siguen en una segunda hoja, cortadas entre párrafos. La portada muestra el castor del departamento del colegio del maestro, las reglas, el puntaje y ejemplos de cómo marcar, solo de los tipos de pregunta que trae la prueba. El maestro la imprime o la descarga en PDF para llevarla a una fotocopiadora. Para cargar las hojas, una pantalla recorre a los estudiantes del grupo en orden, con controles que reproducen la hoja; «Guardar y seguir» pasa al siguiente que tenga su hoja pendiente.
 
 \subsection{Pruebas}
+
+Las pruebas de extremo a extremo adelantan el reloj del servidor hasta el cierre del desafío y comprueban la publicación, el ranking, los resultados de cada usuario y la prueba en papel completa, desde la impresión hasta la carga de las hojas. La Tabla~\ref{tab:pruebas_i8} resume los casos por tema y su resultado.
 
 \begin{table}[H]
 \estilotabla

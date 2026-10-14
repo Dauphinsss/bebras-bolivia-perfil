@@ -1,10 +1,10 @@
 \chapter{MÓDULO DE GESTIÓN DE CONTENIDO}
 
-El módulo de gestión de contenido y sitio informativo constituye el componente encargado de administrar la presencia pública de Bebras Bolivia. Su alcance no se limita al panel CMS, sino que incluye también el sitio informativo mediante el cual visitantes, estudiantes, maestros responsables e instituciones pueden consultar información oficial sobre el desafío.
+Este módulo administra la presencia pública de Bebras Bolivia. Abarca el panel CMS y el sitio informativo, donde visitantes, estudiantes, maestros e instituciones consultan la información oficial del Desafío.
 
-El módulo integra dos dimensiones complementarias. La primera corresponde al sitio público, compuesto por páginas informativas, navegación, contenido institucional, preguntas frecuentes, información para estudiantes y maestros, patrocinadores, contacto, registro informativo y publicaciones. La segunda corresponde al panel administrativo, desde el cual se puede editar contenido, administrar publicaciones, manejar imágenes, previsualizar cambios, crear respaldos, restaurar contenido y publicar el sitio.
+El módulo tiene dos partes. La primera es el sitio público: páginas informativas, navegación, contenido institucional, preguntas frecuentes, información para estudiantes y maestros, patrocinadores, contacto, registro informativo y noticias. La segunda es el panel administrativo, donde el administrador edita el contenido, gestiona las noticias y las imágenes, revisa los cambios en una vista previa, crea y restaura respaldos y publica el sitio.
 
-El desarrollo se organizó en iteraciones XP de dos semanas, entre el 8 de junio y el 3 de julio de 2026. La Iteración 0 se destinó a la preparación funcional y técnica del módulo; la Iteración 1 concentró el sitio informativo, el acceso administrativo, la edición de páginas y la vista previa del sitio; y la Iteración 2 consolidó la gestión editorial, el manejo de imágenes, los respaldos y la publicación del contenido.
+Una Iteración 0 previa preparó el módulo en lo funcional y lo técnico. Después vinieron dos iteraciones XP de dos semanas, del 8 de junio al 3 de julio de 2026: la Iteración 1 construyó el sitio informativo, el acceso administrativo, la edición de páginas y la vista previa, y la Iteración 2 sumó las noticias, las imágenes, los respaldos y la publicación del contenido.
 
 \section{PLANIFICACIÓN DEL MÓDULO}
 
@@ -12,16 +12,18 @@ Esta sección fija el propósito del módulo, nombra las historias de usuario qu
 
 \subsection{Objetivo del módulo}
 
-El objetivo del módulo es permitir la comunicación pública del Desafío Bebras Bolivia y facilitar la administración del contenido del sitio sin modificar directamente el código fuente. De esta manera, el sistema permite mantener actualizada la información institucional, las páginas informativas, las publicaciones y los recursos visuales asociados al desafío.
+El objetivo del módulo es comunicar el Desafío Bebras Bolivia al público y que su contenido se administre sin tocar el código fuente. Así, la información institucional, las páginas informativas, las noticias y los recursos visuales del Desafío se mantienen al día desde el panel.
 
 \subsection{Historias de usuario}
 
-Las historias de usuario del módulo responden al visitante del sitio y al administrador del contenido, con el formato y los criterios de aceptación descritos por \textcite{cohn2004}. Esta es su segunda versión, escrita sobre el sistema terminado: describen lo que el CMS permite hacer y no el contenido de cada página, que el administrador arma con bloques. Las historias que venían de la primera versión están en su versión 2; las agregadas después, en su versión 1. Las tarjetas completas están en el Anexo A.
+Las historias de usuario del módulo responden al visitante del sitio y al administrador del contenido, con el formato y los criterios de aceptación descritos por \textcite{cohn2004}. Describen lo que el CMS permite hacer y no el contenido de cada página, que el administrador arma con bloques. La Tabla~\ref{tab:historias_cms} las lista; la columna Versión indica cuántas veces se redactó cada historia: 1 si conserva su primera redacción y 2 si se reescribió durante el desarrollo. Las tarjetas completas están en el Anexo A.
 
 {\estilotabla
 \input{content/tablas/hus_cap5.tex}}
 
 \subsection{Plan de entregas y alcance del módulo}
+
+La Tabla~\ref{tab:iteraciones_cms} reparte las historias entre las iteraciones. La Iteración 0, de preparación, fue previa y no tiene fechas propias; las Iteraciones 1 y 2 van del 8 de junio al 3 de julio.
 
 \begin{table}[H]
 \estilotabla
@@ -45,9 +47,11 @@ La iteración inicial no entregó funcionalidad final: dejó definido el alcance
 
 \subsection{Planificación de la iteración}
 
-La Iteración 0 permitió definir el alcance del módulo y preparar la base inicial para su implementación. Esta etapa no se orientó a entregar una funcionalidad final al visitante, sino a establecer las condiciones necesarias para desarrollar el sitio informativo y el panel administrativo en las iteraciones posteriores.
+La Iteración 0 definió el alcance del módulo y preparó la base para implementarlo. No buscaba entregar nada al visitante, sino dejar listo lo necesario para construir el sitio informativo y el panel administrativo en las iteraciones siguientes.
 
 \subsection{Actividades principales}
+
+La Tabla~\ref{tab:actividades_iteracion_0} lista las cuatro actividades de preparación, todas completadas.
 
 \begin{table}[H]
 \estilotabla
@@ -68,11 +72,11 @@ CMS-00-04 & Organizar páginas, datos editables y recursos visuales iniciales & 
 
 \subsection{Resultados de la iteración}
 
-La Iteración 0 dejó definidas las páginas del sitio (inicio, información del desafío, categorías, estudiantes, maestros, puntuación, preguntas frecuentes, patrocinadores, contacto y registro) y las funciones del panel: acceso protegido, edición, vista previa, noticias, imágenes, respaldos y publicación.
+La Iteración 0 dejó definidas las páginas del sitio (inicio, información del Desafío, categorías, estudiantes, maestros, puntuación, preguntas frecuentes, patrocinadores, contacto y registro) y las funciones del panel: acceso protegido, edición, vista previa, noticias, imágenes, respaldos y publicación.
 
 \section{ITERACIÓN 1}
 
-La primera iteración del módulo se enfocó en construir la base visible y editable del sitio informativo. Bajo la lógica XP, se priorizó entregar software funcional en un plazo corto: un visitante debía poder consultar la información principal del desafío y un administrador debía poder ingresar al panel, modificar contenido estructurado y revisar el resultado antes de publicarlo.
+La primera iteración construyó la base visible y editable del sitio informativo. Como pide XP, la prioridad fue entregar software funcional en poco tiempo: que un visitante consultara la información principal del Desafío y que un administrador entrara al panel, modificara el contenido y revisara el resultado antes de publicarlo.
 
 \subsection{Planificación de la iteración}
 
@@ -87,13 +91,13 @@ La Tabla~\ref{tab:hus_iteracion_1} lista las historias de la iteración; sus tar
 
 \subsection{Diseño}
 
-El diseño de la Iteración 1 se centró en separar el contenido editable de la presentación visual del sitio. Esta decisión permitió que el sitio informativo funcionara como una sección pública generada a partir de contenido estructurado, mientras que el panel CMS quedó encargado de modificar, organizar y previsualizar dicho contenido antes de su publicación.
+El diseño de la Iteración 1 separa el contenido editable de la presentación visual. El sitio informativo se genera a partir de contenido estructurado, y el panel CMS modifica, organiza y previsualiza ese contenido antes de publicarlo.
 
-Desde el enfoque XP, el diseño se mantuvo simple e incremental. No se incorporó una arquitectura compleja de gestión de contenido desde el inicio; se definió un flujo directo entre el administrador, el panel CMS, el almacén de contenido y el sitio público. Esta estructura permitió entregar valor en la iteración sin acoplar el contenido a las páginas del sitio.
+Como pide XP, el diseño fue simple e incremental. En lugar de una arquitectura de gestión de contenido compleja, se definió un flujo directo: administrador, panel CMS, almacén de contenido y sitio público. Con él, la iteración entregó valor sin atar el contenido a las páginas.
 
 \subsubsection{Arquitectura por capas orientada a contenido}
 
-El módulo no se diseñó como una aplicación MVC, MVVM o HMVC-PAC estricta. En el caso del CMS, la solución combina un sitio informativo público, una interfaz administrativa, servicios de contenido y un almacén estructurado. Por ello, la organización más adecuada fue una arquitectura por capas orientada a contenido, donde cada capa cumple una responsabilidad clara y se comunica con la siguiente mediante datos estructurados (Figura~\ref{fig:cms_capas_contenido}).
+El módulo no sigue un patrón MVC, MVVM o HMVC-PAC estricto. El CMS reúne un sitio público, una interfaz administrativa, servicios de contenido y un almacén estructurado, así que se organizó en capas orientadas a contenido: cada capa tiene una responsabilidad y pasa datos estructurados a la siguiente (Figura~\ref{fig:cms_capas_contenido}). La Tabla~\ref{tab:capas_diseno_iteracion_1} detalla la responsabilidad de cada capa y lo que entregó en la iteración.
 
 \input{content/graficos_cms/cms_capas_i1}
 
@@ -114,7 +118,7 @@ Almacén de contenido & Conservar la información editable en una estructura ind
 \label{tab:capas_diseno_iteracion_1}
 \end{table}
 
-Además de la separación por capas, se tomaron decisiones de diseño para mantener la solución simple y extensible dentro del alcance de la iteración. La Tabla~\ref{tab:decisiones_diseno_cms_i1} resume estas decisiones.
+Otras decisiones mantuvieron la solución simple y fácil de extender; la Tabla~\ref{tab:decisiones_diseno_cms_i1} las resume.
 
 \begin{table}[H]
 \estilotabla
@@ -136,35 +140,35 @@ Mantener el acceso administrativo protegido & Restringe la edición del contenid
 
 \subsubsection{Arquitectura de contenido editable}
 
-La primera decisión de diseño fue tratar el contenido del sitio como información estructurada y no como texto fijo dentro de las páginas. El administrador modifica el contenido desde el panel CMS; el sistema guarda esos cambios en un almacén de contenido editable y luego sincroniza una versión consumible por el sitio informativo público. De esta forma, el sitio puede mostrar información actualizada sin que el administrador tenga que modificar directamente la implementación visual (Figura~\ref{fig:cms_contenido_editable}).
+La primera decisión fue tratar el contenido como información estructurada y no como texto fijo en las páginas. El administrador lo modifica en el panel; el CMS guarda los cambios en el almacén de contenido y sincroniza una copia que lee el sitio público. Así el sitio muestra la información al día sin que nadie toque su implementación visual (Figura~\ref{fig:cms_contenido_editable}).
 
 \input{content/graficos_cms/cms_contenido_editable_i1}
 
-Este diseño responde principalmente a las historias HU-1 y HU-3. Para el visitante, el resultado es un sitio informativo con páginas públicas organizadas por secciones. Para el administrador, el resultado es un mecanismo de edición que actúa sobre el contenido estructurado y no sobre el código del sitio.
+Este diseño responde sobre todo a HU-1 y HU-3: el visitante recibe páginas organizadas por secciones, y el administrador edita el contenido estructurado, no el código del sitio.
 
 \subsubsection{Composición dinámica de páginas}
 
-La segunda decisión de diseño fue permitir que las páginas se compongan mediante bloques reutilizables. Cada página define una secuencia de secciones, y cada sección indica el tipo de bloque que debe mostrarse. El renderizador de páginas interpreta esa composición y construye la vista final utilizando componentes visuales predefinidos (Figura~\ref{fig:cms_composicion_paginas}).
+La segunda decisión fue armar las páginas con bloques reutilizables. Cada página es una secuencia de secciones, y cada sección indica qué bloque mostrar. El renderizador lee esa secuencia y construye la página con componentes visuales ya diseñados (Figura~\ref{fig:cms_composicion_paginas}).
 
 \input{content/graficos_cms/cms_composicion_paginas_i1}
 
-Esta composición permitió cubrir varias secciones del sitio sin crear una solución distinta para cada página. En lugar de duplicar estructuras visuales, el sistema reutiliza bloques comunes para información general, listas, preguntas frecuentes, formularios, categorías y tablas. Esto mantiene el diseño simple, facilita la edición desde el panel y permite que nuevas secciones puedan agregarse de manera incremental.
+Con ella, las secciones del sitio no necesitan una solución propia por página: los mismos bloques sirven para información general, listas, preguntas frecuentes, formularios, categorías y tablas. El diseño se mantiene simple, la edición en el panel es uniforme y una sección nueva se agrega sin rehacer lo anterior.
 
 \subsubsection{Flujo de vista previa}
 
-La tercera decisión de diseño fue incorporar una vista previa antes de publicar cambios. El objetivo fue reducir el ciclo de retroalimentación del administrador: después de modificar contenido, el sistema puede preparar una versión temporal y mostrarla dentro del panel sin afectar la versión pública definitiva (Figura~\ref{fig:cms_vista_previa}).
+La tercera decisión fue añadir una vista previa antes de publicar, para que el administrador vea pronto el efecto de lo que cambia: el CMS prepara una versión temporal y la muestra en el panel sin tocar la versión pública (Figura~\ref{fig:cms_vista_previa}).
 
 \input{content/graficos_cms/cms_vista_previa_i1}
 
-Este flujo responde a la historia HU-6. La vista previa permite revisar el efecto de una modificación en el contexto real del sitio, manteniendo separada la edición del contenido de la publicación definitiva. Así, el administrador puede detectar errores de redacción, orden o composición antes de hacer visible el cambio a los visitantes.
+Este flujo responde a HU-6. El administrador ve cada cambio en el contexto real del sitio y corrige errores de redacción, orden o composición antes de que lleguen a los visitantes.
 
 \subsection{Desarrollo}
 
-El desarrollo de la Iteración 1 materializó la arquitectura definida en el diseño. En esta sección se describe cómo se organizó e implementó el módulo, sin detallar cada archivo de código fuente, sino agrupando las responsabilidades por unidades de implementación.
+El desarrollo de la Iteración 1 llevó el diseño al código. Esta sección no recorre cada archivo: agrupa el trabajo por unidades de implementación.
 
 \subsubsection{Organización del código fuente}
 
-La implementación se organizó en unidades diferenciadas para mantener separado el sitio público, el panel administrativo, los servicios del CMS y los scripts de apoyo. Esta organización permitió trabajar de forma incremental sobre cada historia de usuario, manteniendo una correspondencia clara entre funcionalidad y responsabilidad técnica.
+El código separa el sitio público, el panel administrativo, los servicios del CMS y los scripts de apoyo, de modo que cada historia toca unidades bien delimitadas. La Tabla~\ref{tab:organizacion_codigo_cms_i1} muestra qué contiene cada unidad y para qué se usó en la iteración.
 
 \begin{table}[H]
 \estilotabla
@@ -172,7 +176,7 @@ La implementación se organizó en unidades diferenciadas para mantener separado
 \arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}
 \rowcolor{hufondo}\textbf{Unidad de implementación} & \textbf{Contenido principal} & \textbf{Uso dentro de la iteración} \\
 \arrayrulecolor{hulinea}\midrule
-Sitio público & Páginas, layout, navegación y componentes visuales & Presentar la información pública del desafío y las secciones informativas \\
+Sitio público & Páginas, layout, navegación y componentes visuales & Presentar la información pública del Desafío y las secciones informativas \\
 Contenido editable & Datos estructurados, textos, secciones y configuración de páginas & Alimentar el sitio informativo y permitir su modificación desde el CMS \\
 Backend CMS & Autenticación, lectura de contenido, guardado y vista previa & Atender las operaciones administrativas protegidas \\
 Frontend CMS & Panel, editor, árbol de contenido y acciones de usuario & Permitir la edición visual del contenido por parte del administrador \\
@@ -184,45 +188,45 @@ Scripts de apoyo & Ejecución local, construcción y sincronización de contenid
 \label{tab:organizacion_codigo_cms_i1}
 \end{table}
 
-Esta organización es coherente con XP porque permitió implementar únicamente las piezas necesarias para entregar las historias seleccionadas en la iteración. No se incorporó una abstracción más compleja de la necesaria; la separación por responsabilidades fue suficiente para mantener el módulo comprensible, editable y verificable.
+Siguiendo XP, solo se construyeron las piezas que pedían las historias de la iteración, sin abstracciones de más; separar responsabilidades bastó para que el módulo fuera fácil de entender, cambiar y probar.
 
 \subsubsection{Desarrollo del sitio informativo}
 
-Para la historia HU-1 se implementó la base pública del sitio informativo. El sitio fue construido como un conjunto de páginas y secciones reutilizables, de modo que la información principal del Desafío Bebras Bolivia pudiera presentarse de forma ordenada. La implementación incluyó contenido general del desafío, categorías de participación por edad, secciones para estudiantes, secciones para maestros responsables e instituciones, sistema de puntuación, preguntas frecuentes, patrocinadores, contacto institucional, estado informativo del registro y navegación entre páginas.
+Para HU-1 se construyó la base pública del sitio, con páginas y secciones reutilizables que presentan en orden la información del Desafío Bebras Bolivia: qué es, las categorías de participación por curso, secciones para estudiantes y para maestros e instituciones, la puntuación, las preguntas frecuentes, los patrocinadores, el contacto, el estado del registro y la navegación entre páginas.
 
-El desarrollo del sitio público se apoyó en un modelo de contenido estructurado. En lugar de escribir cada texto directamente dentro de las vistas, las páginas reciben datos organizados y los transforman en bloques visuales. Esta decisión reduce duplicación, facilita la actualización posterior del contenido y permite que el CMS pueda modificar información sin alterar la presentación base del sitio.
+Las vistas no llevan el texto escrito: reciben datos estructurados y los convierten en bloques visuales. Así no se duplica contenido y el CMS puede cambiar la información sin alterar la presentación del sitio.
 
-También se implementó una estructura visual común para las páginas públicas. Esta estructura incluye cabecera, navegación, contenido principal, pie de página, metadatos del sitio y soporte para dispositivos móviles. Con ello se aseguró que las diferentes páginas mantuvieran una identidad visual consistente y que el visitante pudiera recorrer el sitio desde distintos tamaños de pantalla.
+Todas las páginas públicas comparten una estructura: cabecera, navegación, contenido, pie de página y metadatos, adaptada a celulares. El sitio conserva la misma identidad visual en cualquier página y tamaño de pantalla.
 
 \subsubsection{Desarrollo del panel administrativo}
 
-Para la historia HU-2 se desarrolló el acceso protegido al panel administrativo. El panel solicita credenciales al administrador y el backend valida los datos antes de permitir el ingreso. Cuando las credenciales son correctas, el sistema crea una sesión que habilita el acceso a las funciones internas del CMS; cuando son incorrectas, se informa el error y se mantiene restringido el acceso.
+Para HU-2 se protegió el acceso al panel. El administrador ingresa sus credenciales y el backend las valida: si son correctas, abre una sesión que habilita las funciones internas del CMS; si no, muestra el error y no deja pasar.
 
-El panel administrativo se implementó como una interfaz de trabajo para gestionar el contenido del sitio. La navegación interna organiza las secciones editables y separa el contenido informativo de otras funciones del sistema. Esta organización permitió que el administrador ubique rápidamente la página o sección que desea modificar, sin tener que conocer la estructura técnica del sistema.
+El panel es el espacio de trabajo del administrador. Su navegación interna ordena las secciones editables y separa el contenido informativo de las demás funciones, así que el administrador encuentra la página que busca sin conocer la estructura técnica del sistema.
 
-Además del ingreso, se implementó la protección de rutas administrativas y la opción de cerrar sesión. Con ello, las operaciones de edición, vista previa y guardado quedaron reservadas para usuarios autenticados, cumpliendo el objetivo de proteger la administración del contenido público.
+Las rutas administrativas exigen sesión y el panel permite cerrarla. Editar, previsualizar y guardar quedan reservados a usuarios autenticados.
 
 \subsubsection{Desarrollo del editor de contenido}
 
-Para la historia HU-3 se desarrolló un editor dinámico capaz de trabajar con contenido estructurado. El editor no fue construido como un formulario fijo para una sola página; en su lugar, interpreta la estructura del contenido y genera controles de edición según el tipo de dato. Esto permite editar textos, enlaces, valores booleanos, listas, secciones anidadas y componentes reutilizables.
+Para HU-3 se construyó un editor dinámico. No es un formulario fijo para una página: lee la estructura del contenido y genera el control que corresponde a cada tipo de dato, sea texto, enlace, valor booleano, lista, sección anidada o componente reutilizable.
 
-El editor también incorporó operaciones para administrar secciones dentro de una página. El administrador puede agregar nuevos elementos, eliminar secciones que ya no son necesarias y modificar el orden de los bloques. Esta capacidad es importante porque el sitio no solo requiere cambiar textos, sino también reorganizar la manera en que se presenta la información pública.
+En el editor, el administrador agrega elementos, quita secciones y cambia el orden de los bloques, porque el sitio no solo necesita cambiar textos, sino también reorganizar cómo presenta la información.
 
-La edición se diseñó para mantener una experiencia simple. Los campos principales se muestran de forma directa, mientras que los detalles de diseño o configuración avanzada se mantienen separados para no sobrecargar al administrador. De esta manera, el panel prioriza la edición del contenido visible y conserva la flexibilidad necesaria para ajustar la composición de las páginas.
+Los campos principales están a la vista y los ajustes de diseño quedan aparte, para no sobrecargar al administrador. El panel prioriza el contenido visible sin perder la flexibilidad para recomponer las páginas.
 
 \subsubsection{Desarrollo de la vista previa}
 
-Para la historia HU-6 se implementó el flujo de vista previa. Esta funcionalidad permite revisar los cambios del sitio antes de publicarlos definitivamente. Cuando el administrador inicia la vista previa, el CMS prepara una versión temporal del contenido y la muestra dentro del propio panel administrativo.
+Para HU-6 se construyó la vista previa. Al abrirla, el CMS prepara una versión temporal del contenido y la muestra dentro del panel.
 
-Durante la edición, los cambios pueden enviarse como borrador hacia el entorno de previsualización. Para evitar actualizaciones excesivas mientras el administrador escribe, se utilizó una actualización diferida: el sistema espera un breve intervalo y luego sincroniza el borrador. Esta decisión mejora la experiencia de edición, porque permite observar cambios recientes sin obligar al usuario a guardar o publicar cada modificación.
+Mientras el administrador escribe, el editor envía el borrador a la vista previa con una actualización diferida: espera un instante y recién entonces sincroniza, para no actualizar con cada tecla. El administrador ve sus cambios recientes sin guardar ni publicar cada uno.
 
-La vista previa fue desarrollada como un mecanismo separado de la publicación. Esto significa que el administrador puede verificar el contenido en el contexto real del sitio, pero la versión pública no se reemplaza hasta que se realice una acción de publicación en una iteración posterior. Esta separación reduce el riesgo de publicar errores de redacción, orden o composición.
+La vista previa es independiente de la publicación: muestra el contenido en el contexto real del sitio, pero la versión pública no cambia hasta que se publica, una acción que llegó en la Iteración 2.
 
 \subsubsection{Herramientas de apoyo al desarrollo}
 
-El desarrollo del módulo utilizó herramientas orientadas a mantener consistencia y reproducibilidad. Bun se empleó como gestor de dependencias y ejecutor de scripts de desarrollo. TypeScript permitió trabajar con tipado estático en las piezas principales del sistema, reduciendo errores por estructuras de datos inesperadas. ESLint y Prettier se incorporaron como apoyo para análisis estático y formato uniforme del código.
+Cuatro herramientas mantuvieron el código consistente y reproducible. Bun instala las dependencias y ejecuta los scripts; TypeScript agrega tipado estático y evita errores por datos con una forma inesperada; ESLint y Prettier revisan el código y le dan un formato uniforme.
 
-Estas herramientas no constituyen una historia de usuario por sí mismas, pero apoyan el trabajo incremental de XP al facilitar ciclos cortos de desarrollo, revisión y corrección. La Tabla~\ref{tab:herramientas_desarrollo_cms_i1} resume su aporte dentro de la iteración.
+Ninguna es una historia de usuario, pero sostienen los ciclos cortos de XP: escribir, revisar y corregir rápido. La Tabla~\ref{tab:herramientas_desarrollo_cms_i1} resume el aporte de cada una.
 
 \begin{table}[H]
 \estilotabla
@@ -243,7 +247,7 @@ Prettier & Formato automático para conservar consistencia visual en la base de 
 
 \subsection{Pruebas}
 
-Las pruebas de la Iteración 1 se ejecutaron manualmente sobre el sitio informativo y el panel de administración. De acuerdo con la clasificación de \textcite{romero2025evaluacion}, se aplicaron pruebas de caja negra para validar el comportamiento observable, pruebas de humo para comprobar que las funciones principales estuvieran disponibles y pruebas de aceptación para contrastar el resultado con los criterios de las historias HU-1 a HU-6.
+Las pruebas de la Iteración 1 fueron manuales, sobre el sitio informativo y el panel. Según la clasificación de \textcite{romero2025evaluacion}, las de caja negra validaron el comportamiento observable, las de humo comprobaron que las funciones principales estuvieran disponibles y las de aceptación contrastaron el resultado con los criterios de HU-1 a HU-6. La Tabla~\ref{tab:pruebas_cms_i1} muestra cada escenario, su criterio y su resultado.
 
 \begin{table}[H]
 \estilotabla
@@ -251,7 +255,7 @@ Las pruebas de la Iteración 1 se ejecutaron manualmente sobre el sitio informat
 \arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}
 \rowcolor{hufondo}\textbf{Historia} & \textbf{Tipo} & \textbf{Escenario ejecutado} & \textbf{Criterio de aprobación} & \textbf{Resultado} \\
 \arrayrulecolor{hulinea}\midrule
-HU-1 & Caja negra & Navegación del sitio informativo público & El visitante accedió a las secciones principales del desafío desde la navegación pública & Aprobado \\
+HU-1 & Caja negra & Navegación del sitio informativo público & El visitante accedió a las secciones principales del Desafío desde la navegación pública & Aprobado \\
 HU-2 & Caja negra & Inicio y cierre de sesión en el panel administrativo & El sistema permitió el ingreso con credenciales válidas y restringió el acceso no autorizado & Aprobado \\
 HU-3 & Caja negra & Edición y guardado de páginas informativas & El administrador modificó contenido estructurado y el sistema conservó la información guardada & Aprobado \\
 HU-6 & Aceptación & Revisión de cambios mediante vista previa & Los cambios se revisaron antes de afectar la versión publicada del sitio & Aprobado \\
@@ -267,18 +271,19 @@ Al cierre del trabajo, estas comprobaciones manuales se convirtieron en pruebas 
 
 \subsection{Resultados}
 
-Los resultados visibles de la Iteración 1 se organizaron en torno a dos entregables principales: el sitio informativo público y la base operativa del CMS. En lugar de presentar una interfaz por cada historia de usuario, se muestran las pantallas que evidencian el funcionamiento integrado del módulo y la transición entre consulta pública, acceso administrativo, edición estructurada y vista previa del contenido.
+La Iteración 1 entregó dos cosas: el sitio informativo público y la base del CMS. En vez de una pantalla por historia, se muestran las que recorren el módulo de punta a punta: consulta pública, acceso, edición y vista previa. La Tabla~\ref{tab:resultados_cms_i1} indica en qué figura aparece cada resultado.
 
 \begin{table}[H]
 \estilotabla
-\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{3.3cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{4.2cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{2.2cm}}
 \arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}
-\rowcolor{hufondo}\textbf{Resultado} & \textbf{Interfaz presentada} & \textbf{Descripción del resultado} \\
+\rowcolor{hufondo}\textbf{Resultado} & \textbf{Interfaz presentada} & \textbf{Figura} \\
 \arrayrulecolor{hulinea}\midrule
-Sitio informativo público & Inicio del sitio y sección para estudiantes & El módulo entrega una presencia pública navegable, con información principal del desafío, identidad visual del sitio y secciones dirigidas a distintos tipos de visitante. \\
-Acceso administrativo & Pantalla de inicio de sesión del CMS & La administración del contenido queda protegida mediante autenticación previa, separando el acceso público de las operaciones internas de edición. \\
-Espacio de trabajo editorial & Panel principal del CMS con navegación lateral & El administrador dispone de una interfaz centralizada para ubicar páginas editables, acceder a publicaciones y utilizar funciones operativas del sistema. \\
-Edición con vista previa & Editor de contenido con previsualización integrada & La modificación de páginas informativas y la revisión de resultados se realizan dentro del mismo flujo de trabajo, sin publicar los cambios todavía. \\
+Sitio informativo público & Inicio del sitio y sección para estudiantes & \ref{fig:cms_resultados_sitio_i1} \\
+Acceso administrativo & Pantalla de inicio de sesión del CMS & \ref{fig:cms_resultados_panel_i1} (a) \\
+Espacio de trabajo editorial & Panel principal con navegación lateral & \ref{fig:cms_resultados_panel_i1} (b) \\
+Edición con vista previa & Editor de contenido con vista previa integrada & \ref{fig:cms_resultados_editor_i1} \\
+Páginas armadas con bloques & Catálogo de bloques & \ref{fig:cms_bloques} \\
 \arrayrulecolor{hulinea}\bottomrule
 \end{tabularx}
 \arrayrulecolor{black}
@@ -286,7 +291,7 @@ Edición con vista previa & Editor de contenido con previsualización integrada 
 \label{tab:resultados_cms_i1}
 \end{table}
 
-La Figura~\ref{fig:cms_resultados_sitio_i1} muestra el sitio que ve el visitante: en (a) la página principal, con la información del Desafío y la identidad visual del sitio, y en (b) la sección dirigida a los estudiantes, que reúne lo que ese público necesita. Las dos pantallas se llegan desde el menú principal.
+La Figura~\ref{fig:cms_resultados_sitio_i1} muestra el sitio que ve el visitante: en (a) la página principal, con la información del Desafío y la identidad visual del sitio, y en (b) la sección dirigida a los estudiantes, que reúne lo que ese público necesita. A las dos se llega desde el menú principal.
 
 \parcapturas{assets/ui/cms/sitio-inicio.jpg}{Página principal del sitio informativo}{assets/ui/cms/sitio-estudiantes.jpg}{Sección pública orientada a estudiantes}{Interfaces públicas del sitio informativo}{fig:cms_resultados_sitio_i1}
 
@@ -314,7 +319,7 @@ Las páginas se arman con bloques ya diseñados. Al agregar una sección, el CMS
 
 \section{ITERACIÓN 2}
 
-La segunda iteración completó el ciclo editorial del CMS. Una vez validada la edición de páginas informativas, el trabajo se orientó a contenido dinámico de publicaciones, administración de imágenes, respaldo del estado del sitio, restauración de versiones y publicación controlada.
+La segunda iteración completó el ciclo editorial del CMS. Con la edición de páginas ya validada, sumó las noticias, las imágenes, los respaldos, la restauración y la publicación controlada del sitio.
 
 \subsection{Planificación de la iteración}
 
@@ -329,9 +334,9 @@ La Tabla~\ref{tab:hus_iteracion_2} lista las historias de la iteración; sus tar
 
 \subsection{Diseño}
 
-El diseño de la Iteración 2 amplió la base construida en la Iteración 1. La arquitectura no se reemplazó, sino que se extendió para cubrir el ciclo editorial completo: creación de publicaciones, manejo de imágenes, respaldos, restauración, transferencia de copias y publicación del sitio. Esta ampliación exigió diferenciar dos tipos de persistencia: el contenido editable que alimenta al sitio público y los registros operativos que controlan respaldos, publicaciones y programación.
+La Iteración 2 extendió la arquitectura de la Iteración 1, sin reemplazarla, para cubrir el ciclo editorial completo: noticias, imágenes, respaldos, restauración, transferencia de copias y publicación. Para eso distinguió dos tipos de datos: el contenido editable que alimenta al sitio y los registros operativos de respaldos, publicaciones y programación.
 
-En esta iteración, el almacén de contenido se mantuvo como fuente publicable en archivos estructurados, principalmente JSON para páginas informativas y Markdown para publicaciones. En cambio, SQLite se utilizó para datos administrativos del CMS, como usuarios, metadatos de respaldos, historial de publicación y publicaciones programadas. Más adelante se sumaron a esa base la configuración y los certificados del Desafío, que se describen en el capítulo 9. Esta separación evitó mezclar contenido visible para visitantes con información interna de operación.
+El contenido publicable siguió en archivos: JSON para las páginas y Markdown para las noticias. Los datos administrativos del CMS (usuarios, metadatos de respaldos, historial de publicación y publicaciones programadas) pasaron a SQLite. Más adelante esa base sumó la configuración y los certificados del Desafío, descritos en el capítulo 9. Así, lo que ve el visitante no se mezcla con la información interna.
 
 \subsubsection{Extensión arquitectónica de la Iteración 2}
 
@@ -341,7 +346,7 @@ La Figura~\ref{fig:cms_iteracion2_extension} muestra las capas de la Iteración 
 
 \subsubsection{Separación de almacenes y servicios}
 
-La capa de persistencia se dividió en almacenes con propósitos distintos. El Content Store, una carpeta de archivos, conserva el contenido publicable en JSON y Markdown y las imágenes de las publicaciones, y SQLite registra información operativa del CMS. Esta separación permite que el flujo de creación o edición de publicaciones use archivos publicables, mientras que los respaldos, el historial y la programación se controlan mediante registros administrativos. La Figura~\ref{fig:cms_servicios_almacenes} muestra qué servicio usa cada almacén.
+La persistencia quedó en dos almacenes. El Content Store, una carpeta de archivos, conserva el contenido publicable en JSON y Markdown y las imágenes de las noticias; SQLite registra la información operativa del CMS. Crear o editar una noticia trabaja sobre archivos publicables, mientras que los respaldos, el historial y la programación se controlan con registros administrativos. La Figura~\ref{fig:cms_servicios_almacenes} muestra qué servicio usa cada almacén, y la Tabla~\ref{tab:persistencia_iteracion2}, la responsabilidad de cada elemento y su uso en la iteración.
 
 \input{content/graficos_cms/cms_servicios_almacenes_i2}
 
@@ -366,13 +371,13 @@ El modelo de datos completo del CMS, con las tablas de su base SQLite y la estru
 
 \subsubsection{Diseño del flujo editorial de publicaciones}
 
-Las publicaciones informativas se diseñaron como contenido dinámico del sitio, pero sin depender de una base de datos para su renderizado público. Cada publicación mantiene metadatos, cuerpo de contenido enriquecido e imagen opcional. El CMS valida esos datos, los guarda en el almacén editorial y permite previsualizarlos antes de que formen parte de la versión publicada del sitio (Figura~\ref{fig:cms_flujo_publicaciones}).
+Las noticias son contenido dinámico, pero el sitio las muestra sin consultar una base de datos. Cada una tiene metadatos, un cuerpo con texto enriquecido y una imagen opcional. El CMS valida esos datos, los guarda en el Content Store y los muestra en la vista previa antes de que entren en la versión publicada (Figura~\ref{fig:cms_flujo_publicaciones}).
 
 \input{content/graficos_cms/cms_flujo_publicaciones_i2}
 
 \subsubsection{Diseño del ciclo de respaldos}
 
-Un respaldo conserva, en una carpeta propia, los archivos JSON de las páginas y los Markdown de las noticias. Las imágenes y la base SQLite no forman parte del respaldo y se respaldan aparte. SQLite mantiene los metadatos necesarios para listar, ordenar y ubicar cada respaldo; los archivos conservan el contenido recuperable (Figura~\ref{fig:cms_ciclo_respaldos}).
+Un respaldo guarda, en una carpeta propia, los archivos JSON de las páginas y los Markdown de las noticias. Las imágenes y la base SQLite se respaldan aparte. SQLite guarda los metadatos para listar, ordenar y ubicar cada respaldo; los archivos, el contenido que se recupera (Figura~\ref{fig:cms_ciclo_respaldos}).
 
 \input{content/graficos_cms/cms_ciclo_respaldos_i2}
 
@@ -384,31 +389,29 @@ Cada vez que se guarda un cambio, el CMS publica el sitio solo, unos segundos de
 
 \subsection{Desarrollo}
 
-El desarrollo de la Iteración 2 se concentró en convertir el CMS en una herramienta editorial completa. A diferencia de la Iteración 1, donde el esfuerzo principal fue habilitar la edición de páginas informativas, esta etapa incorporó operaciones de ciclo de vida: crear publicaciones, administrar imágenes, conservar respaldos, restaurar estados anteriores y controlar la publicación del sitio.
+La Iteración 2 convirtió el CMS en una herramienta editorial completa. Si la Iteración 1 habilitó la edición de páginas, esta sumó el ciclo de vida del contenido: crear noticias, administrar imágenes, guardar respaldos, restaurar estados anteriores y controlar la publicación. La Tabla~\ref{tab:desarrollo_iteracion2}, al final de esta sección, resume cada componente.
 
 \subsubsection{Implementación de publicaciones informativas}
 
-Para las publicaciones, se implementó un flujo basado en metadatos y contenido enriquecido. El panel administrativo permite registrar título, descripción, fecha, imagen y cuerpo de la publicación; el autor se conserva o, si falta, se asigna «Bebras Bolivia». Antes de guardar, el servicio valida la estructura del contenido para evitar publicaciones incompletas. La vista previa editorial permite revisar el resultado sin modificar todavía la versión publicada del sitio.
+En el panel, el administrador registra el título, la descripción, la fecha, la imagen y el cuerpo de cada noticia; el autor se conserva o, si falta, queda «Bebras Bolivia». Antes de guardar, el servicio valida la estructura y rechaza una noticia incompleta. La vista previa muestra el resultado sin tocar la versión publicada.
 
-La implementación separó la información de presentación del contenido editable. Los metadatos permiten ordenar y describir la publicación dentro del sitio, mientras que el cuerpo enriquecido mantiene el contenido principal. Esta decisión facilita que el listado de publicaciones, la página de detalle y la vista previa usen la misma fuente de datos sin duplicar información.
+Los metadatos ordenan y describen la noticia en el sitio, y el cuerpo enriquecido lleva su contenido. Así, el listado de noticias, la página de cada una y la vista previa leen la misma fuente sin duplicar datos.
 
 \subsubsection{Implementación del manejo de imágenes}
 
-El manejo de imágenes se implementó como un servicio separado del contenido textual. Esta decisión permitió validar extensiones, limitar archivos permitidos y generar rutas utilizables desde las publicaciones. De esta forma, las imágenes se mantienen como recursos estáticos y las publicaciones solo conservan referencias hacia ellas.
-
-Durante la carga se controlan los tipos de archivo admitidos para evitar formatos inseguros o incompatibles con el uso previsto del sitio. El resultado de la carga no se almacena como contenido embebido dentro de la publicación, sino como una ruta reutilizable. Esto reduce el acoplamiento entre publicaciones e imágenes y permite que el proceso de publicación copie los recursos visuales junto con el contenido textual.
+Las imágenes tienen un servicio propio, separado del texto. Ese servicio valida la extensión, admite solo los tipos permitidos, para descartar formatos inseguros o que el sitio no usa, y devuelve una ruta reutilizable. La noticia guarda esa ruta, no la imagen embebida, y el proceso de publicación copia las imágenes junto con el texto.
 
 \subsubsection{Implementación de respaldos y restauración}
 
-En respaldos, el desarrollo combinó persistencia en archivos y registro operativo. Los archivos JSON y Markdown se copian a una carpeta de respaldo versionada, mientras que SQLite registra autor, descripción, fecha y ubicación del respaldo. Esta combinación permite listar respaldos desde el panel y, al mismo tiempo, conservar una copia recuperable del contenido.
+Cada respaldo copia los archivos JSON y Markdown a una carpeta versionada, y SQLite registra su autor, descripción, fecha y ubicación. El panel lista los respaldos desde SQLite y los archivos guardan la copia recuperable, con las páginas y las noticias en carpetas separadas.
 
-La restauración recupera los archivos incluidos en el respaldo elegido; los archivos actuales que no están en esa copia, como una noticia creada después, se conservan. Para reducir errores, los respaldos mantienen una estructura diferenciada entre datos de páginas y publicaciones. Además, la transferencia de respaldos se implementó mediante archivos comprimidos, de modo que una copia pueda descargarse, conservarse externamente e importarse nuevamente cuando sea necesario.
+Restaurar recupera los archivos del respaldo elegido y conserva los actuales que no están en esa copia, como una noticia creada después. Un respaldo también se descarga como archivo comprimido, se guarda fuera del servidor y se vuelve a importar cuando hace falta.
 
 \subsubsection{Implementación de publicación y programación}
 
-La publicación del sitio se implementó como un proceso del CMS que se dispara al guardar o desde el panel. El sistema identifica diferencias entre el contenido actual y el contenido publicado, crea un respaldo automático antes de publicar, copia datos, publicaciones e imágenes hacia el sitio público y ejecuta la construcción del sitio. El resultado de la operación queda registrado para informar si la publicación fue exitosa o fallida.
+La publicación se dispara al guardar o desde el panel. El CMS compara el contenido actual con el publicado, crea un respaldo automático, copia páginas, noticias e imágenes al sitio público y lo construye. Al terminar, registra si la publicación salió bien o falló.
 
-La comparación permite que el administrador vea qué archivos o secciones cambiaron frente al sitio visible. La publicación programada reutiliza el mismo proceso y, mientras está pendiente, detiene la publicación automática al guardar; SQLite registra la fecha de ejecución, el autor y el estado de la programación, lo que permite cancelar una publicación pendiente o consultar el historial reciente.
+La comparación le muestra al administrador qué archivos o secciones cambiaron frente al sitio visible. La publicación programada usa el mismo proceso y, mientras está pendiente, detiene la publicación automática al guardar. SQLite registra su fecha, su autor y su estado, de modo que el administrador puede cancelarla o consultar el historial reciente.
 
 \begin{table}[H]
 \estilotabla
@@ -430,7 +433,7 @@ Publicación programada & Registro de fecha, autor y estado de ejecución en SQL
 
 \subsection{Pruebas}
 
-En la Iteración 2 se ejecutaron pruebas manuales orientadas al ciclo editorial completo del CMS. Se aplicaron pruebas de caja negra para verificar operaciones visibles del administrador, pruebas de aceptación para validar el cumplimiento de las historias desarrolladas, pruebas de humo para revisar la disponibilidad de las funciones principales y pruebas de regresión básica para comprobar que las capacidades de la Iteración 1 continuaran operativas después de incorporar publicaciones, imágenes, respaldos y publicación del sitio.
+Las pruebas manuales de la Iteración 2 recorrieron el ciclo editorial completo. Las de caja negra verificaron las operaciones del administrador; las de aceptación, los criterios de las historias; las de humo, que las funciones principales estuvieran disponibles, y una regresión básica, que lo construido en la Iteración 1 siguiera funcionando con las noticias, las imágenes, los respaldos y la publicación. La Tabla~\ref{tab:pruebas_cms_i2} resume los escenarios y sus resultados.
 
 \begin{table}[H]
 \estilotabla
@@ -455,18 +458,20 @@ Como en la iteración anterior, el capítulo 9 resume las pruebas automatizadas 
 
 \subsection{Resultados}
 
-La Iteración 2 consolidó el CMS como una herramienta editorial completa. Los resultados visuales más relevantes corresponden a la gestión de publicaciones, la edición enriquecida de noticias, la administración de respaldos y el control del proceso de publicación del sitio. Estas interfaces muestran el cierre del ciclo editorial que en la iteración anterior solo había quedado preparado para páginas informativas.
+Con la Iteración 2, el ciclo editorial que antes cubría solo las páginas quedó completo. La Tabla~\ref{tab:resultados_cms_i2} indica en qué figura aparece cada resultado.
 
 \begin{table}[H]
 \estilotabla
-\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{3.3cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{4.2cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{2.2cm}}
 \arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}
-\rowcolor{hufondo}\textbf{Resultado} & \textbf{Interfaz presentada} & \textbf{Descripción del resultado} \\
+\rowcolor{hufondo}\textbf{Resultado} & \textbf{Interfaz presentada} & \textbf{Figura} \\
 \arrayrulecolor{hulinea}\midrule
-Gestión editorial de noticias & Listado de publicaciones informativas & El CMS incorpora una sección específica para administrar noticias, consultar publicaciones existentes y abrir flujos de creación o edición. \\
-Edición enriquecida de publicaciones & Editor de publicaciones con formulario y vista previa & El administrador puede preparar metadatos, redactar contenido enriquecido y revisar el resultado antes de guardar o publicar. \\
-Conservación y recuperación de contenido & Sección de respaldos del CMS & El sistema presenta respaldos recuperables con información temporal y acciones operativas para restaurar o transferir estados del contenido. \\
-Publicación controlada del sitio & Panel de publicación del CMS & El proceso final de despliegue muestra el estado editorial del sitio y concentra la revisión previa a la publicación definitiva. \\
+Gestión de noticias & Listado de publicaciones & \ref{fig:cms_resultados_publicaciones_i2} (a) \\
+Edición enriquecida & Editor de publicaciones con vista previa & \ref{fig:cms_resultados_publicaciones_i2} (b) \\
+Conservación del contenido & Sección de respaldos & \ref{fig:cms_resultados_operacion_i2} (a) \\
+Publicación controlada & Panel de publicación & \ref{fig:cms_resultados_operacion_i2} (b) \\
+Páginas nuevas & Ventana para crear una página & \ref{fig:cms_paginas_noticias} (a) \\
+Noticias en el sitio & Sección de noticias del sitio público & \ref{fig:cms_paginas_noticias} (b) \\
 \arrayrulecolor{hulinea}\bottomrule
 \end{tabularx}
 \arrayrulecolor{black}
@@ -488,4 +493,4 @@ El administrador también crea páginas nuevas, que se suman al menú del sitio,
 
 \section{SÍNTESIS DEL MÓDULO}
 
-El módulo de gestión de contenido y sitio informativo permitió establecer la base pública de Bebras Bolivia y un panel de administración para mantener actualizado su contenido. A través de las iteraciones documentadas, el sistema incorporó páginas informativas, acceso protegido, edición de contenido, vista previa, publicaciones, manejo de imágenes, respaldos y publicación del sitio. Estas capacidades constituyen la base comunicacional del sistema y se integran con los demás módulos al proporcionar información oficial para participantes, maestros responsables e instituciones interesadas.
+El módulo dio a Bebras Bolivia su sitio público y un panel para mantenerlo al día. En sus iteraciones sumó páginas informativas, acceso protegido, edición de contenido, vista previa, noticias, imágenes, respaldos y publicación del sitio. Es la base comunicacional del sistema: da a participantes, maestros e instituciones la información oficial que acompaña a los demás módulos.

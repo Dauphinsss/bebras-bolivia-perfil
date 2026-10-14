@@ -12,7 +12,7 @@ Permitir la inscripción de unidades educativas escolares, maestros responsables
 
 \subsection{Historias de usuario}
 
-Las historias responden a tres usuarios: el maestro, que se registra e inscribe a sus estudiantes; el administrador, que revisa las solicitudes; y el estudiante, que se inscribe con el código de su grupo. Las tarjetas completas están en el Anexo A.
+Las historias responden a tres usuarios: el maestro, que se registra e inscribe a sus estudiantes; el administrador, que revisa las solicitudes; y el estudiante, que se inscribe con el código de su grupo. La Tabla~\ref{tab:historias_participantes} las lista; las tarjetas completas están en el Anexo A.
 
 {\estilotabla
 \input{content/tablas/hus_cap7.tex}}
@@ -85,6 +85,8 @@ El registro valida cada campo mientras se escribe, y el servidor vuelve a valida
 El panel del administrador tiene dos vistas: «Por revisar», con cada solicitud pendiente y sus documentos, de la más antigua a la más nueva, y «Todos los maestros», con filtros por estado y búsqueda. Desde ahí se aprueba, se rechaza, se suspende y se corrigen los datos de un maestro. El administrador también nombra a otros organizadores.
 
 \subsection{Pruebas}
+
+Cada historia se probó con casos de extremo a extremo que recorren en el navegador el camino del maestro y del administrador, y comprueban por la API las reglas del servidor. La Tabla~\ref{tab:pruebas_i5} resume los casos por tema y su resultado.
 
 \begin{table}[H]
 \estilotabla
@@ -165,6 +167,8 @@ Cada grupo tiene su pantalla, con el código grande, el enlace para compartir y 
 El estudiante entra en la página de inscripción, escribe el código del grupo, elige su curso con botones y confirma. Recibe su código personal y una cuenta regresiva hasta la prueba. Si su nombre ya está inscrito, se le pide el código a su maestro: el sistema nunca devuelve el código de otro estudiante.
 
 \subsection{Pruebas}
+
+Las pruebas de extremo a extremo recorren la creación de grupos y los tres caminos de inscripción: uno a uno, con planilla y con el código del grupo. La Tabla~\ref{tab:pruebas_i6} resume los casos por tema y su resultado.
 
 \begin{table}[H]
 \estilotabla

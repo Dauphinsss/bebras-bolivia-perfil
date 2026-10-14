@@ -4,7 +4,7 @@ Este capítulo une las dos partes del sistema: cómo se comunican la gestión de
 
 \section{INTEGRACIÓN DE LOS MÓDULOS}
 
-Las dos partes del sistema se despliegan por separado y se conectan en tres puntos.
+Las dos partes del sistema se despliegan por separado y se conectan en tres puntos, que la Tabla~\ref{tab:integraciones} describe.
 
 \begin{table}[H]
 \estilotabla
@@ -22,7 +22,7 @@ Certificados & El CMS descarga de la plataforma, con una clave, los resultados p
 \label{tab:integraciones}
 \end{table}
 
-El enlace entre el sitio y la plataforma se hizo en la Iteración 5 (HU-59); la apertura de inscripciones y los certificados se desarrollaron después del módulo de evaluación, porque dependen de sus resultados. Sus historias, en el mismo formato que las del CMS, son las siguientes; sus tarjetas están en el Anexo A.
+El enlace entre el sitio y la plataforma se hizo en la Iteración 5 (HU-59); la apertura de inscripciones y los certificados se desarrollaron después del módulo de evaluación, porque dependen de sus resultados. Sus historias, en el mismo formato que las del CMS, están en la Tabla~\ref{tab:historias_integracion}; sus tarjetas, en el Anexo A.
 
 {\estilotabla
 \input{content/tablas/hus_integracion.tex}}
@@ -73,7 +73,7 @@ Cada parte del sistema se publica en su propia infraestructura. Esta sección de
 
 \subsection{Plataforma del Desafío}
 
-La plataforma tiene tres entornos, cada uno con su base de datos y su almacén de archivos. El entorno local y el de pruebas comparten el proyecto de autenticación de \textit{staging}.
+La plataforma tiene tres entornos, cada uno con su base de datos y su almacén de archivos; la Tabla~\ref{tab:entornos} indica el uso de cada uno. El entorno local y el de pruebas comparten el proyecto de autenticación de \textit{staging}.
 
 \begin{table}[H]
 \estilotabla
@@ -82,7 +82,7 @@ La plataforma tiene tres entornos, cada uno con su base de datos y su almacén d
 \rowcolor{hufondo}\textbf{Entorno} & \textbf{Uso} \\
 \arrayrulecolor{hulinea}\midrule
 Local & Desarrollo y pruebas automáticas, con la base y los archivos en la propia computadora; las pruebas automáticas usan además un emulador de autenticación. \\
-Pruebas (\textit{staging}) & Revisión con el supervisor antes de pasar a producción. \\
+Pruebas (\textit{staging}) & Verificación de los cambios antes de pasar a producción. \\
 Producción & Uso real del Desafío, desplegado el 6 de octubre de 2026 con el catálogo de 43 tareas y todas sus funciones habilitadas. \\
 \arrayrulecolor{hulinea}\bottomrule
 \end{tabularx}
@@ -103,7 +103,7 @@ Esta sección explica cómo se probó el sistema completo y presenta los resulta
 
 \subsection{Estrategia}
 
-En la plataforma del Desafío, siguiendo la práctica de XP, las pruebas se escribieron junto con cada historia y se ejecutan en cada iteración; en el CMS, las comprobaciones manuales de cada iteración se automatizaron al cierre del trabajo. Se trabajó en cinco niveles:
+En la plataforma del Desafío, siguiendo la práctica de XP, las pruebas se escribieron junto con cada historia y se ejecutan en cada iteración; en el CMS, las comprobaciones manuales de cada iteración se automatizaron al cierre del trabajo. Se trabajó en los cinco niveles de la Tabla~\ref{tab:niveles_prueba}.
 
 \begin{table}[H]
 \estilotabla
@@ -126,6 +126,8 @@ Verificación estática & Tipos y estilo del código antes de cada entrega. \\
 Las pruebas corren contra el mismo código que se despliega, con una base de datos nueva en cada ejecución, autenticación simulada y un reloj de pruebas que adelanta la hora del servidor para recorrer inscripciones, rendiciones y cierres sin esperar.
 
 \subsection{Resultados de la plataforma del Desafío}
+
+La Tabla~\ref{tab:resultado_e2e} muestra la ejecución completa de las pruebas de extremo a extremo, agrupadas por módulo.
 
 \begin{table}[H]
 \estilotabla
@@ -153,7 +155,7 @@ La ejecución completa duró siete minutos sobre una base de datos nueva. Despu�
 
 \subsection{Prueba de estrés}
 
-La prueba reproduce el peor momento de un desafío real: 1600 estudiantes de 40 grupos y tres categorías entran antes de la hora y empiezan juntos; mantienen su sesión con una señal cada diez segundos y responden, mientras 100 visitantes consultan la portada y el ranking. El generador envía como máximo 64 peticiones a la vez y deja las demás en cola. Entregan 1106 estudiantes; los otros 494 intentos se cierran al terminar el desafío. Al final se adelanta el reloj, se publican los resultados y se compara cada puntaje y cada puesto con las respuestas enviadas.
+La prueba reproduce el peor momento de un desafío real: 1600 estudiantes de 40 grupos y tres categorías entran antes de la hora y empiezan juntos; mantienen su sesión con una señal cada diez segundos y responden, mientras 100 visitantes consultan la portada y el ranking. El generador envía como máximo 64 peticiones a la vez y deja las demás en cola. Entregan 1106 estudiantes; los otros 494 intentos se cierran al terminar el desafío. Al final se adelanta el reloj, se publican los resultados y se compara cada puntaje y cada puesto con las respuestas enviadas. La Tabla~\ref{tab:estres} reúne los resultados.
 
 \begin{table}[H]
 \estilotabla
@@ -180,7 +182,7 @@ En el escenario medido, ninguna petición superó el límite de 50 consultas del
 
 \subsection{Resultados de la gestión de contenido}
 
-El CMS y el sitio informativo se probaron con un servidor del CMS real sobre una copia aislada del contenido, sin publicar nada en producción.
+El CMS y el sitio informativo se probaron con un servidor del CMS real sobre una copia aislada del contenido, sin publicar nada en producción. La Tabla~\ref{tab:pruebas_cms} muestra los casos por grupo.
 
 \begin{table}[H]
 \estilotabla
@@ -208,7 +210,7 @@ Además de las pruebas, el CMS y el sitio informativo están en uso real desde e
 
 \subsection{Defectos encontrados y corregidos}
 
-Las pruebas y una revisión completa del código encontraron 24 defectos en la plataforma del Desafío y 9 en la gestión de contenido. Todos se corrigieron y cada corrección quedó cubierta por una prueba. Los más graves fueron:
+Las pruebas y una revisión completa del código encontraron 24 defectos en la plataforma del Desafío y 9 en la gestión de contenido. Todos se corrigieron y cada corrección quedó cubierta por una prueba. La Tabla~\ref{tab:defectos} muestra los más graves.
 
 \begin{table}[H]
 \estilotabla

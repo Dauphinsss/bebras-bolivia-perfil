@@ -1,6 +1,6 @@
 \chapter{MÓDULO DE GESTIÓN DE DESAFÍOS}
 
-Con este módulo el organizador prepara cada edición del Desafío Bebras. Tiene dos partes que dependen una de la otra: el banco de tareas, donde se redactan las preguntas con su respuesta y su explicación, y los desafíos, que toman preguntas del banco, las ordenan por categoría de edad y definen cuándo y cómo se rinden. Incluye además la práctica, donde cualquier estudiante se ejercita con tareas liberadas.
+Con este módulo el organizador prepara cada edición del Desafío Bebras. Tiene dos partes que dependen una de la otra: el banco de tareas, donde se redactan las preguntas con su respuesta y su explicación, y los desafíos, que toman preguntas del banco, las ordenan por categoría y definen cuándo y cómo se rinden. Incluye además la práctica, donde cualquier estudiante se ejercita con tareas liberadas.
 
 Las tareas Bebras no son solo de opción múltiple: el estudiante también arrastra piezas sobre un dibujo, señala una zona de una imagen, elige el estado de cada casilla de una cuadrícula o completa los huecos de un texto. Por eso el módulo ofrece seis tipos de respuesta, cada uno con su editor y su forma de corrección.
 
@@ -14,14 +14,14 @@ Permitir la creación, categorización y administración de tareas de pensamient
 
 \subsection{Historias de usuario}
 
-Las historias responden a las necesidades del administrador, que prepara las tareas y los desafíos; del estudiante y del maestro, que practican; y del visitante, que consulta los desafíos vigentes. Cada una representa una sola necesidad y lleva criterios de aceptación que permiten decidir cuándo está cumplida \parencite{cohn2004}; se agrupan según la actividad del usuario, siguiendo el mapeo de historias de \textcite{patton2014}. La prioridad 1 marca lo imprescindible para realizar un desafío y la 2, las mejoras que no lo impiden; el esfuerzo se mide en puntos, con la escala del módulo de gestión de contenido. Las tarjetas completas están en el Anexo A.
+Las historias responden a las necesidades del administrador, que prepara las tareas y los desafíos; del estudiante y del maestro, que practican; y del visitante, que consulta los desafíos vigentes. Cada una representa una sola necesidad y lleva criterios de aceptación que permiten decidir cuándo está cumplida \parencite{cohn2004}; se agrupan según la actividad del usuario, siguiendo el mapeo de historias de \textcite{patton2014}. La prioridad 1 marca lo imprescindible para realizar un desafío y la 2, las mejoras que no lo impiden; el esfuerzo se mide en puntos, con la escala del módulo de gestión de contenido. La Tabla~\ref{tab:historias_desafios} las lista; las tarjetas completas están en el Anexo A.
 
 {\estilotabla
 \input{content/tablas/hus_cap6.tex}}
 
 \subsection{Plan de entregas y alcance del módulo}
 
-La primera iteración construye el banco de tareas, porque un desafío no puede armarse sin preguntas; la segunda organiza los desafíos, la práctica y su presentación al público.
+La primera iteración construye el banco de tareas, porque un desafío no puede armarse sin preguntas; la segunda organiza los desafíos, la práctica y su presentación al público. La Tabla~\ref{tab:iteraciones_desafios} muestra el alcance y las historias de cada una.
 
 \begin{table}[H]
 \estilotabla
@@ -52,7 +52,7 @@ La Tabla~\ref{tab:hus_iteracion_3} lista las historias de la iteración; sus tar
 
 \subsection{Diseño}
 
-Una tarea tiene un enunciado, una pregunta y una explicación, armados con bloques de texto con formato e imágenes, y una dificultad para cada categoría de edad en la que se puede usar. Su respuesta separa lo que el estudiante necesita para responder de lo que el servidor usa para corregir: los tipos más recientes (zonas, estados por casilla y huecos) lo guardan en una configuración pública y una clave privada, y los primeros, en campos propios de cada tipo. El servidor arma para el estudiante una versión de la tarea que nunca incluye la solución.
+Una tarea tiene un enunciado, una pregunta y una explicación, armados con bloques de texto con formato e imágenes, y una dificultad para cada categoría en la que se puede usar. Su respuesta separa lo que el estudiante necesita para responder de lo que el servidor usa para corregir: los tipos más recientes (zonas, estados por casilla y huecos) lo guardan en una configuración pública y una clave privada, y los primeros, en campos propios de cada tipo. El servidor arma para el estudiante una versión de la tarea que nunca incluye la solución. La Tabla~\ref{tab:tipos_respuesta} resume cómo responde el estudiante y cómo se corrige cada uno de los seis tipos.
 
 \begin{table}[H]
 \estilotabla
@@ -73,20 +73,20 @@ Huecos en el texto & Completa cada hueco con una palabra de un banco & El texto 
 \label{tab:tipos_respuesta}
 \end{table}
 
-La dificultad se fija por categoría, porque una misma tarea puede ser difícil para los menores y fácil para los mayores. Las categorías siguen las de Bebras, con nombres de animales de Bolivia:
+La dificultad se fija por categoría, porque una misma tarea puede ser difícil para los menores y fácil para los mayores. Las categorías siguen las de Bebras, con nombres de animales de Bolivia, y se definen por cursos: cada una reúne dos cursos seguidos y el estudiante rinde en la de su curso (Tabla~\ref{tab:categorias}).
 
 \begin{table}[H]
 \estilotabla
-\begin{tabularx}{\linewidth}{l c X}
+\begin{tabularx}{\linewidth}{l X}
 \arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}
-\rowcolor{hufondo}\textbf{Categoría} & \textbf{Edad} & \textbf{Cursos} \\
+\rowcolor{hufondo}\textbf{Categoría} & \textbf{Cursos} \\
 \arrayrulecolor{hulinea}\midrule
-Guacamayo & 5 a 8 & 1.º y 2.º de primaria \\
-Capibara & 8 a 10 & 3.º y 4.º de primaria \\
-Titi & 10 a 12 & 5.º y 6.º de primaria \\
-Jucumari & 12 a 14 & 1.º y 2.º de secundaria \\
-Yaguareté & 14 a 16 & 3.º y 4.º de secundaria \\
-Kuntur & 17 a 18 & 5.º y 6.º de secundaria \\
+Guacamayo & 1.º y 2.º de primaria \\
+Capibara & 3.º y 4.º de primaria \\
+Titi & 5.º y 6.º de primaria \\
+Jucumari & 1.º y 2.º de secundaria \\
+Yaguareté & 3.º y 4.º de secundaria \\
+Kuntur & 5.º y 6.º de secundaria \\
 \arrayrulecolor{hulinea}\bottomrule
 \end{tabularx}
 \arrayrulecolor{black}
@@ -210,6 +210,8 @@ El desafío se edita en una sola pantalla, con sus categorías, sus fechas, su p
 La práctica pública lista las tareas liberadas de cada categoría, de la más fácil a la más difícil, las corrige en el servidor y recuerda cuáles resolvió el estudiante, que no necesita cuenta, solo mientras la pestaña del navegador sigue abierta: al cerrarla, el avance se borra y no queda en un equipo compartido. El maestro puede armar además una práctica con tareas liberadas para sus estudiantes.
 
 \subsection{Pruebas}
+
+Como en la iteración anterior, cada historia se verificó con pruebas de extremo a extremo en el navegador o contra la API, y las reglas del desafío, con pruebas unitarias que fijan la hora. La Tabla~\ref{tab:pruebas_i4} agrupa los casos por tema.
 
 \begin{table}[H]
 \estilotabla
