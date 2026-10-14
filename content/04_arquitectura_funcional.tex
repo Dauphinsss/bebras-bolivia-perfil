@@ -16,11 +16,11 @@ Las dos partes se conectan al final del ciclo: el CMS trae de la plataforma los 
 
 \section{CONTEXTO DEL SISTEMA}
 
-La Figura~\ref{fig:c4_contexto_plataforma_bebras} es el primer nivel del modelo C4: muestra el sistema como un todo, quiénes lo usan y de qué servicio externo depende. Se lee de arriba abajo. Arriba están los tres tipos de usuario, en el centro el sistema y abajo el servicio externo, en gris. Cada flecha va de quien inicia la comunicación hacia quien la recibe, y su rótulo dice para qué.
+La Figura~\ref{fig:c4_contexto_plataforma_bebras} es el primer nivel del modelo C4: muestra el sistema como un todo, quiénes lo usan y de qué servicio externo depende. Se lee de izquierda a derecha. A la izquierda están los tres tipos de usuario, en el centro el sistema y a la derecha el servicio externo, en gris. Cada flecha va de quien inicia la comunicación hacia quien la recibe, y su rótulo dice para qué.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.8\textwidth]{diagramas/c1-contexto.png}
+\includegraphics[width=0.95\textwidth]{diagramas/c1-contexto.png}
 \caption[Contexto del Sistema Bebras Bolivia]{Diagrama de contexto del Sistema Bebras Bolivia}
 \label{fig:c4_contexto_plataforma_bebras}
 \end{figure}
@@ -35,12 +35,12 @@ El único servicio externo es Firebase Authentication \parencite{firebaseauth}. 
 
 La Figura~\ref{fig:c4_contenedores_plataforma_bebras} es el segundo nivel del modelo C4: abre el sistema y muestra sus partes, con qué tecnología está hecha cada una y cómo se comunican. Los rectángulos son aplicaciones, los cilindros son almacenes de datos y las líneas punteadas agrupan las partes que corren en el mismo lugar: la plataforma del Desafío, a la izquierda, y la gestión de contenido, a la derecha. Los usuarios están arriba, cada flecha indica qué hace cada uno con cada parte, y Firebase Authentication, en gris, queda fuera del sistema.
 
-\begin{sidewaysfigure}
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=\textheight,height=0.92\textwidth,keepaspectratio]{diagramas/c2-contenedores.png}
+\includegraphics[width=\textwidth]{diagramas/c2-contenedores.png}
 \caption[Contenedores del Sistema Bebras Bolivia]{Diagrama de contenedores del Sistema Bebras Bolivia}
 \label{fig:c4_contenedores_plataforma_bebras}
-\end{sidewaysfigure}
+\end{figure}
 
 La Figura~\ref{fig:anexo_c2} del Anexo~B reproduce este diagrama a página completa.
 

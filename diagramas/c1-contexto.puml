@@ -1,25 +1,10 @@
 @startuml c1-contexto
 ' Diagrama C1 (contexto) del Sistema Bebras Bolivia, con C4-PlantUML.
-!$TECHN_FONT_SIZE = 17
 !include <C4/C4_Context>
 skinparam dpi 300
 skinparam defaultFontName "Arial"
-skinparam nodesep 30
-skinparam ranksep 50
-skinparam wrapWidth 250
-skinparam defaultFontSize 20
-skinparam rectangle {
-  FontSize 20
-}
-skinparam person {
-  FontSize 20
-}
-skinparam arrow {
-  FontSize 20
-}
-LAYOUT_TOP_DOWN()
+LAYOUT_LEFT_RIGHT()
 HIDE_STEREOTYPE()
-HIDE_PERSON_SPRITE()
 
 Person(admin, "Administrador u organizador", "Organiza el Desafío Bebras en Bolivia.")
 Person(maestro, "Maestro", "Responsable de sus estudiantes en una unidad educativa.")
