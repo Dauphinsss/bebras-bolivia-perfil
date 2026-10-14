@@ -1,27 +1,23 @@
 \begin{figure}[H]
 \centering
-\resizebox{0.92\textwidth}{!}{%
-\begin{tikzpicture}[node distance=0.75cm]
-    \node[cmsdocument, minimum width=2.8cm] (draft) {Contenido\\actual};
-    \draw[black] ([xshift=-0.3cm]draft.north east) -- (draft.north east) -- ([yshift=-0.3cm]draft.north east);
-    \draw[black] ([xshift=-0.3cm]draft.north east) -- ([yshift=-0.3cm]draft.north east);
-    \node[cmscontainer, right=of draft, minimum width=2.8cm] (changes) {Cambios\\pendientes};
-    \node[cmscontainer, right=of changes, minimum width=2.8cm] (autosnap) {Respaldo\\automático};
-    \node[cmscontainer, right=of autosnap, minimum width=2.8cm] (copyfiles) {Copia de\\contenido};
-    \node[cmscontainer, right=of copyfiles, minimum width=2.8cm] (build) {Construcción\\del sitio};
-    \node[cmssystem, right=of build, minimum width=2.8cm] (published) {Sitio\\publicado};
-    \node[cmsstore, below=1cm of autosnap, minimum width=2.5cm] (logdb) {SQLite\\control};
+\begin{tikzpicture}[ancho/.style={minimum width=3cm}]
+    \node[actor, ancho] (saved) at (0,0) {Se guarda\\un cambio};
+    \node[actor, ancho] (manual) at (4.2,0) {Publicar\\a mano};
+    \node[datos, minimum width=2.8cm] (logdb) at (8.6,0) {SQLite\\programación\\y estado};
 
-    \draw[cmsarrow] (draft) -- (changes);
-    \draw[cmsarrow] (changes) -- (autosnap);
-    \draw[cmsarrow] (autosnap) -- (copyfiles);
-    \draw[cmsarrow] (copyfiles) -- (build);
-    \draw[cmsarrow] (build) -- (published);
-    \draw[cmsarrow] (changes.south) |- node[pos=0.25, left, font=\scriptsize] {estado} (logdb.west);
-    \draw[cmsarrow] (autosnap.south) -- node[right, font=\scriptsize] {registro} (logdb.north);
-    \draw[cmsarrow] (logdb.east) -| node[pos=0.25, below, font=\scriptsize] {programación} (build.south);
-\end{tikzpicture}%
-}
+    \node[servicio, ancho] (autosnap) at (4.2,-2.9) {Respaldo\\automático};
+    \node[servicio, ancho] (copyfiles) at (8.6,-2.9) {Copia de JSON,\\Markdown e imágenes};
+    \node[servicio, ancho] (build) at (13,-2.9) {Construcción\\del sitio};
+    \node[interfaz, ancho] (published) at (13,-5.3) {Sitio\\publicado};
+
+    \draw[flechaauto] (saved) -- node[etq, pos=0.4, left=6pt] {a los pocos\\segundos} (autosnap);
+    \draw[flechaadm] (manual) -- (autosnap);
+    \draw[flechaauto] (logdb) -- node[etq, pos=0.5, right=10pt] {llega la\\fecha} (autosnap);
+    \draw[flecha] (autosnap) -- (copyfiles);
+    \draw[flecha] (copyfiles) -- (build);
+    \draw[flecha] (build) -- (published);
+    \draw[flecha] (build.north) |- node[etq, pos=0.75, above=2pt] {registra\\el estado} (logdb.east);
+\end{tikzpicture}
 \caption[Proceso de publicación del sitio informativo]{Proceso de revisión, respaldo, construcción y publicación del sitio informativo}
 \label{fig:cms_proceso_publicacion}
 \end{figure}

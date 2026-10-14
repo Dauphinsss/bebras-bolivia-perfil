@@ -1,0 +1,103 @@
+@startuml modelo-datos-cms
+skinparam dpi 300
+skinparam linetype ortho
+skinparam shadowing false
+skinparam roundCorner 0
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 11
+skinparam nodesep 70
+skinparam ranksep 60
+skinparam class {
+  BackgroundColor white
+  BorderColor black
+  BorderThickness 1
+  ArrowColor black
+  ArrowThickness 0.8
+  HeaderBackgroundColor #E8E8E8
+  FontStyle bold
+}
+hide circle
+hide methods
+hide stereotypes
+
+entity "Usuario" as Usuario {
+  * id : entero <<PK>>
+  --
+  * correo : texto <<UQ>>
+  * nombre : texto
+  * hash_contraseña : texto
+  * creado : fecha
+  * actualizado : fecha
+}
+
+entity "Configuracion" as Configuracion {
+  * clave : texto <<PK>>
+  --
+  * valor : texto
+  * actualizado : fecha
+}
+
+entity "Respaldo" as Respaldo {
+  * id : entero <<PK>>
+  --
+  * descripcion : texto
+  * autor : texto
+  * carpeta : texto <<UQ>>
+  * creado : fecha
+}
+
+entity "RegistroPublicacion" as RegistroPublicacion {
+  * id : entero <<PK>>
+  --
+  id_respaldo : entero <<FK>>
+  * estado : texto
+  * salida : texto
+  * inicio : fecha
+  fin : fecha
+}
+
+entity "PublicacionProgramada" as PublicacionProgramada {
+  * id : entero <<PK>>
+  --
+  id_registro : entero <<FK>>
+  * ejecutar_en : fecha
+  * autor : texto
+  * estado : texto
+  * salida : texto
+  * creado : fecha
+  * actualizado : fecha
+}
+
+entity "ConcursoCertificado" as ConcursoCertificado {
+  * id : texto <<PK>>
+  --
+  * titulo : texto
+  * anio : entero
+  publicado_en : fecha
+  * sincronizado : fecha
+}
+
+entity "Certificado" as Certificado {
+  * id_concurso : texto <<PK>> <<FK>>
+  * codigo : texto <<PK>>
+  --
+  * datos : JSON
+  * id_archivo : texto
+  * secreto : texto
+}
+
+entity "CertificadoManual" as CertificadoManual {
+  * codigo : texto <<PK>>
+  --
+  * datos : JSON
+  * id_archivo : texto
+  * secreto : texto
+  * creado : fecha
+}
+
+Respaldo |o--o{ RegistroPublicacion : "respalda"
+RegistroPublicacion |o--o{ PublicacionProgramada : "se origina en"
+ConcursoCertificado ||--o{ Certificado : "tiene"
+Usuario -[hidden]down- Configuracion
+Configuracion -[hidden]down- CertificadoManual
+@enduml

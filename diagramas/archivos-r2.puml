@@ -1,0 +1,58 @@
+@startuml archivos-r2
+skinparam dpi 300
+skinparam linetype ortho
+skinparam shadowing false
+skinparam roundCorner 0
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 11
+skinparam nodesep 70
+skinparam ranksep 70
+skinparam packageStyle rectangle
+skinparam package {
+  BackgroundColor white
+  BorderColor black
+  FontStyle bold
+}
+skinparam class {
+  BackgroundColor white
+  BorderColor black
+  BorderThickness 1
+  ArrowColor black
+  ArrowThickness 0.8
+  HeaderBackgroundColor #E8E8E8
+  FontStyle bold
+}
+hide circle
+hide methods
+hide stereotypes
+
+package "Base de datos D1" {
+  entity "Usuario" as Usuario {
+    * id : entero <<PK>>
+    --
+    carta : texto
+    carnet_anverso : texto
+    carnet_reverso : texto
+  }
+
+  entity "ColegioAdicional" as ColegioAdicional {
+    * id : texto <<PK>>
+    --
+    carta : texto
+  }
+}
+
+package "Almacén de archivos R2" {
+  entity "Documento" as Documento {
+    * clave : texto <<PK>>
+    --
+    * contenido : binario
+    * tipo : texto
+    * tamano : entero
+  }
+}
+
+Usuario |o.right.o{ Documento : "adjunta"
+ColegioAdicional |o.right.o| Documento : "adjunta"
+Usuario -[hidden]down- ColegioAdicional
+@enduml

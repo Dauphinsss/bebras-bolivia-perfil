@@ -1,13 +1,28 @@
 @startuml c2-contenedores
 ' Diagrama C2 (contenedores) del Sistema Bebras Bolivia, con C4-PlantUML.
+!$TECHN_FONT_SIZE = 17
 !include <C4/C4_Container>
 skinparam dpi 300
 skinparam defaultFontName "Arial"
-skinparam linetype ortho
-skinparam nodesep 90
-skinparam ranksep 110
+skinparam nodesep 20
+skinparam ranksep 28
+skinparam wrapWidth 250
+skinparam defaultFontSize 20
+skinparam rectangle {
+  FontSize 20
+}
+skinparam database {
+  FontSize 20
+}
+skinparam person {
+  FontSize 20
+}
+skinparam arrow {
+  FontSize 20
+}
 LAYOUT_TOP_DOWN()
 HIDE_STEREOTYPE()
+HIDE_PERSON_SPRITE()
 
 Person(admin, "Administrador u organizador", "Administra el contenido y los desafíos.")
 Person(maestro, "Maestro", "Inscribe a sus estudiantes y sigue sus resultados.")
@@ -16,8 +31,8 @@ Person(estudiante, "Estudiante", "Practica, rinde el desafío y consulta su cert
 Boundary(sistema, "Sistema Bebras Bolivia", "Sistema de software") {
   Boundary(contenido, "Gestión de contenido", "Servidor de la universidad con Apache") {
     Container(cms, "CMS", "Express + Bun; panel Astro + React", "Edita las páginas, las noticias y los certificados, y publica el sitio.")
-    ContainerDb(cmsdb, "Base de datos del CMS", "SQLite", "Usuarios, respaldos, publicaciones programadas y certificados.")
-    ContainerDb(store, "Content Store", "Archivos JSON y Markdown", "Contenido editable; fuente del sitio.")
+    ContainerDb(cmsdb, "Base de datos del CMS", "SQLite", "Usuarios, respaldos, historial y programación de publicaciones, configuración y certificados.")
+    ContainerDb(store, "Content Store", "Archivos JSON, Markdown e imágenes", "Contenido editable, imágenes, respaldos y versiones publicadas; fuente del sitio.")
     Container(sitio, "Sitio informativo", "Astro + React, estático", "Información del Desafío, noticias y certificados.")
   }
   Boundary(desafio, "Plataforma del Desafío", "Cloudflare") {

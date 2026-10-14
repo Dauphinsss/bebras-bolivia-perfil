@@ -1,23 +1,19 @@
 \begin{figure}[H]
 \centering
-\resizebox{\textwidth}{!}{%
-\begin{tikzpicture}[node distance=1.45cm and 1.6cm]
-    \node[cmsactor] (admin) {Administrador};
-    \node[cmssystem, right=of admin] (editor) {Editor CMS\\contenido en edición};
-    \node[cmscontainer, right=of editor] (draft) {Borrador\\temporal};
-    \node[cmscontainer, right=of draft] (preview) {Servicio de\\vista previa};
-    \node[cmssystem, right=of preview] (server) {Servidor de\\previsualización};
-    \node[cmscontainer, right=of server] (iframe) {Vista previa\\en el panel};
-    \node[cmsnote, below=1.15cm of draft, xshift=2.3cm] (note) {No reemplaza la versión pública\\hasta confirmar publicación};
+\begin{tikzpicture}[ancho/.style={minimum width=3.2cm}, actor/.append style=ancho, interfaz/.append style=ancho, servicio/.append style=ancho, documento/.append style=ancho]
+    \node[actor] (admin) at (0,0) {Administrador};
+    \node[interfaz] (editor) at (5.2,0) {Editor CMS\\contenido en edición};
+    \node[documento] (draft) at (10.4,0) {Borrador\\temporal};
+    \node[servicio] (preview) at (10.4,-2.9) {Servicio de\\vista previa};
+    \node[servicio] (server) at (5.2,-2.9) {Servidor de\\previsualización};
+    \node[interfaz] (iframe) at (0,-2.9) {Vista previa\\en el panel};
 
-    \draw[cmsarrow] (admin) -- node[above, font=\scriptsize, align=center] {edita\\campos} (editor);
-    \draw[cmsarrow] (editor) -- node[above, font=\scriptsize, align=center] {genera\\cambio} (draft);
-    \draw[cmsarrow] (draft) -- node[above, font=\scriptsize, align=center] {sincroniza\\borrador} (preview);
-    \draw[cmsarrow] (preview) -- node[above, font=\scriptsize, align=center] {sirve\\sitio} (server);
-    \draw[cmsarrow] (server) -- node[above, font=\scriptsize, align=center] {muestra\\resultado} (iframe);
-    \draw[cmsarrow, dashed] (draft) -- (note);
-\end{tikzpicture}%
-}
+    \draw[flecha] (admin) -- node[etq, above=3pt] {edita\\campos} (editor);
+    \draw[flecha] (editor) -- node[etq, above=3pt] {genera\\cambio} (draft);
+    \draw[flecha] (draft) -- node[etq, right=4pt] {sincroniza el borrador} (preview);
+    \draw[flecha] (preview) -- node[etq, above=3pt] {sirve el\\sitio} (server);
+    \draw[flecha] (server) -- node[etq, above=3pt] {muestra el\\resultado} (iframe);
+\end{tikzpicture}
 \caption[Flujo de vista previa del CMS]{Flujo de vista previa de cambios antes de la publicación}
 \label{fig:cms_vista_previa}
 \end{figure}

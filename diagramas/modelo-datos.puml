@@ -119,7 +119,7 @@ entity "Grupo" as Grupo {
   * id : texto <<PK>>
   --
   * id_desafio : texto <<FK>>
-  id_creador : entero
+  id_creador : entero <<FK>>
   * nombre : texto
   categoria : texto
   * codigo_acceso : texto <<UQ>>
@@ -171,9 +171,9 @@ entity "Resultado" as Resultado {
 }
 
 Usuario ||-left-o{ ColegioAdicional : "enseña en"
-Usuario }o.right.|| Colegio : "pertenece a"
+Usuario }o.right.o| Colegio : "pertenece a"
 Usuario |o--o{ Desafio : "crea"
-Usuario ..o{ Grupo : "crea"
+Usuario |o--o{ Grupo : "crea"
 Desafio ||--o{ Grupo : "tiene"
 Desafio ||--o{ PreguntaDesafio : "tiene"
 PreguntaDesafio }o-right-|| Tarea : "usa"

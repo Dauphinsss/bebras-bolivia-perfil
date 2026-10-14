@@ -1,0 +1,57 @@
+@startwbs content-store
+skinparam dpi 300
+<style>
+wbsDiagram {
+  FontName Arial
+  FontSize 11
+  FontColor black
+  LineColor black
+  LineThickness 1
+  BackgroundColor white
+  RoundCorner 0
+  Shadowing 0
+  Padding 6
+  Margin 8
+  node {
+    BackgroundColor white
+    LineColor black
+    LineThickness 1
+  }
+  :depth(0) {
+    FontSize 12
+    LineThickness 1.5
+  }
+  boxless {
+    FontColor black
+    Padding 4
+    Margin 6
+  }
+}
+</style>
+* <b>content/</b>
+** <b>current/</b>\ncontenido editable
+*** <b>data/</b>\nun JSON por página
+****_ <U+2002>home.json
+****_ <U+2002>faq.json
+****_ <U+2002>...
+*** <b>blog/</b>\nun Markdown por noticia
+****_ <U+2002>bienvenida.md
+****_ <U+2002>...
+** <b>snapshots/</b>\nrespaldos
+*** <b>snapshot-0001/</b>
+****_ <U+2002>data/
+****_ <U+2002>blog/
+****_ <U+2002>meta.json
+*** <b>snapshot-0002/</b>
+***_ <U+2002>...
+** <b>published/</b>\nversiones publicadas
+***_ <U+2002>current.json
+*** <b>releases/</b>
+**** <b>publish-.../</b>
+*****_ <U+2002>data/
+*****_ <U+2002>blog/
+** <b>media/</b>\nimágenes subidas
+***_ <U+2002>imagen-1.png
+***_ <U+2002>imagen-2.jpeg
+***_ <U+2002>...
+@endwbs

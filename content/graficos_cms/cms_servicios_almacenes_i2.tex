@@ -1,50 +1,24 @@
 \begin{figure}[H]
 \centering
-\resizebox{0.88\textwidth}{!}{%
-\begin{tikzpicture}[node distance=1.2cm]
-    \node[cmssystem, minimum width=3.1cm] (blogservice) at (0,0) {Servicio de\\publicaciones};
-    \node[cmscontainer, minimum width=3.1cm] (mediaservice) at (0,-2.6cm) {Servicio de\\imágenes};
-    \node[cmscontainer, minimum width=3.1cm] (snapshotservice) at (0,-5.2cm) {Servicio de\\respaldos};
-    \node[cmssystem, minimum width=3.1cm] (publishservice) at (0,-7.8cm) {Servicio de\\publicación};
+\begin{tikzpicture}[ancho/.style={minimum width=3.2cm}]
+    \node[servicio, ancho] (blogservice) at (0,0) {Servicio de\\publicaciones};
+    \node[servicio, ancho] (mediaservice) at (0,-2.1) {Servicio de\\imágenes};
+    \node[servicio, ancho] (snapshotservice) at (0,-4.2) {Servicio de\\respaldos};
 
-    \node[cmsdocument, minimum width=3.15cm] (contentstore) at (6.5cm,0) {Content Store\\JSON y Markdown};
-    \draw[black] ([xshift=-0.3cm]contentstore.north east) -- (contentstore.north east) -- ([yshift=-0.3cm]contentstore.north east);
-    \draw[black] ([xshift=-0.3cm]contentstore.north east) -- ([yshift=-0.3cm]contentstore.north east);
-    \node[cmsdocument, minimum width=3.15cm] (mediastore) at (6.5cm,-2.6cm) {Recursos visuales\\imágenes};
-    \draw[black] ([xshift=-0.3cm]mediastore.north east) -- (mediastore.north east) -- ([yshift=-0.3cm]mediastore.north east);
-    \draw[black] ([xshift=-0.3cm]mediastore.north east) -- ([yshift=-0.3cm]mediastore.north east);
-    \node[cmsstore, minimum width=2.75cm] (sqlite) at (6.5cm,-5.2cm) {SQLite\\operativo};
-    \node[cmssystem, minimum width=3.15cm] (site) at (6.5cm,-7.8cm) {Sitio público\\publicado};
+    \node[documento, minimum width=3.4cm, minimum height=5.3cm] (contentstore) at (6,-2.1) {Content Store\\JSON, Markdown\\e imágenes};
+    \node[datos, minimum width=3cm] (sqlite) at (6,-6.7) {SQLite\\operativo};
 
-    \draw[cmsarrow] (blogservice) -- node[above, font=\scriptsize, fill=white, inner sep=1pt] {crea y edita} (contentstore);
-    \draw[cmsarrow] (mediaservice) -- node[above, font=\scriptsize, fill=white, inner sep=1pt] {valida y guarda} (mediastore);
-    \draw[cmsarrow] (snapshotservice) -- node[above, font=\scriptsize, fill=white, inner sep=1pt] {registra metadatos} (sqlite);
-    \draw[cmsarrow] (publishservice) -- node[above, font=\scriptsize, fill=white, inner sep=1pt, yshift=0.15cm] {genera versión visible} (site);
+    \node[servicio, ancho] (publishservice) at (11.4,-2.1) {Servicio de\\publicación};
+    \node[interfaz, ancho] (site) at (11.4,-6.7) {Sitio público\\publicado};
 
-    \coordinate (contenttop) at ([yshift=0.8cm]contentstore.north);
-    \draw[cmsarrow, dashed] (snapshotservice.west)
-        -- ++(-0.5cm,0)
-        -- ([xshift=-0.5cm]snapshotservice.west|-contenttop)
-        -- node[above, font=\scriptsize, align=center, fill=white, inner sep=1pt] {copia contenido} (contentstore.north|-contenttop)
-        -- (contentstore.north);
-
-    \coordinate (publishbottom) at ([yshift=-0.8cm]publishservice.south);
-    \draw[cmsarrow, dashed] (contentstore.east)
-        -- ++(2.5cm,0)
-        -- ([xshift=2.5cm]contentstore.east|-publishbottom)
-        -- node[below, font=\scriptsize, align=center, fill=white, inner sep=1pt] {datos publicables} (publishservice.south|-publishbottom)
-        -- (publishservice.south);
-
-    \draw[cmsarrow, dashed] (mediastore.east)
-        -- ++(1.2cm,0)
-        |- node[pos=0.25, right, font=\scriptsize, align=center, fill=white, inner sep=1pt] {archivos\\visuales}
-        (site.east);
-
-    \draw[cmsarrow, dashed] (sqlite.south)
-        -- node[right, font=\scriptsize, align=center, fill=white, inner sep=1pt] {estado}
-        (site.north);
-\end{tikzpicture}%
-}
+    \draw[flecha] (blogservice) -- node[etq, above=2pt] {crea y edita} (blogservice-|contentstore.west);
+    \draw[flecha] (mediaservice) -- node[etq, above=2pt] {valida y\\guarda} (mediaservice-|contentstore.west);
+    \draw[flecha] (snapshotservice) -- node[etq, above=2pt] {copia el\\contenido} (snapshotservice-|contentstore.west);
+    \draw[flecha] (snapshotservice.south) |- node[etq, pos=0.75, above=2pt] {registra metadatos} (sqlite.west);
+    \draw[flecha] (contentstore.east|-publishservice) -- node[etq, above=2pt] {datos\\publicables} (publishservice);
+    \draw[flecha] (publishservice) -- node[etq, right=3pt] {construye\\el sitio} (site);
+    \draw[flecha] (publishservice.south west) -- node[etq, sloped, above=2pt] {registra el estado} (sqlite.east);
+\end{tikzpicture}
 \caption[Servicios y almacenes del CMS]{Relación entre servicios del CMS y almacenes de contenido, recursos y operación}
 \label{fig:cms_servicios_almacenes}
 \end{figure}

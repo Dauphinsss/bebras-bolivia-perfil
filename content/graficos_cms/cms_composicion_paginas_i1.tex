@@ -1,29 +1,24 @@
 \begin{figure}[H]
 \centering
-\resizebox{0.95\textwidth}{!}{%
-\begin{tikzpicture}[node distance=1.35cm and 1.55cm]
-    \node[cmsstore] (content) {Contenido\\estructurado};
-    \node[cmscontainer, right=of content] (model) {Modelo de página\\secciones ordenadas};
-    \node[cmssystem, right=of model] (renderer) {Renderizador\\de páginas};
-    \node[cmscontainer, right=of renderer] (visual) {Bloques visuales\\reutilizables};
-    \node[cmssystem, right=of visual] (page) {Página final\\del sitio};
+\begin{tikzpicture}
+    \node[documento, minimum width=3.2cm] (content) at (0,0) {Contenido\\estructurado};
+    \node[servicio, minimum width=3.2cm] (model) at (5.2,0) {Modelo de página\\secciones ordenadas};
+    \node[servicio, minimum width=3.2cm] (renderer) at (10.4,0) {Renderizador\\de páginas};
 
-    \node[cmsnote, below=1.15cm of visual, xshift=-2.8cm] (block1) {Texto\\informativo};
-    \node[cmsnote, right=0.4cm of block1] (block2) {Grillas\\y listas};
-    \node[cmsnote, right=0.4cm of block2] (block3) {FAQ y\\contacto};
-    \node[cmsnote, right=0.4cm of block3] (block4) {Categorías\\y puntuación};
+    \node[font=\small\bfseries, text=dgtinta] (titulo) at (10.4,-2.45) {Bloques visuales reutilizables};
+    \node[bloque, minimum width=3cm] (block1) at (8.75,-3.4) {Texto informativo};
+    \node[bloque, minimum width=3cm] (block2) at (12.05,-3.4) {Grillas y listas};
+    \node[bloque, minimum width=3cm] (block3) at (8.75,-4.5) {FAQ y contacto};
+    \node[bloque, minimum width=3cm] (block4) at (12.05,-4.5) {Categorías\\y puntuación};
+    \node[limite, fit=(titulo)(block1)(block2)(block3)(block4), inner sep=0.2cm] (visual) {};
 
-    \draw[cmsarrow] (content) -- node[above, font=\scriptsize, align=center] {provee\\datos} (model);
-    \draw[cmsarrow] (model) -- node[above, font=\scriptsize, align=center] {define\\orden} (renderer);
-    \draw[cmsarrow] (renderer) -- node[above, font=\scriptsize, align=center] {selecciona\\bloques} (visual);
-    \draw[cmsarrow] (visual) -- node[above, font=\scriptsize, align=center] {construye\\vista} (page);
+    \node[interfaz, minimum width=3.2cm] (page) at (3.2,-3.95) {Página final\\del sitio};
 
-    \draw[cmsarrow, dashed] (block1) -- (visual);
-    \draw[cmsarrow, dashed] (block2) -- (visual);
-    \draw[cmsarrow, dashed] (block3) -- (visual);
-    \draw[cmsarrow, dashed] (block4) -- (visual);
-\end{tikzpicture}%
-}
+    \draw[flecha] (content) -- node[etq, above=3pt] {provee\\datos} (model);
+    \draw[flecha] (model) -- node[etq, above=3pt] {define\\orden} (renderer);
+    \draw[flecha] (renderer) -- node[etq, right=4pt] {selecciona bloques} (visual);
+    \draw[flecha] (visual.west|-page) -- node[etq, above=3pt] {construye\\la vista} (page);
+\end{tikzpicture}
 \caption[Composición dinámica de páginas informativas]{Composición dinámica de páginas informativas mediante bloques reutilizables}
 \label{fig:cms_composicion_paginas}
 \end{figure}

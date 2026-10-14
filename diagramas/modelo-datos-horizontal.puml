@@ -1,0 +1,9 @@
+@startuml modelo-datos-horizontal
+' El mismo modelo de modelo-datos.puml, de izquierda a derecha, para una página apaisada del capítulo 4.
+!include modelo-datos.puml
+left to right direction
+skinparam defaultFontSize 13
+skinparam ArrowFontSize 12
+skinparam nodesep 30
+skinparam ranksep 55
+@enduml

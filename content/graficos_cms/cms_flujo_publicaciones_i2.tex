@@ -1,22 +1,18 @@
 \begin{figure}[H]
 \centering
-\resizebox{0.86\textwidth}{!}{%
-\begin{tikzpicture}[node distance=1.15cm]
-    \node[cmssystem, minimum width=3.35cm] (form) {Editor de\\publicación};
-    \node[cmscontainer, right=1.65cm of form, minimum width=3.35cm] (validation) {Validación de\\metadatos};
-    \node[cmsdocument, right=1.65cm of validation, minimum width=3.35cm] (markdown) {Publicación\\Markdown};
-    \draw[black] ([xshift=-0.32cm]markdown.north east) -- (markdown.north east) -- ([yshift=-0.32cm]markdown.north east);
-    \draw[black] ([xshift=-0.32cm]markdown.north east) -- ([yshift=-0.32cm]markdown.north east);
-    \node[cmscontainer, below=1.45cm of validation, minimum width=3.35cm] (preview) {Vista previa\\editorial};
-    \node[cmscontainer, below=1.45cm of markdown, minimum width=3.35cm] (blogsite) {Listado y detalle\\de publicaciones};
+\begin{tikzpicture}[ancho/.style={minimum width=3.3cm}]
+    \node[interfaz, ancho] (form) at (0,0) {Editor de\\publicación};
+    \node[servicio, ancho] (validation) at (5.3,0) {Validación de\\metadatos};
+    \node[documento, ancho] (markdown) at (10.6,0) {Publicación\\Markdown};
+    \node[interfaz, ancho] (preview) at (5.3,-2.9) {Vista previa\\editorial};
+    \node[interfaz, ancho] (blogsite) at (10.6,-2.9) {Listado y detalle\\de publicaciones};
 
-    \draw[cmsarrow] (form) -- node[above, font=\scriptsize, fill=white, inner sep=1pt] {envía datos} (validation);
-    \draw[cmsarrow] (validation) -- node[above, font=\scriptsize, fill=white, inner sep=1pt] {guarda} (markdown);
-    \draw[cmsarrow] (validation) -- node[right, font=\scriptsize, fill=white, inner sep=1pt] {renderiza} (preview);
-    \draw[cmsarrow] (markdown) -- node[right, font=\scriptsize, fill=white, inner sep=1pt] {al publicar} (blogsite);
-    \draw[cmsarrow] (preview.south) -- ++(0,-0.65cm) -| node[pos=0.25, below, font=\scriptsize, align=center, fill=white, inner sep=1pt] {revisión\\previa} (blogsite.south);
-\end{tikzpicture}%
-}
+    \draw[flecha] (form) -- node[etq, above=3pt] {envía\\datos} (validation);
+    \draw[flecha] (validation) -- node[etq, above=3pt] {guarda} (markdown);
+    \draw[flecha] (validation) -- node[etq, right=3pt] {renderiza} (preview);
+    \draw[flecha] (markdown) -- node[etq, right=3pt] {al publicar} (blogsite);
+    \draw[flecha] (preview) -- node[etq, above=3pt] {revisión\\previa} (blogsite);
+\end{tikzpicture}
 \caption[Flujo editorial de publicaciones]{Flujo editorial para crear, editar y previsualizar publicaciones informativas}
 \label{fig:cms_flujo_publicaciones}
 \end{figure}

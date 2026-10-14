@@ -1,24 +1,22 @@
 \begin{figure}[H]
 \centering
-\resizebox{\textwidth}{!}{%
-\begin{tikzpicture}[node distance=1.5cm and 1.8cm]
-    \node[cmsactor] (admin) {Administrador\\del sitio};
-    \node[cmssystem, right=of admin] (cms) {Panel CMS\\edición protegida};
-    \node[cmsstore, right=of cms] (store) {Almacén de\\contenido};
-    \node[cmscontainer, right=of store] (sync) {Sincronización\\de contenido};
-    \node[cmssystem, right=of sync] (sitio) {Sitio\\informativo};
-    \node[cmsactor, right=of sitio] (visitor) {Visitante\\del sitio};
+\begin{tikzpicture}[ancho/.style={minimum width=3.2cm}, actor/.append style=ancho, interfaz/.append style=ancho, servicio/.append style=ancho, documento/.append style=ancho]
+    \node[actor] (admin) at (-0.8,0) {Administrador\\del sitio};
+    \node[interfaz] (cms) at (5.2,0) {Panel CMS\\edición protegida};
+    \node[documento] (store) at (10.4,0) {Almacén de\\contenido};
+    \node[servicio] (sync) at (10.4,-3.6) {Sincronización\\de contenido};
+    \node[interfaz] (sitio) at (5.2,-3.6) {Sitio\\informativo};
+    \node[actor] (visitor) at (-0.8,-3.6) {Visitante\\del sitio};
 
-    \node[cmsboundary, fit=(cms)(store), label={[font=\small]above:Entorno administrativo}] {};
-    \node[cmsboundary, fit=(sync)(sitio), label={[font=\small]above:Sitio informativo}] {};
+    \node[limite, fit=(cms)(store), inner ysep=0.75cm, label={[limiterotulo, anchor=south west]north west:Entorno administrativo}] {};
+    \node[limite, fit=(sitio)(sync), inner ysep=0.75cm, label={[limiterotulo, anchor=north west]south west:Sitio informativo}] {};
 
-    \draw[cmsarrow] (admin) -- node[above, font=\scriptsize, align=center] {modifica\\contenido} (cms);
-    \draw[cmsarrow] (cms) -- node[above, font=\scriptsize, align=center] {guarda\\estructura} (store);
-    \draw[cmsarrow] (store) -- node[above, font=\scriptsize, align=center] {copia\\editable} (sync);
-    \draw[cmsarrow] (sync) -- node[above, font=\scriptsize, align=center] {actualiza\\datos} (sitio);
-    \draw[cmsarrow] (sitio) -- node[above, font=\scriptsize, align=center] {presenta\\información} (visitor);
-\end{tikzpicture}%
-}
+    \draw[flecha] (admin) -- node[etq, above=3pt] {modifica\\contenido} (cms);
+    \draw[flecha] (cms) -- node[etq, above=3pt] {guarda\\estructura} (store);
+    \draw[flecha] (store) -- node[etq, right=4pt] {copia\\editable} (sync);
+    \draw[flecha] (sync) -- node[etq, above=3pt] {actualiza\\datos} (sitio);
+    \draw[flecha] (sitio) -- node[etq, above=3pt] {presenta\\información} (visitor);
+\end{tikzpicture}
 \caption[Arquitectura de contenido editable]{Arquitectura de contenido editable del sitio informativo}
 \label{fig:cms_contenido_editable}
 \end{figure}
