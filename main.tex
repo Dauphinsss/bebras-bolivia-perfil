@@ -7,6 +7,7 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \captionsetup[figure]{justification=centering}
+\captionsetup[table]{position=below}
 \usepackage[style=apa, backend=biber, language=spanish]{biblatex}
 \addbibresource{referencias.bib}
 \usepackage{graphicx}
@@ -14,6 +15,7 @@
 \definecolor{purplet}{RGB}{126, 103, 166}
 \usepackage[hidelinks]{hyperref}
 \usepackage{tikz}
+\usepackage{rotating}
 \usetikzlibrary{arrows.meta,positioning,shapes.geometric,fit,calc}
 
 \usepackage{geometry}
@@ -44,6 +46,47 @@
 \definecolor{hulinea}{RGB}{203, 213, 225}
 \definecolor{hugris}{RGB}{88, 99, 112}
 \definecolor{huborde}{RGB}{148, 163, 184}
+% Diagramas TikZ: un color por rol, igual en todos los capítulos.
+\definecolor{dgtinta}{RGB}{33, 37, 41}
+\definecolor{dgrotulo}{RGB}{52, 58, 64}
+\definecolor{dgflecha}{RGB}{73, 80, 87}
+\definecolor{dgactor}{RGB}{196, 112, 32}
+\definecolor{dgactorf}{RGB}{253, 237, 217}
+\definecolor{dginterfaz}{RGB}{43, 103, 163}
+\definecolor{dginterfazf}{RGB}{221, 234, 247}
+\definecolor{dgservicio}{RGB}{33, 128, 98}
+\definecolor{dgserviciof}{RGB}{218, 241, 232}
+\definecolor{dgdatos}{RGB}{116, 86, 163}
+\definecolor{dgdatosf}{RGB}{236, 229, 246}
+\definecolor{dgexterno}{RGB}{108, 117, 125}
+\definecolor{dgexternof}{RGB}{237, 239, 242}
+\definecolor{dgespera}{RGB}{184, 134, 11}
+\definecolor{dgesperaf}{RGB}{255, 243, 205}
+\definecolor{dgalerta}{RGB}{185, 60, 72}
+\definecolor{dgalertaf}{RGB}{251, 226, 228}
+\tikzset{
+  dgbase/.style={execute at begin node={\hyphenpenalty=10000}, rectangle, rounded corners=5pt, line width=0.8pt, align=center, font=\small, text=dgtinta, inner sep=4pt, minimum height=1.1cm},
+  actor/.style={dgbase, draw=dgactor, fill=dgactorf},
+  interfaz/.style={dgbase, draw=dginterfaz, fill=dginterfazf},
+  servicio/.style={dgbase, draw=dgservicio, fill=dgserviciof},
+  externo/.style={dgbase, draw=dgexterno, fill=dgexternof},
+  datos/.style={dgbase, cylinder, shape border rotate=90, aspect=0.25, draw=dgdatos, fill=dgdatosf, minimum height=1.4cm},
+  documento/.style={dgbase, rounded corners=1pt, draw=dgdatos, fill=dgdatosf,
+    path picture={\fill[dgdatos!45] ([xshift=-8pt]path picture bounding box.north east) -- (path picture bounding box.north east) -- ([yshift=-8pt]path picture bounding box.north east) -- cycle;}},
+  bloque/.style={dgbase, rounded corners=3pt, draw=dgespera, fill=dgesperaf, minimum height=0.9cm},
+  limite/.style={rectangle, rounded corners=8pt, draw=dgexterno, dashed, line width=0.7pt, inner sep=0.35cm},
+  limiterotulo/.style={font=\footnotesize\bfseries, text=dgexterno},
+  estespera/.style={dgbase, rounded corners=8pt, draw=dgespera, fill=dgesperaf, minimum height=1cm},
+  estactivo/.style={dgbase, rounded corners=8pt, draw=dginterfaz, fill=dginterfazf, minimum height=1cm},
+  estalerta/.style={dgbase, rounded corners=8pt, draw=dgalerta, fill=dgalertaf, minimum height=1cm},
+  estfinal/.style={dgbase, rounded corners=8pt, draw=dgservicio, fill=dgserviciof, minimum height=1cm},
+  inicio/.style={circle, fill=dgtinta, minimum size=9pt, inner sep=0pt},
+  flecha/.style={-{Stealth[length=2.8mm, width=2mm]}, line width=0.8pt, draw=dgflecha},
+  flechaadm/.style={flecha, draw=dgactor},
+  flechaauto/.style={flecha, dashed},
+  etq/.style={font=\footnotesize, text=dgrotulo, align=center, fill=white, inner sep=1.5pt},
+}
+\newcommand{\estilotabla}{\small\renewcommand{\arraystretch}{1.3}\setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}\rowcolors{2}{white}{hufondo}}
 \usepackage[most]{tcolorbox}
 \extrafloats{100}
 \newcommand{\huetiqueta}[1]{{\footnotesize\bfseries\textcolor{huazul}{#1}}\par\vspace{2pt}}
@@ -199,6 +242,8 @@
 
 \clearpage
 \input{content/anexo_a_historias}
+\input{content/anexo_b_diagramas}
+\input{content/anexo_c_datos}
 
 
 \end{document}

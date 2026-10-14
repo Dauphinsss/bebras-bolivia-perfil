@@ -1,86 +1,18 @@
 \chapter{METODOLOGÍA Y MARCO TECNOLÓGICO}
 
-Este capítulo describe cómo se desarrolló el sistema y con qué herramientas. Primero analiza cuatro plataformas Bebras de otros países y lo que se tomó de cada una; luego precisa qué distingue a un sistema de gestión de concursos; después presenta la metodología, Extreme Programming, y por último las tecnologías elegidas y sus criterios.
-
-\section{ANÁLISIS COMPARATIVO DE PLATAFORMAS BEBRAS DE REFERENCIA}
-
-Para fundamentar las decisiones funcionales, de arquitectura y de interfaz, se analizaron cuatro implementaciones nacionales del Desafío Bebras al inicio del trabajo, antes de la primera iteración. Fue un análisis exploratorio, basado en sus sitios públicos y, cuando existía, en su código fuente, y buscó identificar sus módulos, su organización y su forma de interactuar con el usuario.
-
-Los casos se eligieron porque su código o su información técnica es pública, porque llevan varias ediciones en uso y porque cubren las dos necesidades de Bolivia: administrar la competencia y comunicar. El objetivo no fue replicar una plataforma, sino reunir las buenas prácticas que cada una aporta.
-
-\subsection{Plataforma de Francia --- Castor Informatique}
-
-\emph{Castor Informatique}, mantenida por France-IOI, es una de las referencias más consolidadas de Bebras; su código, en PHP, es público bajo licencia MIT \parencite{bebrasfrancia,franceioirepo}. Separa con claridad los módulos de la competencia, de los maestros y de las preguntas, y prepara de antemano el material de la prueba para entregarlo con rapidez. De ella se tomó la idea de separar las áreas pública, administrativa y de evaluación, y la de servir el contenido ya preparado.
-
-\subsection{Plataforma de Bélgica --- Rasbeb2}
-
-\emph{Rasbeb2}, la plataforma de Bélgica, está escrita en Java y disponible bajo licencia MIT \parencite{bebrasbelgica,rasbeb2repo}; está y organizada en módulos administrativos, de tareas interactivas y de documentación. Su principal aporte fue el diseño modular del flujo de la competencia, que separa inscripción, administración, rendición y evaluación. No se adoptó su tecnología, pero su organización guió la estructura funcional del sistema.
-
-\subsection{Plataforma de Perú --- Bebras Perú}
-
-La plataforma de Bebras Perú \parencite{bebrasperu} se centra en la comunicación institucional: presenta con claridad los niveles, los recursos, las orientaciones y la forma de inscribirse, pensando en maestros, unidades educativas y participantes. Su fortaleza es una organización de la información pensada para usuarios no técnicos, que sirvió de referencia para el sitio informativo.
-
-\subsection{Plataforma de Estados Unidos --- Bebras Computing Challenge}
-
-La plataforma de \textcite{bebraseeuu} combina la práctica libre con tareas de ediciones anteriores y un espacio de gestión para los responsables de cada institución. Su aporte fue el modelo de interacción con los ejercicios: cómo presenta el problema, cómo se navega entre tareas, cómo informa al usuario y cómo une la práctica con la evaluación. Sirvió de referencia para la experiencia del estudiante al resolver tareas.
-
-\subsection{Síntesis de aportes}
-
-Ninguna de las plataformas resuelve por sí sola todo lo que necesita Bebras Bolivia, pero cada una aporta fortalezas concretas. El sistema no replica a ninguna: reúne lo mejor de cada una, como resume la Tabla~\ref{tab:retro_bebras}.
-
-\begin{table}[htbp]
-\footnotesize
-\renewcommand{\arraystretch}{1.3}
-\setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}
-\rowcolors{2}{white}{hufondo}
-\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{3.1cm} >{\raggedright\arraybackslash}p{4.6cm} >{\raggedright\arraybackslash}X}
-\arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}
-\rowcolor{hufondo}\textbf{Plataforma} & \textbf{Elemento rescatado} & \textbf{Aplicación} \\
-\arrayrulecolor{hulinea}\midrule
-Castor Informatique & Separación entre la competencia, los maestros y el banco de preguntas; entrega eficiente del contenido & Base para dividir el sistema en módulos y para entregar las tareas ya preparadas \\
-Rasbeb2 & Organización modular del flujo de la competencia y soporte para tareas interactivas & Referencia para estructurar la inscripción, la rendición, la corrección y la administración en la plataforma del Desafío \\
-Bebras Perú & Información clara para maestros, unidades educativas y participantes & Base para diseñar el sitio informativo según el tipo de usuario \\
-Bebras Computing Challenge & Presentación de tareas, práctica previa y navegación entre ejercicios & Referencia para la experiencia del estudiante al resolver tareas y practicar \\
-\arrayrulecolor{hulinea}\bottomrule
-\end{tabularx}
-\arrayrulecolor{black}
-\caption[Elementos recuperados de plataformas Bebras de referencia]{Elementos recuperados de las plataformas Bebras de referencia y su aplicación en Bebras Bolivia}
-\label{tab:retro_bebras}
-\end{table}
-
-\section{SISTEMAS DE GESTIÓN DE CONCURSOS EN LÍNEA}
-
-Un sistema de gestión de concursos en línea administra el ciclo completo de una competencia: el registro de participantes e instituciones, la preparación de las pruebas, su rendición en sesiones con tiempo limitado, la corrección automática y la publicación de resultados. Las cuatro plataformas analizadas comparten tres funciones: la identificación de los participantes, el banco de preguntas y la corrección de las respuestas.
-
-Un sistema de gestión del aprendizaje (\textit{Learning Management System}, LMS) acompaña cursos en los que cada estudiante avanza a su ritmo. Una competencia como el Desafío, en cambio, reúne a muchos estudiantes en una misma ventana de tiempo, y de ahí salen tres requisitos de este sistema: atender muchas sesiones a la vez, controlar el tiempo de cada participante y no perder respuestas si se corta la conexión. El capítulo 4 muestra cómo los resuelve la arquitectura. La Figura~\ref{fig:cms_vs_lms} ilustra la diferencia.
-
-\begin{figure}[htbp]
-    \centering
-    \begin{minipage}[t]{0.48\textwidth}\centering
-        {\color{huazul}\textbf{Sistema de gestión de concursos}}\\[0.4em]
-        \includegraphics[width=\linewidth,height=3.6cm,keepaspectratio]{assets/ia/sistema-concursos-r.png}\\[0.2em]
-        {\small\color{hugris}Todos a la vez · Tiempo limitado\\Corrección inmediata}
-    \end{minipage}\hfill
-    \begin{minipage}[t]{0.48\textwidth}\centering
-        {\color{huazul}\textbf{Sistema de gestión del aprendizaje}}\\[0.4em]
-        \includegraphics[width=\linewidth,height=3.6cm,keepaspectratio]{assets/ia/sistema-aprendizaje-r.png}\\[0.2em]
-        {\small\color{hugris}Cada uno a su ritmo · Meses\\Seguimiento del progreso}
-    \end{minipage}
-    \caption[Sistema de gestión de concursos y sistema de gestión del aprendizaje]{Sistema de gestión de concursos frente a un sistema de gestión del aprendizaje}
-    \label{fig:cms_vs_lms}
-\end{figure}
+Este capítulo describe cómo se desarrolló el sistema y con qué herramientas: primero la metodología, Extreme Programming, y después las tecnologías elegidas y los criterios con que se eligieron.
 
 \section{METODOLOGÍA DE ANÁLISIS Y DISEÑO}
 
-El trabajo combinó revisión documental, análisis comparativo de plataformas y diseño de una arquitectura ajustada a los requisitos del proyecto. Primero se revisó la literatura sobre pensamiento computacional \parencite{wing2006,grover2013}, el modelo Bebras \parencite{dagienestupuriene2016,izumirolo2017} y el diseño de tareas \parencite{dagienefutschek2008}; luego se analizaron las plataformas nacionales descritas arriba. Con esa base se definieron los cuatro módulos del sistema (gestión de contenido, gestión de desafíos, registro y administración de participantes, y evaluación) y se eligieron las tecnologías.
+El trabajo combinó revisión documental, análisis comparativo de plataformas y diseño de una arquitectura ajustada a los requisitos del sistema. Primero se revisó la literatura sobre pensamiento computacional \parencite{wing2006,grover2013}, el modelo Bebras \parencite{dagienestupuriene2016,izumirolo2017} y el diseño de tareas \parencite{dagienefutschek2008}; luego se analizaron las plataformas nacionales descritas en el estado del arte (sección~\ref{sec:plataformas_referencia}). Con esa base se definieron los cuatro módulos del sistema (gestión de contenido, gestión de desafíos, registro y administración de participantes, y evaluación) y se eligieron las tecnologías.
 
 \subsection{Extreme Programming (XP)}
 
-El desarrollo siguió \textit{Extreme Programming} (XP), la metodología ágil que \textcite{beck2004} propuso para equipos pequeños que trabajan con requisitos cambiantes, con entregas frecuentes de software funcional y retroalimentación constante. Se ajusta a un proyecto de grado que avanza por incrementos y se revisa periódicamente con el supervisor.
+El desarrollo siguió \textit{Extreme Programming} (XP), la metodología ágil que \textcite{beck2004} propuso para equipos pequeños que trabajan con requisitos cambiantes, con entregas frecuentes de software funcional y retroalimentación constante. Se ajusta a un trabajo de grado que avanza por incrementos y se revisa periódicamente con el supervisor.
 
 Se eligió frente a otras alternativas. Scrum reparte tres responsabilidades (\textit{Product Owner}, \textit{Scrum Master} y desarrolladores) dentro de un equipo y organiza el trabajo con eventos que suponen ese equipo \parencite{schwaber2020}; aquí una sola persona desarrolla el sistema. Kanban gestiona un flujo continuo de trabajo sin iteraciones de duración fija \parencite{anderson2010}, mientras que el cronograma del trabajo está organizado en iteraciones de dos semanas, que es justamente como trabaja XP.
 
-XP se basa en cinco valores \parencite{beck2004}, que en este proyecto se tradujeron así: \textit{comunicación}, con el diálogo continuo con el supervisor; \textit{simplicidad}, con soluciones directas y mantenibles en lugar de diseños sobredimensionados; \textit{retroalimentación}, con la revisión de cada entrega como insumo de la siguiente iteración; \textit{valentía}, con la disposición a rehacer un componente cuando hacía falta; y \textit{respeto}, con el cuidado por entregar un sistema coherente y documentado.
+XP se basa en cinco valores \parencite{beck2004}, que en este desarrollo se tradujeron así: \textit{comunicación}, con el diálogo continuo con el supervisor; \textit{simplicidad}, con soluciones directas y mantenibles en lugar de diseños sobredimensionados; \textit{retroalimentación}, con la revisión de cada entrega como insumo de la siguiente iteración; \textit{valentía}, con la disposición a rehacer un componente cuando hacía falta; y \textit{respeto}, con el cuidado por entregar un sistema coherente y documentado.
 
 En XP, el cliente define qué se construye y acepta cada entrega. Ese papel lo compartieron el equipo organizador, que junto con el supervisor aportó los requisitos al inicio, y el supervisor, que al cierre de cada módulo revisó la versión funcional, formuló observaciones y, una vez corregidas, dio su conformidad, como establecen los términos de referencia del trabajo.
 
@@ -88,7 +20,22 @@ De las prácticas de XP se aplicaron el desarrollo iterativo con entregas peque�
 
 Siguiendo el principio de iteraciones cortas y de duración fija, cada módulo se desarrolló en dos iteraciones de dos semanas, entre el 8 de junio y el 25 de septiembre de 2026: gestión de contenido en las iteraciones 1 y 2, gestión de desafíos en las 3 y 4, participantes en las 5 y 6, y evaluación en las 7 y 8. Las reuniones de seguimiento con el supervisor fueron las que fija el cronograma: la revisión de requisitos y diseño (5 de junio) y una al cierre de cada módulo (3 de julio, 31 de julio, 28 de agosto y 25 de septiembre). Sus observaciones se incorporaron en el módulo siguiente; las del último módulo, durante la integración y la validación final. Las interfaces se diseñaron junto con el desarrollo, dentro de cada iteración, y se ajustaron con esas mismas revisiones.
 
-Los requisitos de cada módulo se expresaron como historias de usuario. Siguiendo a \textcite{cohn2004}, cada historia describe una funcionalidad que aporta valor a un usuario concreto, se redacta desde su punto de vista con la forma «como \ldots, quiero \ldots, para \ldots» y se acompaña de criterios de aceptación que permiten decidir cuándo está cumplida. Cada historia lleva además una prioridad y una estimación de esfuerzo, que sirven para repartirlas entre las iteraciones. La prioridad tiene dos niveles: 1, imprescindible para que el módulo cumpla su objetivo, y 2, una mejora importante sin la cual el módulo igual funciona. El esfuerzo se mide en puntos de historia, una unidad relativa y no en horas: una historia de 8 puntos cuesta cerca del doble que una de 5. Se usan los valores 3, 5, 8 y 13, de la serie de Fibonacci, porque cuanto más grande es una historia menos precisa es su estimación \parencite{cohn2004}. Los puntos se estimaron al planificar cada iteración y se reajustaron al terminarla, de acuerdo con lo que realmente costó implementar cada historia. Para no perder la visión de conjunto, las historias se agruparon en épicas que siguen las actividades de cada usuario, según el mapeo de historias de \textcite{patton2014}; ese mapa permitió decidir qué parte de cada actividad debía entregarse primero y cuál podía esperar. Las historias de cada módulo, con su prioridad, su esfuerzo y su iteración, están en los capítulos 5 a 8, y todas las tarjetas, con sus criterios de aceptación, en el Anexo A. Las historias forman una sola lista numerada, de HU-1 a HU-90, en el orden en que aparecen en el documento.
+\subsection{Historias de usuario}
+
+Los requisitos de cada módulo se expresaron como historias de usuario. Siguiendo a \textcite{cohn2004}, cada historia describe una funcionalidad que aporta valor a un usuario concreto, se redacta desde su punto de vista con la forma «como \ldots, quiero \ldots, para \ldots» y se acompaña de criterios de aceptación que permiten decidir cuándo está cumplida. Las historias se elaboraron en seis pasos:
+
+\begin{enumerate}
+\item \textbf{Identificar al usuario y su necesidad.} Se parte de los cuatro usuarios de la plataforma: visitante, administrador, maestro y estudiante. Cada historia responde a una sola necesidad de un solo usuario; si una necesidad es grande, se divide en varias historias.
+\item \textbf{Agrupar por actividad.} Las necesidades se ordenan según lo que hace cada usuario, de principio a fin, siguiendo el mapeo de historias de \textcite{patton2014}. Ese orden permite decidir qué entregar primero y qué puede esperar.
+\item \textbf{Redactar la descripción.} Con la forma «Como \ldots, quiero \ldots, para \ldots»: quién es el usuario, qué necesita y para qué. El título es corto, empieza con un verbo y no habla en primera persona.
+\item \textbf{Escribir los criterios de aceptación.} Son frases impersonales («Se registra\ldots», «Es posible\ldots», «El sistema\ldots») que se pueden comprobar con el sistema funcionando. La historia está cumplida cuando se cumplen todos.
+\item \textbf{Asignar prioridad y esfuerzo.} La prioridad tiene dos niveles: 1, imprescindible para que el módulo cumpla su objetivo, y 2, una mejora importante sin la cual el módulo igual funciona. El esfuerzo se mide en puntos de historia, una unidad relativa y no en horas: una historia de 8 puntos cuesta cerca del doble que una de 5. Se usan los valores 3, 5, 8 y 13, de la serie de Fibonacci, porque cuanto más grande es una historia menos precisa es su estimación \parencite{cohn2004}.
+\item \textbf{Numerar y repartir en iteraciones.} Las historias forman una sola lista, de HU-1 a HU-91, en el orden en que aparecen en el documento. Los puntos se estimaron al planificar cada iteración y se reajustaron al terminarla, de acuerdo con lo que realmente costó implementar cada historia.
+\end{enumerate}
+
+Cada historia se presenta en una tarjeta con su número y título, el usuario que la necesita, su prioridad, su esfuerzo en puntos y su versión, la descripción y los criterios de aceptación. Las historias de todo el sistema forman la lista de historias del producto, que en el vocabulario de Scrum \parencite{schwaber2020} sería el \textit{product backlog}; las de cada iteración forman la lista de la iteración, el \textit{sprint backlog}. La Tabla~\ref{tab:backlog_iteraciones} resume cómo se reparten por iteración. Los capítulos 5 a 9 listan las historias de cada módulo, con su prioridad, su esfuerzo y su versión, y las de cada iteración; todas las tarjetas, con sus criterios, están en el Anexo A.
+
+\input{content/tablas/backlog_iteraciones.tex}
 
 \section{MARCO TECNOLÓGICO}
 
@@ -137,10 +84,7 @@ Playwright automatiza navegadores reales para probar una aplicación de extremo 
 Además de su función, las tecnologías se eligieron por su sostenibilidad, su consumo de recursos, su capacidad de escalar y la experiencia previa del autor. Se prefirieron herramientas consolidadas, mantenidas activamente y adecuadas para una infraestructura modesta. La Tabla~\ref{tab:criterios_tecnologias} resume estos criterios.
 
 \begin{table}[htbp]
-\footnotesize
-\renewcommand{\arraystretch}{1.3}
-\setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}
-\rowcolors{2}{white}{hufondo}
+\estilotabla
 \begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{2.8cm} >{\raggedright\arraybackslash}p{3.6cm} >{\raggedright\arraybackslash}X}
 \arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}
 \rowcolor{hufondo}\textbf{Tecnología} & \textbf{Criterio principal} & \textbf{Justificación} \\
@@ -148,7 +92,7 @@ Además de su función, las tecnologías se eligieron por su sostenibilidad, su 
 TypeScript & Prevención de errores & Un solo lenguaje con tipos en el navegador y el servidor permite compartir reglas y detectar errores antes de ejecutar. \\
 Astro & Eficiencia en el frontend & Enviar poco JavaScript reduce los tiempos de carga en conexiones lentas, frecuentes en el contexto boliviano. \\
 React & Interfaces interactivas & Los editores y la rendición necesitan componentes que reaccionen al instante a lo que hace el usuario. \\
-Bun & Rendimiento y entorno unificado & Un solo entorno para ejecutar e instalar reduce la configuración en un proyecto mantenido por una sola persona. \\
+Bun & Rendimiento y entorno unificado & Un solo entorno para ejecutar e instalar reduce la configuración en un sistema mantenido por una sola persona. \\
 Express & Estabilidad y curva de aprendizaje baja & La experiencia previa del autor con Express reduce el riesgo técnico en flujos críticos como la rendición. \\
 Prisma ORM & Mantenibilidad del modelo de datos & El modelo cambió durante el desarrollo; las migraciones tipadas evitan inconsistencias entre el código y la base. \\
 Cloudflare Workers, D1 y R2 & Escala y despliegue sin servidor & Muchos estudiantes rinden a la misma hora; el entorno escala con la demanda, como verificó la prueba de estrés del capítulo 9, y el despliegue sale del repositorio, sin un servidor que mantener. \\
@@ -158,6 +102,6 @@ Playwright & Pruebas realistas & Prueba el sistema en navegadores reales, como l
 \arrayrulecolor{hulinea}\bottomrule
 \end{tabularx}
 \arrayrulecolor{black}
-\caption[Criterios de selección de tecnologías]{Criterios que fundamentan la selección de las tecnologías del proyecto}
+\caption[Criterios de selección de tecnologías]{Criterios que fundamentan la selección de las tecnologías del sistema}
 \label{tab:criterios_tecnologias}
 \end{table}

@@ -4,26 +4,28 @@ Este capítulo explica qué es el sistema y cómo funciona, lo muestra con diagr
 
 Los diagramas siguen el modelo C4 \parencite{brownc4}, que describe un sistema en niveles de detalle creciente: contexto, contenedores, componentes y código. Se eligió porque lo entiende tanto un lector técnico como uno que no lo es, y porque cada nivel responde una sola pregunta. Aquí se usan los dos primeros; los componentes de cada módulo se describen en su propio capítulo.
 
-\section{QUÉ ES Y CÓMO FUNCIONA EL SISTEMA}
+\section{DESCRIPCIÓN GENERAL DEL SISTEMA}
 
 El Sistema Bebras Bolivia es un sistema web que acompaña el Desafío Bebras en el país, desde que se anuncia hasta que cada estudiante consulta su certificado. Tiene dos partes que trabajan por separado: el sitio informativo, con el gestor de contenido que lo mantiene, y la plataforma donde se rinde el Desafío.
 
 El sitio informativo es la cara pública del Desafío: explica qué es, quiénes pueden participar y cómo inscribirse, publica las noticias y, al final, muestra los certificados. Su contenido no está escrito en el código. El administrador lo edita en el gestor de contenido (CMS), donde arma cada página con bloques ya diseñados; al guardar, el CMS genera de nuevo el sitio y lo publica.
 
-La plataforma del Desafío es donde ocurre la competencia. El administrador arma un banco de tareas y, con él, cada desafío: elige sus categorías de edad, las preguntas de cada una, las fechas y el puntaje. Los maestros se registran con su unidad educativa y, una vez aprobados, crean grupos e inscriben a sus estudiantes, que reciben un código personal. En la fecha de la prueba, cada estudiante entra con su código y resuelve las preguntas de su categoría; sus respuestas se guardan y se corrigen al instante. Al cerrar la rendición, el sistema calcula los puntajes y el ranking de cada categoría y los publica en la fecha fijada.
+La plataforma del Desafío es donde ocurre la competencia. El administrador arma un banco de tareas y, con él, cada desafío: elige sus categorías de edad, las preguntas de cada una, las fechas y el puntaje. Los maestros se registran con su unidad educativa y, una vez aprobados, crean grupos e inscriben a sus estudiantes, que reciben un código personal. En la fecha de la prueba, cada estudiante entra con su código y resuelve las preguntas de su categoría; sus respuestas se guardan y se corrigen al instante, y su puntaje queda listo al entregar. En la fecha de resultados, o al cerrar la rendición si no hay otra, el sistema arma el ranking de cada categoría y publica los resultados. En las aulas sin conectividad, el maestro imprime la prueba y después carga las hojas de respuestas, que se corrigen igual.
 
 Las dos partes se conectan al final del ciclo: el CMS trae de la plataforma los resultados publicados y genera los certificados, que siguen disponibles en el sitio aunque la plataforma ya no esté en línea.
 
 \section{CONTEXTO DEL SISTEMA}
 
-El diagrama de contexto muestra el sistema como un todo, quiénes lo usan y de qué servicio externo depende.
+La Figura~\ref{fig:c4_contexto_plataforma_bebras} es el primer nivel del modelo C4: muestra el sistema como un todo, quiénes lo usan y de qué servicio externo depende. Se lee de arriba abajo. Arriba están los tres tipos de usuario, en el centro el sistema y abajo el servicio externo, en gris. Cada flecha va de quien inicia la comunicación hacia quien la recibe, y su rótulo dice para qué.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.95\textwidth]{diagramas/c1-contexto.png}
+\includegraphics[width=0.8\textwidth]{diagramas/c1-contexto.png}
 \caption[Contexto del Sistema Bebras Bolivia]{Diagrama de contexto del Sistema Bebras Bolivia}
 \label{fig:c4_contexto_plataforma_bebras}
 \end{figure}
+
+La Figura~\ref{fig:anexo_c1} del Anexo~B reproduce este diagrama a página completa.
 
 Tres tipos de usuario lo usan. El \textbf{administrador u organizador} edita el sitio, prepara las tareas y los desafíos, aprueba a los maestros y publica los resultados; es el único que entra al CMS, con una cuenta propia del CMS. El \textbf{maestro} se registra con su unidad educativa, inscribe a sus estudiantes y sigue sus resultados. El \textbf{estudiante} no tiene cuenta: practica libremente, rinde con el código personal que le entrega su maestro y consulta su certificado con ese mismo código.
 
@@ -31,14 +33,16 @@ El único servicio externo es Firebase Authentication \parencite{firebaseauth}. 
 
 \section{CONTENEDORES}
 
-El diagrama de contenedores abre el sistema y muestra sus partes, con qué tecnología está hecha cada una y cómo se comunican.
+La Figura~\ref{fig:c4_contenedores_plataforma_bebras} es el segundo nivel del modelo C4: abre el sistema y muestra sus partes, con qué tecnología está hecha cada una y cómo se comunican. Los rectángulos son aplicaciones, los cilindros son almacenes de datos y las líneas punteadas agrupan las partes que corren en el mismo lugar: la plataforma del Desafío, a la izquierda, y la gestión de contenido, a la derecha. Los usuarios están arriba, cada flecha indica qué hace cada uno con cada parte, y Firebase Authentication, en gris, queda fuera del sistema.
 
-\begin{figure}[htbp]
+\begin{sidewaysfigure}
 \centering
-\includegraphics[width=\textwidth]{diagramas/c2-contenedores.png}
+\includegraphics[width=\textheight,height=0.92\textwidth,keepaspectratio]{diagramas/c2-contenedores.png}
 \caption[Contenedores del Sistema Bebras Bolivia]{Diagrama de contenedores del Sistema Bebras Bolivia}
 \label{fig:c4_contenedores_plataforma_bebras}
-\end{figure}
+\end{sidewaysfigure}
+
+La Figura~\ref{fig:anexo_c2} del Anexo~B reproduce este diagrama a página completa.
 
 Los contenedores del límite «Gestión de contenido» forman el módulo del capítulo 5: el CMS, su base de datos, el Content Store y el sitio informativo. Los del límite «Plataforma del Desafío» sostienen los módulos de desafíos, participantes y evaluación, de los capítulos 6 a 8. La única conexión entre ambos es la que trae los certificados, descrita en el capítulo 9.
 
@@ -46,13 +50,10 @@ La gestión de contenido corre en un servidor de la universidad y se publica con
 
 \section{DECISIONES DE ARQUITECTURA}
 
-El capítulo 3 planteó los requisitos que condicionan un sistema de desafíos en línea: muchas sesiones a la vez, control del tiempo de cada estudiante y respuestas que no se pierden si se corta la conexión. A ellos se suma el cuidado de los datos de menores de edad. La Tabla \ref{tab:decisiones} resume cómo responde la arquitectura.
+El capítulo 3 planteó los requisitos que condicionan un sistema de desafíos en línea: muchas sesiones a la vez, control del tiempo de cada estudiante y respuestas que no se pierden en silencio si se corta la conexión. A ellos se suma el cuidado de los datos de menores de edad. La Tabla \ref{tab:decisiones} resume cómo responde la arquitectura.
 
 \begin{table}[htbp]
-\footnotesize
-\renewcommand{\arraystretch}{1.3}
-\setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}
-\rowcolors{2}{white}{hufondo}
+\estilotabla
 \begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{4.3cm} >{\raggedright\arraybackslash}X}
 \arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}
 \rowcolor{hufondo}\textbf{Decisión} & \textbf{Razón} \\
@@ -60,11 +61,11 @@ El capítulo 3 planteó los requisitos que condicionan un sistema de desafíos e
 Dos partes separadas & El sitio y los certificados siguen en línea cuando la plataforma se apaga entre una edición y otra, y una falla en una parte no afecta a la otra. \\
 Sitio estático generado por el CMS & Carga rápido, no depende de una base de datos para mostrarse y lo mantiene un administrador que no programa. \\
 Estudiante sin cuenta & Son menores de edad: no se les pide correo ni contraseña. Entran con un código y su maestro responde por su inscripción. \\
-Cuentas en un servicio externo & La verificación del correo, la recuperación de la contraseña y el ingreso con Google no se programan, y el sistema no guarda contraseñas. \\
-Cada respuesta se guarda y se corrige al enviarla & Si se corta la conexión, el estudiante no pierde lo respondido; cerrar un desafío y armar el ranking cuesta lo mismo con diez estudiantes que con miles. \\
+Cuentas en un servicio externo & La verificación del correo, la recuperación de la contraseña y el ingreso con Google no se programan, y la plataforma no guarda contraseñas; el CMS, con cuentas propias, las guarda cifradas con Argon2id. \\
+Cada respuesta se guarda y se corrige al enviarla & Lo que llega al servidor queda guardado; si un envío falla, la pantalla avisa y lo reintenta. Cerrar un desafío y armar el ranking son unas pocas consultas SQL, sin importar cuántos estudiantes participen. \\
 El servidor lleva el tiempo & El plazo de cada intento se calcula en el servidor, así que cambiar la hora del dispositivo no da más minutos. \\
 Certificados cifrados & Cada archivo se cifra con el código personal del estudiante: sin ese código no se sabe de quién es ni se puede leer. \\
-Plataforma en Cloudflare & Despliegue automático desde el repositorio, sin un servidor que mantener, y capacidad para los picos de la hora de inicio. \\
+Plataforma en Cloudflare & Despliegue automático desde el repositorio y sin un servidor que mantener; la capacidad se ajusta a la demanda. \\
 \arrayrulecolor{hulinea}\bottomrule
 \end{tabularx}
 \arrayrulecolor{black}
@@ -72,15 +73,66 @@ Plataforma en Cloudflare & Despliegue automático desde el repositorio, sin un s
 \label{tab:decisiones}
 \end{table}
 
-La última decisión se tomó durante el desarrollo. La plataforma se diseñó al inicio con MariaDB, Apache y Docker en un servidor propio y se trasladó a Cloudflare para no depender de mantener ese servidor. La prueba de estrés del capítulo 9 (Tabla \ref{tab:estres}) respalda la elección: 1600 estudiantes empezando a la vez, sin ninguna petición fallida y con todos los puntajes correctos.
+La última decisión se tomó durante el desarrollo. La plataforma se diseñó al inicio con MariaDB, Apache y Docker en un servidor propio y se trasladó a Cloudflare para no depender de mantener ese servidor. La prueba de estrés del capítulo 9 (Tabla \ref{tab:estres}), hecha en el entorno local con 1600 estudiantes simulados y hasta 64 peticiones simultáneas, terminó sin ninguna petición fallida y con todos los puntajes correctos. La capacidad del entorno de Cloudflare requiere su propia medición.
 
 \section{MODELO DE DATOS}
+\label{sec:modelo_datos}
 
-La plataforma del Desafío guarda sus datos en once entidades principales. Un desafío tiene preguntas, que son tareas del banco ubicadas en una categoría, y grupos; cada grupo inscribe participantes; cada participante rinde un intento, que reúne sus respuestas y termina en un resultado. El diagrama usa nombres en español; en la base de datos, como en el resto del código, las tablas y columnas llevan su nombre en inglés. El CMS no comparte esta base: guarda el contenido del sitio en archivos JSON y Markdown, y en SQLite sus usuarios, los respaldos, las publicaciones programadas y los certificados.
+El sistema guarda sus datos en cuatro almacenes. La plataforma del Desafío usa una base D1 (SQLite en Cloudflare) y un almacén de archivos en R2. El CMS usa otra base SQLite para su operación y una carpeta de archivos para el contenido del sitio. Las dos bases no se comparten, así que el sitio y los certificados siguen en línea aunque la plataforma se apague. Los diagramas usan nombres en español; en las bases, como en el resto del código, las tablas y columnas llevan su nombre en inglés. Las relaciones usan la notación de pata de gallo; PK, FK y UQ indican la clave primaria, la clave foránea y el valor único, y los puntos señalan los campos obligatorios.
+
+\subsection{Base de datos de la plataforma del Desafío}
+
+La plataforma del Desafío guarda sus datos en once entidades principales. Un desafío tiene preguntas, que son tareas del banco ubicadas en una categoría, y grupos; cada grupo inscribe participantes; cada participante rinde un intento, que reúne sus respuestas y termina en un resultado. La Figura~\ref{fig:modelo_datos} muestra el modelo con sus atributos principales; los campos JSON se guardan como texto. La línea punteada entre el usuario y el colegio es una referencia lógica: el usuario guarda el código del colegio, pero la base no lo exige como clave foránea. Además de los campos únicos marcados en el diagrama, tres restricciones combinan varios campos: una tarea no se repite en la misma categoría de un desafío, dos preguntas de una misma categoría no comparten posición y un intento tiene una sola respuesta por tarea.
+
+\begin{sidewaysfigure}
+\centering
+\includegraphics[width=\textheight,height=0.92\textwidth,keepaspectratio]{diagramas/modelo-datos-horizontal.png}
+\caption[Modelo entidad-relación de la plataforma del Desafío]{Modelo entidad-relación de la plataforma del Desafío}
+\label{fig:modelo_datos}
+\end{sidewaysfigure}
+
+La Figura~\ref{fig:anexo_modelo_datos} del Anexo~C reproduce este diagrama a página completa.
+
+\subsectionsinbarrera{Archivos de la plataforma del Desafío}
+
+La plataforma guarda en R2 solo los documentos que suben los maestros: la carta de autorización de cada colegio o, si enseñan en casa, su carnet por ambos lados. Cada documento es un objeto con una clave aleatoria, un identificador único más la extensión, y la base D1 guarda únicamente esa clave en el usuario o en el colegio adicional que lo subió (Figura~\ref{fig:archivos_r2}). Como el archivo y la base son almacenes distintos, esa relación es lógica y no una clave foránea. Por eso el servidor borra el archivo nuevo si algo falla antes de registrarlo, y borra el anterior cuando un documento se reemplaza o se quita el colegio.
+
+Se aceptan PDF, JPG y PNG de hasta 5 MB, y el servidor comprueba que el contenido corresponda a la extensión. Los documentos son privados: solo los descarga su dueño, desde su cuenta, o el administrador que revisa la solicitud.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[height=0.82\textheight]{diagramas/modelo-datos.png}
-\caption[Modelo entidad-relación de la plataforma del Desafío]{Modelo entidad-relación de la plataforma del Desafío. PK: clave primaria; FK: clave foránea; UQ: valor único. Las líneas punteadas son referencias sin clave foránea.}
-\label{fig:modelo_datos}
+\includegraphics[width=0.55\textwidth]{diagramas/archivos-r2.png}
+\caption[Documentos de los maestros en R2]{Documentos de los maestros en R2 y su referencia desde la base D1}
+\label{fig:archivos_r2}
 \end{figure}
+
+La Figura~\ref{fig:anexo_archivos_r2} del Anexo~C reproduce este diagrama a página completa.
+
+\subsectionsinbarrera{Base de datos del CMS}
+
+La base SQLite del CMS tiene ocho tablas (Figura~\ref{fig:modelo_datos_cms}). Cinco tablas forman dos grupos relacionados. En el primero, cada publicación queda en el historial con la referencia al respaldo que se toma justo antes de publicar, y cada publicación programada guarda el registro que produjo al ejecutarse. En el segundo, cada certificado pertenece a un concurso; como ese concurso vive en la base del Desafío, la relación con ella es lógica y no una clave foránea.
+
+Las otras tres tablas no se relacionan con ninguna, y es a propósito. La de usuarios guarda a los administradores del CMS, con la contraseña en forma de hash; el autor de cada respaldo o publicación programada se guarda como texto, con el nombre del usuario o «Sistema», así que el historial no depende de que la cuenta siga existiendo. La de configuración guarda parámetros sueltos de clave y valor: la dirección desde la que se traen los certificados y la fecha de la última sincronización. La de certificados manuales guarda los que se emiten a mano, sin concurso; al estar aparte, la sincronización, que borra y vuelve a cargar los certificados de cada concurso, nunca los toca. Aun así, los manuales y los sincronizados se reúnen al escribir el archivo cifrado de cada estudiante.
+
+El contenido de las páginas y las noticias no está en esta base, sino en los archivos del Content Store, que se describen a continuación.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{diagramas/modelo-datos-cms.png}
+\caption[Modelo de datos de la base SQLite del CMS]{Modelo de datos de la base SQLite del CMS}
+\label{fig:modelo_datos_cms}
+\end{figure}
+
+La Figura~\ref{fig:anexo_modelo_cms} del Anexo~C reproduce este diagrama a página completa.
+
+\subsectionsinbarrera{Content Store del CMS}
+
+El Content Store no es una base de datos, sino una carpeta de archivos (Figura~\ref{fig:content_store}). Guarda el contenido editable en \texttt{current/}, los respaldos en \texttt{snapshots/}, las versiones ya publicadas en \texttt{published/} y las imágenes en \texttt{media/}. Cada respaldo y cada publicación es una copia completa de las páginas y las noticias; el respaldo lleva además un archivo \texttt{meta.json} con su descripción y su autor. Aparte, el listado de colegios (\texttt{schools.ndjson.gz}) es un archivo comprimido con un registro por línea; el CMS lo usa para dar el nombre del colegio en los certificados manuales.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{diagramas/content-store.png}
+\caption[Estructura de carpetas del Content Store]{Estructura de carpetas del Content Store}
+\label{fig:content_store}
+\end{figure}
+
