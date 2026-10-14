@@ -1,4 +1,3 @@
-import glob
 import io
 import os
 import re
@@ -17,7 +16,6 @@ GRUPOS = {
     "Módulo de evaluación": ("hus_cap8", "Historias de usuario del módulo de evaluación", "tab:historias_evaluacion", False),
     "Integración entre el CMS y el Desafío": ("hus_integracion", "Historias de usuario de la integración entre el CMS y el Desafío", "tab:historias_integracion", True),
 }
-TARJETAS = [4, 16, 20, 33, 50, 66, 70, 74]
 
 grupos = []
 for block in re.split(r"^## ", md, flags=re.M)[1:]:
@@ -76,11 +74,6 @@ def table(hus, caption, label, version):
     total = sum(int(h["esf"]) for h in hus)
     return "\n".join([
         rf"\begin{{longtable}}{{{cols}}}",
-        rf"\caption{{{caption}}}\label{{{label}}}\\",
-        r"\arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}",
-        r"\rowcolor{hufondo}" + head,
-        r"\arrayrulecolor{hulinea}\midrule",
-        r"\endfirsthead",
         r"\arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}",
         r"\rowcolor{hufondo}" + head,
         r"\arrayrulecolor{hulinea}\midrule",
@@ -89,23 +82,88 @@ def table(hus, caption, label, version):
         r"\arrayrulecolor{hulinea}\midrule",
         rf"\multicolumn{{4}}{{r}}{{\textbf{{Total de puntos}}}} & \textbf{{{total}}}" + fin,
         r"\arrayrulecolor{hulinea}\bottomrule",
+        rf"\rowcolor{{white}}\caption{{{caption}}}\label{{{label}}}\\",
         r"\end{longtable}",
         r"\arrayrulecolor{black}",
     ]) + "\n"
 
 
-for f in glob.glob(T + "tarjeta_*.tex"):
-    os.remove(f)
+ITERACIONES = {1: (1, 6), 2: (7, 17), 3: (18, 30), 4: (31, 45), 5: (46, 59), 6: (60, 66), 7: (67, 73), 8: (74, 81)}
+MODULO_DE = {1: "Gestión de contenido", 2: "Gestión de contenido", 3: "Gestión de desafíos", 4: "Gestión de desafíos",
+             5: "Participantes", 6: "Participantes", 7: "Evaluación", 8: "Evaluación"}
+ULTIMA = ITERACIONES[8][1]
+assert ITERACIONES[1][0] == 1 and all(ITERACIONES[k][1] + 1 == ITERACIONES[k + 1][0] for k in range(1, 8))
+assert ULTIMA < len(todas)
+
+
+def tabla_iteracion(n, hus):
+    total = sum(int(h["esf"]) for h in hus)
+    rows = [rf"{h['id']} & {tex(h['title'])} & {user(h['role'])} & {h['prio']} & {h['esf']} \\" for h in hus]
+    return "\n".join([
+        r"\begin{table}[H]",
+        r"\estilotabla",
+        r"\begin{tabularx}{\linewidth}{l >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{2.8cm} c c}",
+        r"\arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}",
+        r"\rowcolor{hufondo}\textbf{ID} & \textbf{Historia} & \textbf{Usuario} & \textbf{Prioridad} & \textbf{Esfuerzo} \\",
+        r"\arrayrulecolor{hulinea}\midrule",
+        *rows,
+        r"\arrayrulecolor{hulinea}\midrule",
+        rf"\rowcolor{{white}}\multicolumn{{4}}{{r}}{{\textbf{{Total de puntos}}}} & \textbf{{{total}}} \\",
+        r"\arrayrulecolor{hulinea}\bottomrule",
+        r"\end{tabularx}",
+        r"\arrayrulecolor{black}",
+        rf"\caption[Historias de la Iteración {n}]{{Historias de la Iteración {n}}}",
+        rf"\label{{tab:hus_iteracion_{n}}}",
+        r"\end{table}",
+    ]) + "\n"
+
+
+def resumen(hus):
+    return len(hus), sum(int(h["esf"]) for h in hus), sum(h["prio"] == "1" for h in hus), sum(h["prio"] == "2" for h in hus)
+
+
+def tabla_distribucion():
+    filas, total = [], [0, 0, 0, 0]
+    entradas = [(f"Iteración {k}", MODULO_DE[k], [hus_por_n[i] for i in range(a, b + 1)]) for k, (a, b) in ITERACIONES.items()]
+    entradas.append(("Integración", "Papel y CMS--Desafío", [hus_por_n[i] for i in range(ULTIMA + 1, len(todas) + 1)]))
+    for nombre, modulo, hus in entradas:
+        valores = resumen(hus)
+        total = [t + v for t, v in zip(total, valores)]
+        filas.append(rf"{nombre} & {modulo} & " + " & ".join(str(v) for v in valores) + r" \\")
+    return "\n".join([
+        r"\begin{table}[H]",
+        r"\estilotabla",
+        r"\begin{tabularx}{\linewidth}{l >{\raggedright\arraybackslash}X c c c c}",
+        r"\arrayrulecolor{huazul}\specialrule{1.4pt}{0pt}{0pt}",
+        r"\rowcolor{hufondo}\textbf{Iteración} & \textbf{Módulo} & \textbf{Historias} & \textbf{Puntos} & \textbf{Prioridad 1} & \textbf{Prioridad 2} \\",
+        r"\arrayrulecolor{hulinea}\midrule",
+        *filas,
+        r"\arrayrulecolor{hulinea}\midrule",
+        r"\rowcolor{white}\textbf{Total} & & " + " & ".join(rf"\textbf{{{v}}}" for v in total) + r" \\",
+        r"\arrayrulecolor{hulinea}\bottomrule",
+        r"\end{tabularx}",
+        r"\arrayrulecolor{black}",
+        r"\caption[Resumen de historias por iteración]{Resumen de historias, puntos y prioridades por iteración}",
+        r"\label{tab:backlog_iteraciones}",
+        r"\end{table}",
+    ]) + "\n", total
+
+
 for nombre, hus in grupos:
     archivo, caption, label, version = GRUPOS[nombre]
     io.open(T + archivo + ".tex", "w", encoding="utf-8").write(table(hus, caption, label, version))
     print(f"{nombre}: {hus[0]['id']} a {hus[-1]['id']}, {sum(int(h['esf']) for h in hus)} puntos")
-for n in TARJETAS:
-    io.open(T + f"tarjeta_hu_{n}.tex", "w", encoding="utf-8").write(card(hus_por_n[n]) + "\n")
+for k, (a, b) in ITERACIONES.items():
+    hus = [hus_por_n[i] for i in range(a, b + 1)]
+    io.open(T + f"hus_iter_{k}.tex", "w", encoding="utf-8").write(tabla_iteracion(k, hus))
+    print(f"Iteración {k}: HU-{a} a HU-{b}, {len(hus)} historias, {sum(int(h['esf']) for h in hus)} puntos")
+distribucion, total = tabla_distribucion()
+io.open(T + "backlog_iteraciones.tex", "w", encoding="utf-8").write(distribucion)
+print("Distribución: historias, puntos, prioridad 1, prioridad 2 =", total)
 
 TITULO = "ANEXO A. HISTORIAS DE USUARIO"
 anexo = [rf"\chapter*{{{TITULO}}}", rf"\addcontentsline{{toc}}{{chapter}}{{{TITULO}}}", "",
-         "Tarjetas completas de las historias de usuario de la plataforma, con sus criterios de aceptación. Están numeradas en el orden en que aparecen en el documento.", "",
+         io.open(DOC + "scripts/anexo_a_intro.tex", encoding="utf-8").read(),
          r"\tcbset{hucolocacion/.style={nofloat, before skip=10pt, after skip=10pt}}", ""]
 for nombre, hus in grupos:
     anexo += [rf"\section*{{{nombre}}}", rf"\addcontentsline{{toc}}{{section}}{{{nombre}}}", ""]

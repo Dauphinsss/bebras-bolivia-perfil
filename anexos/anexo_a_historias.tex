@@ -1,7 +1,8 @@
 \chapter*{ANEXO A. HISTORIAS DE USUARIO}
 \addcontentsline{toc}{chapter}{ANEXO A. HISTORIAS DE USUARIO}
 
-Tarjetas completas de las historias de usuario de la plataforma, con sus criterios de aceptación. Están numeradas en el orden en que aparecen en el documento.
+Este anexo reúne las 91 historias de usuario de la plataforma, con sus criterios de aceptación. En los capítulos 5 a 9 solo se nombran. Cómo se elaboraron, y qué significan la prioridad, el esfuerzo y la versión, se explica en el capítulo 3, sección «Historias de usuario».
+
 
 \tcbset{hucolocacion/.style={nofloat, before skip=10pt, after skip=10pt}}
 
@@ -20,7 +21,7 @@ Tarjetas completas de las historias de usuario de la plataforma, con sus criteri
 \begin{historia}[2]{HU-2}{Entrar al panel de administración}{Administrador}{1}{5}{\textbf{Como} administrador, \textbf{quiero} entrar al panel del CMS con mi correo y mi contraseña, que es el único acceso para modificar el contenido del sitio, \textbf{para} que nadie más pueda cambiarlo.}
 \hucriterio{El acceso se realiza con correo y contraseña, y la contraseña se puede mostrar mientras se escribe.}
 \hucriterio{Ante credenciales incorrectas, el sistema muestra un mensaje de error.}
-\hucriterio{Después de varios intentos fallidos seguidos, el panel deja de aceptar intentos durante un tiempo.}
+\hucriterio{Después de ocho intentos de acceso en un minuto desde la misma dirección, el panel deja de aceptar intentos durante un tiempo.}
 \hucriterio{Sin sesión iniciada o con la sesión vencida, cualquier pantalla o acción del panel lleva al inicio de sesión.}
 \hucriterio{Al cerrar sesión, el panel pide confirmación y avisa si hay cambios sin guardar.}
 \end{historia}
@@ -51,7 +52,7 @@ Tarjetas completas de las historias de usuario de la plataforma, con sus criteri
 \hucriterio{Los enlaces solo aceptan direcciones seguras; uno con un protocolo no permitido se rechaza.}
 \end{historia}
 
-\begin{historia}[2]{HU-6}{Ver la página mientras la edito}{Administrador}{1}{8}{\textbf{Como} administrador, \textbf{quiero} ver junto al editor una vista previa de la página tal como quedará en el sitio, actualizada con los cambios aún no guardados, \textbf{para} corregir lo que no se vea bien antes de que llegue al público.}
+\begin{historia}[2]{HU-6}{Ver la página durante su edición}{Administrador}{1}{8}{\textbf{Como} administrador, \textbf{quiero} ver junto al editor una vista previa de la página tal como quedará en el sitio, actualizada con los cambios aún no guardados, \textbf{para} corregir lo que no se vea bien antes de que llegue al público.}
 \hucriterio{Junto al editor se muestra la página como se verá en el sitio.}
 \hucriterio{La vista previa se actualiza con los cambios, incluso antes de guardarlos.}
 \hucriterio{Una página recién creada también tiene vista previa, aunque todavía no esté publicada.}
@@ -130,7 +131,7 @@ Tarjetas completas de las historias de usuario de la plataforma, con sus criteri
 \begin{historia}[2]{HU-16}{Publicar los cambios}{Administrador}{1}{13}{\textbf{Como} administrador, \textbf{quiero} que lo que guardo en el CMS se publique en el sitio público, con un respaldo previo y un resumen de los cambios pendientes y de la última publicación, \textbf{para} que los visitantes vean la información actualizada.}
 \hucriterio{Al guardar, el sitio se publica solo en pocos segundos; varios guardados seguidos se juntan en una sola publicación.}
 \hucriterio{Antes de cada publicación se crea un respaldo automático.}
-\hucriterio{La publicación vuelve a generar el sitio estático y guarda la versión publicada en el repositorio.}
+\hucriterio{La publicación vuelve a generar el sitio estático e intenta registrar en el repositorio los cambios de los datos JSON.}
 \hucriterio{La pantalla de publicación muestra los cambios pendientes del contenido y de las noticias (nuevos, modificados y eliminados) o, si no hay, «Todo está publicado».}
 \hucriterio{La pantalla muestra la última publicación con su fecha y su resultado; si falló, muestra el error.}
 \hucriterio{«Publicar sitio» permite publicar en cualquier momento.}
@@ -286,8 +287,8 @@ Tarjetas completas de las historias de usuario de la plataforma, con sus criteri
 \hucriterio{Lo que se muestra al entregar se sigue mostrando después.}
 \end{historia}
 
-\begin{historia}[1]{HU-36}{Mezclar el orden de las opciones}{Administrador}{2}{3}{\textbf{Como} administrador, \textbf{quiero} que las opciones de cada pregunta aparezcan en un orden distinto para cada estudiante, \textbf{para} que sea más difícil copiarse del compañero.}
-\hucriterio{Cada estudiante ve su propio orden, que se mantiene cada vez que vuelve a la pregunta.}
+\begin{historia}[1]{HU-36}{Mezclar el orden de las opciones}{Administrador}{2}{3}{\textbf{Como} administrador, \textbf{quiero} que las opciones de las preguntas de opción múltiple aparezcan en un orden distinto en cada intento, \textbf{para} que sea más difícil copiarse del compañero.}
+\hucriterio{Cada participante, individual o en pareja, ve su propio orden, que se mantiene cada vez que vuelve a la pregunta.}
 \hucriterio{Las opciones conservan su letra, así la explicación («la respuesta es C») sigue siendo válida.}
 \end{historia}
 
@@ -318,9 +319,10 @@ Tarjetas completas de las historias de usuario de la plataforma, con sus criteri
 \hucriterio{Es posible intentar de nuevo, saltar la pregunta o pasar a la siguiente.}
 \end{historia}
 
-\begin{historia}[1]{HU-41}{Ver cuánto avancé en la práctica}{Estudiante}{2}{3}{\textbf{Como} estudiante, \textbf{quiero} ver qué preguntas de práctica ya resolví y cuáles conviene repetir, \textbf{para} retomar donde me quedé.}
+\begin{historia}[1]{HU-41}{Consultar el avance de la práctica}{Estudiante}{2}{3}{\textbf{Como} estudiante, \textbf{quiero} ver qué preguntas de práctica ya resolví y cuáles conviene repetir, \textbf{para} retomar donde me quedé mientras practico.}
 \hucriterio{La lista marca las preguntas resueltas y las que conviene volver a intentar.}
-\hucriterio{El avance se conserva al volver otro día desde el mismo navegador.}
+\hucriterio{El avance y las respuestas a medio hacer se conservan mientras la pestaña del navegador sigue abierta, aunque se recargue la página.}
+\hucriterio{Al cerrar la pestaña el avance se borra, para que no quede en un equipo compartido.}
 \end{historia}
 
 \begin{historia}[1]{HU-42}{Armar una práctica para un grupo}{Maestro}{2}{8}{\textbf{Como} maestro, \textbf{quiero} preparar una práctica con una categoría, un horario y las preguntas que elija entre las liberadas por el organizador, \textbf{para} que mis estudiantes ensayen antes del desafío.}
@@ -341,9 +343,8 @@ Tarjetas completas de las historias de usuario de la plataforma, con sus criteri
 \hucriterio{Cada desafío muestra una cuenta regresiva y cuántos estudiantes participan.}
 \end{historia}
 
-\begin{historia}[1]{HU-45}{Llegar rápido a lo que necesito}{Visitante}{2}{3}{\textbf{Como} visitante, \textbf{quiero} que cada desafío de la portada muestre la acción que corresponde a su etapa, como inscribirme, entrar a la prueba o ver los resultados, \textbf{para} no perderme buscando dónde entrar.}
+\begin{historia}[1]{HU-45}{Ir directo a la acción de cada desafío}{Visitante}{2}{3}{\textbf{Como} visitante, \textbf{quiero} que cada desafío de la portada muestre la acción que corresponde a su etapa, como inscribirme, entrar a la prueba o ver los resultados, \textbf{para} no perderme buscando dónde entrar.}
 \hucriterio{Durante la inscripción, el desafío muestra «Inscribirme»; durante la prueba, «Entrar al desafío»; y con resultados publicados, «Ver mis resultados».}
-\hucriterio{Un maestro con sesión iniciada va directo a sus grupos.}
 \hucriterio{La portada siempre ofrece un acceso para entrar con el código y otro para los maestros.}
 \end{historia}
 
@@ -369,7 +370,7 @@ Tarjetas completas de las historias de usuario de la plataforma, con sus criteri
 \begin{historia}[1]{HU-48}{Iniciar sesión}{Maestro}{1}{3}{\textbf{Como} maestro, \textbf{quiero} entrar a mi cuenta con mi correo y mi contraseña o con Google, \textbf{para} seguir con la inscripción y el seguimiento de mis estudiantes.}
 \hucriterio{El acceso se realiza con correo y contraseña o con Google.}
 \hucriterio{Si hay un error, el mensaje aparece junto al campo que se debe corregir.}
-\hucriterio{Al entrar, el maestro llega a su perfil.}
+\hucriterio{Al entrar, el maestro llega a su perfil; si ya tiene la sesión iniciada, los desafíos de la portada lo llevan directo a sus grupos.}
 \end{historia}
 
 \begin{historia}[1]{HU-49}{Conseguir la carta modelo}{Maestro}{2}{3}{\textbf{Como} maestro, \textbf{quiero} descargar un modelo de la carta de autorización que debe firmar el director de mi colegio, \textbf{para} que la firme y poder enviarla como respaldo de mi cuenta.}
@@ -377,7 +378,7 @@ Tarjetas completas de las historias de usuario de la plataforma, con sus criteri
 \hucriterio{La carta se puede descargar en PDF.}
 \end{historia}
 
-\begin{historia}[1]{HU-50}{Enviar los documentos de verificación}{Maestro}{1}{8}{\textbf{Como} maestro, \textbf{quiero} subir la carta firmada por el director de mi colegio o, si enseño en casa, mi carnet de identidad, \textbf{para} que el organizador pueda confirmar que realmente soy docente.}
+\begin{historia}[1]{HU-50}{Enviar los documentos de verificación}{Maestro}{1}{8}{\textbf{Como} maestro, \textbf{quiero} subir la carta firmada por el director de mi colegio o, si enseño en casa, mi carnet de identidad, \textbf{para} que el organizador pueda confirmar que realmente soy maestro.}
 \hucriterio{Quien enseña en un colegio sube la carta firmada y sellada por el director.}
 \hucriterio{Quien enseña en casa sube su carnet por los dos lados.}
 \hucriterio{Los documentos se suben desde el perfil, en cualquier momento después del registro.}
@@ -392,7 +393,7 @@ Tarjetas completas de las historias de usuario de la plataforma, con sus criteri
 \hucriterio{Los grupos y las prácticas aparecen bloqueados hasta que la cuenta se verifica.}
 \end{historia}
 
-\begin{historia}[1]{HU-52}{Agregar otro colegio donde enseño}{Maestro}{2}{5}{\textbf{Como} maestro que trabaja en más de un colegio, \textbf{quiero} agregar a mi cuenta otro colegio, con la carta de su director, \textbf{para} poder inscribir también a los estudiantes de ese colegio.}
+\begin{historia}[1]{HU-52}{Agregar otro colegio}{Maestro}{2}{5}{\textbf{Como} maestro que trabaja en más de un colegio, \textbf{quiero} agregar a mi cuenta otro colegio, con la carta de su director, \textbf{para} poder inscribir también a los estudiantes de ese colegio.}
 \hucriterio{El colegio se busca en la lista nacional y se agrega a la cuenta.}
 \hucriterio{La carta del director de ese colegio se envía en el momento o más tarde.}
 \hucriterio{El colegio nuevo queda pendiente hasta que el organizador lo apruebe, aunque la cuenta ya esté verificada.}
@@ -406,7 +407,7 @@ Tarjetas completas de las historias de usuario de la plataforma, con sus criteri
 \hucriterio{La lista muestra cuántas solicitudes quedan pendientes.}
 \end{historia}
 
-\begin{historia}[1]{HU-54}{Aprobar o rechazar una solicitud}{Administrador}{1}{3}{\textbf{Como} administrador, \textbf{quiero} aprobar o rechazar cada cuenta de maestro y cada colegio agregado después de revisar sus documentos, \textbf{para} que solo participen docentes verificados.}
+\begin{historia}[1]{HU-54}{Aprobar o rechazar una solicitud}{Administrador}{1}{3}{\textbf{Como} administrador, \textbf{quiero} aprobar o rechazar cada cuenta de maestro y cada colegio agregado después de revisar sus documentos, \textbf{para} que solo participen maestros verificados.}
 \hucriterio{La cuenta de un maestro y cada colegio que agregó se aprueban o rechazan por separado.}
 \hucriterio{El sistema pide confirmación antes de rechazar.}
 \hucriterio{Un maestro aprobado puede crear grupos y prácticas.}
@@ -475,7 +476,7 @@ Tarjetas completas de las historias de usuario de la plataforma, con sus criteri
 
 \begin{historia}[1]{HU-65}{Quitar a un estudiante o borrar un grupo}{Maestro}{2}{3}{\textbf{Como} maestro, \textbf{quiero} quitar a un estudiante que no va a participar, o borrar un grupo que ya no uso, mientras la inscripción está abierta, \textbf{para} mantener mis listas al día.}
 \hucriterio{Solo se puede hacer mientras la inscripción del desafío está abierta.}
-\hucriterio{No se puede quitar a un estudiante que ya empezó a rendir.}
+\hucriterio{No se puede quitar a un estudiante que ya empezó a rendir, ni borrar un grupo si alguno de sus estudiantes ya empezó.}
 \end{historia}
 
 \begin{historia}[1]{HU-66}{Inscribirse con el código del grupo}{Estudiante}{1}{5}{\textbf{Como} estudiante, \textbf{quiero} inscribirme yo mismo con el código de grupo que me dio mi maestro, registrando mis datos y mi curso, \textbf{para} quedar anotado en el desafío y recibir mi código personal.}
@@ -494,7 +495,7 @@ Tarjetas completas de las historias de usuario de la plataforma, con sus criteri
 \hucriterio{La prueba solo puede estar abierta en un dispositivo: al entrar desde otro, en el anterior aparece que la sesión se cerró.}
 \end{historia}
 
-\begin{historia}[1]{HU-68}{Prepararme antes de empezar}{Estudiante}{1}{3}{\textbf{Como} estudiante, \textbf{quiero} ver antes de empezar las reglas de la prueba: mi categoría, la duración, la cantidad de preguntas y el puntaje de cada una, \textbf{para} saber cuánto tiempo tengo y cómo me van a calificar.}
+\begin{historia}[1]{HU-68}{Leer las reglas antes de empezar}{Estudiante}{1}{3}{\textbf{Como} estudiante, \textbf{quiero} ver antes de empezar las reglas de la prueba: mi categoría, la duración, la cantidad de preguntas y el puntaje de cada una, \textbf{para} saber cuánto tiempo tengo y cómo me van a calificar.}
 \hucriterio{La pantalla muestra la categoría, los minutos que dura la prueba, la cantidad de preguntas y el valor de cada una según su dificultad.}
 \hucriterio{La pantalla muestra el nombre con el que se entró y permite salir si no corresponde.}
 \hucriterio{Si la prueba todavía no empezó, se muestra una cuenta regresiva y se puede esperar en esa pantalla.}
@@ -502,7 +503,7 @@ Tarjetas completas de las historias de usuario de la plataforma, con sus criteri
 \end{historia}
 
 \begin{historia}[1]{HU-69}{Responder las preguntas}{Estudiante}{1}{8}{\textbf{Como} estudiante, \textbf{quiero} responder las preguntas según su tipo y moverme entre ellas libremente, con mis respuestas guardadas en todo momento, \textbf{para} resolver la prueba en el orden que me resulte más cómodo.}
-\hucriterio{Cada pregunta se responde según su tipo: elegir una opción, escribir, arrastrar piezas, tocar una zona o completar huecos.}
+\hucriterio{Cada pregunta se responde según su tipo: elegir opciones, escribir, arrastrar piezas, tocar una zona, cambiar estados por casilla o completar huecos.}
 \hucriterio{Las respuestas se pueden cambiar mientras quede tiempo.}
 \hucriterio{Las respuestas se guardan automáticamente.}
 \end{historia}
@@ -510,7 +511,7 @@ Tarjetas completas de las historias de usuario de la plataforma, con sus criteri
 \begin{historia}[1]{HU-70}{No perder las respuestas}{Estudiante}{1}{5}{\textbf{Como} estudiante, \textbf{quiero} que el sistema me avise si alguna respuesta no se guardó y que vuelva a intentar guardarla, \textbf{para} no perder mi trabajo si falla la conexión.}
 \hucriterio{Si una respuesta no se pudo guardar, la pantalla avisa que hay respuestas sin guardar.}
 \hucriterio{El sistema vuelve a intentar guardarlas automáticamente.}
-\hucriterio{No se puede entregar hasta que todas las respuestas estén guardadas.}
+\hucriterio{No se puede entregar hasta que todas las respuestas estén guardadas; al acabarse el tiempo, la prueba se cierra con las respuestas que llegaron al servidor.}
 \end{historia}
 
 \begin{historia}[1]{HU-71}{Controlar el tiempo}{Estudiante}{1}{5}{\textbf{Como} estudiante, \textbf{quiero} ver en todo momento el tiempo que me queda, medido con la hora del servidor, \textbf{para} organizarme y no quedarme sin responder.}
@@ -539,14 +540,14 @@ Tarjetas completas de las historias de usuario de la plataforma, con sus criteri
 \hucriterio{Una respuesta incompleta, como un arrastre a medias, cuenta como incorrecta.}
 \end{historia}
 
-\begin{historia}[1]{HU-75}{Ordenar a los estudiantes en un ranking}{Administrador}{1}{5}{\textbf{Como} administrador, \textbf{quiero} que el sistema ordene a los estudiantes de cada categoría por su puntaje y, en caso de empate, por su tiempo, \textbf{para} saber quiénes obtuvieron los mejores resultados.}
+\begin{historia}[1]{HU-75}{Calcular los puntajes y el ranking}{Administrador}{1}{13}{\textbf{Como} administrador, \textbf{quiero} que el sistema calcule los puntajes al cierre del desafío y ordene a los estudiantes de cada categoría por su puntaje y, en caso de empate, por su tiempo, \textbf{para} saber quiénes obtuvieron los mejores resultados.}
+\hucriterio{En la fecha de resultados o, si no se definió, al cierre de la prueba, el sistema cierra los intentos que quedaron abiertos y calcula los puntajes y el ranking.}
 \hucriterio{Cada categoría tiene su propio ranking.}
-\hucriterio{Si dos estudiantes empatan, queda primero el que tardó menos.}
+\hucriterio{Si dos estudiantes empatan, queda primero el que tardó menos; un intento en papel, que no mide el tiempo, queda después de los rendidos en línea con su mismo puntaje.}
 \hucriterio{También entran al ranking los estudiantes a los que se les acabó el tiempo sin entregar.}
 \end{historia}
 
-\begin{historia}[1]{HU-76}{Publicar los resultados}{Administrador}{1}{13}{\textbf{Como} administrador, \textbf{quiero} que al cierre del desafío se calculen los puntajes y el ranking y que los resultados se publiquen en la fecha prevista, \textbf{para} que estudiantes y maestros los conozcan sin demoras.}
-\hucriterio{Al cerrar la prueba, el sistema cierra los intentos que quedaron abiertos y calcula los puntajes y el ranking.}
+\begin{historia}[1]{HU-76}{Publicar los resultados}{Administrador}{1}{5}{\textbf{Como} administrador, \textbf{quiero} que los resultados se publiquen en la fecha prevista y poder publicarlos u ocultarlos a mano, \textbf{para} que estudiantes y maestros los conozcan sin demoras.}
 \hucriterio{Los resultados se publican solos en la fecha definida o, si no se definió ninguna, al cierre.}
 \hucriterio{Los resultados también se pueden publicar u ocultar a mano.}
 \hucriterio{Si se ocultan a mano, no se vuelven a publicar solos.}
@@ -585,7 +586,7 @@ Tarjetas completas de las historias de usuario de la plataforma, con sus criteri
 \end{historia}
 
 \begin{historia}[1]{HU-82}{Imprimir el cuadernillo de preguntas}{Maestro}{1}{8}{\textbf{Como} maestro, \textbf{quiero} imprimir, o descargar en PDF, un cuadernillo con las preguntas del desafío para cada categoría de mi grupo, \textbf{para} que mis estudiantes rindan el Desafío en un aula sin conexión a internet.}
-\hucriterio{El cuadernillo tiene una portada con las reglas, el valor de cada pregunta según su dificultad y la forma de marcar la hoja, y luego una pregunta por página.}
+\hucriterio{El cuadernillo tiene una portada con las reglas, el valor de cada pregunta según su dificultad y la forma de marcar la hoja, y luego cada pregunta empieza en una página nueva; si no cabe, sigue en la siguiente.}
 \hucriterio{Cada tipo de pregunta se adapta al papel: las opciones llevan su letra, los lugares de las piezas y los huecos del texto llevan un número, y las zonas se marcan con una X sobre una copia pequeña de la imagen.}
 \hucriterio{El cuadernillo no lleva respuestas escritas, así que se puede fotocopiar y volver a usar.}
 \hucriterio{Las páginas son de tamaño carta y el PDF descargado coincide con lo que se imprime.}
@@ -652,12 +653,17 @@ Tarjetas completas de las historias de usuario de la plataforma, con sus criteri
 \hucriterio{Al guardar, el sitio se publica solo.}
 \end{historia}
 
-\begin{historia}[1]{HU-90}{Ver y verificar un certificado}{Estudiante}{1}{13}{\textbf{Como} estudiante, \textbf{quiero} ver mi certificado del Desafío con mi código personal, descargarlo y que cualquiera pueda comprobar su autenticidad mediante un código QR, \textbf{para} tenerlo aunque el sitio del Desafío ya no esté en línea.}
+\begin{historia}[1]{HU-90}{Ver y descargar el certificado}{Estudiante}{1}{8}{\textbf{Como} estudiante, \textbf{quiero} ver mi certificado del Desafío con mi código personal y descargarlo o imprimirlo, \textbf{para} tenerlo aunque el sitio del Desafío ya no esté en línea.}
 \hucriterio{El certificado se consulta escribiendo el código personal en la página de certificados o abriendo el enlace que ya lo trae.}
 \hucriterio{El certificado se muestra en una hoja A4 horizontal con el nombre, la categoría, el curso y el colegio del estudiante.}
-\hucriterio{El tipo de certificado depende del resultado: de excelencia para los tres primeros de la categoría, de mérito (mención de honor) para el 10 \% con mejor puntaje de una categoría de al menos 10 participantes, y de participación en los demás casos; solo los dos primeros muestran el puntaje y el lugar.}
+\hucriterio{El tipo de certificado depende del resultado: de excelencia para los tres primeros de la categoría, de mérito (mención de honor) para el 10 \% con mejor puntaje de una categoría de al menos 10 participantes, y de participación en los demás casos; solo el de excelencia indica el lugar obtenido.}
 \hucriterio{El certificado se puede descargar en PDF o imprimir en una sola hoja.}
-\hucriterio{Cada certificado lleva un código QR y el código escrito: quien lo escanea ve el certificado original.}
 \hucriterio{Si el código no existe, el sistema avisa.}
 \hucriterio{Sin el código nadie puede saber de quién es un certificado ni leerlo, porque los certificados de menores de edad no se publican en una lista.}
+\end{historia}
+
+\begin{historia}[1]{HU-91}{Verificar un certificado con el código QR}{Visitante}{2}{5}{\textbf{Como} visitante, \textbf{quiero} escanear el código QR de un certificado, \textbf{para} comprobar que es auténtico.}
+\hucriterio{Cada certificado lleva un código QR y el código escrito.}
+\hucriterio{Quien escanea el código QR ve el certificado original.}
+\hucriterio{Si el código no existe, el sistema avisa.}
 \end{historia}

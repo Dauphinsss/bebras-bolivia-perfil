@@ -1,0 +1,63 @@
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[left=2.5cm,right=2.5cm,top=2.2cm,bottom=2cm]{geometry}
+\usepackage{array}
+\usepackage{ragged2e}
+\usepackage{enumitem}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\JustifyingParindent}{0pt}
+\renewcommand{\arraystretch}{1.25}
+
+\newcommand{\nroinforme}{1}
+\newcommand{\fechaentrega}{13 de octubre de 2026}
+
+\begin{document}
+
+\begin{center}
+\large Informe Nro.: \nroinforme
+\end{center}
+
+\vspace{0.4cm}
+
+\begin{tabular}{|p{0.36\textwidth}|p{0.57\textwidth}|}
+\hline
+Título: & Sistema web para la administración del Desafío Bebras en Bolivia \\ \hline
+Nombre completo Postulante: & Velasquez Vela Marcos \\ \hline
+Nombre completo Tutor: & MSc. Blanco Coca Maria Leticia \\ \hline
+Firma Tutor: & \rule{0pt}{0.9cm} \\ \hline
+Nombre de Docente: & Dra. Romero Rodríguez Patricia Elizabeth \\ \hline
+Firma de Docente: & \rule{0pt}{0.9cm} \\ \hline
+Fecha de entrega: & \fechaentrega \\ \hline
+\end{tabular}
+
+\vspace{0.5cm}
+
+\noindent\fbox{\parbox{\dimexpr\textwidth-2\fboxsep-2\fboxrule}{
+\vspace{0.15cm}
+\textbf{Descripción de lo avanzado}
+
+\vspace{0.2cm}
+\justifying
+\small
+\setlength{\parskip}{5pt}
+
+\textbf{Sitio informativo y gestor de contenido (objetivo A).} El sitio está publicado en bebras.org.bo y se edita desde el gestor de contenido, que guarda en SQLite y genera el sitio estático. Se añadió la verificación de certificados: el sistema del desafío los exporta, el gestor los guarda cifrados y cualquier persona los comprueba con su código. La inscripción de unidades educativas está abierta hasta el 30 de octubre.
+
+\textbf{Desafíos y tareas (objetivo B).} Están cargadas las 43 tareas del banco Otoño 2024, con seis tipos de respuesta: opción múltiple, respuesta corta, arrastrar y soltar, zonas sobre imagen, estados por casilla y huecos en el texto.
+
+\textbf{Participantes (objetivo C).} Los maestros registran su unidad educativa, forman grupos e inscriben estudiantes por categoría. Para aulas sin conectividad, el sistema imprime el cuadernillo y las hojas de respuestas, y el maestro carga después las respuestas, que se califican igual que las de en línea.
+
+\textbf{Evaluación (objetivo D).} Las respuestas se califican al guardarse y el ranking se consolida al cierre. Se revisó la base de datos con restricciones de dominio y claves foráneas, y una prueba de carga con 1600 estudiantes simultáneos terminó sin errores. El sistema del desafío se desplegó en producción el 6 de octubre.
+
+\textbf{Documento.} Todos los capítulos y el anexo con las 91 historias de usuario ya están redactados y los diagramas de arquitectura pasaron al modelo C4. El documento se encuentra en etapa de revisión, con las correcciones de la tutora y del supervisor.
+
+\textbf{Conclusiones preliminares.} Los cuatro módulos funcionan de punta a punta y la modalidad impresa amplía el alcance a colegios sin internet. Falta la validación con el supervisor, las pruebas de usabilidad con usuarios reales y el congelamiento funcional previo a la primera edición de noviembre.
+\vspace{0.1cm}
+}}
+
+\end{document}
